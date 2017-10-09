@@ -1,0 +1,2314 @@
+@charset "utf-8";
+@namespace html url(http://www.w3.org/1999/xhtml);
+@import "_variables.scss";
+
+// test
+@if false {
+    #debug {
+        @each $style, $color in $default-color {
+            -default-#{$style} : $color;
+        }
+        @each $style, $color in $black-color {
+            -black-#{$style} : $color;
+        }
+        @each $style, $color in $underground_orange-color {
+            -underground_orange-#{$style} : $color;
+        }
+    }
+}
+
+// アニメーション
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes progress {
+    0% {
+        background-position: 0;
+    }
+    100% {
+        background-position: 100px;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@mixin progress {
+    background-size: 100px 100px;
+    background-position: 0px;
+    background-image: linear-gradient( 45deg, blue 25%,
+                                       cyan 50%,
+                                       blue 75%,
+                                       cyan );
+    [data-theme="underground_orange"] & {
+        background-image: linear-gradient( 45deg, darkred 25%,
+                                           lightsalmon 50%,
+                                           darkred 75%,
+                                           lightsalmon );
+    }
+    &[data-loading="true"] {
+        background-position: 100px;
+        visibility: visible;
+        animation: progress  1s linear infinite;
+    }
+}
+
+// デフォルトアニメーション
+.hidden {
+    visibility: hidden;
+    opacity: 0!important;
+
+    [data-animation="true"] & {
+        transition: opacity 0.2s ease 0s, visibility 0s linear 0.2s;
+    }
+}
+
+.blink {
+    animation: blink 1s ease-in-out infinite alternate;
+    &:hover {
+        animation: none;
+    }
+}
+
+.fa-rotate-45 {
+    transform: rotate( 45deg );
+}
+
+.context-menu-icon.context-menu-icon--fa {
+    line-height: initial;
+}
+
+/**********
+  全体設定
+ **********/
+html, body {
+    width: 100vw;
+    height: 100vh;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    word-break: break-all;
+    font: -moz-desktop;
+    -moz-user-select: none;
+
+    @at-root > * {
+        @include create-theme-color( (color: font,
+                                      background-color: background) );
+    }
+}
+
+* {
+    box-sizing: content-box;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    visibility: visible;
+
+    [data-animation="true"] & {
+        transition: opacity 0.2s ease 0s, visibility 0s linear 0s; // .hidden用
+    }
+}
+
+.text-link {
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+input[type="text"], textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+
+    @include create-theme-color( (border: border),
+                                 "1px solid " );
+    &:hover {
+        @include create-theme-color( (border: border-accent1),
+                                     "1px solid " );
+    }
+
+    [data-animation="true"] & {
+        transition: border-color 0.2s ease 0s;
+    }
+}
+
+
+/**********
+  コンテナ
+ **********/
+#topMenuContainer {
+    padding: 2px;
+    display: flex;
+    .buttonList {
+        justify-content: space-between;
+    }
+
+    [data-window-type="profile"] &,
+    [data-window-type="search"] & {
+        z-index: 100;
+    }
+}
+
+#newTweetContainer {
+    // 新規ツイート入力（ダイアログ形式）
+    [data-newtweet-pinned="false"] & {
+            z-index: 20;
+    }
+    // 新規ツイート入力（固定形式）
+    [data-newtweet-pinned="true"] & {
+        box-sizing: border-box;
+        width: 100vw;
+        margin: 0;
+        border-width: $dialog-border-width 0;
+        position: initial;
+
+        &[data-open="false"] {
+            display: initial;
+        }
+    }
+    @at-root
+    [data-newtweet-pinned="true"] #openNewTweetC,
+    [data-newtweet-pinned="true"] #closeNewTweetC,
+    [data-newtweet-pinned="true"] #pinNewTweetC {
+        display: none;
+    }
+    @at-root
+    [data-newtweet-pinned="false"] #unpinNewTweetC {
+        display: none;
+    }
+}
+
+#mainContainer {
+    width: 100vw;
+    height: 0;
+    flex-grow: 1; // bodyのflex用
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    [data-window-type="main"] & {
+        // 横スクロール
+        overflow-x: scroll;
+//        scroll-snap-type: mandatory;
+    }
+}
+
+#columnTabContainer {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#columnContainer {
+    height: 0;
+    flex-grow: 1; // #mainContainerのflex用
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#progressContainer {
+    height: $progress-height;
+    background-color: gray;
+    flex-shrink: 0;
+
+    @at-root #progressBar {
+        width: 0%;
+        height: 2px;
+        background-image: linear-gradient( to right, blue, cyan );
+        [data-theme="underground_orange"] & {
+            background-image: linear-gradient( to right, darkred, lightsalmon );
+        }
+    }
+}
+
+#progressBarOther {
+    @include progress;
+    width: 100%;
+    height: $progress-height;
+    z-index: 100;
+    visibility: hidden;
+}
+
+#loading {
+    width: 100vw;
+    height: 100vh;
+    font-size: 300%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+
+    &::before {
+        content: '\f1ce';
+        font-family: FontAwesome;
+        animation: spin 1s linear infinite;
+    }
+}
+
+#grayout {
+    width: 100vw;
+    height: 100vh;
+    padding: 4px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    background-color: black;
+    opacity: 0.5;
+
+    [data-window-type="profile"] &,
+    [data-window-type="search"] & {
+        opacity: 0.8;
+    }
+}
+
+#leftContainer, #notifContainer {
+    width: #{$leftpanel-width - $leftpanel-border-width};
+    height: 100vh;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: #{-1 * $leftpanel-width};
+    z-index: 100;
+    border-style: solid;
+    border-right-width: $leftpanel-border-width;
+    @include create-theme-color( (background-color: background-accent2,
+                                  border-color: border) );
+    [data-animation="true"] & {
+        transition: left 0.2s ease 0s;
+    }
+    .buttonList {
+        margin: 2px;
+        justify-content: space-between;
+    }
+
+    &[data-open="true"] {
+        left: 0;
+    }
+}
+
+#newUserContainer {
+    .buttonList {
+        justify-content: flex-end;
+    }
+    @at-root #pin {
+        width: 100%;
+        margin: 2px 0;
+        padding: 6px 0;
+        font-size: large;
+        text-align: center;
+    }
+}
+
+#messageContainer {
+    box-sizing: border-box;
+    width: calc( 100vw - #{$message-margin * 2} );
+    margin: $message-margin;
+    padding: 10px 20px;
+    bottom: 40px;
+    z-index: 60;
+    position: fixed;
+    pointer-events: none;
+    white-space: pre-wrap;
+    color: white;
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
+    background-color: rgba(150, 150, 150, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+#templateContainer {
+    display: none;
+}
+
+
+/******
+  共通
+ ******/
+.dialog {
+    width: calc( 100vw - #{$dialog-margin * 2 + $dialog-padding * 2 + $dialog-border-width * 2} );
+    margin: 50px $dialog-margin $dialog-margin;
+    padding: $dialog-padding;
+    position: fixed;
+    border-width: $dialog-border-width;
+    border-style: solid;
+    z-index: 10;
+    @include create-theme-color( (border-color: border,
+                                  background-color: background-accent2) );
+
+    &[data-open="false"] {
+        display: none;
+    }
+}
+
+.buttonList {
+    display: flex;
+    line-height: 0;
+    list-style-type: none;
+
+    @at-root .buttonItem {
+        position: relative;
+        cursor: pointer;
+
+        // テキストボタン
+        &.textButtonItem {
+            padding: 6px 12px;
+            text-align: center;
+        }
+
+        .buttonImage {
+            margin: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @each $size, $px in $button-size {
+                [data-button-size="#{$size}"] & {
+                    font-size: #{$px - 2};
+                    width: $px;
+                    height: $px;
+                }
+                // サークルアイコン
+                @at-root
+                [data-circle-icon="true"][data-button-size="#{$size}"] #profileOwnImage .buttonImage {
+                    border-radius: #{$px / 2};
+                }
+            }
+            @at-root .buttonList.smallButtonList .buttonImage {
+                font-size: map-get( $button-size, small );
+                width: map-get( $button-size, small );
+                height: map-get( $button-size, small );
+            }
+        }
+
+        div.badge {
+            min-width: 15px;
+            height: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            color: $badge-font-color;
+            background-color: $badge-background-color;
+            border: 2px solid $badge-border-color;
+            border-radius: 15px;
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+
+            [data-unread-notif="true"] & {
+                visibility: visible;
+            }
+        }
+
+        &:hover, &:focus {
+            @include create-theme-color( (color: font-accent1,
+                                          background-color: background-accent1) );
+            [data-animation="true"] & {
+                transition: color, background-color 0.2s ease 0s;
+            }
+        }
+
+        // 無効時
+        &[data-disabled="true"],
+        &[data-disabled="true"]:hover,
+        &[data-disabled="true"]:focus {
+            opacity: 0.5;
+            cursor: default;
+            background-color: transparent;
+            @include create-theme-color( (color: font) );
+        }
+    }
+}
+
+.menuList {
+    width: 100%;
+    list-style-type: none;
+    overflow-y: auto;
+
+    @at-root .menuItem {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        &::after {
+            content: attr( data-label );
+        }
+
+        .menuImage {
+            margin: 4px;
+            @each $size, $px in $button-size {
+                [data-button-size="#{$size}"] & {
+                    font-size: $px;
+                    width: $px;
+                    height: $px;
+                }
+                // サークルアイコン
+                @at-root
+                [data-circle-icon="true"][data-button-size="#{$size}"] .menuProfileItem .menuImage {
+                    border-radius: #{$px / 2};
+                }
+            }
+        }
+
+        &:hover, &:focus {
+            @include create-theme-color( (color: font-accent1,
+                                          background-color: background-accent1) );
+        }
+    }
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+/******
+  個別
+ ******/
+#newTweetSubContainer1 {
+    margin-bottom: #{$dialog-padding / 2};
+    display: flex;
+    align-items: center;
+
+    @at-root #tinyUrlEnabled {
+        width: 50px;
+        height: 20px;
+        margin-right: 2px;
+        background-image: url('../../images/shortenurl_disabled.svg');
+        background-repeat: no-repeat;
+        background-size: 50px 20px;
+
+        &[data-enabled="true"] {
+            background-image: url('../../images/shortenurl_enabled.svg');
+        }
+    }
+    @at-root #imageEnabled {
+        width: 50px;
+        height: 20px;
+        margin-right: 2px;
+        background-image: url('../../images/image_disabled.svg');
+        background-repeat: no-repeat;
+        background-size: 50px 20px;
+
+        &[data-enabled="true"] {
+            background-image: url('../..//images/image_enabled.svg');
+        }
+    }
+}
+
+#replyUsersSelection {
+    &::before {
+        content: attr( data-label );
+    }
+    &:empty {
+        display: none;
+    }
+
+    > .replyUser {
+        margin: 2px;
+        padding: 0 8px;
+        display: inline-block;
+        border-radius: 20px;
+        border-width: 1px;
+        border-style: solid;
+        @include create-theme-color( (border-color: border,
+                                      background-color: border) );
+
+        &:nth-of-type(1) {
+            @include create-theme-color( (border-color: background-accent1,
+                                          background-color: background-accent1,
+                                          color: font-accent1) );
+        }
+        &:nth-of-type(n+2) {
+            cursor: pointer;
+        }
+
+        &[data-reply="false"] {
+            background-color: transparent;
+        }
+    }
+}
+
+#newTweetSubContainer2 {
+    margin-top: #{$dialog-padding / 2};
+    position: relative;
+
+    @at-root #newTweet {
+        width: calc( 100% - #{($newtweet-border-width + $newtweet-padding) * 2} );
+        padding: $newtweet-padding;
+        resize: none;
+    }
+
+    @at-root #newTweetCount {
+        position: absolute;
+        bottom: 0;
+        right: 20px;
+        pointer-events: none;
+
+        &[data-labelcolor="countOk"] {
+            color: lime;
+        }
+        &[data-labelcolor="countWarn"] {
+            color: orange;
+        }
+        &[data-labelcolor="countNg"] {
+            color: red;
+        }
+    }
+}
+
+#suggestContainer {
+    width: calc( 100% - #{$newtweet-border-width * 2} );
+    height: initial;
+    box-sizing: content-box;
+    display: block;
+    @include create-theme-color( (border: border-accent1),
+                                 "#{$newtweet-border-width} solid " );
+    > option {
+        height: 2em;
+        display: flex;
+        align-items: center;
+    }
+
+    [data-window-type="profile"] &,
+    [data-window-type="search"] & {
+        z-index: 100;
+    }
+}
+
+#newTweetSubContainer3 {
+    margin-top: $dialog-padding;
+    display: flex;
+    align-items: center;
+
+    @at-root #pictureThumbnails {
+        display: flex;
+        > div {
+            width: $newtweet-thumbnail-size;
+            height: $newtweet-thumbnail-size;
+            margin: 2px;
+            background: center center / cover no-repeat;
+            cursor: pointer;
+
+            &:hover::after {
+                width: $newtweet-thumbnail-size;
+                height: $newtweet-thumbnail-size;
+                position: absolute;
+                background-color: rgba(0, 0, 0, 0.4);
+                color: white;
+                content: '\f00d';
+                font-family: FontAwesome;
+                font-size: #{$newtweet-thumbnail-size / 2};
+                line-height: $newtweet-thumbnail-size;
+                text-align: center;
+            }
+        }
+    }
+    @at-root
+    .select2-results {
+        color: map-get( $default-color, font );
+    }
+    @at-root
+    .tweetUserItemBox {
+        display: flex;
+        align-items: center;
+    }
+    @at-root
+    .tweetUserItemImage {
+        width: 20px;
+        height: 20px;
+        margin-right: 4px;
+        [data-circle-icon="true"] & {
+            border-radius: 10px;
+        }
+    }
+}
+
+#refTweetContainer {
+    margin-top: $dialog-padding;
+    display: none;
+    flex-direction: column;
+    @include create-theme-color( (border: border-accent1),
+                                 "1px solid ");
+
+    > .refTweetTitle {
+        height: map-get( $button-size, small );
+        margin: 2px;
+        position: absolute;
+        line-height: map-get( $button-size, small );
+        display: none;
+        @include create-theme-color( (color: font-accent1) );
+    }
+    > .buttonList {
+        justify-content: flex-end;
+        @include create-theme-color( (background-color: border-accent1) );
+    }
+    &[data-type="reply"],
+    &[data-type="replyall"] {
+        display: flex;
+        .refTweetTitle.replyTitle {
+            display: initial;
+        }
+    }
+    &[data-type="inline"] {
+        display: flex;
+        .refTweetTitle.inlineTitle {
+            display: initial;
+        }
+    }
+
+    > .refTweetBox {
+        border-width: 0 2px 2px;
+        @include create-theme-color( (border: border-accent1),
+                                     "solid " );
+    }
+
+}
+
+#notifItemList {
+    overflow-y: auto;
+}
+
+.notifMenuList {
+    width: 100%;
+    list-style-type: none;
+
+    @at-root .notifItem {
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+
+        > .notifContent,
+        > .notifUrl,
+        > .notifTime {
+            padding-left: 4px;
+            @include create-theme-color( (border-left: border-accent1),
+                                         "2px solid " );
+        }
+
+        @at-root
+        #clearNotif,
+        #clearNotifNext {
+            font-weight: bold;
+        }
+        .notifUser {
+            display: flex;
+            align-items: center;
+
+            img.notifUserImage {
+                width: $notif-userimage-size;
+                height: $notif-userimage-size;
+                margin-right: 2px;
+                // サークルアイコン
+                [data-circle-icon="true"] & {
+                    border-radius: #{$notif-userimage-size / 2};
+                }
+            }
+        }
+        .notifTitle {
+            font-weight: bold;
+        }
+        .notifContent {
+            font-size: 80%;
+            white-space: pre-wrap;
+        }
+        .notifUrl {
+            font-size: 80%;
+            &:empty {
+                display: none;
+            }
+        }
+        .notifTime {
+            font-size: 80%;
+            @include create-theme-color( (color: font-accent2) );
+        }
+        .neverNotifyButton {
+            display: none;
+            margin-top: 2px;
+            padding: 2px;
+            font-size: 80%;
+            text-align: center;
+            border-width: 2px;
+            border-style: solid;
+            @include create-theme-color( (color: font,
+                                          background-color: background-accent2,
+                                          border-color: border-accent1) );
+            &:hover, &:focus {
+                @include create-theme-color( (color: font-accent1,
+                                              background-color: background-accent1) );
+            }
+
+            &[data-notifid] {
+                display: initial;
+            }
+        }
+
+        &:hover, &:focus {
+            @include create-theme-color( (color: font-accent1,
+                                          background-color: background-accent1) );
+        }
+    }
+}
+
+.columnTab {
+    box-sizing: border-box;
+    margin: 0 $columntab-horizontal-margin;
+    padding: $columntab-padding;
+    flex-shrink: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    cursor: pointer;
+    transition: width 0.4s ease 0s;
+    @include create-theme-color( (color: font,
+                                  background-color: background-accent2,
+                                  border-color: border) );
+
+    @each $type, $icon in $column-icon {
+        &[data-column-type="#{$type}"]::before {
+            padding: 0 2px;
+            content: $icon;
+            font-family: FontAwesome;
+            font-size: 130%;
+            display: inline-block;
+        }
+    }
+
+    &.displayTab {
+        @include create-theme-color( (color: font-accent1,
+                                      background-color: background-accent1) );
+    }
+
+    &.hoverTab {
+        @include create-theme-color( (box-shadow: background-accent3),
+                                     "inset 0 10px 10px " );
+    }
+}
+
+.column {
+//    height: 100%;
+    flex-shrink: 0;
+    position: relative;
+    transition: width 0.4s ease 0s;
+
+    &[data-veil="true"] {
+        .tweetBox {
+            opacity: 0!important;
+        }
+        &:hover .tweetBox {
+            opacity: 1!important;
+        }
+    }
+    &[data-column-type="follow"],
+    &[data-column-type="follower"] {
+        .tweetBox {
+            cursor: pointer;
+        }
+    }
+    &[data-stream-waiting="true"] {
+        .columnMenuBox .stopStreamButton {
+            .streamStop {
+                display: none;
+            }
+            .streamWait {
+                display: initial;
+                animation: spin 1s linear infinite;
+            }
+        }
+    }
+}
+.timelineBox {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.columnShadowBox,
+.progressBarColumn,
+.clearRepliesBox,
+.columnMenuMarker,
+.columnMenuBox {
+    z-index: 5;
+    position: absolute;
+}
+.columnShadowBox {
+    width: 100%;
+    top: 0;
+    transition: height 0.4s;
+    @include create-theme-color( (background-image: column-shadow),
+                                 "radial-gradient(farthest-side at 50% 0, ", ", transparent)" );
+}
+.progressBarColumn {
+    @include progress;
+    width: 100%;
+    height: $progress-height;
+    top: 0;
+    visibility: hidden;
+}
+.clearRepliesBox {
+    display: none;
+    width: calc( 100% - #{$clearreplies-margin * 2} );
+    margin: $clearreplies-margin $clearreplies-margin 0;
+    padding: 10px 0;
+    opacity: 0.4;
+    top: 0;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    @include create-theme-color( (border: border),
+                                 "1px solid " );
+    @include create-theme-color( (background-image: (gradation2-from, gradation2-to),
+                                  separator: comma),
+                                 "linear-gradient( to bottom, ", " )" );
+
+    &:focus,
+    &:hover {
+        opacity: 1;
+        @include create-theme-color( (background-image: (gradation3-from, gradation3-to),
+                                      separator: comma),
+                                     "linear-gradient( to bottom, ", " )" );
+    }
+
+    &[data-replies-open="true"] {
+        display: initial;
+    }
+}
+
+.columnMenuMarker {
+    bottom: 3px;
+    right: 20px;
+    opacity: 0.7;
+    line-height: 0;
+    @include create-theme-color( (background-color: background-accent2) );
+
+    &:focus,
+    &:hover {
+        opacity: 1;
+
+        .columnMenuBox {
+            opacity: 1;
+            pointer-events: initial;
+        }
+    }
+
+    @each $size, $px in $button-size {
+        [data-button-size="#{$size}"] & {
+            border-radius: #{$px + 12px};
+        }
+    }
+
+    > img, > i {
+        @each $size, $px in $button-size {
+            [data-button-size="#{$size}"] & {
+                font-size: $px;
+                width: $px;
+                height: $px;
+                margin: 6px;
+            }
+        }
+    }
+}
+
+.columnMenuBox {
+    padding: 4px;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    pointer-events: none;
+    @include create-theme-color( (border-color: border,
+                                  background-color: background-accent2) );
+
+    &:focus, &:hover {
+        opacity: 1;
+        pointer-events: initial;
+    }
+
+    .stopStreamButton {
+        position: relative;
+    }
+    .newListButton,
+    .addColumnButton {
+        position: relative;
+        .buttonImage {
+            justify-content: start;
+            align-items: start;
+            @each $size, $px in $button-size {
+                [data-button-size="#{$size}"] & {
+                    font-size: #{$px * 3 / 4};
+                }
+            }
+        }
+    }
+    // .stopStreamButton
+    .streamStop,
+    .streamWait {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        @each $size, $px in $button-size {
+            [data-button-size="#{$size}"] & {
+                font-size: #{$px * 1 / 2};
+            }
+        }
+    }
+    // .stopStreamButton
+    .streamWait {
+        display: none;
+    }
+    // .newListButton
+    // .addColumnButton
+    .plusImage {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        @each $size, $px in $button-size {
+            [data-button-size="#{$size}"] & {
+                font-size: #{$px * 1 / 2};
+            }
+        }
+    }
+
+    @at-root
+    .stopStreamButton,
+    .newListButton,
+    .newDmButton,
+    .addColumnButton {
+        display: none;
+    }
+    @at-root .column[data-column-type="timeline"] {
+        .stopStreamButton {
+            display: initial;
+        }
+    }
+    @at-root .column[data-column-type="directmessage"] {
+        .newDmButton {
+            display: initial;
+        }
+    }
+    @at-root .column[data-column-type="ownershiplists"] {
+        .newListButton {
+            display: initial;
+        }
+    }
+    @at-root [data-window-type="search"] {
+        .addColumnButton {
+            display: initial;
+        }
+    }
+}
+
+.tweetBox {
+    border-bottom-width: 1px;
+    border-style: solid;
+    @include create-theme-spacing( (margin: ((base, 2),)) );
+    @include create-theme-color( (border-color: border) );
+    @include create-theme-color( (background-image: (gradation1-from, gradation1-to),
+                                  separator: comma),
+                                 "linear-gradient( to bottom, ", " )" );
+    @include create-theme-color( (box-shadow: shadow,
+                                  only: map-getkey( $theme-type, card ) ),
+                                 "0 1px 4px " );
+    @include create-theme-style( type, (card, ) ) {
+        border-width: 1px;
+    }
+    @include create-theme-style( type, (balloon, ) ) {
+        border-width: 1px;
+        border-radius: 30px 15px / 10px;
+    }
+
+    [data-animation="true"] & {
+        animation-duration: 0.4s;
+        animation-name: fade-in;
+    }
+
+    &:focus,
+    &:hover {
+        @include create-theme-color( (background-image: (gradation2-from, gradation2-to),
+                                      separator: comma),
+                                     "linear-gradient(to bottom, ", " )" );
+    }
+}
+
+.tweetContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    @include create-theme-style( type, (balloon, ) ) {
+        border-radius: 30px 15px / 10px;
+    }
+
+    // 自分宛
+    &[data-forme="true"] {
+        background-size: 40px 40px;
+
+        @include create-theme-style( color, (default, ) ) {
+            background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%,
+                                              transparent 25%, transparent 50%,
+                                              rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%,
+                                              transparent 75%, transparent);
+        }
+        @include create-theme-style( color, (black, ) ) {
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%,
+                                              transparent 25%, transparent 50%,
+                                              rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.05) 75%,
+                                              transparent 75%, transparent);
+        }
+        @include create-theme-style( color, (underground_orange, ) ) {
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%,
+                                              transparent 25%, transparent 50%,
+                                              rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%,
+                                              transparent 75%, transparent);
+        }
+    }
+    // リツイート
+    [data-color-retweets="true"] &[data-retweet="true"] {
+        background-color: rgba(0, 255, 0, 0.1);
+    }
+
+    > .replytoUserBox {
+        @include create-theme-spacing( (margin: (ex1, ex1, (ex1, 0), ex1)) );
+        > .replytoUser {
+            padding: 0 2px;
+            display: inline-block;
+        }
+    }
+
+    > .inlineTweetBox {
+        margin: 4px;
+        padding: 2px;
+        @include create-theme-color( (border: border-accent1),
+                                     "1px dashed " );
+        > .tweetBox {
+            margin: 0;
+            font-size: 90%;
+            border: none;
+
+            > .inlineTweetBox {
+                display: none;
+            }
+        }
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    > .replyTweetBox {
+        margin: 4px;
+        padding: 0 4px 4px 2px;
+        display: none;
+        @include create-theme-color( (border-left: border-accent1),
+                                     "2px solid " );
+
+        > .replyTweetTitle {
+            height: map-get( $button-size, small );
+            margin: 2px;
+            position: absolute;
+            line-height: map-get( $button-size, small );
+            @include create-theme-color( (color: font-accent1) );
+        }
+        > .buttonList {
+            margin-left: -2px;
+            justify-content: flex-end;
+            @include create-theme-color( (background-color: border-accent1) );
+        }
+        > .replies > .tweetBox {
+            margin: 0;
+            font-size: 90%;
+            border: none;
+        }
+
+        &[data-reply-open="true"] {
+            display: initial;
+        }
+    }
+
+    // インライン時はバルーンの角を四角に
+    > .inlineTweetBox,
+    > .replyTweetBox {
+        .tweetBox,
+        .tweetContent,
+        .tweetMenuButtonBox,
+        .tweetMenuButton {
+            border-radius: 0 !important;
+        }
+    }
+
+    > .tweetMenuMarker {
+        height: 16px;
+        position: relative;
+
+        &::before {
+            width: 100%;
+            position: absolute;
+            content: '\f141';
+            font-family: FontAwesome;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        // フォロー、フォロワー、リスト
+        [data-column-type="follow"] &,
+        [data-column-type="follower"] &,
+        [data-column-type="ownershiplists"] &,
+        [data-column-type="subscriptionlists"] &,
+        [data-column-type="membershiplists"] & {
+            display: none;
+        }
+
+        .tweetMenuButtonBox {
+            width: 100%;
+            opacity: 0;
+            display: flex;
+            position: absolute;
+            bottom: 0;
+            pointer-events: none;
+            @include create-theme-color( (background-color: background-accent1,
+                                          color: font-accent1) );
+            @include create-theme-style( type, (balloon, ) ) {
+                border-radius: 0 0 30px 15px / 0 0 10px 10px;
+            }
+            [data-animation="true"] & {
+                transition: opacity 0.2s ease 0.4s;
+            }
+            // フォロー、フォロワー、リスト
+            [data-column-type="follow"] &,
+            [data-column-type="follower"] &,
+            [data-column-type="ownershiplists"] &,
+            [data-column-type="subscriptionlists"] &,
+            [data-column-type="membershiplists"] & {
+                display: none;
+            }
+
+            > .tweetMenuButton {
+                width: 25%;
+                height: 24px;
+                font-family: FontAwesome;
+                font-size: 16px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                @include create-theme-style( type, (balloon, ) ) {
+                    &:nth-of-type(1) {
+                        border-radius: 0 0 0 15px / 0 0 0 10px;
+                    }
+                    &:nth-of-type(4) {
+                        border-radius: 0 0 30px 0 / 0 0 10px 0;
+                    }
+                }
+
+                @each $type, $icon in $menu-icon {
+                    [data-tweet-menu-button0="#{$type}"] &:nth-of-type(1)::before {
+                        content: $icon;
+                    }
+                    [data-tweet-menu-button1="#{$type}"] &:nth-of-type(2)::before {
+                        content: $icon;
+                    }
+                    [data-tweet-menu-button2="#{$type}"] &:nth-of-type(3)::before {
+                        content: $icon;
+                    }
+                    [data-tweet-menu-button3="#{$type}"] &:nth-of-type(4)::before {
+                        content: $icon;
+                    }
+                    // リツイート非表示
+                    @if $type == retweet {
+                        @at-root
+                        .tweetContent[data-mine="true"][data-retweet="true"] > .tweetMenuMarker .tweetMenuButton,
+                        .tweetContent[data-protected="true"] > .tweetMenuMarker .tweetMenuButton,
+                        .tweetContent[data-retweeted="true"] > .tweetMenuMarker .tweetMenuButton {
+                            [data-tweet-menu-button0="#{$type}"] &:nth-of-type(1),
+                            [data-tweet-menu-button1="#{$type}"] &:nth-of-type(2),
+                            [data-tweet-menu-button2="#{$type}"] &:nth-of-type(3),
+                            [data-tweet-menu-button3="#{$type}"] &:nth-of-type(4) {
+                                visibility: hidden;
+                            }
+                        }
+                    }
+                    // お気に入り済
+                    @if $type == favorite {
+                        @at-root
+                        .tweetContent[data-favorited="true"] > .tweetMenuMarker .tweetMenuButton {
+                            [data-tweet-menu-button0="#{$type}"] &:nth-of-type(1)::before,
+                            [data-tweet-menu-button1="#{$type}"] &:nth-of-type(2)::before,
+                            [data-tweet-menu-button2="#{$type}"] &:nth-of-type(3)::before,
+                            [data-tweet-menu-button3="#{$type}"] &:nth-of-type(4)::before {
+                                content: map-get( $menu-icon, favorited );
+                                color: orange;
+                            }
+                        }
+                    }
+                    // 会話非表示
+                    @if $type == showreply {
+                        @at-root
+                        .tweetContent[data-inreply=""] > .tweetMenuMarker .tweetMenuButton {
+                            [data-tweet-menu-button0="#{$type}"] &:nth-of-type(1),
+                            [data-tweet-menu-button1="#{$type}"] &:nth-of-type(2),
+                            [data-tweet-menu-button2="#{$type}"] &:nth-of-type(3),
+                            [data-tweet-menu-button3="#{$type}"] &:nth-of-type(4) {
+                                visibility: hidden;
+                            }
+                        }
+                    }
+                }
+                [data-column-type="directmessage"] &:nth-of-type(1)::before {
+                    content: map-get( $menu-icon, replydm );
+                }
+                [data-column-type="directmessage"] &:nth-of-type(n+2) {
+                    visibility: hidden;
+                }
+
+                &:hover {
+                    @include create-theme-color( (background-color: background-accent2,
+                                                  color: font-accent2) );
+                }
+            }
+        }
+
+        @at-root
+        .inlineTweetBox:not(:empty) + .replyTweetBox + .tweetMenuMarker,
+        .replyTweetBox[data-reply-open="true"] + .tweetMenuMarker {
+            height: 24px;
+        }
+
+        &:hover .tweetMenuButtonBox {
+            opacity: 1;
+            pointer-events: initial;
+            [data-animation="true"] & {
+                transition: opacity 0.2s ease 0.1s;
+            }
+        }
+    }
+}
+
+.tweetMainContent {
+    flex-grow: 1; // .tweetContentのflex用
+    display: flex;
+}
+
+.tweetContentLeft {
+    flex-shrink: 1;
+    @include create-theme-spacing( (margin: (ex1, (ex1, 0), ex1, ex1)) );
+
+    [data-theme^="shachiku"] & {
+        display: none;
+    }
+
+    > .tweetUserImage {
+        display: block;
+        @each $size, $px in $icon-size {
+            [data-icon-size="#{$size}"] & {
+                width: $px;
+                height: $px;
+            }
+            @each $theme in map-getkey( $theme-type, balloon ) {
+                [data-theme="#{$theme}"][data-icon-size="#{$size}"] & {
+                    border-radius: #{$px / 5};
+                }
+                // サークルアイコン
+                [data-circle-icon="true"][data-theme="#{$theme}"][data-icon-size="#{$size}"] & {
+                    border-radius: #{$px / 2};
+                }
+            }
+            // サークルアイコン
+            [data-circle-icon="true"][data-icon-size="#{$size}"] & {
+                border-radius: #{$px / 2};
+            }
+        }
+    }
+
+    > .tweetStatus {
+        margin-top: 4px;
+        display: flex;
+        justify-content: flex-start;
+
+        @each $name, $icon in $status-icon {
+            > .tweetStatus#{$name} {
+                width: 12px;
+                height: 12px;
+                margin: 0 2px;
+                font-family: FontAwesome;
+                font-size: 12px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &::before {
+                    content: $icon;
+                }
+
+                [data-icon-size="xsmall"] & {
+                    margin: 0;
+                }
+            }
+        }
+        > .tweetStatusRetweeted {
+            color: green;
+        }
+
+        @at-root
+        .tweetContent[data-retweeted=""] .tweetStatusRetweeted {
+            display: none;
+        }
+        .tweetStatusPlace {
+            cursor: pointer;
+            &[title=""] {
+                display: none;
+            }
+        }
+    }
+}
+.tweetContentRight {
+    flex-grow: 1;
+    @include create-theme-spacing( (margin: ex1) );
+
+    > .tweetUserName {
+        font-weight: bold;
+        line-height: 140%;
+        text-decoration: underline;
+
+        &[data-screenname=""] {
+            display: none;
+        }
+        &::before {
+            content: attr( data-username ) " (" attr( data-screenname ) ") ";
+            [data-screenname-first="true"] & {
+                content: attr( data-screenname ) " (" attr( data-username ) ") ";
+            }
+        }
+
+        .tweetContent[data-protected="true"] > .tweetMainContent &::after {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            content: '\f023';
+            font-family: FontAwesome;
+            font-size: 12px;
+            text-align: center;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .tweetContent[data-verified="true"] > .tweetMainContent &::after {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            content: '\f058';
+            font-family: FontAwesome;
+            font-size: 12px;
+            text-align: center;
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+    }
+    > .listName {
+        font-weight: bold;
+        line-height: 140%;
+        text-decoration: underline;
+
+        &[data-listname=""] {
+            display: none;
+        }
+        &::before {
+            content: attr( data-listname );
+        }
+
+        .tweetContent[data-mode="private"] > .tweetMainContent &::after {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            content: '\f023';
+            font-family: FontAwesome;
+            font-size: 12px;
+            text-align: center;
+            vertical-align: middle;
+            display: inline-block;
+        }
+    }
+    .tweetUserRecipient {
+        padding: 1px 0;
+        font-size: 90%;
+        line-height: 140%;
+
+        &[data-screenname=""] {
+            display: none;
+        }
+        &::before {
+            content: "➔" attr( data-username ) " (" attr( data-screenname ) ") ";
+            [data-screenname-first="true"] & {
+                content: '➔' attr( data-screenname ) " (" attr( data-username ) ") ";
+            }
+        }
+    }
+    > .listOwnerName {
+        padding: 1px 0;
+        font-size: 90%;
+        line-height: 140%;
+
+        &[data-screenname=""] {
+            display: none;
+        }
+        &::before {
+            content: attr( data-username ) " (" attr( data-screenname ) ") ";
+            [data-screenname-first="true"] & {
+                content: attr( data-screenname ) " (" attr( data-username ) ") ";
+            }
+        }
+
+        .tweetContent[data-protected="true"] > .tweetMainContent &::after {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            content: '\f023';
+            font-family: FontAwesome;
+            font-size: 12px;
+            text-align: center;
+            vertical-align: middle;
+            display: inline-block;
+        }
+    }
+
+    .tweetText {
+        padding: 4px 0;
+        [data-linefeed="true"] & {
+            white-space: pre-wrap;
+        }
+    }
+    .tweetSource,
+    .tweetTime {
+        padding-bottom: 2px;
+        font-size: 80%;
+        line-height: 120%;
+        @include create-theme-color( (color: font-accent2) );
+    }
+    .tweetSource {
+        display: none;
+        [data-viewsource="true"] & {
+            display: block;
+        }
+    }
+
+    .tweetRetweeter {
+        padding-bottom: 2px;
+        font-size: 80%;
+        line-height: 120%;
+        display: flex;
+        align-items: center;
+
+        @at-root .tweetRetweeterImage {
+            flex-shrink: 1;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+
+            &[src=""] {
+                display: none;
+            }
+            // サークルアイコン
+            [data-circle-icon="true"] & {
+                border-radius: 8px;
+            }
+
+            [data-theme="shachiku"] &,
+            [data-theme="shachiku3"] & {
+                display: none;
+            }
+        }
+        > .tweetRetweeterName {
+            min-height: 12px;
+            padding: 2px 0 2px 2px;
+            flex-grow: 1;
+
+            [data-theme="shachiku"] &,
+            [data-theme="shachiku3"] & {
+                min-height: initial;
+                padding: 0;
+            }
+
+            &::before {
+                content: attr( data-username ) " (" attr( data-screenname ) ") ";
+                [data-screenname-first="true"] & {
+                    content: attr( data-screenname ) " (" attr( data-username ) ") ";
+                }
+            }
+            @include create-theme-spacing( (margin-left: base) );
+
+            &[data-screenname=""] {
+                display: none;
+            }
+        }
+    }
+    .tweetRetweeterCount {
+        padding-bottom: 2px;
+        font-size: 80%;
+        line-height: 120%;
+        &::before {
+            content: attr( data-count );
+        }
+
+        &[data-count=""] {
+            display: none;
+        }
+    }
+    .tweetRetweeterList {
+        padding-bottom: 2px;
+        display: flex;
+        flex-wrap: wrap;
+
+        &:empty {
+            display: none;
+        }
+
+        > .tweetRetweeterImage {
+            margin: 2px 4px 2px 0;
+        }
+    }
+
+    .tweetThumbnailImage {
+        display: none;
+        width: 100%;
+        height: 100px;
+        border-radius: 10px;
+        margin: 4px 0;
+        object-fit: cover;
+        cursor: pointer;
+    }
+    @at-root [data-viewthumbnail="true"] & .tweetThumbnail .tweetThumbnailImage[src] {
+        display: block;
+    }
+}
+
+.tweetMoreBox {
+    padding: 10px 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+#filepicker {
+    display: none;
+}
+
+.textButtonList {
+    display: flex;
+}
+
+
+/**************************
+  コンテナ（プロフィール）
+ **************************/
+[data-window-type="profile"] #columnTabContainer {
+    display: none;
+}
+
+[data-window-type="profile"] #columnContainer {
+    .column {
+        display: none;
+        width: 100vw;
+    }
+}
+
+@for $n from 0 through 7 {
+    [data-window-type="profile"][data-active-column="#{$n}"] {
+        #profileButtonList .countbox:nth-of-type(#{$n + 1}) {
+            opacity: 1;
+        }
+        #columnContainer .column:nth-of-type(#{$n + 1}) {
+            display: initial;
+        }
+    }
+}
+
+#profileContainer {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    background-color: map-get( $default-color-custom, background-accent1 );
+    color: map-get( $default-color-custom, font-accent1 );
+    -webkit-text-stroke: 0.3px;
+
+    // 背景画像
+    &::before {
+        width: 100%;
+        height: 100%;
+        content: '';
+        background: inherit;
+        position: absolute;
+        z-index: -1;
+        filter: blur( 2px ) brightness( 50% );
+    }
+
+    &[data-profile-own="true"] {
+        #relationButtonList {
+            display: none;
+        }
+    }
+    &[data-profile-own="false"] {
+        #restrictionButtonList {
+            display: none;
+        }
+        #profileButton8.countbox::before {
+            content: attr( data-label2 );
+        }
+    }
+    // フォローしていない
+    &[data-following="false"] #relationButton1 {
+        color: black;
+        background-color: white;
+        &::before {
+            content: attr( data-label2 );
+        }
+    }
+    // フォローされていない
+    &[data-followed="false"] #relationButton2 {
+        color: black;
+        background-color: white;
+        &::before {
+            content: attr( data-label2 );
+        }
+    }
+    // フォローリクエスト中
+    &[data-following="false"][data-followrequesting="true"] #relationButton1::before {
+        content: attr( data-label3 );
+    }
+    // ミュートしていない
+    &[data-mute="false"] #relationButton3 {
+        color: black;
+        background-color: white;
+        &::before {
+            content: attr( data-label2 );
+        }
+    }
+    // リツイート表示していない
+    &[data-noretweet="false"] #relationButton4 {
+        color: black;
+        background-color: white;
+        &::before {
+            content: attr( data-label2 );
+        }
+    }
+    &[data-protected="true"] #profileStatusProtected {
+        display: flex;
+    }
+    &[data-verified="true"] #profileStatusVerified {
+        display: flex;
+    }
+}
+
+
+/**********************
+  個別（プロフィール）
+ **********************/
+#profileDetail {
+    display: flex;
+}
+
+#profileDetailLeft {
+    flex-shrink: 1;
+    margin: $profile-container-margin 0 $profile-container-margin $profile-container-margin;
+
+    @at-root
+    #profileUserImage {
+        display: block;
+        width: 100px;
+        min-height: 100px;
+        cursor: pointer;
+
+        // サークルアイコン
+        [data-circle-icon="true"] & {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            object-fit: cover;
+        }
+    }
+
+    @at-root
+    #profileStatus {
+        margin-top: $profile-container-margin;
+        display: flex;
+        justify-content: flex-start;
+
+        @at-root
+        #profileStatusProtected,
+        #profileStatusVerified {
+            width: 24px;
+            height: 24px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin-right: $profile-container-margin;
+        }
+        #profileStatusProtected::before {
+            content: '\f023';
+            font-family: FontAwesome;
+            font-size: 24px;
+        }
+        #profileStatusVerified::before {
+            content: '\f058';
+            font-family: FontAwesome;
+            font-size: 24px;
+        }
+    }
+}
+
+#profileDetailRight {
+    flex-grow: 1;
+    margin: $profile-container-margin;
+
+    @at-root
+    #profileScreenname {
+        font-size: x-large;
+        font-weight: bold;
+    }
+    @at-root
+    #profileUsername {
+        font-size: larger;
+    }
+    @at-root
+    #profileDescription {
+        padding: 5px 0;
+        line-height: 120%;
+        white-space: pre-wrap;
+    }
+    @at-root
+    #profileLocation {
+        &:empty {
+            display: none;
+        }
+        &::before {
+            padding-right: 2px;
+            content: '\f0ac';
+            font-family: FontAwesome;
+        }
+    }
+    @at-root
+    #profileUrl {
+        &:empty {
+            display: none;
+        }
+        &::before {
+            padding-right: 2px;
+            content: '\f0c1';
+            font-family: FontAwesome;
+        }
+    }
+}
+
+#profileButtonList,
+#relationButtonList,
+#restrictionButtonList {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.countbox {
+    min-height: 24px;
+    margin: #{$countbox-margin / 4} 0;
+    opacity: 0.6;
+    font-size: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: bold;
+
+    &.countboxButton {
+        cursor: pointer;
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &::before {
+        content: attr( data-label );
+    }
+
+    // カラム切り替え
+    #profileButtonList & {
+        width: calc( 25vw - #{$countbox-margin} );
+        padding: 2px 0;
+        background-color: transparent;
+        border-width: 0 0 2px;
+        border-style: solid;
+    }
+    // ボタン
+    #relationButtonList & {
+        width: calc( 25vw - #{$countbox-margin} );
+        border-width: 1px;
+        border-style: solid;
+        border-radius: $countbox-margin;
+    }
+    // ボタン
+    #restrictionButtonList & {
+        width: calc( 100vw / 3 - #{$countbox-margin} );
+        border-width: 1px;
+        border-style: solid;
+        border-radius: $countbox-margin;
+    }
+}
+
+#addListContainer {
+    .buttonList {
+        justify-content: flex-end;
+    }
+
+    .listinfoBox {
+        padding: 2px 8px;
+        display: flex;
+        align-items: center;
+        > label {
+            display: inline-block;
+            width: 40%;
+        }
+        > label[for="public"], > label[for="private"] {
+            width: auto;
+            padding-right: 10px;
+        }
+        input[type="text"], textarea {
+            width: 40%;
+        }
+        textarea {
+            resize: none;
+        }
+        input[type="text"], input[type="radio"] {
+            height: 2em;
+        }
+    }
+
+    > #addListTitle,
+    > #editListTitle {
+        height: map-get( $button-size, small );
+        margin: 4px;
+        padding: 4px;
+        line-height: map-get( $button-size, small );
+        display: none;
+        @include create-theme-color( (color: font-accent1,
+                                      background-color: background-accent1) );
+    }
+
+    &[data-type="add"] {
+        > #addListTitle {
+            display: block;
+        }
+    }
+    &[data-type="edit"] {
+        > #editListTitle {
+            display: block;
+        }
+    }
+}
+
+
+/******************
+  コンテナ（検索）
+ ******************/
+#autoreloadContainer {
+    padding: 4px;
+    z-index: 100;
+    @include create-theme-color(( background-color: background-accent1,
+                                  color: font-accent1 ));
+}
+
+[data-window-type="search"] #columnTabContainer {
+    display: none;
+}
+
+[data-window-type="search"] #columnContainer {
+    .column {
+        width: 100vw;
+    }
+}
+
+
+/**************
+  個別（検索）
+ **************/
+[data-window-type="search"] #grayout {
+    display: flex;
+    align-items: end;
+    color: white;
+    white-space: pre-wrap;
+}
+
+
+/********************
+  コンテナ（カラム）
+ ********************/
+[data-window-type="columns"] #mainContainer {
+    overflow-y: scroll;
+}
+
+#columnListContainer {
+    width: calc( 100% - #{$dialog-padding * 2} );
+    margin: $dialog-padding;
+    table-layout: fixed;
+    border-spacing: 0;
+    background-color: Window;
+    border: 1px solid WindowFrame;
+    color: WindowText;
+}
+
+#addColumnContainer {
+    .buttonList {
+        justify-content: flex-end;
+    }
+
+    .columninfoBox {
+        padding: 2px 8px;
+        display: flex;
+        align-items: center;
+        > label {
+            display: inline-block;
+            width: 40%;
+        }
+        input[type="text"], select, textarea {
+            width: 40%;
+        }
+        textarea {
+            resize: none;
+        }
+        input[type="text"], input[type="checkbox"], select {
+            height: 2em;
+        }
+        option {
+            height: 2em;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+
+    > #addColumnTitle,
+    > #editColumnTitle {
+        height: map-get( $button-size, small );
+        margin: 4px;
+        padding: 4px;
+        line-height: map-get( $button-size, small );
+        display: none;
+        @include create-theme-color( (color: font-accent1,
+                                      background-color: background-accent1) );
+    }
+
+    &[data-type="add"] {
+        > #addColumnTitle {
+            display: block;
+        }
+    }
+    &[data-type="edit"] {
+        > #editColumnTitle {
+            display: block;
+        }
+    }
+}
+
+
+/****************
+  個別（カラム）
+ ****************/
+#draggable {
+    padding: $dialog-padding;
+}
+
+#columnListHead {
+    th {
+        padding: 2px;
+        background-color: ThreeDFace;
+        color: ButtonText;
+        border-width: 2px;
+        border-style: solid;
+        border-color: ThreeDLightShadow ThreeDDarkShadow ThreeDDarkShadow ThreeDLightShadow;
+    }
+    th::before {
+        content: attr( title );
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    th:nth-of-type(1) { width: 20%; }
+    th:nth-of-type(2) { width: 15%; }
+    th:nth-of-type(3) { width: 15%; }
+    th:nth-of-type(4) { width: 5%; }
+    th:nth-of-type(5) { width: 5%; }
+    th:nth-of-type(6) { width: 5%; }
+    th:nth-of-type(7) { width: 5%; }
+    th:nth-of-type(8) { width: 5%; }
+    th:nth-of-type(9) { width: 25%; }
+}
+
+.columnListRow {
+    cursor: pointer;
+
+    td {
+        border: 1px solid Window;
+    }
+    &:hover {
+        background-color: ThreeDFace;
+    }
+    &[data-selected="true"] {
+        background-color: Highlight;
+        color: HighlightText;
+    }
+
+    td::before {
+        padding: 8px 2px;
+        content: attr( title );
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    td:nth-of-type(4) { text-align: center; }
+    td:nth-of-type(5) { text-align: center; }
+    td:nth-of-type(6) { text-align: center; }
+    td:nth-of-type(7) { text-align: center; }
+    td:nth-of-type(8) { text-align: center; }
+}
+
+
+/*******************
+  コンテナ（NewDM）
+ *******************/
+#newdmHeaderContainer {
+    display: flex;
+    flex-direction: column;
+
+    > div {
+        padding: $dialog-padding;
+        display: flex;
+        align-items: center;
+
+        label {
+            padding: 0 2px;
+        }
+        .select2, input {
+            flex-grow: 1;
+            height: 2em;
+        }
+    }
+}
+
+#newdmContainer {
+    padding: $dialog-padding;
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+
+    #newTweet {
+        flex-grow: 1;
+    }
+}
+
+
+/******************
+  個別（テキスト）
+ ******************/
+#tweetText {
+    flex-grow: 1;
+    resize: none;
+}
+
+
+/********************************************************
+  コンテナ（ミュート、リツイート非表示、リストメンバー）
+ ********************************************************/
+[data-window-type="mute"] #columnTabContainer,
+[data-window-type="noretweet"] #columnTabContainer,
+[data-window-type="listmember"] #columnTabContainer {
+    display: none;
+}
+
+[data-window-type="mute"] #columnContainer,
+[data-window-type="noretweet"] #columnContainer,
+[data-window-type="listmember"] #columnContainer {
+    .column {
+        width: 100vw;
+    }
+}
+
+
+/********************
+  コンテナ（フォト）
+ ********************/
+#photoContainer {
+    flex-grow: 1;
+    overflow: hidden;
+
+    iframe, video {
+        background-color: black;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+#photoinfoContainer {
+    display: flex;
+
+    &::before {
+        padding: 0 12px;
+        content: attr( data-label );
+        display: flex;
+        align-items: center;
+    }
+}
+
+
+/****************
+  個別（フォト）
+ ****************/
+#prevPhoto,
+#nextPhoto {
+    width: 50px;
+    height: 50px;
+    margin: auto 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.5;
+    color: white;
+    background-color: rgba(100, 100, 100, 0.5);
+    box-shadow: 0 0 3px black;
+    text-shadow: 0 0 3px black;
+
+    &:hover, &:focus {
+        opacity: 0.8;
+    }
+
+    // 無効時
+    &[data-disabled="true"],
+    &[data-disabled="true"]:hover,
+    &[data-disabled="true"]:focus {
+        opacity: 0.1;
+        cursor: default;
+    }
+}
+#prevPhoto {
+    left: 5px;
+}
+#nextPhoto {
+    right: 5px;
+}
+
+#directUrl {
+    flex-grow: 1;
+    @include create-theme-color( (border: border),
+                                 "1px solid " );
+}
+
+
+/*****************
+  コンテナ（API）
+ *****************/
+[data-window-type="api"] #mainContainer {
+    overflow-y: scroll;
+}
+
+#apiContainer {
+    width: calc( 100% - #{$dialog-padding * 2} );
+    margin: $dialog-padding;
+    table-layout: fixed;
+    border-spacing: 0;
+    background-color: Window;
+    border: 1px solid WindowFrame;
+    color: WindowText;
+}
+
+
+/*************
+  個別（API）
+ *************/
+#apiHead {
+    th {
+        padding: 2px;
+        background-color: ThreeDFace;
+        color: ButtonText;
+        border-width: 2px;
+        border-style: solid;
+        border-color: ThreeDLightShadow ThreeDDarkShadow ThreeDDarkShadow ThreeDLightShadow;
+    }
+    th:nth-of-type(1) { width: 40%; }
+    th:nth-of-type(2) { width: 15%; }
+    th:nth-of-type(3) { width: 15%; }
+    th:nth-of-type(4) { width: 30%; }
+}
+
+.apiPathRow {
+    td {
+        padding: 3px;
+        font-weight: bold;
+        background-color: ThreeDFace;
+    }
+}
+.apiRow {
+    td {
+        padding: 2px;
+        border: 1px solid Window;
+    }
+    &:hover {
+        background-color: ThreeDFace;
+    }
+    td:nth-of-type(1) { width: 40%; }
+    td:nth-of-type(2) {
+        width: 15%;
+        text-align: center;
+    }
+    td:nth-of-type(3) {
+        width: 15%;
+        text-align: center;
+    }
+    td:nth-of-type(4) { width: 30%; }
+}
+
+

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title />
+    <meta charset="utf-8" />
+    <link href="style/common.css" rel="stylesheet" type="text/css" />
+    <link href="style/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+    <link href="style/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="l10n/l10n-definition-search.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/makewindow.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.contextMenu.min.js"></script>
+    <script src="js/jquery.ui.position.min.js"></script>
+    <script src="js/twitter-text.js"></script>
+
+    <style id="countboxStyle" />
+  </head>
+
+  <body
+    data-window-type="search"
+    data-theme="default"
+    data-icon-size="large"
+    data-button-size="medium"
+    data-circle-icon="true"
+    data-newtweet-pinned="false"
+    data-animation="true"
+    data-color-retweets="true"
+    data-screenname-first="true"
+    data-viewsource="true"
+    data-viewthumbnail="true"
+    data-linefeed="true"
+    data-unread-notif="false"
+    data-menu-reply="true"
+    data-menu-favorite="true"
+    data-menu-conversation="true"
+    data-menu-url="true"
+    data-tweet-menu-button0=""
+    data-tweet-menu-button1=""
+    data-tweet-menu-button2=""
+    data-tweet-menu-button3=""
+    style="font-size: 12px;">
+
+    <div id="topMenuContainer">
+      <input id="keyword" type="text" tabindex="1"
+             autocomplete="off"
+             style="flex-grow: 1;" />
+      <ul class="buttonList">
+        <li id="search" class="buttonItem" tabindex="1">
+          <i class="buttonImage fa fa-search fa-fw" />
+        </li>
+      </ul>
+    </div>
+
+    <div id="autoreloadContainer">
+      <input type="checkbox" id="autoreload" />
+      <label for="autoreload" />
+    </div>
+
+    <div id="mainContainer">
+      <div id="columnTabContainer" />
+      <div id="columnContainer" />
+    </div>
+
+    <!-- position: fixed -->
+    <div id="messageContainer" class="hidden" />
+
+    <div id="grayout" class="hidden" />
+
+    <!-- hidden -->
+    <div id="templateContainer">
+
+      <!-- list items Container -->
+      <ul>
+
+      </ul>
+
+      <!-- columnTab Template -->
+      <div class="columnTab"
+           data-column-type=""
+           data-userid="" />
+
+      <!-- column Template -->
+      <div class="column" tabindex="100"
+           data-column-type=""
+           data-userid=""
+           data-veil=""
+           data-top="true"
+           data-more=""
+           data-stream-waiting="">
+        <div class="timelineBox" />
+        <div class="progressBarColumn"
+             data-loading="false" />
+        <div class="columnShadowBox" />
+        <div class="clearRepliesBox" tabindex="100"
+             data-replies-open="false" />
+        <div class="columnMenuMarker">
+          <i class="fa fa-bars fa-fw" />
+          <ul class="buttonList columnMenuBox">
+            <li class="buttonItem toTopButton">
+              <i class="buttonImage fa fa-arrow-circle-up fa-fw" />
+            </li>
+            <li class="buttonItem toBottomButton">
+              <i class="buttonImage fa fa-arrow-circle-down fa-fw" />
+            </li>
+            <li class="buttonItem updateButton">
+              <i class="buttonImage fa fa-refresh fa-fw" />
+            </li>
+            <li class="buttonItem stopStreamButton">
+              <i class="buttonImage fa fa-bolt fa-fw" />
+              <i class="streamStop fa fa-times fa-fw" />
+              <i class="streamWait fa fa-refresh fa-fw" />
+            </li>
+            <li class="buttonItem newListButton">
+              <i class="buttonImage fa fa-th-list fa-fw" />
+              <i class="plusImage fa fa-plus-circle fa-fw" />
+            </li>
+            <li class="buttonItem newDmButton">
+              <i class="buttonImage fa fa-envelope fa-fw" />
+            </li>
+            <li class="buttonItem addColumnButton">
+              <i class="buttonImage fa fa-columns fa-fw" />
+              <i class="plusImage fa fa-plus-circle fa-fw" />
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- tweetBox Template -->
+      <!-- screenname : ツイートしたアカウント -->
+      <!-- screennames : 全てのアカウント -->
+      <div id="" class="tweetBox"
+           data-tweetid=""
+           data-rawid=""
+           data-rawcontent=""
+           data-screenname=""
+           data-screennames=""
+           tabindex="100">
+        <div class="tweetContent"
+             data-mine=""
+             data-forme=""
+             data-retweet=""
+             data-retweeted=""
+             data-favorited=""
+             data-inreply=""
+             data-protected=""
+             data-verified=""
+             data-subscriber=""
+             data-member=""
+             data-mode="">
+          <div class="replytoUserBox" style="display: none;">
+            <span class="putAlways" />
+          </div>
+          <div class="tweetMainContent">
+            <div class="tweetContentLeft">
+              <img class="tweetUserImage" src="" />
+              <div class="tweetStatus">
+                <div class="tweetStatusRetweeted" />
+                <div class="tweetStatusPlace"
+                     data-mapurl=""
+                     title="" />
+              </div>
+            </div>
+            <div class="tweetContentRight">
+              <div class="tweetUserName"
+                   data-screenname=""
+                   data-username="" />
+              <div class="tweetUserRecipient"
+                   data-screenname=""
+                   data-username=""
+                   data-userid="" />
+              <div class="listName"
+                   data-listname="" />
+              <div class="listOwnerName"
+                   data-screenname=""
+                   data-username="" />
+              <div class="tweetText" />
+              <div class="tweetSource" />
+              <div class="tweetTime" />
+              <div class="tweetRetweeter">
+                <img class="tweetRetweeterImage" src="" />
+                <div class="tweetRetweeterName"
+                     data-screenname=""
+                     data-username="" />
+              </div>
+              <div class="tweetRetweeterCount"
+                   data-count="" />
+              <div class="tweetRetweeterList" />
+              <div class="tweetThumbnail" />
+            </div>
+          </div> <!-- .tweetMainContent -->
+          <div class="inlineTweetBox" />
+          <div class="replyTweetBox"
+               data-reply-open="false">
+            <div class="replyTweetTitle" />
+            <ul class="buttonList smallButtonList">
+              <li class="clearReplyButton buttonItem" tabindex="1">
+                <i class="buttonImage fa fa-times fa-fw" />
+              </li>
+            </ul>
+            <div class="replies" />
+          </div>
+          <div class="tweetMenuMarker">
+            <div class="tweetMenuButtonBox">
+              <div class="tweetMenuButton" />
+              <div class="tweetMenuButton" />
+              <div class="tweetMenuButton" />
+              <div class="tweetMenuButton" />
+            </div>
+          </div>
+        </div> <!-- .tweetContent -->
+      </div> <!-- .tweetBox -->
+
+      <!-- tweetMoreBox Template -->
+      <div id="" class="tweetBox tweetMoreBox"
+           tabindex="100"
+           data-rawid="" />
+
+      <!-- .tweetBox > .tweetRetweeterList > .tweetRetweeterImage Template -->
+      <img class="tweetRetweeterImage" src=""
+           title="" />
+
+      <!-- .tweetBox > .tweetThumbnail > .tweetThumbnailImage Template -->
+      <img class="tweetThumbnailImage"
+           data-provider=""
+           data-imageid="" />
+
+    </div>
+
+    <!-- at last -->
+    <script src="js/search.js"></script>
+    <script src="/scripts/common_code.js"></script>
+    <script src="/scripts/text-ope.js"></script>
+  </body>
+</html>

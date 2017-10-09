@@ -1,0 +1,4639 @@
+@charset "UTF-8";
+@namespace html url(http://www.w3.org/1999/xhtml);
+/**************
+  テーマカラー
+ **************/
+/**********
+  スケール
+ **********/
+/**********
+  アイコン
+ **********/
+/**************
+  ミックスイン
+ **************/
+/******
+  関数
+ ******/
+/********
+  その他
+ ********/
+/************************
+  その他（プロフィール）
+ ************************/
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes progress {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 100px;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.hidden {
+  visibility: hidden;
+  opacity: 0 !important;
+}
+[data-animation="true"] .hidden {
+  transition: opacity 0.2s ease 0s, visibility 0s linear 0.2s;
+}
+
+.blink {
+  animation: blink 1s ease-in-out infinite alternate;
+}
+.blink:hover {
+  animation: none;
+}
+
+.fa-rotate-45 {
+  transform: rotate(45deg);
+}
+
+.context-menu-icon.context-menu-icon--fa {
+  line-height: initial;
+}
+
+/**********
+  全体設定
+ **********/
+html, body {
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  word-break: break-all;
+  font: -moz-desktop;
+  -moz-user-select: none;
+}
+[data-theme="default"] > * {
+  color: #101010;
+  background-color: #ffffff;
+}
+[data-theme="default2"] > * {
+  color: #101010;
+  background-color: #ffffff;
+}
+[data-theme="balloon_white"] > * {
+  color: #101010;
+  background-color: #ffffff;
+}
+[data-theme="classic_black"] > * {
+  color: #efefef;
+  background-color: #303030;
+}
+[data-theme="classic_black2"] > * {
+  color: #efefef;
+  background-color: #303030;
+}
+[data-theme="balloon_black"] > * {
+  color: #efefef;
+  background-color: #303030;
+}
+[data-theme="card_white"] > * {
+  color: #101010;
+  background-color: #ffffff;
+}
+[data-theme="card_black"] > * {
+  color: #efefef;
+  background-color: #303030;
+}
+[data-theme="underground_orange"] > * {
+  color: #c03030;
+  background-color: #200000;
+}
+[data-theme="shachiku"] > * {
+  color: #101010;
+  background-color: #ffffff;
+}
+[data-theme="shachiku2"] > * {
+  color: #101010;
+  background-color: #ffffff;
+}
+[data-theme="shachiku3"] > * {
+  color: #101010;
+  background-color: #ffffff;
+}
+[data-theme="shachiku4"] > * {
+  color: #101010;
+  background-color: #ffffff;
+}
+
+* {
+  box-sizing: content-box;
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  visibility: visible;
+}
+[data-animation="true"] * {
+  transition: opacity 0.2s ease 0s, visibility 0s linear 0s;
+}
+
+.text-link {
+  cursor: pointer;
+}
+.text-link:hover {
+  text-decoration: underline;
+}
+
+input[type="text"], textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+[data-theme="default"] input[type="text"], [data-theme="default"] textarea, [data-theme="default"] select {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="default2"] input[type="text"], [data-theme="default2"] textarea, [data-theme="default2"] select {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="balloon_white"] input[type="text"], [data-theme="balloon_white"] textarea, [data-theme="balloon_white"] select {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="classic_black"] input[type="text"], [data-theme="classic_black"] textarea, [data-theme="classic_black"] select {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="classic_black2"] input[type="text"], [data-theme="classic_black2"] textarea, [data-theme="classic_black2"] select {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="balloon_black"] input[type="text"], [data-theme="balloon_black"] textarea, [data-theme="balloon_black"] select {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="card_white"] input[type="text"], [data-theme="card_white"] textarea, [data-theme="card_white"] select {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="card_black"] input[type="text"], [data-theme="card_black"] textarea, [data-theme="card_black"] select {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="underground_orange"] input[type="text"], [data-theme="underground_orange"] textarea, [data-theme="underground_orange"] select {
+  border: 1px solid #600000;
+}
+[data-theme="shachiku"] input[type="text"], [data-theme="shachiku"] textarea, [data-theme="shachiku"] select {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="shachiku2"] input[type="text"], [data-theme="shachiku2"] textarea, [data-theme="shachiku2"] select {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="shachiku3"] input[type="text"], [data-theme="shachiku3"] textarea, [data-theme="shachiku3"] select {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="shachiku4"] input[type="text"], [data-theme="shachiku4"] textarea, [data-theme="shachiku4"] select {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="default"] input[type="text"]:hover, [data-theme="default"] textarea:hover, [data-theme="default"] select:hover {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="default2"] input[type="text"]:hover, [data-theme="default2"] textarea:hover, [data-theme="default2"] select:hover {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="balloon_white"] input[type="text"]:hover, [data-theme="balloon_white"] textarea:hover, [data-theme="balloon_white"] select:hover {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="classic_black"] input[type="text"]:hover, [data-theme="classic_black"] textarea:hover, [data-theme="classic_black"] select:hover {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="classic_black2"] input[type="text"]:hover, [data-theme="classic_black2"] textarea:hover, [data-theme="classic_black2"] select:hover {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="balloon_black"] input[type="text"]:hover, [data-theme="balloon_black"] textarea:hover, [data-theme="balloon_black"] select:hover {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="card_white"] input[type="text"]:hover, [data-theme="card_white"] textarea:hover, [data-theme="card_white"] select:hover {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="card_black"] input[type="text"]:hover, [data-theme="card_black"] textarea:hover, [data-theme="card_black"] select:hover {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="underground_orange"] input[type="text"]:hover, [data-theme="underground_orange"] textarea:hover, [data-theme="underground_orange"] select:hover {
+  border: 1px solid #c60000;
+}
+[data-theme="shachiku"] input[type="text"]:hover, [data-theme="shachiku"] textarea:hover, [data-theme="shachiku"] select:hover {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="shachiku2"] input[type="text"]:hover, [data-theme="shachiku2"] textarea:hover, [data-theme="shachiku2"] select:hover {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="shachiku3"] input[type="text"]:hover, [data-theme="shachiku3"] textarea:hover, [data-theme="shachiku3"] select:hover {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="shachiku4"] input[type="text"]:hover, [data-theme="shachiku4"] textarea:hover, [data-theme="shachiku4"] select:hover {
+  border: 1px solid #8c8c8c;
+}
+[data-animation="true"] input[type="text"], [data-animation="true"] textarea, [data-animation="true"] select {
+  transition: border-color 0.2s ease 0s;
+}
+
+/**********
+  コンテナ
+ **********/
+#topMenuContainer {
+  padding: 2px;
+  display: flex;
+}
+#topMenuContainer .buttonList {
+  justify-content: space-between;
+}
+[data-window-type="profile"] #topMenuContainer, [data-window-type="search"] #topMenuContainer {
+  z-index: 100;
+}
+
+[data-newtweet-pinned="false"] #newTweetContainer {
+  z-index: 20;
+}
+[data-newtweet-pinned="true"] #newTweetContainer {
+  box-sizing: border-box;
+  width: 100vw;
+  margin: 0;
+  border-width: 4px 0;
+  position: initial;
+}
+[data-newtweet-pinned="true"] #newTweetContainer[data-open="false"] {
+  display: initial;
+}
+[data-newtweet-pinned="true"] #openNewTweetC,
+[data-newtweet-pinned="true"] #closeNewTweetC,
+[data-newtweet-pinned="true"] #pinNewTweetC {
+  display: none;
+}
+[data-newtweet-pinned="false"] #unpinNewTweetC {
+  display: none;
+}
+
+#mainContainer {
+  width: 100vw;
+  height: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+[data-window-type="main"] #mainContainer {
+  overflow-x: scroll;
+}
+
+#columnTabContainer {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#columnContainer {
+  height: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#progressContainer {
+  height: 2px;
+  background-color: gray;
+  flex-shrink: 0;
+}
+#progressBar {
+  width: 0%;
+  height: 2px;
+  background-image: linear-gradient(to right, blue, cyan);
+}
+[data-theme="underground_orange"] #progressBar {
+  background-image: linear-gradient(to right, darkred, lightsalmon);
+}
+
+#progressBarOther {
+  background-size: 100px 100px;
+  background-position: 0px;
+  background-image: linear-gradient(45deg, blue 25%, cyan 50%, blue 75%, cyan);
+  width: 100%;
+  height: 2px;
+  z-index: 100;
+  visibility: hidden;
+}
+[data-theme="underground_orange"] #progressBarOther {
+  background-image: linear-gradient(45deg, darkred 25%, lightsalmon 50%, darkred 75%, lightsalmon);
+}
+#progressBarOther[data-loading="true"] {
+  background-position: 100px;
+  visibility: visible;
+  animation: progress  1s linear infinite;
+}
+
+#loading {
+  width: 100vw;
+  height: 100vh;
+  font-size: 300%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: black;
+}
+#loading::before {
+  content: '\f1ce';
+  font-family: FontAwesome;
+  animation: spin 1s linear infinite;
+}
+
+#grayout {
+  width: 100vw;
+  height: 100vh;
+  padding: 4px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  background-color: black;
+  opacity: 0.5;
+}
+[data-window-type="profile"] #grayout, [data-window-type="search"] #grayout {
+  opacity: 0.8;
+}
+
+#leftContainer, #notifContainer {
+  width: 197px;
+  height: 100vh;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: -200px;
+  z-index: 100;
+  border-style: solid;
+  border-right-width: 3px;
+}
+[data-theme="default"] #leftContainer, [data-theme="default"] #notifContainer {
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="default2"] #leftContainer, [data-theme="default2"] #notifContainer {
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="balloon_white"] #leftContainer, [data-theme="balloon_white"] #notifContainer {
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="classic_black"] #leftContainer, [data-theme="classic_black"] #notifContainer {
+  background-color: #4a4a4a;
+  border-color: #6f6f6f;
+}
+[data-theme="classic_black2"] #leftContainer, [data-theme="classic_black2"] #notifContainer {
+  background-color: #4a4a4a;
+  border-color: #6f6f6f;
+}
+[data-theme="balloon_black"] #leftContainer, [data-theme="balloon_black"] #notifContainer {
+  background-color: #4a4a4a;
+  border-color: #6f6f6f;
+}
+[data-theme="card_white"] #leftContainer, [data-theme="card_white"] #notifContainer {
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="card_black"] #leftContainer, [data-theme="card_black"] #notifContainer {
+  background-color: #4a4a4a;
+  border-color: #6f6f6f;
+}
+[data-theme="underground_orange"] #leftContainer, [data-theme="underground_orange"] #notifContainer {
+  background-color: #530000;
+  border-color: #600000;
+}
+[data-theme="shachiku"] #leftContainer, [data-theme="shachiku"] #notifContainer {
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="shachiku2"] #leftContainer, [data-theme="shachiku2"] #notifContainer {
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="shachiku3"] #leftContainer, [data-theme="shachiku3"] #notifContainer {
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="shachiku4"] #leftContainer, [data-theme="shachiku4"] #notifContainer {
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-animation="true"] #leftContainer, [data-animation="true"] #notifContainer {
+  transition: left 0.2s ease 0s;
+}
+#leftContainer .buttonList, #notifContainer .buttonList {
+  margin: 2px;
+  justify-content: space-between;
+}
+#leftContainer[data-open="true"], #notifContainer[data-open="true"] {
+  left: 0;
+}
+
+#newUserContainer .buttonList {
+  justify-content: flex-end;
+}
+#pin {
+  width: 100%;
+  margin: 2px 0;
+  padding: 6px 0;
+  font-size: large;
+  text-align: center;
+}
+
+#messageContainer {
+  box-sizing: border-box;
+  width: calc( 100vw - 40px );
+  margin: 20px;
+  padding: 10px 20px;
+  bottom: 40px;
+  z-index: 60;
+  position: fixed;
+  pointer-events: none;
+  white-space: pre-wrap;
+  color: white;
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  background-color: rgba(150, 150, 150, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+#templateContainer {
+  display: none;
+}
+
+/******
+  共通
+ ******/
+.dialog {
+  width: calc( 100vw - 36px );
+  margin: 50px 10px 10px;
+  padding: 4px;
+  position: fixed;
+  border-width: 4px;
+  border-style: solid;
+  z-index: 10;
+}
+[data-theme="default"] .dialog {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="default2"] .dialog {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="balloon_white"] .dialog {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="classic_black"] .dialog {
+  border-color: #6f6f6f;
+  background-color: #4a4a4a;
+}
+[data-theme="classic_black2"] .dialog {
+  border-color: #6f6f6f;
+  background-color: #4a4a4a;
+}
+[data-theme="balloon_black"] .dialog {
+  border-color: #6f6f6f;
+  background-color: #4a4a4a;
+}
+[data-theme="card_white"] .dialog {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="card_black"] .dialog {
+  border-color: #6f6f6f;
+  background-color: #4a4a4a;
+}
+[data-theme="underground_orange"] .dialog {
+  border-color: #600000;
+  background-color: #530000;
+}
+[data-theme="shachiku"] .dialog {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="shachiku2"] .dialog {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="shachiku3"] .dialog {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="shachiku4"] .dialog {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+.dialog[data-open="false"] {
+  display: none;
+}
+
+.buttonList {
+  display: flex;
+  line-height: 0;
+  list-style-type: none;
+}
+.buttonItem {
+  position: relative;
+  cursor: pointer;
+}
+.buttonItem.textButtonItem {
+  padding: 6px 12px;
+  text-align: center;
+}
+.buttonItem .buttonImage {
+  margin: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+[data-button-size="xsmall"] .buttonItem .buttonImage {
+  font-size: 14px;
+  width: 16px;
+  height: 16px;
+}
+[data-circle-icon="true"][data-button-size="xsmall"] #profileOwnImage .buttonImage {
+  border-radius: 8px;
+}
+[data-button-size="small"] .buttonItem .buttonImage {
+  font-size: 18px;
+  width: 20px;
+  height: 20px;
+}
+[data-circle-icon="true"][data-button-size="small"] #profileOwnImage .buttonImage {
+  border-radius: 10px;
+}
+[data-button-size="medium"] .buttonItem .buttonImage {
+  font-size: 22px;
+  width: 24px;
+  height: 24px;
+}
+[data-circle-icon="true"][data-button-size="medium"] #profileOwnImage .buttonImage {
+  border-radius: 12px;
+}
+[data-button-size="large"] .buttonItem .buttonImage {
+  font-size: 26px;
+  width: 28px;
+  height: 28px;
+}
+[data-circle-icon="true"][data-button-size="large"] #profileOwnImage .buttonImage {
+  border-radius: 14px;
+}
+.buttonList.smallButtonList .buttonImage {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+.buttonItem div.badge {
+  min-width: 15px;
+  height: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  background-color: red;
+  border: 2px solid white;
+  border-radius: 15px;
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+[data-unread-notif="true"] .buttonItem div.badge {
+  visibility: visible;
+}
+[data-theme="default"] .buttonItem:hover, [data-theme="default"] .buttonItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="default2"] .buttonItem:hover, [data-theme="default2"] .buttonItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="balloon_white"] .buttonItem:hover, [data-theme="balloon_white"] .buttonItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="classic_black"] .buttonItem:hover, [data-theme="classic_black"] .buttonItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="classic_black2"] .buttonItem:hover, [data-theme="classic_black2"] .buttonItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="balloon_black"] .buttonItem:hover, [data-theme="balloon_black"] .buttonItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="card_white"] .buttonItem:hover, [data-theme="card_white"] .buttonItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="card_black"] .buttonItem:hover, [data-theme="card_black"] .buttonItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="underground_orange"] .buttonItem:hover, [data-theme="underground_orange"] .buttonItem:focus {
+  color: #f2caca;
+  background-color: #860000;
+}
+[data-theme="shachiku"] .buttonItem:hover, [data-theme="shachiku"] .buttonItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku2"] .buttonItem:hover, [data-theme="shachiku2"] .buttonItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku3"] .buttonItem:hover, [data-theme="shachiku3"] .buttonItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku4"] .buttonItem:hover, [data-theme="shachiku4"] .buttonItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-animation="true"] .buttonItem:hover, [data-animation="true"] .buttonItem:focus {
+  transition: color, background-color 0.2s ease 0s;
+}
+.buttonItem[data-disabled="true"], .buttonItem[data-disabled="true"]:hover, .buttonItem[data-disabled="true"]:focus {
+  opacity: 0.5;
+  cursor: default;
+  background-color: transparent;
+}
+[data-theme="default"] .buttonItem[data-disabled="true"], [data-theme="default"] .buttonItem[data-disabled="true"]:hover, [data-theme="default"] .buttonItem[data-disabled="true"]:focus {
+  color: #101010;
+}
+[data-theme="default2"] .buttonItem[data-disabled="true"], [data-theme="default2"] .buttonItem[data-disabled="true"]:hover, [data-theme="default2"] .buttonItem[data-disabled="true"]:focus {
+  color: #101010;
+}
+[data-theme="balloon_white"] .buttonItem[data-disabled="true"], [data-theme="balloon_white"] .buttonItem[data-disabled="true"]:hover, [data-theme="balloon_white"] .buttonItem[data-disabled="true"]:focus {
+  color: #101010;
+}
+[data-theme="classic_black"] .buttonItem[data-disabled="true"], [data-theme="classic_black"] .buttonItem[data-disabled="true"]:hover, [data-theme="classic_black"] .buttonItem[data-disabled="true"]:focus {
+  color: #efefef;
+}
+[data-theme="classic_black2"] .buttonItem[data-disabled="true"], [data-theme="classic_black2"] .buttonItem[data-disabled="true"]:hover, [data-theme="classic_black2"] .buttonItem[data-disabled="true"]:focus {
+  color: #efefef;
+}
+[data-theme="balloon_black"] .buttonItem[data-disabled="true"], [data-theme="balloon_black"] .buttonItem[data-disabled="true"]:hover, [data-theme="balloon_black"] .buttonItem[data-disabled="true"]:focus {
+  color: #efefef;
+}
+[data-theme="card_white"] .buttonItem[data-disabled="true"], [data-theme="card_white"] .buttonItem[data-disabled="true"]:hover, [data-theme="card_white"] .buttonItem[data-disabled="true"]:focus {
+  color: #101010;
+}
+[data-theme="card_black"] .buttonItem[data-disabled="true"], [data-theme="card_black"] .buttonItem[data-disabled="true"]:hover, [data-theme="card_black"] .buttonItem[data-disabled="true"]:focus {
+  color: #efefef;
+}
+[data-theme="underground_orange"] .buttonItem[data-disabled="true"], [data-theme="underground_orange"] .buttonItem[data-disabled="true"]:hover, [data-theme="underground_orange"] .buttonItem[data-disabled="true"]:focus {
+  color: #c03030;
+}
+[data-theme="shachiku"] .buttonItem[data-disabled="true"], [data-theme="shachiku"] .buttonItem[data-disabled="true"]:hover, [data-theme="shachiku"] .buttonItem[data-disabled="true"]:focus {
+  color: #101010;
+}
+[data-theme="shachiku2"] .buttonItem[data-disabled="true"], [data-theme="shachiku2"] .buttonItem[data-disabled="true"]:hover, [data-theme="shachiku2"] .buttonItem[data-disabled="true"]:focus {
+  color: #101010;
+}
+[data-theme="shachiku3"] .buttonItem[data-disabled="true"], [data-theme="shachiku3"] .buttonItem[data-disabled="true"]:hover, [data-theme="shachiku3"] .buttonItem[data-disabled="true"]:focus {
+  color: #101010;
+}
+[data-theme="shachiku4"] .buttonItem[data-disabled="true"], [data-theme="shachiku4"] .buttonItem[data-disabled="true"]:hover, [data-theme="shachiku4"] .buttonItem[data-disabled="true"]:focus {
+  color: #101010;
+}
+
+.menuList {
+  width: 100%;
+  list-style-type: none;
+  overflow-y: auto;
+}
+.menuItem {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.menuItem::after {
+  content: attr(data-label);
+}
+.menuItem .menuImage {
+  margin: 4px;
+}
+[data-button-size="xsmall"] .menuItem .menuImage {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+[data-circle-icon="true"][data-button-size="xsmall"] .menuProfileItem .menuImage {
+  border-radius: 8px;
+}
+[data-button-size="small"] .menuItem .menuImage {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+[data-circle-icon="true"][data-button-size="small"] .menuProfileItem .menuImage {
+  border-radius: 10px;
+}
+[data-button-size="medium"] .menuItem .menuImage {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+[data-circle-icon="true"][data-button-size="medium"] .menuProfileItem .menuImage {
+  border-radius: 12px;
+}
+[data-button-size="large"] .menuItem .menuImage {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+[data-circle-icon="true"][data-button-size="large"] .menuProfileItem .menuImage {
+  border-radius: 14px;
+}
+[data-theme="default"] .menuItem:hover, [data-theme="default"] .menuItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="default2"] .menuItem:hover, [data-theme="default2"] .menuItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="balloon_white"] .menuItem:hover, [data-theme="balloon_white"] .menuItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="classic_black"] .menuItem:hover, [data-theme="classic_black"] .menuItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="classic_black2"] .menuItem:hover, [data-theme="classic_black2"] .menuItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="balloon_black"] .menuItem:hover, [data-theme="balloon_black"] .menuItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="card_white"] .menuItem:hover, [data-theme="card_white"] .menuItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="card_black"] .menuItem:hover, [data-theme="card_black"] .menuItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="underground_orange"] .menuItem:hover, [data-theme="underground_orange"] .menuItem:focus {
+  color: #f2caca;
+  background-color: #860000;
+}
+[data-theme="shachiku"] .menuItem:hover, [data-theme="shachiku"] .menuItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku2"] .menuItem:hover, [data-theme="shachiku2"] .menuItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku3"] .menuItem:hover, [data-theme="shachiku3"] .menuItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku4"] .menuItem:hover, [data-theme="shachiku4"] .menuItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+/******
+  個別
+ ******/
+#newTweetSubContainer1 {
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+}
+#tinyUrlEnabled {
+  width: 50px;
+  height: 20px;
+  margin-right: 2px;
+  background-image: url("../../images/shortenurl_disabled.svg");
+  background-repeat: no-repeat;
+  background-size: 50px 20px;
+}
+#tinyUrlEnabled[data-enabled="true"] {
+  background-image: url("../../images/shortenurl_enabled.svg");
+}
+#imageEnabled {
+  width: 50px;
+  height: 20px;
+  margin-right: 2px;
+  background-image: url("../../images/image_disabled.svg");
+  background-repeat: no-repeat;
+  background-size: 50px 20px;
+}
+#imageEnabled[data-enabled="true"] {
+  background-image: url("../..//images/image_enabled.svg");
+}
+
+#replyUsersSelection::before {
+  content: attr(data-label);
+}
+#replyUsersSelection:empty {
+  display: none;
+}
+#replyUsersSelection > .replyUser {
+  margin: 2px;
+  padding: 0 8px;
+  display: inline-block;
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+}
+[data-theme="default"] #replyUsersSelection > .replyUser {
+  border-color: #bfbfbf;
+  background-color: #bfbfbf;
+}
+[data-theme="default2"] #replyUsersSelection > .replyUser {
+  border-color: #bfbfbf;
+  background-color: #bfbfbf;
+}
+[data-theme="balloon_white"] #replyUsersSelection > .replyUser {
+  border-color: #bfbfbf;
+  background-color: #bfbfbf;
+}
+[data-theme="classic_black"] #replyUsersSelection > .replyUser {
+  border-color: #6f6f6f;
+  background-color: #6f6f6f;
+}
+[data-theme="classic_black2"] #replyUsersSelection > .replyUser {
+  border-color: #6f6f6f;
+  background-color: #6f6f6f;
+}
+[data-theme="balloon_black"] #replyUsersSelection > .replyUser {
+  border-color: #6f6f6f;
+  background-color: #6f6f6f;
+}
+[data-theme="card_white"] #replyUsersSelection > .replyUser {
+  border-color: #bfbfbf;
+  background-color: #bfbfbf;
+}
+[data-theme="card_black"] #replyUsersSelection > .replyUser {
+  border-color: #6f6f6f;
+  background-color: #6f6f6f;
+}
+[data-theme="underground_orange"] #replyUsersSelection > .replyUser {
+  border-color: #600000;
+  background-color: #600000;
+}
+[data-theme="shachiku"] #replyUsersSelection > .replyUser {
+  border-color: #bfbfbf;
+  background-color: #bfbfbf;
+}
+[data-theme="shachiku2"] #replyUsersSelection > .replyUser {
+  border-color: #bfbfbf;
+  background-color: #bfbfbf;
+}
+[data-theme="shachiku3"] #replyUsersSelection > .replyUser {
+  border-color: #bfbfbf;
+  background-color: #bfbfbf;
+}
+[data-theme="shachiku4"] #replyUsersSelection > .replyUser {
+  border-color: #bfbfbf;
+  background-color: #bfbfbf;
+}
+[data-theme="default"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #666666;
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="default2"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #666666;
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="balloon_white"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #666666;
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="classic_black"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #fcfcfc;
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="classic_black2"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #fcfcfc;
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="balloon_black"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #fcfcfc;
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="card_white"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #666666;
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="card_black"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #fcfcfc;
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="underground_orange"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #860000;
+  background-color: #860000;
+  color: #f2caca;
+}
+[data-theme="shachiku"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #666666;
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="shachiku2"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #666666;
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="shachiku3"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #666666;
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="shachiku4"] #replyUsersSelection > .replyUser:nth-of-type(1) {
+  border-color: #666666;
+  background-color: #666666;
+  color: gainsboro;
+}
+#replyUsersSelection > .replyUser:nth-of-type(n+2) {
+  cursor: pointer;
+}
+#replyUsersSelection > .replyUser[data-reply="false"] {
+  background-color: transparent;
+}
+
+#newTweetSubContainer2 {
+  margin-top: 2px;
+  position: relative;
+}
+#newTweet {
+  width: calc( 100% - 10px );
+  padding: 4px;
+  resize: none;
+}
+#newTweetCount {
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  pointer-events: none;
+}
+#newTweetCount[data-labelcolor="countOk"] {
+  color: lime;
+}
+#newTweetCount[data-labelcolor="countWarn"] {
+  color: orange;
+}
+#newTweetCount[data-labelcolor="countNg"] {
+  color: red;
+}
+
+#suggestContainer {
+  width: calc( 100% - 2px );
+  height: initial;
+  box-sizing: content-box;
+  display: block;
+}
+[data-theme="default"] #suggestContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="default2"] #suggestContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="balloon_white"] #suggestContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="classic_black"] #suggestContainer {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="classic_black2"] #suggestContainer {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="balloon_black"] #suggestContainer {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="card_white"] #suggestContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="card_black"] #suggestContainer {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="underground_orange"] #suggestContainer {
+  border: 1px solid #c60000;
+}
+[data-theme="shachiku"] #suggestContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="shachiku2"] #suggestContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="shachiku3"] #suggestContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="shachiku4"] #suggestContainer {
+  border: 1px solid #8c8c8c;
+}
+#suggestContainer > option {
+  height: 2em;
+  display: flex;
+  align-items: center;
+}
+[data-window-type="profile"] #suggestContainer, [data-window-type="search"] #suggestContainer {
+  z-index: 100;
+}
+
+#newTweetSubContainer3 {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+}
+#pictureThumbnails {
+  display: flex;
+}
+#pictureThumbnails > div {
+  width: 32px;
+  height: 32px;
+  margin: 2px;
+  background: center center / cover no-repeat;
+  cursor: pointer;
+}
+#pictureThumbnails > div:hover::after {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  content: '\f00d';
+  font-family: FontAwesome;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+}
+.select2-results {
+  color: #101010;
+}
+.tweetUserItemBox {
+  display: flex;
+  align-items: center;
+}
+.tweetUserItemImage {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+}
+[data-circle-icon="true"] .tweetUserItemImage {
+  border-radius: 10px;
+}
+
+#refTweetContainer {
+  margin-top: 4px;
+  display: none;
+  flex-direction: column;
+}
+[data-theme="default"] #refTweetContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="default2"] #refTweetContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="balloon_white"] #refTweetContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="classic_black"] #refTweetContainer {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="classic_black2"] #refTweetContainer {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="balloon_black"] #refTweetContainer {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="card_white"] #refTweetContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="card_black"] #refTweetContainer {
+  border: 1px solid #a2a2a2;
+}
+[data-theme="underground_orange"] #refTweetContainer {
+  border: 1px solid #c60000;
+}
+[data-theme="shachiku"] #refTweetContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="shachiku2"] #refTweetContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="shachiku3"] #refTweetContainer {
+  border: 1px solid #8c8c8c;
+}
+[data-theme="shachiku4"] #refTweetContainer {
+  border: 1px solid #8c8c8c;
+}
+#refTweetContainer > .refTweetTitle {
+  height: 20px;
+  margin: 2px;
+  position: absolute;
+  line-height: 20px;
+  display: none;
+}
+[data-theme="default"] #refTweetContainer > .refTweetTitle {
+  color: gainsboro;
+}
+[data-theme="default2"] #refTweetContainer > .refTweetTitle {
+  color: gainsboro;
+}
+[data-theme="balloon_white"] #refTweetContainer > .refTweetTitle {
+  color: gainsboro;
+}
+[data-theme="classic_black"] #refTweetContainer > .refTweetTitle {
+  color: #565656;
+}
+[data-theme="classic_black2"] #refTweetContainer > .refTweetTitle {
+  color: #565656;
+}
+[data-theme="balloon_black"] #refTweetContainer > .refTweetTitle {
+  color: #565656;
+}
+[data-theme="card_white"] #refTweetContainer > .refTweetTitle {
+  color: gainsboro;
+}
+[data-theme="card_black"] #refTweetContainer > .refTweetTitle {
+  color: #565656;
+}
+[data-theme="underground_orange"] #refTweetContainer > .refTweetTitle {
+  color: #f2caca;
+}
+[data-theme="shachiku"] #refTweetContainer > .refTweetTitle {
+  color: gainsboro;
+}
+[data-theme="shachiku2"] #refTweetContainer > .refTweetTitle {
+  color: gainsboro;
+}
+[data-theme="shachiku3"] #refTweetContainer > .refTweetTitle {
+  color: gainsboro;
+}
+[data-theme="shachiku4"] #refTweetContainer > .refTweetTitle {
+  color: gainsboro;
+}
+#refTweetContainer > .buttonList {
+  justify-content: flex-end;
+}
+[data-theme="default"] #refTweetContainer > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="default2"] #refTweetContainer > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="balloon_white"] #refTweetContainer > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="classic_black"] #refTweetContainer > .buttonList {
+  background-color: #a2a2a2;
+}
+[data-theme="classic_black2"] #refTweetContainer > .buttonList {
+  background-color: #a2a2a2;
+}
+[data-theme="balloon_black"] #refTweetContainer > .buttonList {
+  background-color: #a2a2a2;
+}
+[data-theme="card_white"] #refTweetContainer > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="card_black"] #refTweetContainer > .buttonList {
+  background-color: #a2a2a2;
+}
+[data-theme="underground_orange"] #refTweetContainer > .buttonList {
+  background-color: #c60000;
+}
+[data-theme="shachiku"] #refTweetContainer > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="shachiku2"] #refTweetContainer > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="shachiku3"] #refTweetContainer > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="shachiku4"] #refTweetContainer > .buttonList {
+  background-color: #8c8c8c;
+}
+#refTweetContainer[data-type="reply"], #refTweetContainer[data-type="replyall"] {
+  display: flex;
+}
+#refTweetContainer[data-type="reply"] .refTweetTitle.replyTitle, #refTweetContainer[data-type="replyall"] .refTweetTitle.replyTitle {
+  display: initial;
+}
+#refTweetContainer[data-type="inline"] {
+  display: flex;
+}
+#refTweetContainer[data-type="inline"] .refTweetTitle.inlineTitle {
+  display: initial;
+}
+#refTweetContainer > .refTweetBox {
+  border-width: 0 2px 2px;
+}
+[data-theme="default"] #refTweetContainer > .refTweetBox {
+  border: solid #8c8c8c;
+}
+[data-theme="default2"] #refTweetContainer > .refTweetBox {
+  border: solid #8c8c8c;
+}
+[data-theme="balloon_white"] #refTweetContainer > .refTweetBox {
+  border: solid #8c8c8c;
+}
+[data-theme="classic_black"] #refTweetContainer > .refTweetBox {
+  border: solid #a2a2a2;
+}
+[data-theme="classic_black2"] #refTweetContainer > .refTweetBox {
+  border: solid #a2a2a2;
+}
+[data-theme="balloon_black"] #refTweetContainer > .refTweetBox {
+  border: solid #a2a2a2;
+}
+[data-theme="card_white"] #refTweetContainer > .refTweetBox {
+  border: solid #8c8c8c;
+}
+[data-theme="card_black"] #refTweetContainer > .refTweetBox {
+  border: solid #a2a2a2;
+}
+[data-theme="underground_orange"] #refTweetContainer > .refTweetBox {
+  border: solid #c60000;
+}
+[data-theme="shachiku"] #refTweetContainer > .refTweetBox {
+  border: solid #8c8c8c;
+}
+[data-theme="shachiku2"] #refTweetContainer > .refTweetBox {
+  border: solid #8c8c8c;
+}
+[data-theme="shachiku3"] #refTweetContainer > .refTweetBox {
+  border: solid #8c8c8c;
+}
+[data-theme="shachiku4"] #refTweetContainer > .refTweetBox {
+  border: solid #8c8c8c;
+}
+
+#notifItemList {
+  overflow-y: auto;
+}
+
+.notifMenuList {
+  width: 100%;
+  list-style-type: none;
+}
+.notifItem {
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.notifItem > .notifContent,
+.notifItem > .notifUrl,
+.notifItem > .notifTime {
+  padding-left: 4px;
+}
+[data-theme="default"] .notifItem > .notifContent, [data-theme="default"]
+.notifItem > .notifUrl, [data-theme="default"]
+.notifItem > .notifTime {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="default2"] .notifItem > .notifContent, [data-theme="default2"]
+.notifItem > .notifUrl, [data-theme="default2"]
+.notifItem > .notifTime {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="balloon_white"] .notifItem > .notifContent, [data-theme="balloon_white"]
+.notifItem > .notifUrl, [data-theme="balloon_white"]
+.notifItem > .notifTime {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="classic_black"] .notifItem > .notifContent, [data-theme="classic_black"]
+.notifItem > .notifUrl, [data-theme="classic_black"]
+.notifItem > .notifTime {
+  border-left: 2px solid #a2a2a2;
+}
+[data-theme="classic_black2"] .notifItem > .notifContent, [data-theme="classic_black2"]
+.notifItem > .notifUrl, [data-theme="classic_black2"]
+.notifItem > .notifTime {
+  border-left: 2px solid #a2a2a2;
+}
+[data-theme="balloon_black"] .notifItem > .notifContent, [data-theme="balloon_black"]
+.notifItem > .notifUrl, [data-theme="balloon_black"]
+.notifItem > .notifTime {
+  border-left: 2px solid #a2a2a2;
+}
+[data-theme="card_white"] .notifItem > .notifContent, [data-theme="card_white"]
+.notifItem > .notifUrl, [data-theme="card_white"]
+.notifItem > .notifTime {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="card_black"] .notifItem > .notifContent, [data-theme="card_black"]
+.notifItem > .notifUrl, [data-theme="card_black"]
+.notifItem > .notifTime {
+  border-left: 2px solid #a2a2a2;
+}
+[data-theme="underground_orange"] .notifItem > .notifContent, [data-theme="underground_orange"]
+.notifItem > .notifUrl, [data-theme="underground_orange"]
+.notifItem > .notifTime {
+  border-left: 2px solid #c60000;
+}
+[data-theme="shachiku"] .notifItem > .notifContent, [data-theme="shachiku"]
+.notifItem > .notifUrl, [data-theme="shachiku"]
+.notifItem > .notifTime {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="shachiku2"] .notifItem > .notifContent, [data-theme="shachiku2"]
+.notifItem > .notifUrl, [data-theme="shachiku2"]
+.notifItem > .notifTime {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="shachiku3"] .notifItem > .notifContent, [data-theme="shachiku3"]
+.notifItem > .notifUrl, [data-theme="shachiku3"]
+.notifItem > .notifTime {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="shachiku4"] .notifItem > .notifContent, [data-theme="shachiku4"]
+.notifItem > .notifUrl, [data-theme="shachiku4"]
+.notifItem > .notifTime {
+  border-left: 2px solid #8c8c8c;
+}
+#clearNotif,
+#clearNotifNext {
+  font-weight: bold;
+}
+.notifItem .notifUser {
+  display: flex;
+  align-items: center;
+}
+.notifItem .notifUser img.notifUserImage {
+  width: 24px;
+  height: 24px;
+  margin-right: 2px;
+}
+[data-circle-icon="true"] .notifItem .notifUser img.notifUserImage {
+  border-radius: 12px;
+}
+.notifItem .notifTitle {
+  font-weight: bold;
+}
+.notifItem .notifContent {
+  font-size: 80%;
+  white-space: pre-wrap;
+}
+.notifItem .notifUrl {
+  font-size: 80%;
+}
+.notifItem .notifUrl:empty {
+  display: none;
+}
+.notifItem .notifTime {
+  font-size: 80%;
+}
+[data-theme="default"] .notifItem .notifTime {
+  color: #767676;
+}
+[data-theme="default2"] .notifItem .notifTime {
+  color: #767676;
+}
+[data-theme="balloon_white"] .notifItem .notifTime {
+  color: #767676;
+}
+[data-theme="classic_black"] .notifItem .notifTime {
+  color: #a3a3a3;
+}
+[data-theme="classic_black2"] .notifItem .notifTime {
+  color: #a3a3a3;
+}
+[data-theme="balloon_black"] .notifItem .notifTime {
+  color: #a3a3a3;
+}
+[data-theme="card_white"] .notifItem .notifTime {
+  color: #767676;
+}
+[data-theme="card_black"] .notifItem .notifTime {
+  color: #a3a3a3;
+}
+[data-theme="underground_orange"] .notifItem .notifTime {
+  color: #d35050;
+}
+[data-theme="shachiku"] .notifItem .notifTime {
+  color: #767676;
+}
+[data-theme="shachiku2"] .notifItem .notifTime {
+  color: #767676;
+}
+[data-theme="shachiku3"] .notifItem .notifTime {
+  color: #767676;
+}
+[data-theme="shachiku4"] .notifItem .notifTime {
+  color: #767676;
+}
+.notifItem .neverNotifyButton {
+  display: none;
+  margin-top: 2px;
+  padding: 2px;
+  font-size: 80%;
+  text-align: center;
+  border-width: 2px;
+  border-style: solid;
+}
+[data-theme="default"] .notifItem .neverNotifyButton {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+[data-theme="default2"] .notifItem .neverNotifyButton {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+[data-theme="balloon_white"] .notifItem .neverNotifyButton {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+[data-theme="classic_black"] .notifItem .neverNotifyButton {
+  color: #efefef;
+  background-color: #4a4a4a;
+  border-color: #a2a2a2;
+}
+[data-theme="classic_black2"] .notifItem .neverNotifyButton {
+  color: #efefef;
+  background-color: #4a4a4a;
+  border-color: #a2a2a2;
+}
+[data-theme="balloon_black"] .notifItem .neverNotifyButton {
+  color: #efefef;
+  background-color: #4a4a4a;
+  border-color: #a2a2a2;
+}
+[data-theme="card_white"] .notifItem .neverNotifyButton {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+[data-theme="card_black"] .notifItem .neverNotifyButton {
+  color: #efefef;
+  background-color: #4a4a4a;
+  border-color: #a2a2a2;
+}
+[data-theme="underground_orange"] .notifItem .neverNotifyButton {
+  color: #c03030;
+  background-color: #530000;
+  border-color: #c60000;
+}
+[data-theme="shachiku"] .notifItem .neverNotifyButton {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+[data-theme="shachiku2"] .notifItem .neverNotifyButton {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+[data-theme="shachiku3"] .notifItem .neverNotifyButton {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+[data-theme="shachiku4"] .notifItem .neverNotifyButton {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+[data-theme="default"] .notifItem .neverNotifyButton:hover, [data-theme="default"] .notifItem .neverNotifyButton:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="default2"] .notifItem .neverNotifyButton:hover, [data-theme="default2"] .notifItem .neverNotifyButton:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="balloon_white"] .notifItem .neverNotifyButton:hover, [data-theme="balloon_white"] .notifItem .neverNotifyButton:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="classic_black"] .notifItem .neverNotifyButton:hover, [data-theme="classic_black"] .notifItem .neverNotifyButton:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="classic_black2"] .notifItem .neverNotifyButton:hover, [data-theme="classic_black2"] .notifItem .neverNotifyButton:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="balloon_black"] .notifItem .neverNotifyButton:hover, [data-theme="balloon_black"] .notifItem .neverNotifyButton:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="card_white"] .notifItem .neverNotifyButton:hover, [data-theme="card_white"] .notifItem .neverNotifyButton:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="card_black"] .notifItem .neverNotifyButton:hover, [data-theme="card_black"] .notifItem .neverNotifyButton:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="underground_orange"] .notifItem .neverNotifyButton:hover, [data-theme="underground_orange"] .notifItem .neverNotifyButton:focus {
+  color: #f2caca;
+  background-color: #860000;
+}
+[data-theme="shachiku"] .notifItem .neverNotifyButton:hover, [data-theme="shachiku"] .notifItem .neverNotifyButton:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku2"] .notifItem .neverNotifyButton:hover, [data-theme="shachiku2"] .notifItem .neverNotifyButton:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku3"] .notifItem .neverNotifyButton:hover, [data-theme="shachiku3"] .notifItem .neverNotifyButton:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku4"] .notifItem .neverNotifyButton:hover, [data-theme="shachiku4"] .notifItem .neverNotifyButton:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+.notifItem .neverNotifyButton[data-notifid] {
+  display: initial;
+}
+[data-theme="default"] .notifItem:hover, [data-theme="default"] .notifItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="default2"] .notifItem:hover, [data-theme="default2"] .notifItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="balloon_white"] .notifItem:hover, [data-theme="balloon_white"] .notifItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="classic_black"] .notifItem:hover, [data-theme="classic_black"] .notifItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="classic_black2"] .notifItem:hover, [data-theme="classic_black2"] .notifItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="balloon_black"] .notifItem:hover, [data-theme="balloon_black"] .notifItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="card_white"] .notifItem:hover, [data-theme="card_white"] .notifItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="card_black"] .notifItem:hover, [data-theme="card_black"] .notifItem:focus {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="underground_orange"] .notifItem:hover, [data-theme="underground_orange"] .notifItem:focus {
+  color: #f2caca;
+  background-color: #860000;
+}
+[data-theme="shachiku"] .notifItem:hover, [data-theme="shachiku"] .notifItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku2"] .notifItem:hover, [data-theme="shachiku2"] .notifItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku3"] .notifItem:hover, [data-theme="shachiku3"] .notifItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku4"] .notifItem:hover, [data-theme="shachiku4"] .notifItem:focus {
+  color: gainsboro;
+  background-color: #666666;
+}
+
+.columnTab {
+  box-sizing: border-box;
+  margin: 0 1px;
+  padding: 4px;
+  flex-shrink: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  cursor: pointer;
+  transition: width 0.4s ease 0s;
+}
+[data-theme="default"] .columnTab {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="default2"] .columnTab {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="balloon_white"] .columnTab {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="classic_black"] .columnTab {
+  color: #efefef;
+  background-color: #4a4a4a;
+  border-color: #6f6f6f;
+}
+[data-theme="classic_black2"] .columnTab {
+  color: #efefef;
+  background-color: #4a4a4a;
+  border-color: #6f6f6f;
+}
+[data-theme="balloon_black"] .columnTab {
+  color: #efefef;
+  background-color: #4a4a4a;
+  border-color: #6f6f6f;
+}
+[data-theme="card_white"] .columnTab {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="card_black"] .columnTab {
+  color: #efefef;
+  background-color: #4a4a4a;
+  border-color: #6f6f6f;
+}
+[data-theme="underground_orange"] .columnTab {
+  color: #c03030;
+  background-color: #530000;
+  border-color: #600000;
+}
+[data-theme="shachiku"] .columnTab {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="shachiku2"] .columnTab {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="shachiku3"] .columnTab {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+[data-theme="shachiku4"] .columnTab {
+  color: #101010;
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+.columnTab[data-column-type="timeline"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="connect"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="retweeted"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="usertimeline"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="favorite"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="search"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="directmessage"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="listtimeline"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="follow"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="follower"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="ownershiplists"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="subscriptionlists"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="membershiplists"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+.columnTab[data-column-type="tempsearch"]::before {
+  padding: 0 2px;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 130%;
+  display: inline-block;
+}
+[data-theme="default"] .columnTab.displayTab {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="default2"] .columnTab.displayTab {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="balloon_white"] .columnTab.displayTab {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="classic_black"] .columnTab.displayTab {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="classic_black2"] .columnTab.displayTab {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="balloon_black"] .columnTab.displayTab {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="card_white"] .columnTab.displayTab {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="card_black"] .columnTab.displayTab {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="underground_orange"] .columnTab.displayTab {
+  color: #f2caca;
+  background-color: #860000;
+}
+[data-theme="shachiku"] .columnTab.displayTab {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku2"] .columnTab.displayTab {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku3"] .columnTab.displayTab {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku4"] .columnTab.displayTab {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="default"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a6a6a6;
+}
+[data-theme="default2"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a6a6a6;
+}
+[data-theme="balloon_white"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a6a6a6;
+}
+[data-theme="classic_black"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a3a3a3;
+}
+[data-theme="classic_black2"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a3a3a3;
+}
+[data-theme="balloon_black"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a3a3a3;
+}
+[data-theme="card_white"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a6a6a6;
+}
+[data-theme="card_black"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a3a3a3;
+}
+[data-theme="underground_orange"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #6d0000;
+}
+[data-theme="shachiku"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a6a6a6;
+}
+[data-theme="shachiku2"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a6a6a6;
+}
+[data-theme="shachiku3"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a6a6a6;
+}
+[data-theme="shachiku4"] .columnTab.hoverTab {
+  box-shadow: inset 0 10px 10px #a6a6a6;
+}
+
+.column {
+  flex-shrink: 0;
+  position: relative;
+  transition: width 0.4s ease 0s;
+}
+.column[data-veil="true"] .tweetBox {
+  opacity: 0 !important;
+}
+.column[data-veil="true"]:hover .tweetBox {
+  opacity: 1 !important;
+}
+.column[data-column-type="follow"] .tweetBox, .column[data-column-type="follower"] .tweetBox {
+  cursor: pointer;
+}
+.column[data-stream-waiting="true"] .columnMenuBox .stopStreamButton .streamStop {
+  display: none;
+}
+.column[data-stream-waiting="true"] .columnMenuBox .stopStreamButton .streamWait {
+  display: initial;
+  animation: spin 1s linear infinite;
+}
+
+.timelineBox {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.columnShadowBox,
+.progressBarColumn,
+.clearRepliesBox,
+.columnMenuMarker,
+.columnMenuBox {
+  z-index: 5;
+  position: absolute;
+}
+
+.columnShadowBox {
+  width: 100%;
+  top: 0;
+  transition: height 0.4s;
+}
+[data-theme="default"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, #8c8c8c, transparent);
+}
+[data-theme="default2"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, #8c8c8c, transparent);
+}
+[data-theme="balloon_white"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, #8c8c8c, transparent);
+}
+[data-theme="classic_black"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, white, transparent);
+}
+[data-theme="classic_black2"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, white, transparent);
+}
+[data-theme="balloon_black"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, white, transparent);
+}
+[data-theme="card_white"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, #8c8c8c, transparent);
+}
+[data-theme="card_black"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, white, transparent);
+}
+[data-theme="underground_orange"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, #ff9393, transparent);
+}
+[data-theme="shachiku"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, #8c8c8c, transparent);
+}
+[data-theme="shachiku2"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, #8c8c8c, transparent);
+}
+[data-theme="shachiku3"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, #8c8c8c, transparent);
+}
+[data-theme="shachiku4"] .columnShadowBox {
+  background-image: radial-gradient(farthest-side at 50% 0, #8c8c8c, transparent);
+}
+
+.progressBarColumn {
+  background-size: 100px 100px;
+  background-position: 0px;
+  background-image: linear-gradient(45deg, blue 25%, cyan 50%, blue 75%, cyan);
+  width: 100%;
+  height: 2px;
+  top: 0;
+  visibility: hidden;
+}
+[data-theme="underground_orange"] .progressBarColumn {
+  background-image: linear-gradient(45deg, darkred 25%, lightsalmon 50%, darkred 75%, lightsalmon);
+}
+.progressBarColumn[data-loading="true"] {
+  background-position: 100px;
+  visibility: visible;
+  animation: progress  1s linear infinite;
+}
+
+.clearRepliesBox {
+  display: none;
+  width: calc( 100% - 10px );
+  margin: 5px 5px 0;
+  padding: 10px 0;
+  opacity: 0.4;
+  top: 0;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+[data-theme="default"] .clearRepliesBox {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="default2"] .clearRepliesBox {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="balloon_white"] .clearRepliesBox {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="classic_black"] .clearRepliesBox {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="classic_black2"] .clearRepliesBox {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="balloon_black"] .clearRepliesBox {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="card_white"] .clearRepliesBox {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="card_black"] .clearRepliesBox {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="underground_orange"] .clearRepliesBox {
+  border: 1px solid #600000;
+}
+[data-theme="shachiku"] .clearRepliesBox {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="shachiku2"] .clearRepliesBox {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="shachiku3"] .clearRepliesBox {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="shachiku4"] .clearRepliesBox {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="default"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="default2"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="balloon_white"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="classic_black"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #636363, #4a4a4a );
+}
+[data-theme="classic_black2"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #636363, #4a4a4a );
+}
+[data-theme="balloon_black"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #636363, #4a4a4a );
+}
+[data-theme="card_white"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="card_black"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #636363, #4a4a4a );
+}
+[data-theme="underground_orange"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #530000, #3a0000 );
+}
+[data-theme="shachiku"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="shachiku2"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="shachiku3"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="shachiku4"] .clearRepliesBox {
+  background-image: linear-gradient( to bottom, #d9d9d9, #b3b3b3 );
+}
+.clearRepliesBox:focus, .clearRepliesBox:hover {
+  opacity: 1;
+}
+[data-theme="default"] .clearRepliesBox:focus, [data-theme="default"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #b3b3b3, #8c8c8c );
+}
+[data-theme="default2"] .clearRepliesBox:focus, [data-theme="default2"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #b3b3b3, #8c8c8c );
+}
+[data-theme="balloon_white"] .clearRepliesBox:focus, [data-theme="balloon_white"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #b3b3b3, #8c8c8c );
+}
+[data-theme="classic_black"] .clearRepliesBox:focus, [data-theme="classic_black"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #7d7d7d, #636363 );
+}
+[data-theme="classic_black2"] .clearRepliesBox:focus, [data-theme="classic_black2"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #7d7d7d, #636363 );
+}
+[data-theme="balloon_black"] .clearRepliesBox:focus, [data-theme="balloon_black"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #7d7d7d, #636363 );
+}
+[data-theme="card_white"] .clearRepliesBox:focus, [data-theme="card_white"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #b3b3b3, #8c8c8c );
+}
+[data-theme="card_black"] .clearRepliesBox:focus, [data-theme="card_black"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #7d7d7d, #636363 );
+}
+[data-theme="underground_orange"] .clearRepliesBox:focus, [data-theme="underground_orange"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #6d0000, #530000 );
+}
+[data-theme="shachiku"] .clearRepliesBox:focus, [data-theme="shachiku"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #b3b3b3, #8c8c8c );
+}
+[data-theme="shachiku2"] .clearRepliesBox:focus, [data-theme="shachiku2"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #b3b3b3, #8c8c8c );
+}
+[data-theme="shachiku3"] .clearRepliesBox:focus, [data-theme="shachiku3"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #b3b3b3, #8c8c8c );
+}
+[data-theme="shachiku4"] .clearRepliesBox:focus, [data-theme="shachiku4"] .clearRepliesBox:hover {
+  background-image: linear-gradient( to bottom, #b3b3b3, #8c8c8c );
+}
+.clearRepliesBox[data-replies-open="true"] {
+  display: initial;
+}
+
+.columnMenuMarker {
+  bottom: 3px;
+  right: 20px;
+  opacity: 0.7;
+  line-height: 0;
+}
+[data-theme="default"] .columnMenuMarker {
+  background-color: #e6e6e6;
+}
+[data-theme="default2"] .columnMenuMarker {
+  background-color: #e6e6e6;
+}
+[data-theme="balloon_white"] .columnMenuMarker {
+  background-color: #e6e6e6;
+}
+[data-theme="classic_black"] .columnMenuMarker {
+  background-color: #4a4a4a;
+}
+[data-theme="classic_black2"] .columnMenuMarker {
+  background-color: #4a4a4a;
+}
+[data-theme="balloon_black"] .columnMenuMarker {
+  background-color: #4a4a4a;
+}
+[data-theme="card_white"] .columnMenuMarker {
+  background-color: #e6e6e6;
+}
+[data-theme="card_black"] .columnMenuMarker {
+  background-color: #4a4a4a;
+}
+[data-theme="underground_orange"] .columnMenuMarker {
+  background-color: #530000;
+}
+[data-theme="shachiku"] .columnMenuMarker {
+  background-color: #e6e6e6;
+}
+[data-theme="shachiku2"] .columnMenuMarker {
+  background-color: #e6e6e6;
+}
+[data-theme="shachiku3"] .columnMenuMarker {
+  background-color: #e6e6e6;
+}
+[data-theme="shachiku4"] .columnMenuMarker {
+  background-color: #e6e6e6;
+}
+.columnMenuMarker:focus, .columnMenuMarker:hover {
+  opacity: 1;
+}
+.columnMenuMarker:focus .columnMenuBox, .columnMenuMarker:hover .columnMenuBox {
+  opacity: 1;
+  pointer-events: initial;
+}
+[data-button-size="xsmall"] .columnMenuMarker {
+  border-radius: 28px;
+}
+[data-button-size="small"] .columnMenuMarker {
+  border-radius: 32px;
+}
+[data-button-size="medium"] .columnMenuMarker {
+  border-radius: 36px;
+}
+[data-button-size="large"] .columnMenuMarker {
+  border-radius: 40px;
+}
+[data-button-size="xsmall"] .columnMenuMarker > img, [data-button-size="xsmall"] .columnMenuMarker > i {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  margin: 6px;
+}
+[data-button-size="small"] .columnMenuMarker > img, [data-button-size="small"] .columnMenuMarker > i {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  margin: 6px;
+}
+[data-button-size="medium"] .columnMenuMarker > img, [data-button-size="medium"] .columnMenuMarker > i {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  margin: 6px;
+}
+[data-button-size="large"] .columnMenuMarker > img, [data-button-size="large"] .columnMenuMarker > i {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  margin: 6px;
+}
+
+.columnMenuBox {
+  padding: 4px;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  pointer-events: none;
+}
+[data-theme="default"] .columnMenuBox {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="default2"] .columnMenuBox {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="balloon_white"] .columnMenuBox {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="classic_black"] .columnMenuBox {
+  border-color: #6f6f6f;
+  background-color: #4a4a4a;
+}
+[data-theme="classic_black2"] .columnMenuBox {
+  border-color: #6f6f6f;
+  background-color: #4a4a4a;
+}
+[data-theme="balloon_black"] .columnMenuBox {
+  border-color: #6f6f6f;
+  background-color: #4a4a4a;
+}
+[data-theme="card_white"] .columnMenuBox {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="card_black"] .columnMenuBox {
+  border-color: #6f6f6f;
+  background-color: #4a4a4a;
+}
+[data-theme="underground_orange"] .columnMenuBox {
+  border-color: #600000;
+  background-color: #530000;
+}
+[data-theme="shachiku"] .columnMenuBox {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="shachiku2"] .columnMenuBox {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="shachiku3"] .columnMenuBox {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+[data-theme="shachiku4"] .columnMenuBox {
+  border-color: #bfbfbf;
+  background-color: #e6e6e6;
+}
+.columnMenuBox:focus, .columnMenuBox:hover {
+  opacity: 1;
+  pointer-events: initial;
+}
+.columnMenuBox .stopStreamButton {
+  position: relative;
+}
+.columnMenuBox .newListButton,
+.columnMenuBox .addColumnButton {
+  position: relative;
+}
+.columnMenuBox .newListButton .buttonImage,
+.columnMenuBox .addColumnButton .buttonImage {
+  justify-content: start;
+  align-items: start;
+}
+[data-button-size="xsmall"] .columnMenuBox .newListButton .buttonImage, [data-button-size="xsmall"]
+.columnMenuBox .addColumnButton .buttonImage {
+  font-size: 12px;
+}
+[data-button-size="small"] .columnMenuBox .newListButton .buttonImage, [data-button-size="small"]
+.columnMenuBox .addColumnButton .buttonImage {
+  font-size: 15px;
+}
+[data-button-size="medium"] .columnMenuBox .newListButton .buttonImage, [data-button-size="medium"]
+.columnMenuBox .addColumnButton .buttonImage {
+  font-size: 18px;
+}
+[data-button-size="large"] .columnMenuBox .newListButton .buttonImage, [data-button-size="large"]
+.columnMenuBox .addColumnButton .buttonImage {
+  font-size: 21px;
+}
+.columnMenuBox .streamStop,
+.columnMenuBox .streamWait {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+[data-button-size="xsmall"] .columnMenuBox .streamStop, [data-button-size="xsmall"]
+.columnMenuBox .streamWait {
+  font-size: 8px;
+}
+[data-button-size="small"] .columnMenuBox .streamStop, [data-button-size="small"]
+.columnMenuBox .streamWait {
+  font-size: 10px;
+}
+[data-button-size="medium"] .columnMenuBox .streamStop, [data-button-size="medium"]
+.columnMenuBox .streamWait {
+  font-size: 12px;
+}
+[data-button-size="large"] .columnMenuBox .streamStop, [data-button-size="large"]
+.columnMenuBox .streamWait {
+  font-size: 14px;
+}
+.columnMenuBox .streamWait {
+  display: none;
+}
+.columnMenuBox .plusImage {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+[data-button-size="xsmall"] .columnMenuBox .plusImage {
+  font-size: 8px;
+}
+[data-button-size="small"] .columnMenuBox .plusImage {
+  font-size: 10px;
+}
+[data-button-size="medium"] .columnMenuBox .plusImage {
+  font-size: 12px;
+}
+[data-button-size="large"] .columnMenuBox .plusImage {
+  font-size: 14px;
+}
+.stopStreamButton,
+.newListButton,
+.newDmButton,
+.addColumnButton {
+  display: none;
+}
+.column[data-column-type="timeline"] .stopStreamButton {
+  display: initial;
+}
+.column[data-column-type="directmessage"] .newDmButton {
+  display: initial;
+}
+.column[data-column-type="ownershiplists"] .newListButton {
+  display: initial;
+}
+[data-window-type="search"] .addColumnButton {
+  display: initial;
+}
+
+.tweetBox {
+  border-bottom-width: 1px;
+  border-style: solid;
+}
+[data-theme="default"] .tweetBox {
+  margin: 0px;
+}
+[data-theme="default2"] .tweetBox {
+  margin: 0px;
+}
+[data-theme="balloon_white"] .tweetBox {
+  margin: 8px;
+}
+[data-theme="classic_black"] .tweetBox {
+  margin: 0px;
+}
+[data-theme="classic_black2"] .tweetBox {
+  margin: 0px;
+}
+[data-theme="balloon_black"] .tweetBox {
+  margin: 8px;
+}
+[data-theme="card_white"] .tweetBox {
+  margin: 8px;
+}
+[data-theme="card_black"] .tweetBox {
+  margin: 8px;
+}
+[data-theme="underground_orange"] .tweetBox {
+  margin: 8px;
+}
+[data-theme="shachiku"] .tweetBox {
+  margin: 0px;
+}
+[data-theme="shachiku2"] .tweetBox {
+  margin: 0px;
+}
+[data-theme="shachiku3"] .tweetBox {
+  margin: 0px;
+}
+[data-theme="shachiku4"] .tweetBox {
+  margin: 0px;
+}
+[data-theme="default"] .tweetBox {
+  border-color: #bfbfbf;
+}
+[data-theme="default2"] .tweetBox {
+  border-color: #bfbfbf;
+}
+[data-theme="balloon_white"] .tweetBox {
+  border-color: #bfbfbf;
+}
+[data-theme="classic_black"] .tweetBox {
+  border-color: #6f6f6f;
+}
+[data-theme="classic_black2"] .tweetBox {
+  border-color: #6f6f6f;
+}
+[data-theme="balloon_black"] .tweetBox {
+  border-color: #6f6f6f;
+}
+[data-theme="card_white"] .tweetBox {
+  border-color: #bfbfbf;
+}
+[data-theme="card_black"] .tweetBox {
+  border-color: #6f6f6f;
+}
+[data-theme="underground_orange"] .tweetBox {
+  border-color: #600000;
+}
+[data-theme="shachiku"] .tweetBox {
+  border-color: #bfbfbf;
+}
+[data-theme="shachiku2"] .tweetBox {
+  border-color: #bfbfbf;
+}
+[data-theme="shachiku3"] .tweetBox {
+  border-color: #bfbfbf;
+}
+[data-theme="shachiku4"] .tweetBox {
+  border-color: #bfbfbf;
+}
+[data-theme="default"] .tweetBox {
+  background-image: linear-gradient( to bottom, #ffffff, #d9d9d9 );
+}
+[data-theme="default2"] .tweetBox {
+  background-image: linear-gradient( to bottom, #ffffff, #d9d9d9 );
+}
+[data-theme="balloon_white"] .tweetBox {
+  background-image: linear-gradient( to bottom, #ffffff, #d9d9d9 );
+}
+[data-theme="classic_black"] .tweetBox {
+  background-image: linear-gradient( to bottom, #4a4a4a, #303030 );
+}
+[data-theme="classic_black2"] .tweetBox {
+  background-image: linear-gradient( to bottom, #4a4a4a, #303030 );
+}
+[data-theme="balloon_black"] .tweetBox {
+  background-image: linear-gradient( to bottom, #4a4a4a, #303030 );
+}
+[data-theme="card_white"] .tweetBox {
+  background-image: linear-gradient( to bottom, #ffffff, #d9d9d9 );
+}
+[data-theme="card_black"] .tweetBox {
+  background-image: linear-gradient( to bottom, #4a4a4a, #303030 );
+}
+[data-theme="underground_orange"] .tweetBox {
+  background-image: linear-gradient( to bottom, #3a0000, #200000 );
+}
+[data-theme="shachiku"] .tweetBox {
+  background-image: linear-gradient( to bottom, #ffffff, #d9d9d9 );
+}
+[data-theme="shachiku2"] .tweetBox {
+  background-image: linear-gradient( to bottom, #ffffff, #d9d9d9 );
+}
+[data-theme="shachiku3"] .tweetBox {
+  background-image: linear-gradient( to bottom, #ffffff, #d9d9d9 );
+}
+[data-theme="shachiku4"] .tweetBox {
+  background-image: linear-gradient( to bottom, #ffffff, #d9d9d9 );
+}
+[data-theme="card_white"] .tweetBox {
+  box-shadow: 0 1px 4px rgba(140, 140, 140, 0.5);
+}
+[data-theme="card_black"] .tweetBox {
+  box-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
+}
+[data-theme="underground_orange"] .tweetBox {
+  box-shadow: 0 1px 4px rgba(255, 147, 147, 0.5);
+}
+[data-theme="card_white"] .tweetBox {
+  border-width: 1px;
+}
+[data-theme="card_black"] .tweetBox {
+  border-width: 1px;
+}
+[data-theme="underground_orange"] .tweetBox {
+  border-width: 1px;
+}
+[data-theme="balloon_white"] .tweetBox {
+  border-width: 1px;
+  border-radius: 30px 15px / 10px;
+}
+[data-theme="balloon_black"] .tweetBox {
+  border-width: 1px;
+  border-radius: 30px 15px / 10px;
+}
+[data-animation="true"] .tweetBox {
+  animation-duration: 0.4s;
+  animation-name: fade-in;
+}
+[data-theme="default"] .tweetBox:focus, [data-theme="default"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="default2"] .tweetBox:focus, [data-theme="default2"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="balloon_white"] .tweetBox:focus, [data-theme="balloon_white"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="classic_black"] .tweetBox:focus, [data-theme="classic_black"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #636363, #4a4a4a );
+}
+[data-theme="classic_black2"] .tweetBox:focus, [data-theme="classic_black2"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #636363, #4a4a4a );
+}
+[data-theme="balloon_black"] .tweetBox:focus, [data-theme="balloon_black"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #636363, #4a4a4a );
+}
+[data-theme="card_white"] .tweetBox:focus, [data-theme="card_white"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="card_black"] .tweetBox:focus, [data-theme="card_black"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #636363, #4a4a4a );
+}
+[data-theme="underground_orange"] .tweetBox:focus, [data-theme="underground_orange"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #530000, #3a0000 );
+}
+[data-theme="shachiku"] .tweetBox:focus, [data-theme="shachiku"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="shachiku2"] .tweetBox:focus, [data-theme="shachiku2"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="shachiku3"] .tweetBox:focus, [data-theme="shachiku3"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #d9d9d9, #b3b3b3 );
+}
+[data-theme="shachiku4"] .tweetBox:focus, [data-theme="shachiku4"] .tweetBox:hover {
+  background-image: linear-gradient(to bottom, #d9d9d9, #b3b3b3 );
+}
+
+.tweetContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+[data-theme="balloon_white"] .tweetContent {
+  border-radius: 30px 15px / 10px;
+}
+[data-theme="balloon_black"] .tweetContent {
+  border-radius: 30px 15px / 10px;
+}
+.tweetContent[data-forme="true"] {
+  background-size: 40px 40px;
+}
+[data-theme="default"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="default2"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="balloon_white"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="card_white"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="shachiku"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="shachiku2"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="shachiku3"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="shachiku4"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="classic_black"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="classic_black2"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="balloon_black"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="card_black"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.05) 75%, transparent 75%, transparent);
+}
+[data-theme="underground_orange"] .tweetContent[data-forme="true"] {
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+}
+[data-color-retweets="true"] .tweetContent[data-retweet="true"] {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+[data-theme="default"] .tweetContent > .replytoUserBox {
+  margin: 0px 0px 0px 0px;
+}
+[data-theme="default2"] .tweetContent > .replytoUserBox {
+  margin: 4px 4px 0px 4px;
+}
+[data-theme="balloon_white"] .tweetContent > .replytoUserBox {
+  margin: 5px 5px 0px 5px;
+}
+[data-theme="classic_black"] .tweetContent > .replytoUserBox {
+  margin: 0px 0px 0px 0px;
+}
+[data-theme="classic_black2"] .tweetContent > .replytoUserBox {
+  margin: 4px 4px 0px 4px;
+}
+[data-theme="balloon_black"] .tweetContent > .replytoUserBox {
+  margin: 5px 5px 0px 5px;
+}
+[data-theme="card_white"] .tweetContent > .replytoUserBox {
+  margin: 4px 4px 0px 4px;
+}
+[data-theme="card_black"] .tweetContent > .replytoUserBox {
+  margin: 4px 4px 0px 4px;
+}
+[data-theme="underground_orange"] .tweetContent > .replytoUserBox {
+  margin: 4px 4px 0px 4px;
+}
+[data-theme="shachiku"] .tweetContent > .replytoUserBox {
+  margin: 0px 0px 0px 0px;
+}
+[data-theme="shachiku2"] .tweetContent > .replytoUserBox {
+  margin: 0px 0px 0px 0px;
+}
+[data-theme="shachiku3"] .tweetContent > .replytoUserBox {
+  margin: 4px 4px 0px 4px;
+}
+[data-theme="shachiku4"] .tweetContent > .replytoUserBox {
+  margin: 4px 4px 0px 4px;
+}
+.tweetContent > .replytoUserBox > .replytoUser {
+  padding: 0 2px;
+  display: inline-block;
+}
+.tweetContent > .inlineTweetBox {
+  margin: 4px;
+  padding: 2px;
+}
+[data-theme="default"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #8c8c8c;
+}
+[data-theme="default2"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #8c8c8c;
+}
+[data-theme="balloon_white"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #8c8c8c;
+}
+[data-theme="classic_black"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #a2a2a2;
+}
+[data-theme="classic_black2"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #a2a2a2;
+}
+[data-theme="balloon_black"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #a2a2a2;
+}
+[data-theme="card_white"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #8c8c8c;
+}
+[data-theme="card_black"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #a2a2a2;
+}
+[data-theme="underground_orange"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #c60000;
+}
+[data-theme="shachiku"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #8c8c8c;
+}
+[data-theme="shachiku2"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #8c8c8c;
+}
+[data-theme="shachiku3"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #8c8c8c;
+}
+[data-theme="shachiku4"] .tweetContent > .inlineTweetBox {
+  border: 1px dashed #8c8c8c;
+}
+.tweetContent > .inlineTweetBox > .tweetBox {
+  margin: 0;
+  font-size: 90%;
+  border: none;
+}
+.tweetContent > .inlineTweetBox > .tweetBox > .inlineTweetBox {
+  display: none;
+}
+.tweetContent > .inlineTweetBox:empty {
+  display: none;
+}
+.tweetContent > .replyTweetBox {
+  margin: 4px;
+  padding: 0 4px 4px 2px;
+  display: none;
+}
+[data-theme="default"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="default2"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="balloon_white"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="classic_black"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #a2a2a2;
+}
+[data-theme="classic_black2"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #a2a2a2;
+}
+[data-theme="balloon_black"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #a2a2a2;
+}
+[data-theme="card_white"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="card_black"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #a2a2a2;
+}
+[data-theme="underground_orange"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #c60000;
+}
+[data-theme="shachiku"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="shachiku2"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="shachiku3"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #8c8c8c;
+}
+[data-theme="shachiku4"] .tweetContent > .replyTweetBox {
+  border-left: 2px solid #8c8c8c;
+}
+.tweetContent > .replyTweetBox > .replyTweetTitle {
+  height: 20px;
+  margin: 2px;
+  position: absolute;
+  line-height: 20px;
+}
+[data-theme="default"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: gainsboro;
+}
+[data-theme="default2"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: gainsboro;
+}
+[data-theme="balloon_white"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: gainsboro;
+}
+[data-theme="classic_black"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: #565656;
+}
+[data-theme="classic_black2"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: #565656;
+}
+[data-theme="balloon_black"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: #565656;
+}
+[data-theme="card_white"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: gainsboro;
+}
+[data-theme="card_black"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: #565656;
+}
+[data-theme="underground_orange"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: #f2caca;
+}
+[data-theme="shachiku"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: gainsboro;
+}
+[data-theme="shachiku2"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: gainsboro;
+}
+[data-theme="shachiku3"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: gainsboro;
+}
+[data-theme="shachiku4"] .tweetContent > .replyTweetBox > .replyTweetTitle {
+  color: gainsboro;
+}
+.tweetContent > .replyTweetBox > .buttonList {
+  margin-left: -2px;
+  justify-content: flex-end;
+}
+[data-theme="default"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="default2"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="balloon_white"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="classic_black"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #a2a2a2;
+}
+[data-theme="classic_black2"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #a2a2a2;
+}
+[data-theme="balloon_black"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #a2a2a2;
+}
+[data-theme="card_white"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="card_black"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #a2a2a2;
+}
+[data-theme="underground_orange"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #c60000;
+}
+[data-theme="shachiku"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="shachiku2"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="shachiku3"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #8c8c8c;
+}
+[data-theme="shachiku4"] .tweetContent > .replyTweetBox > .buttonList {
+  background-color: #8c8c8c;
+}
+.tweetContent > .replyTweetBox > .replies > .tweetBox {
+  margin: 0;
+  font-size: 90%;
+  border: none;
+}
+.tweetContent > .replyTweetBox[data-reply-open="true"] {
+  display: initial;
+}
+.tweetContent > .inlineTweetBox .tweetBox,
+.tweetContent > .inlineTweetBox .tweetContent,
+.tweetContent > .inlineTweetBox .tweetMenuButtonBox,
+.tweetContent > .inlineTweetBox .tweetMenuButton,
+.tweetContent > .replyTweetBox .tweetBox,
+.tweetContent > .replyTweetBox .tweetContent,
+.tweetContent > .replyTweetBox .tweetMenuButtonBox,
+.tweetContent > .replyTweetBox .tweetMenuButton {
+  border-radius: 0 !important;
+}
+.tweetContent > .tweetMenuMarker {
+  height: 16px;
+  position: relative;
+}
+.tweetContent > .tweetMenuMarker::before {
+  width: 100%;
+  position: absolute;
+  content: '\f141';
+  font-family: FontAwesome;
+  font-size: 16px;
+  text-align: center;
+}
+[data-column-type="follow"] .tweetContent > .tweetMenuMarker, [data-column-type="follower"] .tweetContent > .tweetMenuMarker, [data-column-type="ownershiplists"] .tweetContent > .tweetMenuMarker, [data-column-type="subscriptionlists"] .tweetContent > .tweetMenuMarker, [data-column-type="membershiplists"] .tweetContent > .tweetMenuMarker {
+  display: none;
+}
+.tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  width: 100%;
+  opacity: 0;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;
+}
+[data-theme="default"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="default2"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="balloon_white"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="classic_black"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="classic_black2"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="balloon_black"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="card_white"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="card_black"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="underground_orange"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #860000;
+  color: #f2caca;
+}
+[data-theme="shachiku"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="shachiku2"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="shachiku3"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="shachiku4"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="balloon_white"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  border-radius: 0 0 30px 15px / 0 0 10px 10px;
+}
+[data-theme="balloon_black"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  border-radius: 0 0 30px 15px / 0 0 10px 10px;
+}
+[data-animation="true"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  transition: opacity 0.2s ease 0.4s;
+}
+[data-column-type="follow"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox, [data-column-type="follower"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox, [data-column-type="ownershiplists"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox, [data-column-type="subscriptionlists"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox, [data-column-type="membershiplists"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox {
+  display: none;
+}
+.tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton {
+  width: 25%;
+  height: 24px;
+  font-family: FontAwesome;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+[data-theme="balloon_white"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1) {
+  border-radius: 0 0 0 15px / 0 0 0 10px;
+}
+[data-theme="balloon_white"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4) {
+  border-radius: 0 0 30px 0 / 0 0 10px 0;
+}
+[data-theme="balloon_black"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1) {
+  border-radius: 0 0 0 15px / 0 0 0 10px;
+}
+[data-theme="balloon_black"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4) {
+  border-radius: 0 0 30px 0 / 0 0 10px 0;
+}
+[data-tweet-menu-button0="retweet"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-tweet-menu-button1="retweet"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(2)::before {
+  content: "";
+}
+[data-tweet-menu-button2="retweet"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(3)::before {
+  content: "";
+}
+[data-tweet-menu-button3="retweet"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+}
+[data-tweet-menu-button0="retweet"] .tweetContent[data-mine="true"][data-retweet="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(1), [data-tweet-menu-button1="retweet"] .tweetContent[data-mine="true"][data-retweet="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(2), [data-tweet-menu-button2="retweet"] .tweetContent[data-mine="true"][data-retweet="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(3), [data-tweet-menu-button3="retweet"] .tweetContent[data-mine="true"][data-retweet="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(4), [data-tweet-menu-button0="retweet"]
+.tweetContent[data-protected="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(1), [data-tweet-menu-button1="retweet"]
+.tweetContent[data-protected="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(2), [data-tweet-menu-button2="retweet"]
+.tweetContent[data-protected="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(3), [data-tweet-menu-button3="retweet"]
+.tweetContent[data-protected="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(4), [data-tweet-menu-button0="retweet"]
+.tweetContent[data-retweeted="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(1), [data-tweet-menu-button1="retweet"]
+.tweetContent[data-retweeted="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(2), [data-tweet-menu-button2="retweet"]
+.tweetContent[data-retweeted="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(3), [data-tweet-menu-button3="retweet"]
+.tweetContent[data-retweeted="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(4) {
+  visibility: hidden;
+}
+[data-tweet-menu-button0="quote"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-tweet-menu-button1="quote"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(2)::before {
+  content: "";
+}
+[data-tweet-menu-button2="quote"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(3)::before {
+  content: "";
+}
+[data-tweet-menu-button3="quote"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+}
+[data-tweet-menu-button0="rt"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-tweet-menu-button1="rt"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(2)::before {
+  content: "";
+}
+[data-tweet-menu-button2="rt"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(3)::before {
+  content: "";
+}
+[data-tweet-menu-button3="rt"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+}
+[data-tweet-menu-button0="showtext"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-tweet-menu-button1="showtext"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(2)::before {
+  content: "";
+}
+[data-tweet-menu-button2="showtext"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(3)::before {
+  content: "";
+}
+[data-tweet-menu-button3="showtext"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+}
+[data-tweet-menu-button0="openurl"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-tweet-menu-button1="openurl"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(2)::before {
+  content: "";
+}
+[data-tweet-menu-button2="openurl"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(3)::before {
+  content: "";
+}
+[data-tweet-menu-button3="openurl"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+}
+[data-tweet-menu-button0="replyall"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-tweet-menu-button1="replyall"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(2)::before {
+  content: "";
+}
+[data-tweet-menu-button2="replyall"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(3)::before {
+  content: "";
+}
+[data-tweet-menu-button3="replyall"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+}
+[data-tweet-menu-button0="favorite"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-tweet-menu-button1="favorite"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(2)::before {
+  content: "";
+}
+[data-tweet-menu-button2="favorite"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(3)::before {
+  content: "";
+}
+[data-tweet-menu-button3="favorite"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+}
+[data-tweet-menu-button0="favorite"] .tweetContent[data-favorited="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(1)::before, [data-tweet-menu-button1="favorite"] .tweetContent[data-favorited="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(2)::before, [data-tweet-menu-button2="favorite"] .tweetContent[data-favorited="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(3)::before, [data-tweet-menu-button3="favorite"] .tweetContent[data-favorited="true"] > .tweetMenuMarker .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+  color: orange;
+}
+[data-tweet-menu-button0="showreply"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-tweet-menu-button1="showreply"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(2)::before {
+  content: "";
+}
+[data-tweet-menu-button2="showreply"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(3)::before {
+  content: "";
+}
+[data-tweet-menu-button3="showreply"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+}
+[data-tweet-menu-button0="showreply"] .tweetContent[data-inreply=""] > .tweetMenuMarker .tweetMenuButton:nth-of-type(1), [data-tweet-menu-button1="showreply"] .tweetContent[data-inreply=""] > .tweetMenuMarker .tweetMenuButton:nth-of-type(2), [data-tweet-menu-button2="showreply"] .tweetContent[data-inreply=""] > .tweetMenuMarker .tweetMenuButton:nth-of-type(3), [data-tweet-menu-button3="showreply"] .tweetContent[data-inreply=""] > .tweetMenuMarker .tweetMenuButton:nth-of-type(4) {
+  visibility: hidden;
+}
+[data-tweet-menu-button0="favorited"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-tweet-menu-button1="favorited"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(2)::before {
+  content: "";
+}
+[data-tweet-menu-button2="favorited"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(3)::before {
+  content: "";
+}
+[data-tweet-menu-button3="favorited"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+}
+[data-tweet-menu-button0="replydm"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-tweet-menu-button1="replydm"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(2)::before {
+  content: "";
+}
+[data-tweet-menu-button2="replydm"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(3)::before {
+  content: "";
+}
+[data-tweet-menu-button3="replydm"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(4)::before {
+  content: "";
+}
+[data-column-type="directmessage"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(1)::before {
+  content: "";
+}
+[data-column-type="directmessage"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:nth-of-type(n+2) {
+  visibility: hidden;
+}
+[data-theme="default"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #e6e6e6;
+  color: #767676;
+}
+[data-theme="default2"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #e6e6e6;
+  color: #767676;
+}
+[data-theme="balloon_white"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #e6e6e6;
+  color: #767676;
+}
+[data-theme="classic_black"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #4a4a4a;
+  color: #a3a3a3;
+}
+[data-theme="classic_black2"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #4a4a4a;
+  color: #a3a3a3;
+}
+[data-theme="balloon_black"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #4a4a4a;
+  color: #a3a3a3;
+}
+[data-theme="card_white"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #e6e6e6;
+  color: #767676;
+}
+[data-theme="card_black"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #4a4a4a;
+  color: #a3a3a3;
+}
+[data-theme="underground_orange"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #530000;
+  color: #d35050;
+}
+[data-theme="shachiku"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #e6e6e6;
+  color: #767676;
+}
+[data-theme="shachiku2"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #e6e6e6;
+  color: #767676;
+}
+[data-theme="shachiku3"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #e6e6e6;
+  color: #767676;
+}
+[data-theme="shachiku4"] .tweetContent > .tweetMenuMarker .tweetMenuButtonBox > .tweetMenuButton:hover {
+  background-color: #e6e6e6;
+  color: #767676;
+}
+.inlineTweetBox:not(:empty) + .replyTweetBox + .tweetMenuMarker,
+.replyTweetBox[data-reply-open="true"] + .tweetMenuMarker {
+  height: 24px;
+}
+.tweetContent > .tweetMenuMarker:hover .tweetMenuButtonBox {
+  opacity: 1;
+  pointer-events: initial;
+}
+[data-animation="true"] .tweetContent > .tweetMenuMarker:hover .tweetMenuButtonBox {
+  transition: opacity 0.2s ease 0.1s;
+}
+
+.tweetMainContent {
+  flex-grow: 1;
+  display: flex;
+}
+
+.tweetContentLeft {
+  flex-shrink: 1;
+}
+[data-theme="default"] .tweetContentLeft {
+  margin: 0px 0px 0px 0px;
+}
+[data-theme="default2"] .tweetContentLeft {
+  margin: 4px 0px 4px 4px;
+}
+[data-theme="balloon_white"] .tweetContentLeft {
+  margin: 5px 0px 5px 5px;
+}
+[data-theme="classic_black"] .tweetContentLeft {
+  margin: 0px 0px 0px 0px;
+}
+[data-theme="classic_black2"] .tweetContentLeft {
+  margin: 4px 0px 4px 4px;
+}
+[data-theme="balloon_black"] .tweetContentLeft {
+  margin: 5px 0px 5px 5px;
+}
+[data-theme="card_white"] .tweetContentLeft {
+  margin: 4px 0px 4px 4px;
+}
+[data-theme="card_black"] .tweetContentLeft {
+  margin: 4px 0px 4px 4px;
+}
+[data-theme="underground_orange"] .tweetContentLeft {
+  margin: 4px 0px 4px 4px;
+}
+[data-theme="shachiku"] .tweetContentLeft {
+  margin: 0px 0px 0px 0px;
+}
+[data-theme="shachiku2"] .tweetContentLeft {
+  margin: 0px 0px 0px 0px;
+}
+[data-theme="shachiku3"] .tweetContentLeft {
+  margin: 4px 0px 4px 4px;
+}
+[data-theme="shachiku4"] .tweetContentLeft {
+  margin: 4px 0px 4px 4px;
+}
+[data-theme^="shachiku"] .tweetContentLeft {
+  display: none;
+}
+.tweetContentLeft > .tweetUserImage {
+  display: block;
+}
+[data-icon-size="xsmall"] .tweetContentLeft > .tweetUserImage {
+  width: 24px;
+  height: 24px;
+}
+[data-theme="balloon_white"][data-icon-size="xsmall"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 4.8px;
+}
+[data-circle-icon="true"][data-theme="balloon_white"][data-icon-size="xsmall"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 12px;
+}
+[data-theme="balloon_black"][data-icon-size="xsmall"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 4.8px;
+}
+[data-circle-icon="true"][data-theme="balloon_black"][data-icon-size="xsmall"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 12px;
+}
+[data-circle-icon="true"][data-icon-size="xsmall"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 12px;
+}
+[data-icon-size="small"] .tweetContentLeft > .tweetUserImage {
+  width: 32px;
+  height: 32px;
+}
+[data-theme="balloon_white"][data-icon-size="small"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 6.4px;
+}
+[data-circle-icon="true"][data-theme="balloon_white"][data-icon-size="small"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 16px;
+}
+[data-theme="balloon_black"][data-icon-size="small"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 6.4px;
+}
+[data-circle-icon="true"][data-theme="balloon_black"][data-icon-size="small"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 16px;
+}
+[data-circle-icon="true"][data-icon-size="small"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 16px;
+}
+[data-icon-size="medium"] .tweetContentLeft > .tweetUserImage {
+  width: 40px;
+  height: 40px;
+}
+[data-theme="balloon_white"][data-icon-size="medium"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 8px;
+}
+[data-circle-icon="true"][data-theme="balloon_white"][data-icon-size="medium"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 20px;
+}
+[data-theme="balloon_black"][data-icon-size="medium"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 8px;
+}
+[data-circle-icon="true"][data-theme="balloon_black"][data-icon-size="medium"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 20px;
+}
+[data-circle-icon="true"][data-icon-size="medium"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 20px;
+}
+[data-icon-size="large"] .tweetContentLeft > .tweetUserImage {
+  width: 48px;
+  height: 48px;
+}
+[data-theme="balloon_white"][data-icon-size="large"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 9.6px;
+}
+[data-circle-icon="true"][data-theme="balloon_white"][data-icon-size="large"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 24px;
+}
+[data-theme="balloon_black"][data-icon-size="large"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 9.6px;
+}
+[data-circle-icon="true"][data-theme="balloon_black"][data-icon-size="large"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 24px;
+}
+[data-circle-icon="true"][data-icon-size="large"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 24px;
+}
+[data-icon-size="xlarge"] .tweetContentLeft > .tweetUserImage {
+  width: 56px;
+  height: 56px;
+}
+[data-theme="balloon_white"][data-icon-size="xlarge"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 11.2px;
+}
+[data-circle-icon="true"][data-theme="balloon_white"][data-icon-size="xlarge"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 28px;
+}
+[data-theme="balloon_black"][data-icon-size="xlarge"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 11.2px;
+}
+[data-circle-icon="true"][data-theme="balloon_black"][data-icon-size="xlarge"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 28px;
+}
+[data-circle-icon="true"][data-icon-size="xlarge"] .tweetContentLeft > .tweetUserImage {
+  border-radius: 28px;
+}
+.tweetContentLeft > .tweetStatus {
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-start;
+}
+.tweetContentLeft > .tweetStatus > .tweetStatusPlace {
+  width: 12px;
+  height: 12px;
+  margin: 0 2px;
+  font-family: FontAwesome;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tweetContentLeft > .tweetStatus > .tweetStatusPlace::before {
+  content: "";
+}
+[data-icon-size="xsmall"] .tweetContentLeft > .tweetStatus > .tweetStatusPlace {
+  margin: 0;
+}
+.tweetContentLeft > .tweetStatus > .tweetStatusRetweeted {
+  width: 12px;
+  height: 12px;
+  margin: 0 2px;
+  font-family: FontAwesome;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tweetContentLeft > .tweetStatus > .tweetStatusRetweeted::before {
+  content: "";
+}
+[data-icon-size="xsmall"] .tweetContentLeft > .tweetStatus > .tweetStatusRetweeted {
+  margin: 0;
+}
+.tweetContentLeft > .tweetStatus > .tweetStatusRetweeted {
+  color: green;
+}
+.tweetContent[data-retweeted=""] .tweetStatusRetweeted {
+  display: none;
+}
+.tweetContentLeft > .tweetStatus .tweetStatusPlace {
+  cursor: pointer;
+}
+.tweetContentLeft > .tweetStatus .tweetStatusPlace[title=""] {
+  display: none;
+}
+
+.tweetContentRight {
+  flex-grow: 1;
+}
+[data-theme="default"] .tweetContentRight {
+  margin: 0px;
+}
+[data-theme="default2"] .tweetContentRight {
+  margin: 4px;
+}
+[data-theme="balloon_white"] .tweetContentRight {
+  margin: 5px;
+}
+[data-theme="classic_black"] .tweetContentRight {
+  margin: 0px;
+}
+[data-theme="classic_black2"] .tweetContentRight {
+  margin: 4px;
+}
+[data-theme="balloon_black"] .tweetContentRight {
+  margin: 5px;
+}
+[data-theme="card_white"] .tweetContentRight {
+  margin: 4px;
+}
+[data-theme="card_black"] .tweetContentRight {
+  margin: 4px;
+}
+[data-theme="underground_orange"] .tweetContentRight {
+  margin: 4px;
+}
+[data-theme="shachiku"] .tweetContentRight {
+  margin: 0px;
+}
+[data-theme="shachiku2"] .tweetContentRight {
+  margin: 0px;
+}
+[data-theme="shachiku3"] .tweetContentRight {
+  margin: 4px;
+}
+[data-theme="shachiku4"] .tweetContentRight {
+  margin: 4px;
+}
+.tweetContentRight > .tweetUserName {
+  font-weight: bold;
+  line-height: 140%;
+  text-decoration: underline;
+}
+.tweetContentRight > .tweetUserName[data-screenname=""] {
+  display: none;
+}
+.tweetContentRight > .tweetUserName::before {
+  content: attr(data-username) " (" attr(data-screenname) ") ";
+}
+[data-screenname-first="true"] .tweetContentRight > .tweetUserName::before {
+  content: attr(data-screenname) " (" attr(data-username) ") ";
+}
+.tweetContent[data-protected="true"] > .tweetMainContent .tweetContentRight > .tweetUserName::after {
+  width: 12px;
+  height: 12px;
+  line-height: 12px;
+  content: '\f023';
+  font-family: FontAwesome;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+.tweetContent[data-verified="true"] > .tweetMainContent .tweetContentRight > .tweetUserName::after {
+  width: 12px;
+  height: 12px;
+  line-height: 12px;
+  content: '\f058';
+  font-family: FontAwesome;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+.tweetContentRight > .listName {
+  font-weight: bold;
+  line-height: 140%;
+  text-decoration: underline;
+}
+.tweetContentRight > .listName[data-listname=""] {
+  display: none;
+}
+.tweetContentRight > .listName::before {
+  content: attr(data-listname);
+}
+.tweetContent[data-mode="private"] > .tweetMainContent .tweetContentRight > .listName::after {
+  width: 12px;
+  height: 12px;
+  line-height: 12px;
+  content: '\f023';
+  font-family: FontAwesome;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+.tweetContentRight .tweetUserRecipient {
+  padding: 1px 0;
+  font-size: 90%;
+  line-height: 140%;
+}
+.tweetContentRight .tweetUserRecipient[data-screenname=""] {
+  display: none;
+}
+.tweetContentRight .tweetUserRecipient::before {
+  content: "➔" attr(data-username) " (" attr(data-screenname) ") ";
+}
+[data-screenname-first="true"] .tweetContentRight .tweetUserRecipient::before {
+  content: "➔" attr(data-screenname) " (" attr(data-username) ") ";
+}
+.tweetContentRight > .listOwnerName {
+  padding: 1px 0;
+  font-size: 90%;
+  line-height: 140%;
+}
+.tweetContentRight > .listOwnerName[data-screenname=""] {
+  display: none;
+}
+.tweetContentRight > .listOwnerName::before {
+  content: attr(data-username) " (" attr(data-screenname) ") ";
+}
+[data-screenname-first="true"] .tweetContentRight > .listOwnerName::before {
+  content: attr(data-screenname) " (" attr(data-username) ") ";
+}
+.tweetContent[data-protected="true"] > .tweetMainContent .tweetContentRight > .listOwnerName::after {
+  width: 12px;
+  height: 12px;
+  line-height: 12px;
+  content: '\f023';
+  font-family: FontAwesome;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+.tweetContentRight .tweetText {
+  padding: 4px 0;
+}
+[data-linefeed="true"] .tweetContentRight .tweetText {
+  white-space: pre-wrap;
+}
+.tweetContentRight .tweetSource,
+.tweetContentRight .tweetTime {
+  padding-bottom: 2px;
+  font-size: 80%;
+  line-height: 120%;
+}
+[data-theme="default"] .tweetContentRight .tweetSource, [data-theme="default"]
+.tweetContentRight .tweetTime {
+  color: #767676;
+}
+[data-theme="default2"] .tweetContentRight .tweetSource, [data-theme="default2"]
+.tweetContentRight .tweetTime {
+  color: #767676;
+}
+[data-theme="balloon_white"] .tweetContentRight .tweetSource, [data-theme="balloon_white"]
+.tweetContentRight .tweetTime {
+  color: #767676;
+}
+[data-theme="classic_black"] .tweetContentRight .tweetSource, [data-theme="classic_black"]
+.tweetContentRight .tweetTime {
+  color: #a3a3a3;
+}
+[data-theme="classic_black2"] .tweetContentRight .tweetSource, [data-theme="classic_black2"]
+.tweetContentRight .tweetTime {
+  color: #a3a3a3;
+}
+[data-theme="balloon_black"] .tweetContentRight .tweetSource, [data-theme="balloon_black"]
+.tweetContentRight .tweetTime {
+  color: #a3a3a3;
+}
+[data-theme="card_white"] .tweetContentRight .tweetSource, [data-theme="card_white"]
+.tweetContentRight .tweetTime {
+  color: #767676;
+}
+[data-theme="card_black"] .tweetContentRight .tweetSource, [data-theme="card_black"]
+.tweetContentRight .tweetTime {
+  color: #a3a3a3;
+}
+[data-theme="underground_orange"] .tweetContentRight .tweetSource, [data-theme="underground_orange"]
+.tweetContentRight .tweetTime {
+  color: #d35050;
+}
+[data-theme="shachiku"] .tweetContentRight .tweetSource, [data-theme="shachiku"]
+.tweetContentRight .tweetTime {
+  color: #767676;
+}
+[data-theme="shachiku2"] .tweetContentRight .tweetSource, [data-theme="shachiku2"]
+.tweetContentRight .tweetTime {
+  color: #767676;
+}
+[data-theme="shachiku3"] .tweetContentRight .tweetSource, [data-theme="shachiku3"]
+.tweetContentRight .tweetTime {
+  color: #767676;
+}
+[data-theme="shachiku4"] .tweetContentRight .tweetSource, [data-theme="shachiku4"]
+.tweetContentRight .tweetTime {
+  color: #767676;
+}
+.tweetContentRight .tweetSource {
+  display: none;
+}
+[data-viewsource="true"] .tweetContentRight .tweetSource {
+  display: block;
+}
+.tweetContentRight .tweetRetweeter {
+  padding-bottom: 2px;
+  font-size: 80%;
+  line-height: 120%;
+  display: flex;
+  align-items: center;
+}
+.tweetRetweeterImage {
+  flex-shrink: 1;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.tweetRetweeterImage[src=""] {
+  display: none;
+}
+[data-circle-icon="true"] .tweetRetweeterImage {
+  border-radius: 8px;
+}
+[data-theme="shachiku"] .tweetRetweeterImage, [data-theme="shachiku3"] .tweetRetweeterImage {
+  display: none;
+}
+.tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  min-height: 12px;
+  padding: 2px 0 2px 2px;
+  flex-grow: 1;
+}
+[data-theme="shachiku"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName, [data-theme="shachiku3"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  min-height: initial;
+  padding: 0;
+}
+.tweetContentRight .tweetRetweeter > .tweetRetweeterName::before {
+  content: attr(data-username) " (" attr(data-screenname) ") ";
+}
+[data-screenname-first="true"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName::before {
+  content: attr(data-screenname) " (" attr(data-username) ") ";
+}
+[data-theme="default"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 0px;
+}
+[data-theme="default2"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 0px;
+}
+[data-theme="balloon_white"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 4px;
+}
+[data-theme="classic_black"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 0px;
+}
+[data-theme="classic_black2"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 0px;
+}
+[data-theme="balloon_black"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 4px;
+}
+[data-theme="card_white"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 4px;
+}
+[data-theme="card_black"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 4px;
+}
+[data-theme="underground_orange"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 4px;
+}
+[data-theme="shachiku"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 0px;
+}
+[data-theme="shachiku2"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 0px;
+}
+[data-theme="shachiku3"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 0px;
+}
+[data-theme="shachiku4"] .tweetContentRight .tweetRetweeter > .tweetRetweeterName {
+  margin-left: 0px;
+}
+.tweetContentRight .tweetRetweeter > .tweetRetweeterName[data-screenname=""] {
+  display: none;
+}
+.tweetContentRight .tweetRetweeterCount {
+  padding-bottom: 2px;
+  font-size: 80%;
+  line-height: 120%;
+}
+.tweetContentRight .tweetRetweeterCount::before {
+  content: attr(data-count);
+}
+.tweetContentRight .tweetRetweeterCount[data-count=""] {
+  display: none;
+}
+.tweetContentRight .tweetRetweeterList {
+  padding-bottom: 2px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.tweetContentRight .tweetRetweeterList:empty {
+  display: none;
+}
+.tweetContentRight .tweetRetweeterList > .tweetRetweeterImage {
+  margin: 2px 4px 2px 0;
+}
+.tweetContentRight .tweetThumbnailImage {
+  display: none;
+  width: 100%;
+  height: 100px;
+  border-radius: 10px;
+  margin: 4px 0;
+  object-fit: cover;
+  cursor: pointer;
+}
+[data-viewthumbnail="true"] .tweetContentRight .tweetThumbnail .tweetThumbnailImage[src] {
+  display: block;
+}
+
+.tweetMoreBox {
+  padding: 10px 0;
+  cursor: pointer;
+  text-align: center;
+}
+
+#filepicker {
+  display: none;
+}
+
+.textButtonList {
+  display: flex;
+}
+
+/**************************
+  コンテナ（プロフィール）
+ **************************/
+[data-window-type="profile"] #columnTabContainer {
+  display: none;
+}
+
+[data-window-type="profile"] #columnContainer .column {
+  display: none;
+  width: 100vw;
+}
+
+[data-window-type="profile"][data-active-column="0"] #profileButtonList .countbox:nth-of-type(1) {
+  opacity: 1;
+}
+[data-window-type="profile"][data-active-column="0"] #columnContainer .column:nth-of-type(1) {
+  display: initial;
+}
+
+[data-window-type="profile"][data-active-column="1"] #profileButtonList .countbox:nth-of-type(2) {
+  opacity: 1;
+}
+[data-window-type="profile"][data-active-column="1"] #columnContainer .column:nth-of-type(2) {
+  display: initial;
+}
+
+[data-window-type="profile"][data-active-column="2"] #profileButtonList .countbox:nth-of-type(3) {
+  opacity: 1;
+}
+[data-window-type="profile"][data-active-column="2"] #columnContainer .column:nth-of-type(3) {
+  display: initial;
+}
+
+[data-window-type="profile"][data-active-column="3"] #profileButtonList .countbox:nth-of-type(4) {
+  opacity: 1;
+}
+[data-window-type="profile"][data-active-column="3"] #columnContainer .column:nth-of-type(4) {
+  display: initial;
+}
+
+[data-window-type="profile"][data-active-column="4"] #profileButtonList .countbox:nth-of-type(5) {
+  opacity: 1;
+}
+[data-window-type="profile"][data-active-column="4"] #columnContainer .column:nth-of-type(5) {
+  display: initial;
+}
+
+[data-window-type="profile"][data-active-column="5"] #profileButtonList .countbox:nth-of-type(6) {
+  opacity: 1;
+}
+[data-window-type="profile"][data-active-column="5"] #columnContainer .column:nth-of-type(6) {
+  display: initial;
+}
+
+[data-window-type="profile"][data-active-column="6"] #profileButtonList .countbox:nth-of-type(7) {
+  opacity: 1;
+}
+[data-window-type="profile"][data-active-column="6"] #columnContainer .column:nth-of-type(7) {
+  display: initial;
+}
+
+[data-window-type="profile"][data-active-column="7"] #profileButtonList .countbox:nth-of-type(8) {
+  opacity: 1;
+}
+[data-window-type="profile"][data-active-column="7"] #columnContainer .column:nth-of-type(8) {
+  display: initial;
+}
+
+#profileContainer {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  background-color: #666666;
+  color: gainsboro;
+  -webkit-text-stroke: 0.3px;
+}
+#profileContainer::before {
+  width: 100%;
+  height: 100%;
+  content: '';
+  background: inherit;
+  position: absolute;
+  z-index: -1;
+  filter: blur(2px) brightness(50%);
+}
+#profileContainer[data-profile-own="true"] #relationButtonList {
+  display: none;
+}
+#profileContainer[data-profile-own="false"] #restrictionButtonList {
+  display: none;
+}
+#profileContainer[data-profile-own="false"] #profileButton8.countbox::before {
+  content: attr(data-label2);
+}
+#profileContainer[data-following="false"] #relationButton1 {
+  color: black;
+  background-color: white;
+}
+#profileContainer[data-following="false"] #relationButton1::before {
+  content: attr(data-label2);
+}
+#profileContainer[data-followed="false"] #relationButton2 {
+  color: black;
+  background-color: white;
+}
+#profileContainer[data-followed="false"] #relationButton2::before {
+  content: attr(data-label2);
+}
+#profileContainer[data-following="false"][data-followrequesting="true"] #relationButton1::before {
+  content: attr(data-label3);
+}
+#profileContainer[data-mute="false"] #relationButton3 {
+  color: black;
+  background-color: white;
+}
+#profileContainer[data-mute="false"] #relationButton3::before {
+  content: attr(data-label2);
+}
+#profileContainer[data-noretweet="false"] #relationButton4 {
+  color: black;
+  background-color: white;
+}
+#profileContainer[data-noretweet="false"] #relationButton4::before {
+  content: attr(data-label2);
+}
+#profileContainer[data-protected="true"] #profileStatusProtected {
+  display: flex;
+}
+#profileContainer[data-verified="true"] #profileStatusVerified {
+  display: flex;
+}
+
+/**********************
+  個別（プロフィール）
+ **********************/
+#profileDetail {
+  display: flex;
+}
+
+#profileDetailLeft {
+  flex-shrink: 1;
+  margin: 4px 0 4px 4px;
+}
+#profileUserImage {
+  display: block;
+  width: 100px;
+  min-height: 100px;
+  cursor: pointer;
+}
+[data-circle-icon="true"] #profileUserImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  object-fit: cover;
+}
+#profileStatus {
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-start;
+}
+#profileStatusProtected,
+#profileStatusVerified {
+  width: 24px;
+  height: 24px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  margin-right: 4px;
+}
+#profileStatus #profileStatusProtected::before {
+  content: '\f023';
+  font-family: FontAwesome;
+  font-size: 24px;
+}
+#profileStatus #profileStatusVerified::before {
+  content: '\f058';
+  font-family: FontAwesome;
+  font-size: 24px;
+}
+
+#profileDetailRight {
+  flex-grow: 1;
+  margin: 4px;
+}
+#profileScreenname {
+  font-size: x-large;
+  font-weight: bold;
+}
+#profileUsername {
+  font-size: larger;
+}
+#profileDescription {
+  padding: 5px 0;
+  line-height: 120%;
+  white-space: pre-wrap;
+}
+#profileLocation:empty {
+  display: none;
+}
+#profileLocation::before {
+  padding-right: 2px;
+  content: '\f0ac';
+  font-family: FontAwesome;
+}
+#profileUrl:empty {
+  display: none;
+}
+#profileUrl::before {
+  padding-right: 2px;
+  content: '\f0c1';
+  font-family: FontAwesome;
+}
+
+#profileButtonList,
+#relationButtonList,
+#restrictionButtonList {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.countbox {
+  min-height: 24px;
+  margin: 2px 0;
+  opacity: 0.6;
+  font-size: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: bold;
+}
+.countbox.countboxButton {
+  cursor: pointer;
+}
+.countbox.countboxButton:hover {
+  opacity: 1;
+}
+.countbox::before {
+  content: attr(data-label);
+}
+#profileButtonList .countbox {
+  width: calc( 25vw - 8px );
+  padding: 2px 0;
+  background-color: transparent;
+  border-width: 0 0 2px;
+  border-style: solid;
+}
+#relationButtonList .countbox {
+  width: calc( 25vw - 8px );
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+}
+#restrictionButtonList .countbox {
+  width: calc( 100vw / 3 - 8px );
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+}
+
+#addListContainer .buttonList {
+  justify-content: flex-end;
+}
+#addListContainer .listinfoBox {
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+}
+#addListContainer .listinfoBox > label {
+  display: inline-block;
+  width: 40%;
+}
+#addListContainer .listinfoBox > label[for="public"], #addListContainer .listinfoBox > label[for="private"] {
+  width: auto;
+  padding-right: 10px;
+}
+#addListContainer .listinfoBox input[type="text"], #addListContainer .listinfoBox textarea {
+  width: 40%;
+}
+#addListContainer .listinfoBox textarea {
+  resize: none;
+}
+#addListContainer .listinfoBox input[type="text"], #addListContainer .listinfoBox input[type="radio"] {
+  height: 2em;
+}
+#addListContainer > #addListTitle,
+#addListContainer > #editListTitle {
+  height: 20px;
+  margin: 4px;
+  padding: 4px;
+  line-height: 20px;
+  display: none;
+}
+[data-theme="default"] #addListContainer > #addListTitle, [data-theme="default"]
+#addListContainer > #editListTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="default2"] #addListContainer > #addListTitle, [data-theme="default2"]
+#addListContainer > #editListTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="balloon_white"] #addListContainer > #addListTitle, [data-theme="balloon_white"]
+#addListContainer > #editListTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="classic_black"] #addListContainer > #addListTitle, [data-theme="classic_black"]
+#addListContainer > #editListTitle {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="classic_black2"] #addListContainer > #addListTitle, [data-theme="classic_black2"]
+#addListContainer > #editListTitle {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="balloon_black"] #addListContainer > #addListTitle, [data-theme="balloon_black"]
+#addListContainer > #editListTitle {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="card_white"] #addListContainer > #addListTitle, [data-theme="card_white"]
+#addListContainer > #editListTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="card_black"] #addListContainer > #addListTitle, [data-theme="card_black"]
+#addListContainer > #editListTitle {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="underground_orange"] #addListContainer > #addListTitle, [data-theme="underground_orange"]
+#addListContainer > #editListTitle {
+  color: #f2caca;
+  background-color: #860000;
+}
+[data-theme="shachiku"] #addListContainer > #addListTitle, [data-theme="shachiku"]
+#addListContainer > #editListTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku2"] #addListContainer > #addListTitle, [data-theme="shachiku2"]
+#addListContainer > #editListTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku3"] #addListContainer > #addListTitle, [data-theme="shachiku3"]
+#addListContainer > #editListTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku4"] #addListContainer > #addListTitle, [data-theme="shachiku4"]
+#addListContainer > #editListTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+#addListContainer[data-type="add"] > #addListTitle {
+  display: block;
+}
+#addListContainer[data-type="edit"] > #editListTitle {
+  display: block;
+}
+
+/******************
+  コンテナ（検索）
+ ******************/
+#autoreloadContainer {
+  padding: 4px;
+  z-index: 100;
+}
+[data-theme="default"] #autoreloadContainer {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="default2"] #autoreloadContainer {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="balloon_white"] #autoreloadContainer {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="classic_black"] #autoreloadContainer {
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="classic_black2"] #autoreloadContainer {
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="balloon_black"] #autoreloadContainer {
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="card_white"] #autoreloadContainer {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="card_black"] #autoreloadContainer {
+  background-color: #fcfcfc;
+  color: #565656;
+}
+[data-theme="underground_orange"] #autoreloadContainer {
+  background-color: #860000;
+  color: #f2caca;
+}
+[data-theme="shachiku"] #autoreloadContainer {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="shachiku2"] #autoreloadContainer {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="shachiku3"] #autoreloadContainer {
+  background-color: #666666;
+  color: gainsboro;
+}
+[data-theme="shachiku4"] #autoreloadContainer {
+  background-color: #666666;
+  color: gainsboro;
+}
+
+[data-window-type="search"] #columnTabContainer {
+  display: none;
+}
+
+[data-window-type="search"] #columnContainer .column {
+  width: 100vw;
+}
+
+/**************
+  個別（検索）
+ **************/
+[data-window-type="search"] #grayout {
+  display: flex;
+  align-items: end;
+  color: white;
+  white-space: pre-wrap;
+}
+
+/********************
+  コンテナ（カラム）
+ ********************/
+[data-window-type="columns"] #mainContainer {
+  overflow-y: scroll;
+}
+
+#columnListContainer {
+  width: calc( 100% - 8px );
+  margin: 4px;
+  table-layout: fixed;
+  border-spacing: 0;
+  background-color: Window;
+  border: 1px solid WindowFrame;
+  color: WindowText;
+}
+
+#addColumnContainer .buttonList {
+  justify-content: flex-end;
+}
+#addColumnContainer .columninfoBox {
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+}
+#addColumnContainer .columninfoBox > label {
+  display: inline-block;
+  width: 40%;
+}
+#addColumnContainer .columninfoBox input[type="text"], #addColumnContainer .columninfoBox select, #addColumnContainer .columninfoBox textarea {
+  width: 40%;
+}
+#addColumnContainer .columninfoBox textarea {
+  resize: none;
+}
+#addColumnContainer .columninfoBox input[type="text"], #addColumnContainer .columninfoBox input[type="checkbox"], #addColumnContainer .columninfoBox select {
+  height: 2em;
+}
+#addColumnContainer .columninfoBox option {
+  height: 2em;
+  display: flex;
+  align-items: center;
+}
+#addColumnContainer > #addColumnTitle,
+#addColumnContainer > #editColumnTitle {
+  height: 20px;
+  margin: 4px;
+  padding: 4px;
+  line-height: 20px;
+  display: none;
+}
+[data-theme="default"] #addColumnContainer > #addColumnTitle, [data-theme="default"]
+#addColumnContainer > #editColumnTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="default2"] #addColumnContainer > #addColumnTitle, [data-theme="default2"]
+#addColumnContainer > #editColumnTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="balloon_white"] #addColumnContainer > #addColumnTitle, [data-theme="balloon_white"]
+#addColumnContainer > #editColumnTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="classic_black"] #addColumnContainer > #addColumnTitle, [data-theme="classic_black"]
+#addColumnContainer > #editColumnTitle {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="classic_black2"] #addColumnContainer > #addColumnTitle, [data-theme="classic_black2"]
+#addColumnContainer > #editColumnTitle {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="balloon_black"] #addColumnContainer > #addColumnTitle, [data-theme="balloon_black"]
+#addColumnContainer > #editColumnTitle {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="card_white"] #addColumnContainer > #addColumnTitle, [data-theme="card_white"]
+#addColumnContainer > #editColumnTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="card_black"] #addColumnContainer > #addColumnTitle, [data-theme="card_black"]
+#addColumnContainer > #editColumnTitle {
+  color: #565656;
+  background-color: #fcfcfc;
+}
+[data-theme="underground_orange"] #addColumnContainer > #addColumnTitle, [data-theme="underground_orange"]
+#addColumnContainer > #editColumnTitle {
+  color: #f2caca;
+  background-color: #860000;
+}
+[data-theme="shachiku"] #addColumnContainer > #addColumnTitle, [data-theme="shachiku"]
+#addColumnContainer > #editColumnTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku2"] #addColumnContainer > #addColumnTitle, [data-theme="shachiku2"]
+#addColumnContainer > #editColumnTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku3"] #addColumnContainer > #addColumnTitle, [data-theme="shachiku3"]
+#addColumnContainer > #editColumnTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+[data-theme="shachiku4"] #addColumnContainer > #addColumnTitle, [data-theme="shachiku4"]
+#addColumnContainer > #editColumnTitle {
+  color: gainsboro;
+  background-color: #666666;
+}
+#addColumnContainer[data-type="add"] > #addColumnTitle {
+  display: block;
+}
+#addColumnContainer[data-type="edit"] > #editColumnTitle {
+  display: block;
+}
+
+/****************
+  個別（カラム）
+ ****************/
+#draggable {
+  padding: 4px;
+}
+
+#columnListHead th {
+  padding: 2px;
+  background-color: ThreeDFace;
+  color: ButtonText;
+  border-width: 2px;
+  border-style: solid;
+  border-color: ThreeDLightShadow ThreeDDarkShadow ThreeDDarkShadow ThreeDLightShadow;
+}
+#columnListHead th::before {
+  content: attr(title);
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#columnListHead th:nth-of-type(1) {
+  width: 20%;
+}
+#columnListHead th:nth-of-type(2) {
+  width: 15%;
+}
+#columnListHead th:nth-of-type(3) {
+  width: 15%;
+}
+#columnListHead th:nth-of-type(4) {
+  width: 5%;
+}
+#columnListHead th:nth-of-type(5) {
+  width: 5%;
+}
+#columnListHead th:nth-of-type(6) {
+  width: 5%;
+}
+#columnListHead th:nth-of-type(7) {
+  width: 5%;
+}
+#columnListHead th:nth-of-type(8) {
+  width: 5%;
+}
+#columnListHead th:nth-of-type(9) {
+  width: 25%;
+}
+
+.columnListRow {
+  cursor: pointer;
+}
+.columnListRow td {
+  border: 1px solid Window;
+}
+.columnListRow:hover {
+  background-color: ThreeDFace;
+}
+.columnListRow[data-selected="true"] {
+  background-color: Highlight;
+  color: HighlightText;
+}
+.columnListRow td::before {
+  padding: 8px 2px;
+  content: attr(title);
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.columnListRow td:nth-of-type(4) {
+  text-align: center;
+}
+.columnListRow td:nth-of-type(5) {
+  text-align: center;
+}
+.columnListRow td:nth-of-type(6) {
+  text-align: center;
+}
+.columnListRow td:nth-of-type(7) {
+  text-align: center;
+}
+.columnListRow td:nth-of-type(8) {
+  text-align: center;
+}
+
+/*******************
+  コンテナ（NewDM）
+ *******************/
+#newdmHeaderContainer {
+  display: flex;
+  flex-direction: column;
+}
+#newdmHeaderContainer > div {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+#newdmHeaderContainer > div label {
+  padding: 0 2px;
+}
+#newdmHeaderContainer > div .select2, #newdmHeaderContainer > div input {
+  flex-grow: 1;
+  height: 2em;
+}
+
+#newdmContainer {
+  padding: 4px;
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+#newdmContainer #newTweet {
+  flex-grow: 1;
+}
+
+/******************
+  個別（テキスト）
+ ******************/
+#tweetText {
+  flex-grow: 1;
+  resize: none;
+}
+
+/********************************************************
+  コンテナ（ミュート、リツイート非表示、リストメンバー）
+ ********************************************************/
+[data-window-type="mute"] #columnTabContainer,
+[data-window-type="noretweet"] #columnTabContainer,
+[data-window-type="listmember"] #columnTabContainer {
+  display: none;
+}
+
+[data-window-type="mute"] #columnContainer .column,
+[data-window-type="noretweet"] #columnContainer .column,
+[data-window-type="listmember"] #columnContainer .column {
+  width: 100vw;
+}
+
+/********************
+  コンテナ（フォト）
+ ********************/
+#photoContainer {
+  flex-grow: 1;
+  overflow: hidden;
+}
+#photoContainer iframe, #photoContainer video {
+  background-color: black;
+  width: 100%;
+  height: 100%;
+}
+
+#photoinfoContainer {
+  display: flex;
+}
+#photoinfoContainer::before {
+  padding: 0 12px;
+  content: attr(data-label);
+  display: flex;
+  align-items: center;
+}
+
+/****************
+  個別（フォト）
+ ****************/
+#prevPhoto,
+#nextPhoto {
+  width: 50px;
+  height: 50px;
+  margin: auto 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.5;
+  color: white;
+  background-color: rgba(100, 100, 100, 0.5);
+  box-shadow: 0 0 3px black;
+  text-shadow: 0 0 3px black;
+}
+#prevPhoto:hover, #prevPhoto:focus,
+#nextPhoto:hover,
+#nextPhoto:focus {
+  opacity: 0.8;
+}
+#prevPhoto[data-disabled="true"], #prevPhoto[data-disabled="true"]:hover, #prevPhoto[data-disabled="true"]:focus,
+#nextPhoto[data-disabled="true"],
+#nextPhoto[data-disabled="true"]:hover,
+#nextPhoto[data-disabled="true"]:focus {
+  opacity: 0.1;
+  cursor: default;
+}
+
+#prevPhoto {
+  left: 5px;
+}
+
+#nextPhoto {
+  right: 5px;
+}
+
+#directUrl {
+  flex-grow: 1;
+}
+[data-theme="default"] #directUrl {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="default2"] #directUrl {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="balloon_white"] #directUrl {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="classic_black"] #directUrl {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="classic_black2"] #directUrl {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="balloon_black"] #directUrl {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="card_white"] #directUrl {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="card_black"] #directUrl {
+  border: 1px solid #6f6f6f;
+}
+[data-theme="underground_orange"] #directUrl {
+  border: 1px solid #600000;
+}
+[data-theme="shachiku"] #directUrl {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="shachiku2"] #directUrl {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="shachiku3"] #directUrl {
+  border: 1px solid #bfbfbf;
+}
+[data-theme="shachiku4"] #directUrl {
+  border: 1px solid #bfbfbf;
+}
+
+/*****************
+  コンテナ（API）
+ *****************/
+[data-window-type="api"] #mainContainer {
+  overflow-y: scroll;
+}
+
+#apiContainer {
+  width: calc( 100% - 8px );
+  margin: 4px;
+  table-layout: fixed;
+  border-spacing: 0;
+  background-color: Window;
+  border: 1px solid WindowFrame;
+  color: WindowText;
+}
+
+/*************
+  個別（API）
+ *************/
+#apiHead th {
+  padding: 2px;
+  background-color: ThreeDFace;
+  color: ButtonText;
+  border-width: 2px;
+  border-style: solid;
+  border-color: ThreeDLightShadow ThreeDDarkShadow ThreeDDarkShadow ThreeDLightShadow;
+}
+#apiHead th:nth-of-type(1) {
+  width: 40%;
+}
+#apiHead th:nth-of-type(2) {
+  width: 15%;
+}
+#apiHead th:nth-of-type(3) {
+  width: 15%;
+}
+#apiHead th:nth-of-type(4) {
+  width: 30%;
+}
+
+.apiPathRow td {
+  padding: 3px;
+  font-weight: bold;
+  background-color: ThreeDFace;
+}
+
+.apiRow td {
+  padding: 2px;
+  border: 1px solid Window;
+}
+.apiRow:hover {
+  background-color: ThreeDFace;
+}
+.apiRow td:nth-of-type(1) {
+  width: 40%;
+}
+.apiRow td:nth-of-type(2) {
+  width: 15%;
+  text-align: center;
+}
+.apiRow td:nth-of-type(3) {
+  width: 15%;
+  text-align: center;
+}
+.apiRow td:nth-of-type(4) {
+  width: 30%;
+}
+
+/*# sourceMappingURL=common.css.map */

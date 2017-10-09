@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title />
+    <meta charset="utf-8" />
+    <link href="style/common.css" rel="stylesheet" type="text/css" />
+    <link href="style/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="l10n/l10n-definition-columns.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.ui.sortable.min.js"></script>
+  </head>
+
+  <body
+    data-window-type="columns"
+    data-theme="default"
+    data-icon-size="large"
+    data-button-size="medium"
+    data-circle-icon="true"
+    data-animation="true"
+    style="font-size: 12px;">
+
+    <div id="draggable" />
+
+    <div id="mainContainer">
+      <table id="columnListContainer">
+        <thead>
+          <tr id="columnListHead">
+            <th title=""></th>
+            <th title=""></th>
+            <th title=""></th>
+            <th title=""></th>
+            <th title=""></th>
+            <th title=""></th>
+            <th title=""></th>
+            <th title=""></th>
+            <th title=""></th>
+          </tr>
+        </thead>
+        <tbody id="columnListBody">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="textButtonList">
+      <div id="addButton" class="buttonItem textButtonItem" tabindex="1" />
+      <div id="removeButton" class="buttonItem textButtonItem" tabindex="1" />
+      <div id="editButton" class="buttonItem textButtonItem" tabindex="1" />
+      <div class="spacer" />
+      <div id="closeButton" class="buttonItem textButtonItem" tabindex="1" />
+    </div>
+
+    <div id="addColumnContainer" class="dialog"
+         data-type=""
+         data-edit-columnindex=""
+         data-open="false">
+      <ul class="buttonList smallButtonList">
+        <li id="closeAddColumnC" class="buttonItem" tabindex="1">
+          <i class="buttonImage fa fa-times fa-fw" />
+        </li>
+      </ul>
+
+      <div id="addColumnTitle" />
+      <div id="editColumnTitle" />
+
+      <div class="columninfoBox">
+        <label for="columnLabel" />
+        <input type="text" id="columnLabel" tabindex="10" />
+      </div>
+      <div class="columninfoBox">
+        <label for="screenname" />
+        <select id="screenname" tabindex="10" />
+      </div>
+      <div class="columninfoBox">
+        <label for="tlType" />
+        <select id="tlType" tabindex="10">
+          <option class="tlTypeOption" value="1" />
+          <option class="tlTypeOption" value="2" />
+          <option class="tlTypeOption" value="3" />
+          <option class="tlTypeOption" value="4" />
+          <option class="tlTypeOption" value="5" />
+          <option class="tlTypeOption" value="6" />
+          <option class="tlTypeOption" value="7" />
+        </select>
+      </div>
+      <div class="columninfoBox">
+        <label for="notif" />
+        <input type="checkbox" id="notif" tabindex="10" />
+      </div>
+      <div class="columninfoBox">
+        <label for="onstart" />
+        <input type="checkbox" id="onstart" tabindex="10" />
+      </div>
+      <div class="columninfoBox">
+        <label for="autoreload" />
+        <input type="checkbox" id="autoreload" tabindex="10" />
+      </div>
+      <div class="columninfoBox">
+        <label for="stream" />
+        <input type="checkbox" id="stream" tabindex="10" />
+      </div>
+      <div class="columninfoBox">
+        <label for="veil" />
+        <input type="checkbox" id="veil" tabindex="10" />
+      </div>
+      <div class="columninfoBox" style="display: none;">
+        <label for="parameter" />
+        <textarea id="parameter" rows="3" disabled="disabled" />
+      </div>
+
+      <div class="textButtonList">
+        <div class="spacer" />
+        <div id="okButton" class="buttonItem textButtonItem" tabindex="10">OK</div>
+        <div id="cancelButton" class="buttonItem textButtonItem" tabindex="10">Cancel</div>
+      </div>
+
+    </div>
+
+    <!-- hidden -->
+    <div id="templateContainer">
+      <table>
+        <tr class="columnListRow" tabindex="1"
+            data-selected=""
+            data-tltype="">
+          <td title="" />
+          <td title="" />
+          <td title="" />
+          <td title=""><input type="checkbox" disabled="disabled" /></td>
+          <td title=""><input type="checkbox" disabled="disabled" /></td>
+          <td title=""><input type="checkbox" disabled="disabled" /></td>
+          <td title=""><input type="checkbox" disabled="disabled" /></td>
+          <td title=""><input type="checkbox" disabled="disabled" /></td>
+          <td title="" />
+        </tr>
+      </table>
+
+      <select>
+        <option class="tweetUserOption" value="" />
+      </select>
+    </div>
+
+    <!-- at last -->
+    <script src="js/columns.js"></script>
+    <script src="/scripts/common_code.js"></script>
+    <script src="/scripts/text-ope.js"></script>
+  </body>
+</html>

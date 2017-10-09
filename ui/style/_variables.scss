@@ -1,0 +1,377 @@
+@charset "utf-8";
+
+/**************
+  テーマカラー
+ **************/
+// 標準
+$default-color: (
+    border             : #bfbfbf,
+    background         : #ffffff,
+    font               : #101010
+);
+
+$default-color-custom: (
+    border-accent1     : darken( map-get( $default-color, border), 20% ),
+    background-accent1 : darken( map-get( $default-color, background), 60% ), // 反転背景色
+    background-accent2 : darken( map-get( $default-color, background), 10% ), // パネル背景色
+    background-accent3 : darken( map-get( $default-color, background), 35% ), // 中間背景色
+    gradation1-from    : map-get( $default-color, background),
+    gradation1-to      : darken( map-get( $default-color, background), 15% ),
+    gradation2-from    : darken( map-get( $default-color, background), 15% ),
+    gradation2-to      : darken( map-get( $default-color, background), 30% ),
+    gradation3-from    : darken( map-get( $default-color, background), 30% ),
+    gradation3-to      : darken( map-get( $default-color, background), 45% ),
+    font-accent1       : lighten( map-get( $default-color, font), 80% ), // 反転文字色
+    font-accent2       : lighten( map-get( $default-color, font), 40% ), // 薄字文字色
+    shadow             : transparentize( darken( map-get( $default-color, border), 20% ), 0.5 ),
+    column-shadow      : darken( map-get( $default-color, border), 20%)
+);
+
+$default-color: map-merge( $default-color, $default-color-custom);
+
+// 黒系
+$black-color: (
+    border             : #6f6f6f,
+    background         : #303030,
+    font               : #efefef
+);
+
+$black-color-custom: (
+    border-accent1     : lighten( map-get( $black-color, border), 20% ),
+    background-accent1 : lighten( map-get( $black-color, background), 80% ), // 反転背景色
+    background-accent2 : lighten( map-get( $black-color, background), 10% ), // パネル背景色
+    background-accent3 : lighten( map-get( $black-color, background), 45% ), // 中間背景色
+    gradation1-from    : lighten( map-get( $black-color, background), 10% ),
+    gradation1-to      : map-get( $black-color, background),
+    gradation2-from    : lighten( map-get( $black-color, background), 20% ),
+    gradation2-to      : lighten( map-get( $black-color, background), 10% ),
+    gradation3-from    : lighten( map-get( $black-color, background), 30% ),
+    gradation3-to      : lighten( map-get( $black-color, background), 20% ),
+    font-accent1       : darken( map-get( $black-color, font), 60% ), // 反転文字色
+    font-accent2       : darken( map-get( $black-color, font), 30% ), // 薄字文字色
+    shadow             : transparentize( lighten( map-get( $black-color, border), 80% ), 0.7 ),
+    column-shadow      : lighten( map-get( $black-color, border), 80%)
+);
+
+$black-color: map-merge( $black-color, $black-color-custom);
+
+// 個別テーマ：underground_orange
+$underground_orange-color: (
+    border             : #600000,
+    background         : #200000,
+    font               : #c03030
+);
+
+$underground_orange-color-custom: (
+    border-accent1     : lighten( map-get( $underground_orange-color, border), 20% ),
+    background-accent1 : lighten( map-get( $underground_orange-color, background), 20% ), // 反転背景色
+    background-accent2 : lighten( map-get( $underground_orange-color, background), 10% ), // パネル背景色
+    background-accent3 : lighten( map-get( $underground_orange-color, background), 15% ), // 中間背景色
+    gradation1-from    : lighten( map-get( $underground_orange-color, background), 5% ),
+    gradation1-to      : map-get( $underground_orange-color, background),
+    gradation2-from    : lighten( map-get( $underground_orange-color, background), 10% ),
+    gradation2-to      : lighten( map-get( $underground_orange-color, background), 5% ),
+    gradation3-from    : lighten( map-get( $underground_orange-color, background), 15% ),
+    gradation3-to      : lighten( map-get( $underground_orange-color, background), 10% ),
+    font-accent1       : lighten( map-get( $underground_orange-color, font), 40% ),       // 反転文字色
+    font-accent2       : lighten( map-get( $underground_orange-color, font), 10% ),       // 薄字文字色
+    shadow             : transparentize( lighten( map-get( $underground_orange-color, border), 60% ), 0.5 ),
+    column-shadow      : lighten( map-get( $underground_orange-color, border), 60%)
+);
+
+$underground_orange-color: map-merge( $underground_orange-color, $underground_orange-color-custom);
+
+$theme-color: (
+    default            : default,
+    default2           : default,
+    balloon_white      : default,
+    classic_black      : black,
+    classic_black2     : black,
+    balloon_black      : black,
+    card_white         : default,
+    card_black         : black,
+    underground_orange : underground_orange,
+    shachiku           : default,
+    shachiku2          : default,
+    shachiku3          : default,
+    shachiku4          : default
+);
+
+$theme-type: (
+    default            : default,
+    default2           : loose,
+    balloon_white      : balloon,
+    classic_black      : default,
+    classic_black2     : loose,
+    balloon_black      : balloon,
+    card_white         : card,
+    card_black         : card,
+    underground_orange : card,
+    shachiku           : default,
+    shachiku2          : default,
+    shachiku3          : loose,
+    shachiku4          : loose
+);
+
+/**********
+  スケール
+ **********/
+$base-spacing: (
+    default : 0px,
+    loose   : 0px,
+    balloon : 4px,
+    card    : 4px
+);
+
+$ex1-spacing: (
+    default : 0px,
+    loose   : 4px,
+    balloon : 5px,
+    card    : 4px
+);
+
+// tweeterアイコンサイズ
+$icon-size: (
+    xsmall : 24px,
+    small  : 32px,
+    medium : 40px,
+    large  : 48px,
+    xlarge : 56px
+);
+
+// ボタンサイズ
+$button-size: (
+    xsmall : 16px,
+    small  : 20px,
+    medium : 24px,
+    large  : 28px
+);
+
+/**********
+  アイコン
+ **********/
+// メニューアイコン
+$menu-icon: (
+    retweet      : '\f079',
+    quote        : '\f079',
+    rt           : '\f10d',
+    showtext     : '\f0ea',
+    openurl      : '\f08e',
+    replyall     : '\f122',
+    favorite     : '\f006',
+    showreply    : '\f27a',
+    favorited    : '\f005',
+    replydm      : '\f112'
+);
+
+// ステータスアイコン
+$status-icon: (
+    Place     : '\f041',
+    Retweeted : '\f079'
+);
+
+// 右クリックメニュー
+$menu-item: favorite, conversation, url;
+
+// カラムアイコン
+$column-icon: (
+    timeline          : '\f015',
+    connect           : '\f1fa',
+    retweeted         : '\f079',
+    usertimeline      : '\f015',
+    favorite          : '\f005',
+    search            : '\f002',
+    directmessage     : '\f0e0',
+    listtimeline      : '\f00b',
+    follow            : '\f007',
+    follower          : '\f007',
+    ownershiplists    : '\f00b',
+    subscriptionlists : '\f00b',
+    membershiplists   : '\f00b',
+    tempsearch        : '\f002'
+);
+
+/**************
+  ミックスイン
+ **************/
+@mixin create-theme-color( $kv, $precontent:null, $postcontent:null ) {
+    $separator: space;
+    // セパレータ指定（separator）
+    @if map-has-key( $kv, separator ) {
+        $separator: map-get( $kv, separator );
+        $kv: map-remove( $kv, separator );
+    }
+    // テーマ限定（only）
+    $themes: map-keys( $theme-color );
+    @if map-has-key( $kv, only ) {
+        $themes: map-get( $kv, only );
+        $kv: map-remove( $kv, only );
+    }
+
+    @each $theme, $color in $theme-color {
+        @if index( $themes, $theme ) {
+            @if $color == default {
+                [data-theme="#{$theme}"] & {
+                    @each $key, $value in $kv {
+                        $list: ();
+                        // 複数値
+                        @each $v in $value {
+                            $list : join( $list, map-get( $default-color, #{$v} ), $separator );
+                        }
+                        #{$key}: #{$precontent}#{$list}#{$postcontent};
+                    }
+                }
+            }
+            @if $color == black {
+                [data-theme="#{$theme}"] & {
+                    @each $key, $value in $kv {
+                        $list: ();
+                        // 複数値
+                        @each $v in $value {
+                            $list : join( $list, map-get( $black-color, #{$v} ), $separator );
+                        }
+                        #{$key}: #{$precontent}#{$list}#{$postcontent};
+                    }
+                }
+            }
+            @if $color == underground_orange {
+                [data-theme="#{$theme}"] & {
+                    @each $key, $value in $kv {
+                        @if $key != separator {
+                            $list: ();
+                            // 複数値
+                            @each $v in $value {
+                                $list : join( $list, map-get( $underground_orange-color, #{$v} ), $separator );
+                            }
+                            #{$key}: #{$precontent}#{$list}#{$postcontent};
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin create-theme-spacing( $kv, $precontent:null, $postcontent:null ) {
+    $separator: space;
+    // セパレータ指定（separator）
+    @if map-has-key( $kv, separator ) {
+        $separator: map-get( $kv, separator );
+        $kv: map-remove( $kv, separator );
+    }
+    // テーマ限定（only）
+    $themes: map-keys( $theme-color );
+    @if map-has-key( $kv, only ) {
+        $themes: map-get( $kv, only );
+        $kv: map-remove( $kv, only );
+    }
+
+    @each $theme, $type in $theme-type {
+        @if index( $themes, $theme ) {
+            [data-theme="#{$theme}"] & {
+                @each $key, $value in $kv {
+                    $list: ();
+                    // 複数値
+                    @each $v in $value {
+                        $space: null;
+                        $times: 1;
+                        // 倍数
+                        @if length( $v ) == 2 {
+                            $space: nth( $v, 1 );
+                            $times: nth( $v, 2 );
+                        }
+                        @else {
+                            $space: $v;
+                        }
+                        @if $space == base {
+                            $list : join( $list, map-get( $base-spacing, #{$type} ) * $times, $separator );
+                        }
+                        @else if $space == ex1 {
+                            $list : join( $list, map-get( $ex1-spacing, #{$type} )* $times, $separator );
+                        }
+                    }
+                    #{$key}: #{$precontent}#{$list}#{$postcontent};
+                }
+            }
+        }
+    }
+}
+
+@mixin create-theme-style( $group, $values ) {
+    @if $group == color {
+        @each $theme, $color in $theme-color {
+            @if index( $values, $color ) {
+                [data-theme="#{$theme}"] & {
+                    @content;
+                }
+            }
+        }
+    }
+    @else if $group == type {
+        @each $theme, $type in $theme-type {
+            @if index( $values, $type ) {
+                [data-theme="#{$theme}"] & {
+                    @content;
+                }
+            }
+        }
+    }
+    @else if $group == theme {
+        @each $theme, $color in $theme-color {
+            @if index( $values, $theme ) {
+                [data-theme="#{$theme}"] & {
+                    @content;
+                }
+            }
+        }
+    }
+}
+
+/******
+  関数
+ ******/
+@function map-getkey( $map, $value ) {
+    $result: ();
+    @each $k, $v in $map {
+        @if $value == $v {
+            $result: join( $result, $k );
+        }
+    }
+    @return $result;
+}
+
+/********
+  その他
+ ********/
+$progress-height: 2px;
+
+$leftpanel-width: 200px;
+$leftpanel-border-width: 3px;
+
+$dialog-margin: 10px;
+$dialog-padding: 4px;
+$dialog-border-width: 4px;
+
+$badge-background-color: red;
+$badge-border-color: white;
+$badge-font-color: white;
+
+$columntab-min-width: 150px;
+$columntab-horizontal-margin: 1px;
+$columntab-padding: 4px;
+
+$newtweet-border-width: 1px;
+$newtweet-padding: 4px;
+$newtweet-thumbnail-size: 32px;
+
+$notif-userimage-size: 24px;
+
+$message-margin: 20px;
+
+$clearreplies-margin: 5px;
+
+/************************
+  その他（プロフィール）
+ ************************/
+$profile-container-margin: 4px;
+$countbox-margin: 8px;

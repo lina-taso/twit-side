@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title />
+    <meta charset="utf-8" />
+    <link href="style/common.css" rel="stylesheet" type="text/css" />
+    <link href="style/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="l10n/l10n-definition-api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/jquery.min.js"></script>
+  </head>
+
+  <body
+    data-window-type="api"
+    data-theme="default"
+    data-icon-size="large"
+    data-button-size="medium"
+    data-circle-icon="true"
+    data-animation="true"
+    style="font-size: 12px;">
+
+    <div id="progressContainer">
+      <div id="progressBar" />
+    </div>
+
+    <div id="mainContainer">
+      <table id="apiContainer">
+        <thead>
+          <tr id="apiHead">
+            <th />
+            <th />
+            <th />
+            <th />
+          </tr>
+        </thead>
+        <tbody id="apiBody">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="textButtonList">
+      <div class="spacer" />
+      <div id="closeButton" class="buttonItem textButtonItem" tabindex="1" />
+    </div>
+
+    <!-- hidden -->
+    <div id="templateContainer">
+      <table>
+        <tr class="apiPathRow">
+          <td colspan="4" />
+        </tr>
+        <tr class="apiRow">
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+      </table>
+
+      <select>
+        <option class="tweetUserOption" value="" />
+      </select>
+    </div>
+
+    <!-- at last -->
+    <script src="js/api.js"></script>
+    <script src="/scripts/common_code.js"></script>
+    <script src="/scripts/text-ope.js"></script>
+  </body>
+</html>

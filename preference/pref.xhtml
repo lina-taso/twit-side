@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <link href="style/pref.css" rel="stylesheet" type="text/css" />
+    <link href="/ui/style/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="l10n/l10n-definition-pref.js"></script>
+    <script src="/ui/js/jquery.min.js"></script>
+    <script src="/ui/js/jquery.ui.sortable.min.js"></script>
+  </head>
+
+  <body>
+    <section>
+      <h2 id="label.update" />
+      <h3 id="label.update.parameters" />
+      <form>
+        <label for="timeout" />
+        <input  id="timeout" type="number" min="1" max="60" />
+        <br />
+        <label for="timeline_count" />
+        <input  id="timeline_count" type="number" min="10" max="200" />
+        <br />
+        <label for="connect_count" />
+        <input  id="connect_count" type="number" min="10" max="200" />
+        <br />
+        <label for="retweeted_count" />
+        <input  id="retweeted_count" type="number" min="10" max="200" />
+        <br />
+        <label for="favorite_count" />
+        <input  id="favorite_count" type="number" min="10" max="200" />
+        <br />
+        <label for="search_count" />
+        <input  id="search_count" type="number" min="10" max="100" />
+        <br />
+        <label for="profile_count" />
+        <input  id="profile_count" type="number" min="10" max="200" />
+        <br />
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.update.autopager" />
+      <form>
+        <input  id="autopager" type="checkbox" />
+        <label for="autopager" />
+        <br />
+        <label for="autopager_count" />
+        <input  id="autopager_count" type="number" min="10" max="200" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.update.autoreload" />
+      <form>
+        <label for="autoreload_time" />
+        <input  id="autoreload_time" type="number" min="60" />
+        <br />
+        <label for="autosearch_time" />
+        <input  id="autosearch_time" type="number" min="60" />
+        <br />
+        <input  id="autoreload_aftertweet" type="checkbox" />
+        <label for="autoreload_aftertweet" />
+        <br />
+        <input  id="autoreload_totop" type="checkbox" />
+        <label for="autoreload_totop" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+    </section>
+
+    <section>
+      <h2 id="label.extra" />
+      <h3 id="label.extra.url" />
+      <form>
+        <p id="label.extra.restart_required" class="warn" />
+        <input  id="exURL" type="checkbox" />
+        <label for="exURL" />
+        <br />
+        <input  id="exURL_cut" type="checkbox" />
+        <label for="exURL_cut" />
+        <br />
+        <input  id="URL_tabactive" type="checkbox" />
+        <label for="URL_tabactive" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.extra.mute" />
+      <form>
+        <input  id="mute_onsearch" type="checkbox" />
+        <label for="mute_onsearch" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.extra.retweet" />
+      <form>
+        <input  id="retweets_onlyfriends" type="checkbox" />
+        <label for="retweets_onlyfriends" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.extra.search" />
+      <form>
+        <input  id="domestic_search" type="checkbox" />
+        <label for="domestic_search" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+    </section>
+
+    <section>
+      <h2 id="label.style" />
+      <h3 id="label.style.design" />
+      <form>
+
+        <label for="theme" />
+        <select id="theme">
+          <option value="default">default</option>
+          <option value="classic_black">classic_black</option>
+          <option value="default2">default [loose]</option>
+          <option value="classic_black2">classic_black [loose]</option>
+          <option value="balloon_white">balloon_white</option>
+          <option value="balloon_black">balloon_black</option>
+          <option value="card_white">card_white</option>
+          <option value="card_black">card_black</option>
+          <option value="underground_orange">underground_orange</option>
+          <option value="shachiku">社畜（shachiku）</option>
+          <option value="shachiku2">社畜（shachiku）/w icon</option>
+          <option value="shachiku3">社畜（shachiku）[loose]</option>
+          <option value="shachiku4">社畜（shachiku）[loose] /w icon</option>
+        </select>
+        <br />
+
+        <input  id="color_retweets" type="checkbox" />
+        <label for="color_retweets" />
+        <br />
+        <input  id="screenname_first" type="checkbox" />
+        <label for="screenname_first" />
+        <br />
+        <input  id="circle_icon" type="checkbox" />
+        <label for="circle_icon" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.style.timestamp" />
+      <form>
+        <p id="label.style.restart_required" />
+        <label for="timeformat" />
+        <select id="timeformat">
+          <option value="default">JavaScript (###)</option>
+          <option value="locale">Follow the locale setting (###)</option>
+          <option value="japan1">Japan1 (###)</option>
+          <option value="japan2">Japan2 (###)</option>
+          <option value="pattern1">Pattern1 (###)</option>
+          <option value="pattern2">Pattern2 (###)</option>
+          <option value="pattern3">Pattern3 (###)</option>
+          <!-- <option value="diff">差分（20分前）</option> -->
+        </select>
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.style.photo" />
+      <form>
+        <input  id="viewthumbnail" type="checkbox" />
+        <label for="viewthumbnail" />
+        <br />
+        <input  id="popup_photo" type="checkbox" />
+        <label for="popup_photo" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.style.misc" />
+      <form>
+        <input  id="viewsource" type="checkbox" />
+        <label for="viewsource" />
+        <br />
+        <input  id="linefeed" type="checkbox" />
+        <label for="linefeed" />
+        <br />
+        <input  id="animation" type="checkbox" />
+        <label for="animation" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+    </section>
+
+    <section>
+      <h2 id="label.scale" />
+      <h3 id="label.scale.minwidth" />
+      <form>
+        <p id="label.scale.minwidth_notice" class="info" />
+        <label for="column_minwidth" />
+        <input  id="column_minwidth" type="number" min="200" step="10" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.scale.size" />
+      <form>
+        <p id="label.scale.fontsize_notice" class="info" />
+        <label for="font_size" />
+        <input  id="font_size" type="number" min="6" max="20" />
+        <br />
+        <label for="icon_size" />
+        <select id="icon_size">
+          <option value="xsmall">xsmall (24px)</option>
+          <option value="small">small (32px)</option>
+          <option value="medium">medium (40px)</option>
+          <option value="large">large (48px default)</option>
+          <option value="xlarge">xlarge (52px)</option>
+        </select>
+        <br />
+        <label for="button_size" />
+        <select id="button_size">
+          <option value="xsmall">xsmall (16px)</option>
+          <option value="small">small (20px)</option>
+          <option value="medium">medium (24px default)</option>
+          <option value="large">large (28px)</option>
+        </select>
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+    </section>
+
+    <section>
+      <h2 id="label.notification" />
+      <form>
+        <p id="label.notification.turnonnotif" class="warn" />
+        <p id="label.notification.enabledonstream" />
+        <input  id="notif_all" type="checkbox" />
+        <label for="notif_all" />
+        <br />
+        <input  id="notif_forme" type="checkbox" />
+        <label for="notif_forme" />
+        <br />
+        <input  id="notif_forme_retweeted" type="checkbox" />
+        <label for="notif_forme_retweeted" />
+        <br />
+        <input  id="notif_favorite" type="checkbox" />
+        <label for="notif_favorite" />
+        <br />
+        <input  id="notif_unfavorite" type="checkbox" />
+        <label for="notif_unfavorite" />
+        <br />
+        <input  id="notif_follow" type="checkbox" />
+        <label for="notif_follow" />
+        <br />
+        <input  id="notif_directmessage" type="checkbox" />
+        <label for="notif_directmessage" />
+        <br />
+        <label for="notif_count" />
+        <input  id="notif_count" type="number" min="5" max="50" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+    </section>
+
+    <section>
+      <h2 id="label.tweetmenu" />
+      <h3 id="label.tweetmenu.contextmenu" />
+      <form>
+        <p id="label.tweetmenu.fortypist" class="info" />
+        <input  id="menu_reply" type="checkbox" />
+        <label for="menu_reply" />
+        <br />
+        <input  id="menu_favorite" type="checkbox" />
+        <label for="menu_favorite" />
+        <br />
+        <input  id="menu_conversation" type="checkbox" />
+        <label for="menu_conversation" />
+        <br />
+        <input  id="menu_url" type="checkbox" />
+        <label for="menu_url" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.tweetmenu.hovermenu" />
+      <form>
+        <img src="/images/hovermenu.png" width="377" />
+        <p id="label.tweetmenu.upto2menu" class="info" />
+        <p id="label.tweetmenu.draggable" />
+        <table id="hovermenuContainer">
+          <tr>
+            <td><input  id="hover_retweet" value="retweet" type="checkbox" /></td>
+            <td><label for="hover_retweet" /></td>
+          </tr>
+          <tr>
+            <td><input  id="hover_quote" value="quote" type="checkbox" /></td>
+            <td><label for="hover_quote" /></td>
+          </tr>
+          <tr>
+            <td><input  id="hover_rt" value="rt" type="checkbox" /></td>
+            <td><label for="hover_rt" /></td>
+          </tr>
+          <tr>
+            <td><input  id="hover_showtext" value="showtext" type="checkbox" /></td>
+            <td><label for="hover_showtext" /></td>
+          </tr>
+          <tr>
+            <td><input  id="hover_opentweeturl" value="opentweeturl" type="checkbox" /></td>
+            <td><label for="hover_opentweeturl" /></td>
+          </tr>
+          <tr>
+            <td><input  id="hover_replyall" value="replyall" type="checkbox" /></td>
+            <td><label for="hover_replyall" /></td>
+          </tr>
+          <tr>
+            <td><input  id="hover_favorite" value="favorite" type="checkbox"
+                        checked="checked" disabled="disabled"/></td>
+            <td><label for="hover_favorite" /></td>
+          </tr>
+          <tr>
+            <td><input  id="hover_showreply" value="showreply" type="checkbox"
+                        checked="checked" disabled="disabled" /></td>
+            <td><label for="hover_showreply" /></td>
+          </tr>
+        </table>
+
+        <button class="save_button2" type="button"></button>
+      </form>
+    </section>
+
+    <section>
+      <h2 id="label.confirm" />
+      <form>
+        <input  id="confirm_tweet" type="checkbox" />
+        <label for="confirm_tweet" />
+        <br />
+        <input  id="confirm_retweet" type="checkbox" />
+        <label for="confirm_retweet" />
+        <br />
+        <input  id="confirm_favorite" type="checkbox" />
+        <label for="confirm_favorite" />
+        <br />
+        <input  id="confirm_delete" type="checkbox" />
+        <label for="confirm_delete" />
+        <br />
+        <input  id="confirm_follow" type="checkbox" />
+        <label for="confirm_follow" />
+        <br />
+        <input  id="confirm_mute" type="checkbox" />
+        <label for="confirm_mute" />
+        <br />
+        <input  id="confirm_noretweet" type="checkbox" />
+        <label for="confirm_noretweet" />
+        <br />
+        <input  id="confirm_deletecolumn" type="checkbox" />
+        <label for="confirm_deletecolumn" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+    </section>
+
+    <!-- at last -->
+    <script src="js/pref.js"></script>
+    <script src="/scripts/common_code.js"></script>
+    <script src="/scripts/text-ope.js"></script>
+  </body>
+</html>
