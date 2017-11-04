@@ -22,16 +22,34 @@ const l10nDefinition = [
         "word"     : "auth.access"
     },
     {
-        "selector" : "#tinyUrlEnabled",
-        "place"    : "attr",
-        "attr"     : "title",
-        "word"     : "top.shortenurl"
-    },
-    {
         "selector" : "#imageEnabled",
         "place"    : "attr",
         "attr"     : "title",
         "word"     : "top.uploadimage"
+    },
+    {
+        "selector" : "#movieEnabled",
+        "place"    : "attr",
+        "attr"     : "title",
+        "word"     : "top.uploadmovie"
+    },
+    {
+        "selector" : "#aniGifEnabled",
+        "place"    : "attr",
+        "attr"     : "title",
+        "word"     : "top.uploadanigif"
+    },
+    {
+        "selector" : "#sharePicture",
+        "place"    : "attr",
+        "attr"     : "title",
+        "word"     : "top.sharepicture"
+    },
+    {
+        "selector" : "#sharePage",
+        "place"    : "attr",
+        "attr"     : "title",
+        "word"     : "top.sharepage"
     },
     {
         "selector" : "#replyUsersSelection",

@@ -8,10 +8,11 @@
 TwitSideModule.urls = {
     twit :
     {
-        urlOauthBase : 'https://api.twitter.com/oauth',
-        urlBase : 'https://api.twitter.com/1.1',
+        oauthBase : 'https://api.twitter.com/oauth',
+        apiBase : 'https://api.twitter.com/1.1',
         streamBase : 'https://userstream.twitter.com/1.1',
-        dmBase : 'https://ton.twitter.com/1.1',
+        tonBase : 'https://ton.twitter.com/1.1',
+        uploadBase : 'https://upload.twitter.com/1.1',
         /**
          * 末尾 ?有り：GET用URL
          * 末尾 /無し：URL続かない
@@ -77,12 +78,14 @@ TwitSideModule.urls = {
         urlSearchTweets : '/search/tweets.json?',
         urlHelpConfiguration : '/help/configuration.json?',
 
-        urlAPI : '/application/rate_limit_status.json?'
+        urlAPI : '/application/rate_limit_status.json?',
+
+        urlMediaUpload : '/media/upload.json'
     },
 
     auth :
     {
-        base : 'https://twit-side.filewo.net/index.cgi',
+        base : 'https://twit-side.filewo.net/index11.cgi',
         get urlBase()
         {
             return TwitSideModule.config.getPref('alturl') || this.base;

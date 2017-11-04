@@ -1144,7 +1144,7 @@ var UI = {
                     let $thumbimg = $templateImg.clone();
                     $thumbimg[0].urls = {
                         fullurl : medium.expanded_url,
-                        rawurl : medium.media_url,
+                        rawurl : medium.media_url+':large',
                         variants : medium.video_info ? medium.video_info.variants : null
                     };
                     $thumbimg.attr('src', medium.media_url+':medium')

@@ -352,6 +352,12 @@
     "confirmLogout" : {
         "message" : "全ユーザをログアウトしますか？"
     },
+    "confirmAniGif" : {
+        "message" : "選択したGIF画像はアニメーションGIFですか？"
+    },
+    "messageUploadType" : {
+        "message" : "画像（4枚まで）、アニメーションGIF（1枚まで）または動画（1本まで）のうち1種類のみアップロードできます"
+    },
 
     //
     // Window title
@@ -503,11 +509,20 @@
         "message" : "(3) アプリケーションを許可"
     },
 
-    "top.shortenurl" : {
-        "message" : "URLを短縮します"
-    },
     "top.uploadimage" : {
         "message" : "画像を投稿します"
+    },
+    "top.uploadmovie" : {
+        "message" : "動画を投稿します"
+    },
+    "top.uploadanigif" : {
+        "message" : "アニメーションGIFを投稿します"
+    },
+    "top.sharepicture" : {
+        "message" : "画像や動画を共有する"
+    },
+    "top.sharepage" : {
+        "message" : "ページを共有する"
     },
     "top.additionalreplyto" : {
         "message" : "返信先: "

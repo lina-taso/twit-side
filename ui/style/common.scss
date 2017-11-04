@@ -395,7 +395,7 @@ input[type="text"], textarea, select {
             align-items: center;
             @each $size, $px in $button-size {
                 [data-button-size="#{$size}"] & {
-                    font-size: #{$px - 2};
+                    font-size: #{$px - 4};
                     width: $px;
                     height: $px;
                 }
@@ -406,7 +406,7 @@ input[type="text"], textarea, select {
                 }
             }
             @at-root .buttonList.smallButtonList .buttonImage {
-                font-size: map-get( $button-size, small );
+                font-size: #{map-get( $button-size, small ) - 4};
                 width: map-get( $button-size, small );
                 height: map-get( $button-size, small );
             }
@@ -472,14 +472,14 @@ input[type="text"], textarea, select {
             margin: 4px;
             @each $size, $px in $button-size {
                 [data-button-size="#{$size}"] & {
-                    font-size: $px;
+                    font-size: #{$px - 4};
                     width: $px;
                     height: $px;
                 }
                 // サークルアイコン
                 @at-root
                 [data-circle-icon="true"][data-button-size="#{$size}"] .menuProfileItem .menuImage {
-                    border-radius: #{$px / 2};
+                    border-radius: #{$px / 2 - 2};
                 }
             }
         }
@@ -503,30 +503,41 @@ input[type="text"], textarea, select {
     display: flex;
     align-items: center;
 
-    @at-root #tinyUrlEnabled {
-        width: 50px;
-        height: 20px;
-        margin-right: 2px;
-        background-image: url('../../images/shortenurl_disabled.svg');
-        background-repeat: no-repeat;
-        background-size: 50px 20px;
+    .attachmentStatus {
+        width: 20px;
+        font-size: 16px;
+        display: inline-block;
+        opacity: 0.3;
 
         &[data-enabled="true"] {
-            background-image: url('../../images/shortenurl_enabled.svg');
+            opacity: 1;
         }
     }
-    @at-root #imageEnabled {
-        width: 50px;
-        height: 20px;
-        margin-right: 2px;
-        background-image: url('../../images/image_disabled.svg');
-        background-repeat: no-repeat;
-        background-size: 50px 20px;
 
-        &[data-enabled="true"] {
-            background-image: url('../..//images/image_enabled.svg');
-        }
-    }
+//    @at-root #tinyUrlEnabled {
+//        width: 50px;
+//        height: 20px;
+//        margin-right: 2px;
+//        background-image: url('../../images/shortenurl_disabled.svg');
+//        background-repeat: no-repeat;
+//        background-size: 50px 20px;
+//
+//        &[data-enabled="true"] {
+//            background-image: url('../../images/shortenurl_enabled.svg');
+//        }
+//    }
+//    @at-root #imageEnabled {
+//        width: 50px;
+//        height: 20px;
+//        margin-right: 2px;
+//        background-image: url('../../images/image_disabled.svg');
+//        background-repeat: no-repeat;
+//        background-size: 50px 20px;
+//
+//        &[data-enabled="true"] {
+//            background-image: url('../..//images/image_enabled.svg');
+//        }
+//    }
 }
 
 #replyUsersSelection {

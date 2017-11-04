@@ -36,6 +36,9 @@ function TWEET_OPE(message) {
     case TwitSideModule.COMMAND.TWEET_SHOWAPI:
         return (new Tweet(TwitSideModule.ManageUsers.getUserInfo(message.userid)))
             .showAPI(message.options);
+    case TwitSideModule.COMMAND.TWEET_UPLOAD_MEDIA:
+        return (new Tweet(TwitSideModule.ManageUsers.getUserInfo(message.userid)))
+            .upload_media(message.options, message.files, { win_type : message.win_type, id : message.id });
     }
     return Promise.reject('ACTION_IS_NOT_DEFINED');
 }

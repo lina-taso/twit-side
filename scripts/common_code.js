@@ -20,6 +20,7 @@ TwitSideModule.COMMAND = {
     TWEET_SENDDM :     213, // action：DM送信
     TWEET_USERSHOW:    221, // action：ユーザ情報取得
     TWEET_SHOWAPI:     222, // action：API
+    TWEET_UPLOAD_MEDIA:231, // action：画像アップロード
     COLUMN_OPE :       30,
     COLUMN_ADD :       301, // action：追加
     COLUMN_EDIT :      302, // action：修正

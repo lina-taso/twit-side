@@ -352,6 +352,12 @@
     "confirmLogout" : {
         "message" : "Logout all user?"
     },
+    "confirmAniGif" : {
+        "message" : "Is this GIF image an animated GIF image?"
+    },
+    "messageUploadType" : {
+        "message" : "One type of images (up to 4) or an animated GIF (only 1) or a video (only 1) can be uploaded"
+    },
 
     //
     // Window title
@@ -503,11 +509,20 @@
         "message" : "(3) Allow this application"
     },
 
-    "top.shortenurl" : {
-        "message" : "Shorten URL"
-    },
     "top.uploadimage" : {
-        "message" : "Upload a picture"
+        "message" : "Upload pictures"
+    },
+    "top.uploadmovie" : {
+        "message" : "Upload a movie"
+    },
+    "top.uploadanigif" : {
+        "message" : "Upload an animation gif"
+    },
+    "top.sharepicture" : {
+        "message" : "Share pictures or a video"
+    },
+    "top.sharepage" : {
+        "message" : "Share a web page"
     },
     "top.additionalreplyto" : {
         "message" : "Reply to: "

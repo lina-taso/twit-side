@@ -2379,7 +2379,7 @@ Timeline.prototype = {
             case 'twitter':
                 return Promise.all([
                     timeline._tweet.dmOAuth(urls.id+':medium', {}),
-                    timeline._tweet.dmOAuth(urls.id, {})
+                    timeline._tweet.dmOAuth(urls.id+':large', {})
                 ]).then(([thumb, response]) => {
                         if (thumb && thumb.data
                             && response && response.data) {

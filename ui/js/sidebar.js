@@ -11,7 +11,9 @@ const COLUMN_TAB_WIDTH = 150,
       COLUMN_TAB_MARGIN = 2, // horizontal margin
       HELP_URL = 'https://www2.filewo.net/wordpress/%e8%a3%bd%e4%bd%9c%e7%89%a9/twit-side-%e8%aa%ac%e6%98%8e%e6%9b%b8/',
       TWEET_MAX_LENGTH = 140,
-      MAX_PICS = 1,
+      MAX_PICS = 4,
+      MAX_ANIGIF = 1,
+      MAX_MOVIE = 1,
       LOADWAIT = 1000;
 
 var prefs = {},
@@ -453,9 +455,9 @@ function countNewTweet(e)
 
     // URL
     var urls = twttr.txt.extractUrls($newTweet.val());
-    $('#tinyUrlEnabled').attr('data-enabled', urls.length ? 'true' : 'false');
+//    $('#tinyUrlEnabled').attr('data-enabled', urls.length ? 'true' : 'false');
     // 画像
-    $('#imageEnabled').attr('data-enabled', $('#pictureThumbnails').children().length ? 'true' : 'false');
+//    $('#imageEnabled').attr('data-enabled', $('#pictureThumbnails').children().length ? 'true' : 'false');
 
     // 文字数
     $newTweetCount.text(TWEET_MAX_LENGTH - count);
@@ -516,7 +518,9 @@ function sendTweet()
         button = $('#tweetButton')[0],
         $newTweet = $('#newTweet');
 
-    var optionsHash = { status : $newTweet.val() };
+    var optionsHash = { status : $newTweet.val() },
+        optionsHashImage = {},
+        files;
 
     // 返信
     if ($newTweet.attr('data-reply-id')) {
@@ -534,27 +538,42 @@ function sendTweet()
         optionsHash.attachment_url = $newTweet.attr('data-attachment-url');
     }
     // 画像
-    else if ($('#pictureThumbnails').children().length)
-        optionsHash.file0 = $('#pictureThumbnails').children()[0].file;
+    else if ($('#pictureThumbnails').attr('data-mode')) {
+        files = [];
+        $('#pictureThumbnails').children().each(function() {
+            files.push(this.file);
+        });
+        // 画像/GIF/動画
+        optionsHashImage.media_category = $('#pictureThumbnails').attr('data-mode');
+    }
 
     button.dataset.disabled = true;
     // 通常ツイート
-    if (!optionsHash.file0)
+    if (!files)
         browser.runtime.sendMessage({ command : TwitSideModule.COMMAND.TWEET_OPE,
                                       action : TwitSideModule.COMMAND.TWEET_TWEET,
                                       userid : userid,
                                       options : optionsHash })
         .then(callback).catch(error);
+    // 画像付きツイート
     else
         browser.windows.getCurrent()
         .then((win) => {
-            // 画像付きツイート
             return browser.runtime.sendMessage({ command : TwitSideModule.COMMAND.TWEET_OPE,
-                                                 action : TwitSideModule.COMMAND.TWEET_TWEET_MEDIA,
+                                                 action : TwitSideModule.COMMAND.TWEET_UPLOAD_MEDIA,
                                                  userid : userid,
-                                                 options : optionsHash,
+                                                 options : optionsHashImage,
+                                                 files : files,
                                                  win_type : TwitSideModule.WINDOW_TYPE.MAIN,
-                                                 id : win.id }); })
+                                                 id : win.id });
+        })
+        .then((result) => {
+            optionsHash.media_ids = result.media_ids;
+            return browser.runtime.sendMessage({ command : TwitSideModule.COMMAND.TWEET_OPE,
+                                                 action : TwitSideModule.COMMAND.TWEET_TWEET,
+                                                 userid : userid,
+                                                 options : optionsHash });
+        })
         .then(callback).catch(error);
 
     function callback(result)
@@ -603,30 +622,161 @@ function pickedFile(filepicker)
     if (!filepicker.files.length) return;
     var $thumbnails = $('#pictureThumbnails');
 
-    var url = URL.createObjectURL(filepicker.files[0]);
-    $('<div tabindex="1" />').css('background-image', 'url(' + url + ')')
-        .appendTo($thumbnails)[0].file = filepicker.files[0];
+    var file = filepicker.files[0],
+        url = URL.createObjectURL(file);
 
-    URL.revokeObjectURL(filepicker.files[0]);
+    // 種別チェック
+    switch ($thumbnails.attr('data-mode')) {
+    case '': // 1枚目（種別未指定）
+        switch (file.type) {
+        case 'image/png':
+        case 'image/jpeg':
+            // ステータスアイコン
+            $('#imageEnabled').attr('data-enabled', true)
+                .siblings('.attachmentStatus').attr('data-enabled', false);
+            // モード変更
+            $thumbnails.attr('data-mode', 'tweet_image');
+            if ($thumbnails.children().length >= MAX_PICS - 1)
+                $('#sharePicture').attr('data-disabled', 'true');
+            break;
+        case 'image/gif':
+            // アニメーションGIF
+            if (confirm(browser.i18n.getMessage('confirmAniGif'))) {
+                // ステータスアイコン
+                $('#aniGifEnabled').attr('data-enabled', true)
+                    .siblings('.attachmentStatus').attr('data-enabled', false);
+                // モード変更
+                $thumbnails.attr('data-mode', 'tweet_gif');
+                if ($thumbnails.children().length >= MAX_ANIGIF - 1)
+                    $('#sharePicture').attr('data-disabled', 'true');
+            }
+            // 通常GIF
+            else {
+                // ステータスアイコン
+                $('#imageEnabled').attr('data-enabled', true)
+                    .siblings('.attachmentStatus').attr('data-enabled', false);
+                // モード変更
+                $thumbnails.attr('data-mode', 'tweet_image');
+                if ($thumbnails.children().length >= MAX_PICS - 1)
+                    $('#sharePicture').attr('data-disabled', 'true');
+            }
+            break;
+        case 'video/mp4':
+            // ステータスアイコン
+            $('#movieEnabled').attr('data-enabled', true)
+                .siblings('.attachmentStatus').attr('data-enabled', false);
+            // モード変更
+            $thumbnails.attr('data-mode', 'tweet_video');
+            if ($thumbnails.children().length >= MAX_MOVIE - 1)
+                $('#sharePicture').attr('data-disabled', 'true');
+            break;
+        }
+        break;
+
+    case 'tweet_image':
+        switch (file.type) {
+        case 'image/png':
+        case 'image/jpeg':
+            if ($thumbnails.children().length >= MAX_PICS - 1)
+                $('#sharePicture').attr('data-disabled', 'true');
+            break;
+        case 'image/gif':
+            // アニメーションGIF
+            if (confirm(browser.i18n.getMessage('confirmAniGif'))) {
+                typeError();
+                return;
+            }
+            // 通常GIF
+            else {
+                if ($thumbnails.children().length >= MAX_PICS - 1)
+                    $('#sharePicture').attr('data-disabled', 'true');
+            }
+            break;
+        case 'video/mp4':
+            typeError();
+            return;
+        }
+        break;
+
+    case 'tweet_gif':
+        switch (file.type) {
+        case 'image/png':
+        case 'image/jpeg':
+            typeError();
+            return;
+        case 'image/gif':
+            // アニメーションGIF
+            if (confirm(('confirmAniGif'))) {
+                if ($thumbnails.children().length >= MAX_ANIGIF - 1)
+                    $('#sharePicture').attr('data-disabled', 'true');
+            }
+            // 通常GIF
+            else {
+                typeError();
+                return;
+            }
+            break;
+        case 'video/mp4':
+            typeError();
+            return;
+        }
+        break;
+
+    case 'tweet_video':
+        switch (file.type) {
+        case 'image/png':
+        case 'image/jpeg':
+        case 'image/gif':
+            typeError();
+            return;
+        case 'video/mp4':
+            if ($thumbnails.children().length >= MAX_MOVIE - 1)
+                $('#sharePicture').attr('data-disabled', 'true');
+            break;
+        }
+        break;
+
+    }
+
+    $('<div tabindex="1" />').css('background-image', 'url(' + url + ')')
+        .appendTo($thumbnails)[0].file = file;
+
+    URL.revokeObjectURL(file);
     filepicker.value = null;
 
-    if ($thumbnails.children().length >= MAX_PICS)
-        $('#sharePicture').attr('data-disabled', 'true');
     countNewTweet();
+
+    function typeError()
+    {
+        UI.showMessage(browser.i18n.getMessage('messageUploadType'));
+        URL.revokeObjectURL(file);
+        filepicker.value = null;
+        return;
+    }
 }
 
 function cancelFile(file)
 {
     $('#sharePicture').attr('data-disabled', 'false');
     $(file).remove();
-    countNewTweet();
+
+    if ($('#pictureThumbnails').children().length == 0) {
+        // ステータスアイコン
+        $('.attachmentStatus').attr('data-enabled', false);
+        // モード変更
+        $('#pictureThumbnails').attr('data-mode', '');
+    }
 }
 
 function cancelAllFile()
 {
     $('#sharePicture').attr('data-disabled', 'false');
     $('#pictureThumbnails').empty();
-    countNewTweet();
+
+    // ステータスアイコン
+    $('.attachmentStatus').attr('data-enabled', false);
+    // モード変更
+    $('#pictureThumbnails').attr('data-mode', '');
 }
 
 function sharePage()

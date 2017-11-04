@@ -6,7 +6,8 @@
  */
 
 const streamMaxTime = 90000,
-      streamMaxItems = 500;
+      streamMaxItems = 500,
+      uploadChunkSize = 1024 * 1024; // 1MB
 
 var Tweet = function(userinfo) {
 
@@ -62,7 +63,7 @@ Tweet.prototype = {
     {
         var data = {
             method  : 'GET',
-            baseurl : TwitSideModule.urls.twit.urlOauthBase,
+            baseurl : TwitSideModule.urls.twit.oauthBase,
             url     : TwitSideModule.urls.twit.urlRequest
         };
         return this._sendRequest('REQUEST', data);
@@ -74,7 +75,7 @@ Tweet.prototype = {
         var data = {
             method  : 'POST',
             pin     : pin,
-            baseurl : TwitSideModule.urls.twit.urlOauthBase,
+            baseurl : TwitSideModule.urls.twit.oauthBase,
             url     : TwitSideModule.urls.twit.urlAccess
         };
         return this._sendRequest('ACCESS', data);
@@ -97,7 +98,8 @@ Tweet.prototype = {
 
         optionsHash['stringify_friend_ids'] = 'true';
         var data = {
-            method  : 'STREAM',
+            api     : 'STREAM',
+            method  : 'POST',
             options : optionsHash,
             baseurl : TwitSideModule.urls.twit.streamBase,
             url     : TwitSideModule.urls.twit.urlUserStream
@@ -119,9 +121,10 @@ Tweet.prototype = {
     tweet : function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlStatusesUpdate
         };
         return this._sendRequest('SIGNATURE', data)
@@ -135,9 +138,10 @@ Tweet.prototype = {
     tweet_withmedia: function(optionsHash, updatewin)
     {
         var data = {
-            method  : 'MULTI',
+            api     : 'MULTI',
+            method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlStatusesUpdateWithMedia
         };
         return this._sendRequest('SIGNATURE', data, progress)
@@ -155,14 +159,44 @@ Tweet.prototype = {
         }
     },
 
+    // 発言
+    upload_media: function(optionsHash, files, updatewin)
+    {
+        var data = {
+            api     : 'UPLOAD',
+            method  : 'POST',
+            options : optionsHash,
+            baseurl : TwitSideModule.urls.twit.uploadBase,
+            url     : TwitSideModule.urls.twit.urlMediaUpload,
+            files   : files
+        };
+        return this._uploadMedia(data, progress)
+            .then((media_ids) => {
+                var result = {
+                    media_ids : media_ids.join(','),
+                    message : TwitSideModule.Message.transMessage('mediaUploaded')
+                };
+                return Promise.resolve(result);
+            });
+
+        function progress(e)
+        {
+            postMessage({ reason : TwitSideModule.UPDATE.PROGRESS,
+                          data : e.loaded / e.total * 100,
+                          window_type : updatewin.win_type },
+                        updatewin.id);
+        }
+    },
+
     // 公式リツイート
     retweet: function(optionsHash, retweetid)
     {
         optionsHash['include_entities'] = 'true';
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlStatusesRetweet + retweetid + '.json'
         };
         return this._sendRequest('SIGNATURE', data);
@@ -173,9 +207,10 @@ Tweet.prototype = {
     {
         optionsHash['tweet_mode'] = 'extended';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlStatusesShow
         };
         return this._sendRequest('SIGNATURE', data);
@@ -185,9 +220,10 @@ Tweet.prototype = {
     destroy: function(optionsHash, tweetid)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlStatusesDestroy + tweetid + '.json'
         };
         return this._sendRequest('SIGNATURE', data);
@@ -197,9 +233,10 @@ Tweet.prototype = {
     favoritelist: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlFavoritesList
         };
         return this._sendRequest('SIGNATURE', data);
@@ -210,9 +247,10 @@ Tweet.prototype = {
     {
         optionsHash['include_entities'] = 'true';
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlFavoritesCreate
         };
         return this._sendRequest('SIGNATURE', data);
@@ -223,9 +261,10 @@ Tweet.prototype = {
     {
         optionsHash['include_entities'] = 'true';
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlFavoritesDestroy
         };
         return this._sendRequest('SIGNATURE', data);
@@ -237,9 +276,10 @@ Tweet.prototype = {
         optionsHash['include_entities'] = 'true';
         optionsHash['tweet_mode'] = 'extended';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlStatusesHomeTimeline
         };
         return this._sendRequest('SIGNATURE', data);
@@ -251,9 +291,10 @@ Tweet.prototype = {
         optionsHash['include_entities'] = 'true';
         optionsHash['tweet_mode'] = 'extended';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlStatusesUserTimeline
         };
         return this._sendRequest('SIGNATURE', data);
@@ -265,9 +306,10 @@ Tweet.prototype = {
         optionsHash['include_entities'] = 'true';
         optionsHash['tweet_mode'] = 'extended';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsStatuses
         };
         return this._sendRequest('SIGNATURE', data);
@@ -279,9 +321,10 @@ Tweet.prototype = {
         optionsHash['include_entities'] = 'true';
         optionsHash['tweet_mode'] = 'extended';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlStatusesMentionsTimeline
         };
         return this._sendRequest('SIGNATURE', data);
@@ -293,9 +336,10 @@ Tweet.prototype = {
         optionsHash['include_entities'] = 'true';
         optionsHash['tweet_mode'] = 'extended';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlStatusesRetweetsOfMe
         };
         return this._sendRequest('SIGNATURE', data);
@@ -305,9 +349,10 @@ Tweet.prototype = {
     retweeters: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlStatusesRetweets
         };
         return this._sendRequest('SIGNATURE', data);
@@ -317,9 +362,10 @@ Tweet.prototype = {
     userLookup: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlUsersLookup
         };
         return this._sendRequest('SIGNATURE', data);
@@ -329,9 +375,10 @@ Tweet.prototype = {
     userShow: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlUsersShow
         };
         return this._sendRequest('SIGNATURE', data);
@@ -342,9 +389,10 @@ Tweet.prototype = {
     {
         optionsHash['stringify_ids'] = 'true';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlFriendsIds
         };
         return this._sendRequest('SIGNATURE', data);
@@ -355,9 +403,10 @@ Tweet.prototype = {
     {
         optionsHash['stringify_ids'] = 'true';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlFollowersIds
         };
         return this._sendRequest('SIGNATURE', data);
@@ -368,9 +417,10 @@ Tweet.prototype = {
     {
         optionsHash['stringify_ids'] = 'true';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlMutesUsersIds
         };
         return this._sendRequest('SIGNATURE', data);
@@ -380,9 +430,10 @@ Tweet.prototype = {
     mute: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlMutesUsersCreate
         };
         return this._sendRequest('SIGNATURE', data);
@@ -392,9 +443,10 @@ Tweet.prototype = {
     unmute: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlMutesUsersDestroy
         };
         return this._sendRequest('SIGNATURE', data);
@@ -404,9 +456,10 @@ Tweet.prototype = {
     showAPI: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlAPI
         };
         return this._sendRequest('SIGNATURE', data);
@@ -418,9 +471,10 @@ Tweet.prototype = {
         optionsHash['include_entities'] = 'true';
         optionsHash['tweet_mode'] = 'extended';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlSearchTweets
         };
         return this._sendRequest('SIGNATURE', data);
@@ -430,9 +484,10 @@ Tweet.prototype = {
     follow: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlFriendshipsCreate
         };
         return this._sendRequest('SIGNATURE', data);
@@ -442,9 +497,10 @@ Tweet.prototype = {
     unfollow: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlFriendshipsDestroy
         };
         return this._sendRequest('SIGNATURE', data);
@@ -455,9 +511,10 @@ Tweet.prototype = {
     {
         optionsHash['stringify_ids'] = 'true';
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlFriendshipsNoRetweets
         };
         return this._sendRequest('SIGNATURE', data);
@@ -467,9 +524,10 @@ Tweet.prototype = {
     updateFriendship: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlFriendshipsUpdate
         };
         return this._sendRequest('SIGNATURE', data);
@@ -479,9 +537,10 @@ Tweet.prototype = {
     showFriendship: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlFriendshipsShow
         };
         return this._sendRequest('SIGNATURE', data);
@@ -491,9 +550,10 @@ Tweet.prototype = {
     dmRcvList: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlDirectMessages
         };
         return this._sendRequest('SIGNATURE', data);
@@ -503,9 +563,10 @@ Tweet.prototype = {
     dmSntList: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlDirectMessagesSent
         };
         return this._sendRequest('SIGNATURE', data);
@@ -515,9 +576,10 @@ Tweet.prototype = {
     destroyDm: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlDirectMessagesDestroy
         };
         return this._sendRequest('SIGNATURE', data);
@@ -527,9 +589,10 @@ Tweet.prototype = {
     dmNew: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlDirectMessagesNew
         };
         return this._sendRequest('SIGNATURE', data)
@@ -543,9 +606,10 @@ Tweet.prototype = {
     ownershipListsList: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsOwnerships
         };
         return this._sendRequest('SIGNATURE', data);
@@ -555,9 +619,10 @@ Tweet.prototype = {
     subscriptionListsList: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsSubscriptions
         };
         return this._sendRequest('SIGNATURE', data);
@@ -567,9 +632,10 @@ Tweet.prototype = {
     membershipListsList: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsMemberships
         };
         return this._sendRequest('SIGNATURE', data);
@@ -579,9 +645,10 @@ Tweet.prototype = {
     listSubscribers: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsSubscribers
         };
         return this._sendRequest('SIGNATURE', data);
@@ -591,9 +658,10 @@ Tweet.prototype = {
     listMembers: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsMembers
         };
         return this._sendRequest('SIGNATURE', data);
@@ -603,9 +671,10 @@ Tweet.prototype = {
     subscribeList: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsSubscribersCreate
         };
         return this._sendRequest('SIGNATURE', data);
@@ -615,9 +684,10 @@ Tweet.prototype = {
     unsubscribeList: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsSubscribersDestroy
         };
         return this._sendRequest('SIGNATURE', data);
@@ -627,9 +697,10 @@ Tweet.prototype = {
     createListMembers: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsMembersCreateAll
         };
         return this._sendRequest('SIGNATURE', data);
@@ -639,9 +710,10 @@ Tweet.prototype = {
     destroyListMembers: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsMembersDestroyAll
         };
         return this._sendRequest('SIGNATURE', data);
@@ -651,9 +723,10 @@ Tweet.prototype = {
     createList: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsCreate
         };
         return this._sendRequest('SIGNATURE', data);
@@ -663,9 +736,10 @@ Tweet.prototype = {
     updateList: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsUpdate
         };
         return this._sendRequest('SIGNATURE', data);
@@ -675,9 +749,10 @@ Tweet.prototype = {
     destroyList: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'POST',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlListsDestroy
         };
         return this._sendRequest('SIGNATURE', data);
@@ -687,9 +762,10 @@ Tweet.prototype = {
     configuration: function(optionsHash)
     {
         var data = {
+            api     : 'API',
             method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.urlBase,
+            baseurl : TwitSideModule.urls.twit.apiBase,
             url     : TwitSideModule.urls.twit.urlHelpConfiguration
         };
         return this._sendRequest('SIGNATURE', data);
@@ -699,9 +775,10 @@ Tweet.prototype = {
     dmOAuth: function(urlpath, optionsHash)
     {
         var data = {
-            method  : 'DM',
+            api     : 'TON',
+            method  : 'GET',
             options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.dmBase,
+            baseurl : TwitSideModule.urls.twit.tonBase,
             url     : urlpath
         };
         return this._sendRequest('SIGNATURE', data);
@@ -730,7 +807,7 @@ Tweet.prototype = {
                 form.url = data_hash.url;
             }
             else
-                form = {url : data_hash.url};
+                form = { url : data_hash.url };
             data_hash.form = TwitSideModule.hash.hash2sortedForm(form);
             break;
         default:
@@ -738,181 +815,366 @@ Tweet.prototype = {
         }
 
         return this._createOauthSignature(type, data_hash, timestamp)
-            .then( send2Twitter.bind(this) );
+            .then( this._send2Twitter.bind(this, type, data_hash, timestamp,
+                                           cb, error) );
+    },
 
-        function send2Twitter(data)
-        {
-            return new Promise((resolve, reject) => {
+    _uploadMedia : function(data_hash, cb)
+    {
+        var timestamp = TwitSideModule.text.getUnixTime();
 
-                var xhr = new XMLHttpRequest(),
-                    form = this.basicValues,
-                    json = JSON.parse(data),
-                    param = '',
-                    authHeader = '';
+        data_hash.oauth_token = this.oauth_token;
+        data_hash.oauth_token_secret = this.oauth_token_secret;
 
-                form.oauth_timestamp = timestamp;
-                form.oauth_nonce = json.oauth_nonce;
-                form.oauth_signature = json.oauth_signature;
+        var media_uploading = [];
 
-                // タイムアウト初期値
-                xhr.timeout = TwitSideModule.config.getPref('timeout') * 1000;
-                // エラー初期値
-                xhr.onerror = reject;
+        // アップロード並列処理
+        for (let file of data_hash.files) {
+            // INIT
+            let media_id,
+                _data_hash = JSON.parse(JSON.stringify(data_hash));
 
-                switch (type) {
-                case 'REQUEST':
-                    delete form.oauth_token;
-                    param = TwitSideModule.hash.hash2sortedForm(form);
+            _data_hash.options.command     = 'INIT';
+            _data_hash.options.media_type  = file.type;
+            _data_hash.options.total_bytes = file.size;
+            _data_hash.form = TwitSideModule.hash.hash2sortedForm({ url : data_hash.url });
+
+            let uploading = this._createOauthSignature('SIGNATURE', _data_hash, timestamp)
+                .then( this._send2Twitter.bind(this, 'SIGNATURE', _data_hash, timestamp,
+                                               cb, null) )
+                .then((response) => {
+                    media_id = response.data.media_id_string;
+                    return Promise.resolve();
+                })
+
+                .then(() => {
+                    // 分割
+                    var segments = Math.ceil(file.size / uploadChunkSize),
+                        seg_uploading = [];
+
+                    // APPEND
+                    for (let i=0; i<segments; i++) {
+                        let _data_hash = {
+                            api                : data_hash.api,
+                            method             : 'POST',
+                            oauth_token        : data_hash.oauth_token,
+                            oauth_token_secret : data_hash.oauth_token_secret,
+                            baseurl            : data_hash.baseurl,
+                            url                : data_hash.url,
+                            options : {
+                                command        : 'APPEND',
+                                media_id       : media_id,
+                                media          : file.slice(uploadChunkSize * i,
+                                                            uploadChunkSize * (i+1),
+                                                            file.type),
+                                segment_index  : i
+                            },
+                            form : TwitSideModule.hash.hash2sortedForm({ url : data_hash.url })
+                        },
+                            timestamp = TwitSideModule.text.getUnixTime();
+
+                        let uploading = this._createOauthSignature('SIGNATURE', _data_hash, timestamp)
+                            .then( this._send2Twitter.bind(this, 'SIGNATURE', _data_hash, timestamp,
+                                                           cb, null) );
+                        seg_uploading.push(uploading);
+                    }
+
+                    return Promise.all(seg_uploading);
+                })
+
+                .then(() => {
+                    // FINALIZE
+                    var _data_hash = {
+                        api                : data_hash.api,
+                        method             : 'POST',
+                        oauth_token        : data_hash.oauth_token,
+                        oauth_token_secret : data_hash.oauth_token_secret,
+                        baseurl            : data_hash.baseurl,
+                        url                : data_hash.url,
+                        options : {
+                            command        : 'FINALIZE',
+                            media_id       : media_id
+                        },
+                        form : TwitSideModule.hash.hash2sortedForm({ url : data_hash.url })
+                    },
+                        timestamp = TwitSideModule.text.getUnixTime();
+
+                    return this._createOauthSignature('SIGNATURE', _data_hash, timestamp)
+                        .then( this._send2Twitter.bind(this, 'SIGNATURE', _data_hash, timestamp,
+                                                       cb, null) );
+                })
+
+                .then((result) => {
+                    // STATUSチェックが必要
+                    if (result.data.processing_info) {
+                        let _data_hash = {
+                            api                : data_hash.api,
+                            method             : 'GET',
+                            oauth_token        : data_hash.oauth_token,
+                            oauth_token_secret : data_hash.oauth_token_secret,
+                            baseurl            : data_hash.baseurl,
+                            url                : data_hash.url + '?',
+                            options : {
+                                command        : 'STATUS',
+                                media_id       : media_id
+                            }
+                        };
+                        let form = JSON.parse(JSON.stringify(_data_hash.options));
+                        form.url = _data_hash.url;
+                        _data_hash.form = TwitSideModule.hash.hash2sortedForm(form);
+
+                        // ステータスチェック用ループ
+                        let timer = function(secs) {
+                            return new Promise((resolve, reject) => {
+                                setTimeout(() => { resolve(); },
+                                           secs * 1000);
+                            });
+                        };
+                        let loop = () => {
+                            // STATUS
+                            var timestamp = TwitSideModule.text.getUnixTime();
+                            return this._createOauthSignature('SIGNATURE', _data_hash, timestamp)
+                                .then( this._send2Twitter.bind(this, 'SIGNATURE', _data_hash, timestamp,
+                                                               cb, null) )
+                                .then((result) => {
+                                    // ステータスチェック
+                                    switch (result.data.processing_info.state) {
+                                    case 'succeeded':
+                                        return media_id;
+                                    case 'failed':
+                                        return Promise.reject((
+                                            { result : result.data.processing_info.error.message,
+                                              error : new Error(),
+                                              status : xhr.status }));
+                                    case 'in_progress':
+                                        // 待機時間（2回目以降）
+                                        return timer(result.data.processing_info.check_after_secs)
+                                            .then(loop);
+                                    default:
+                                        return Promise.reject();
+                                    }
+                                });
+                        };
+
+                        // 待機時間（初回）
+                        return timer(result.data.processing_info.check_after_secs)
+                            .then(loop);
+                    }
+                    // STATUSが完了
+                    else {
+                        return media_id;
+                    }
+                });
+
+            media_uploading.push(uploading);
+        }
+
+        return Promise.all(media_uploading);
+    },
+
+    _send2Twitter: function(type, data_hash, timestamp, cb, error, signature)
+    {
+        return new Promise((resolve, reject) => {
+
+            var xhr = new XMLHttpRequest(),
+                form = this.basicValues,
+                json = JSON.parse(signature),
+                param = '',
+                authHeader = '';
+
+            form.oauth_timestamp = timestamp;
+            form.oauth_nonce = json.oauth_nonce;
+            form.oauth_signature = json.oauth_signature;
+
+            // タイムアウト初期値
+            xhr.timeout = TwitSideModule.config.getPref('timeout') * 1000;
+            // エラー初期値
+            xhr.onerror = reject;
+
+            switch (type) {
+            case 'REQUEST':
+                delete form.oauth_token;
+                param = TwitSideModule.hash.hash2sortedForm(form);
+                xhr.open('GET', data_hash.baseurl + data_hash.url + param);
+                xhr.onload = returnRequest.bind(this);
+                break;
+            case 'ACCESS':
+                form.oauth_verifier = data_hash.pin;
+                param = TwitSideModule.hash.hash2sortedForm(form);
+                xhr.open('POST', data_hash.baseurl + data_hash.url);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.setRequestHeader('Authorization', 'OAuth');
+                xhr.onload = returnAccess.bind(this);
+                break;
+            case 'SIGNATURE':
+                param = TwitSideModule.hash.hash2sortedForm(data_hash.options);
+                authHeader = TwitSideModule.hash.hash2oauthHeader(form);
+
+                switch (data_hash.method) {
+                case 'GET':
                     xhr.open('GET', data_hash.baseurl + data_hash.url + param);
-                    xhr.onload = returnRequest.bind(this);
                     break;
-                case 'ACCESS':
-                    form.oauth_verifier = data_hash.pin;
-                    param = TwitSideModule.hash.hash2sortedForm(form);
+                case 'POST':
                     xhr.open('POST', data_hash.baseurl + data_hash.url);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr.setRequestHeader('Authorization', 'OAuth');
-                    xhr.onload = returnAccess.bind(this);
+                    if (data_hash.api !== 'MULTI'
+                        && data_hash.api !== 'UPLOAD')
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     break;
-                case 'SIGNATURE':
-                    param = TwitSideModule.hash.hash2sortedForm(data_hash.options);
-                    authHeader = TwitSideModule.hash.hash2oauthHeader(form);
-                    switch (data_hash.method) {
-                    case 'GET':
-                        xhr.open('GET', data_hash.baseurl + data_hash.url + param);
-                        break;
-                    case 'DM':
-                        xhr.open('GET', data_hash.baseurl + data_hash.url + param);
-                        xhr.responseType = 'blob';
-                        break;
-                    case 'POST':
-                        xhr.open('POST', data_hash.baseurl + data_hash.url);
-                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                        break;
-                    case 'STREAM':
-                        xhr.open('POST', data_hash.baseurl + data_hash.url);
-                        // タイムアウト無効
-                        xhr.timeout = 0;
-                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                        // ストリーム用コールバック
-                        xhr.onreadystatechange = this._streamStatechange.bind(this, cb, error);
-                        // ストリームのエラーはreadystatechangeで確認
-                        xhr.onerror = null;
-                        this._streamXhr = xhr;
-                        break;
-                    case 'MULTI':
-                        param = formatMulti(data_hash.options);
-                        xhr.open('POST', data_hash.baseurl + data_hash.url);
-                        // タイムアウト無効
-                        xhr.timeout = 0;
-                        // プログレスバー
-                        xhr.upload.onprogress = cb;
-                        break;
+                }
+
+                switch (data_hash.api) {
+                case 'TON':
+                    xhr.responseType = 'blob';
+                    break;
+                case 'STREAM':
+                    // タイムアウト無効
+                    xhr.timeout = 0;
+                    // ストリーム用コールバック
+                    xhr.onreadystatechange = this._streamStatechange.bind(this, cb, error);
+                    // ストリームのエラーはreadystatechangeで確認
+                    xhr.onerror = null;
+                    this._streamXhr = xhr;
+                    break;
+                case 'MULTI':
+                    param = createFormData(data_hash.options);
+                    // タイムアウト無効
+                    xhr.timeout = 0;
+                    // プログレスバー
+                    xhr.upload.onprogress = cb;
+                    break;
+                case 'UPLOAD':
+                    param = createFormData(data_hash.options);
+                    // タイムアウト無効
+                    xhr.timeout = 0;
+                    // プログレスバー
+                    xhr.upload.onprogress = cb;
+                    break;
+                }
+                xhr.setRequestHeader('Authorization', authHeader);
+                xhr.onload = returnResponse.bind(this);
+                break;
+            default:
+                return;
+            }
+
+            xhr.setRequestHeader('User-Agent', this.userAgent);
+            xhr.ontimeout = reject;
+            xhr.send(data_hash.method === 'GET' ? null : param);
+
+            function returnRequest()
+            {
+                if (xhr.status == 200) {
+                    let res = xhr.responseText.split('&'),
+                        len = res.length,
+                        oauthToken = {};
+
+                    for (let i=0; i<len; i++) {
+                        oauthToken[res[i].split('=')[0]] = res[i].split('=')[1];
                     }
-                    xhr.setRequestHeader('Authorization', authHeader);
-                    xhr.onload = returnResponse.bind(this);
-                    break;
-                default:
+                    // return URL and token
+                    resolve({ url : TwitSideModule.urls.twit.oauthBase
+                              + TwitSideModule.urls.twit.urlAuthorize
+                              + 'oauth_token=' + oauthToken.oauth_token,
+                              userinfo : oauthToken });
+                }
+                else
+                    reject({ result : 'commonError',
+                             error : new Error(),
+                             status : xhr.status });
+            }
+
+            function returnAccess()
+            {
+                if (xhr.status == 200) {
+                    let res = xhr.responseText.split('&'),
+                        len = res.length,
+                        oauthToken = {};
+
+                    for (var i=0; i<len; i++) {
+                        oauthToken[res[i].split('=')[0]] = res[i].split('=')[1];
+                    }
+                    // return tokens
+                    resolve(oauthToken);
+                }
+                else
+                    reject({ result : 'commonError',
+                             error : new Error(),
+                             status : xhr.status });
+            }
+
+            function returnResponse()
+            {
+                switch (data_hash.api) {
+                case 'STREAM':
+                    resolve();
                     return;
-                }
-
-                xhr.setRequestHeader('User-Agent', this.userAgent);
-                xhr.ontimeout = reject;
-                xhr.send((data_hash.method === 'GET'
-                          || data_hash.method === 'DM')
-                         ? null : param);
-
-                function returnRequest()
-                {
+                case 'TON':
                     if (xhr.status == 200) {
-                        let res = xhr.responseText.split('&'),
-                            len = res.length,
-                            oauthToken = {};
-
-                        for (let i=0; i<len; i++) {
-                            oauthToken[res[i].split('=')[0]] = res[i].split('=')[1];
-                        }
-                        // return URL and token
-                        resolve({ url : TwitSideModule.urls.twit.urlOauthBase
-                                  + TwitSideModule.urls.twit.urlAuthorize
-                                  + 'oauth_token=' + oauthToken.oauth_token,
-                                  userinfo : oauthToken });
+                        resolve({ status : TwitSideModule.TWEET_STATUS.OK,
+                                  data : xhr.response });
+                        return;
                     }
-                    else
-                        reject({ result : 'commonError',
-                                 error : new Error(),
-                                 status : xhr.status });
-                }
-
-                function returnAccess()
-                {
-                    if (xhr.status == 200) {
-                        let res = xhr.responseText.split('&'),
-                            len = res.length,
-                            oauthToken = {};
-
-                        for (var i=0; i<len; i++) {
-                            oauthToken[res[i].split('=')[0]] = res[i].split('=')[1];
-                        }
-                        // return tokens
-                        resolve(oauthToken);
-                    }
-                    else
-                        reject({ result : 'commonError',
-                                 error : new Error(),
-                                 status : xhr.status });
-                }
-
-                function returnResponse()
-                {
-                    if (data_hash.method == 'STREAM') resolve();
-                    if (xhr.status == 200) {
-                        if (data_hash.method == 'DM') {
-                            resolve({ status : TwitSideModule.TWEET_STATUS.OK,
-                                      data : xhr.response });
-                        }
-                        else if (xhr.getResponseHeader('Content-Type')
+                    break;
+                case 'UPLOAD':
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        if (xhr.getResponseHeader('Content-Type')
                             .indexOf('application/json') != -1) {
                             resolve({ status : TwitSideModule.TWEET_STATUS.OK,
                                       data : JSON.parse(xhr.responseText) });
                         }
-                        else
+                        else {
+                            resolve({ status : TwitSideModule.TWEET_STATUS.OK,
+                                      data : null });
+                        }
+                        return;
+                    }
+                    break;
+                default:
+                    if (xhr.status == 200) {
+                        if (xhr.getResponseHeader('Content-Type')
+                            .indexOf('application/json') != -1) {
+                            resolve({ status : TwitSideModule.TWEET_STATUS.OK,
+                                      data : JSON.parse(xhr.responseText) });
+                        }
+                        else {
                             reject({ result : 'commonError',
                                      error : new Error(),
                                      status : xhr.status });
-                    }
-                    else {
-                        if (xhr.responseText) {
-                            if (xhr.getResponseHeader('Content-Type')
-                                .indexOf('application/json') != -1 &&
-                                JSON.parse(xhr.responseText).errors)
-                                reject({ result : JSON.parse(xhr.responseText).errors[0],
-                                         error : new Error(),
-                                         status : xhr.status });
-                            else reject({ result : xhr.responseText,
-                                          error : new Error(),
-                                          status : xhr.status });
                         }
-                        else reject({ result : 'noResponse',
-                                      error : new Error(),
-                                      status : xhr.status });
+                        return;
                     }
                 }
 
-            });
-        }
-
-        function formatMulti(dataHash)
-        {
-            var formData = new FormData();
-            for (let key in dataHash) {
-                if (key.match(/^file[0-9]/)) {
-                    formData.append('media[]', dataHash[key], 'file0');
+                // エラー
+                if (xhr.responseText) {
+                    if (xhr.getResponseHeader('Content-Type')
+                        .indexOf('application/json') != -1 &&
+                        JSON.parse(xhr.responseText).errors)
+                        reject({ result : JSON.parse(xhr.responseText).errors[0],
+                                 error : new Error(),
+                                 status : xhr.status });
+                    else reject({ result : xhr.responseText,
+                                  error : new Error(),
+                                  status : xhr.status });
                 }
-                else formData.append(key, dataHash[key]);
+                else reject({ result : 'noResponse',
+                              error : new Error(),
+                              status : xhr.status });
             }
-            return formData;
-        }
+
+            function createFormData(dataHash)
+            {
+                var formData = new FormData();
+                for (let key in dataHash) {
+//                    if (key.match(/^file[0-9]/)) {
+//                        formData.append('media[]', dataHash[key], 'file0');
+//                    }
+//                    else formData.append(key, dataHash[key]);
+                    formData.append(key, dataHash[key]);
+                }
+                return formData;
+            }
+        });
     },
 
     // streamXhr の状態遷移
@@ -1038,6 +1300,7 @@ Tweet.prototype = {
                 xhr.open('POST', TwitSideModule.urls.auth.urlBase
                          + TwitSideModule.urls.auth.urlSignature
                          + timestamp
+                         + '/' + data_hash.api
                          + '/' + data_hash.method
                          + '/' + data_hash.oauth_token
                          + '/' + data_hash.oauth_token_secret);

@@ -132,12 +132,14 @@ function postMessage(data, winname)
 
 function onremoved(winname)
 {
+    // close port
     for (let p of ports) {
         if (p.name == winname.toString()) {
             ondisconnect(p);
             break;
         }
     }
+    // remove from windows hash
     for (let suffix in windows) {
         if (windows[suffix].id.toString() == winname) {
             delete windows[suffix];
@@ -151,7 +153,7 @@ function onclicked(tab)
     console.log(tab);
     browser.sidebarAction.getPanel({tabId: tab.id}).then(console.log);
 
-    // ウィンドウのIDを確認
+    // check window id
     for (let p of ports) {
         if (p.name == tab.windowId.toString()) {
             // opened twit-side
