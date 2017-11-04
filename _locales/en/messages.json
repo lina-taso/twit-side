@@ -358,6 +358,15 @@
     "messageUploadType" : {
         "message" : "One type of images (up to 4) or an animated GIF (only 1) or a video (only 1) can be uploaded"
     },
+    "messageUploadFilesizeImages" : {
+        "message" : "Uploadable file size is up to 5MB per image"
+    },
+    "messageUploadFilesizeAniGifs" : {
+        "message" : "Uploadable file size is up to 15MB per animation GIF"
+    },
+    "messageUploadFilesizeVideos" : {
+        "message" : "Uploadable file size is up to 512MB per video"
+    },
 
     //
     // Window title

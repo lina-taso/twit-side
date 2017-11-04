@@ -11,9 +11,12 @@ const COLUMN_TAB_WIDTH = 150,
       COLUMN_TAB_MARGIN = 2, // horizontal margin
       HELP_URL = 'https://www2.filewo.net/wordpress/%e8%a3%bd%e4%bd%9c%e7%89%a9/twit-side-%e8%aa%ac%e6%98%8e%e6%9b%b8/',
       TWEET_MAX_LENGTH = 140,
-      MAX_PICS = 4,
-      MAX_ANIGIF = 1,
-      MAX_MOVIE = 1,
+      MAX_IMAGES = 4,
+      MAX_ANIGIFS = 1,
+      MAX_VIDEOS = 1,
+      MAX_SIZE_IMAGE = 5 * 1000 * 1000,
+      MAX_SIZE_ANIGIF = 15 * 1000 * 1000,
+      MAX_SIZE_VIDEO = 512 * 1000 * 1000,
       LOADWAIT = 1000;
 
 var prefs = {},
@@ -628,43 +631,63 @@ function pickedFile(filepicker)
         switch (file.type) {
         case 'image/png':
         case 'image/jpeg':
+            // サイズチェック
+            if (file.size > MAX_SIZE_IMAGE) {
+                filesizeError('image');
+                return;
+            }
             // ステータスアイコン
             $('#imageEnabled').attr('data-enabled', true)
                 .siblings('.attachmentStatus').attr('data-enabled', false);
             // モード変更
             $thumbnails.attr('data-mode', 'tweet_image');
-            if ($thumbnails.children().length >= MAX_PICS - 1)
+            if ($thumbnails.children().length >= MAX_IMAGES - 1)
                 $('#sharePicture').attr('data-disabled', 'true');
             break;
         case 'image/gif':
             // アニメーションGIF
             if (confirm(browser.i18n.getMessage('confirmAniGif'))) {
+                // サイズチェック
+                if (file.size > MAX_SIZE_ANIGIF) {
+                    filesizeError('gif');
+                    return;
+                }
                 // ステータスアイコン
                 $('#aniGifEnabled').attr('data-enabled', true)
                     .siblings('.attachmentStatus').attr('data-enabled', false);
                 // モード変更
                 $thumbnails.attr('data-mode', 'tweet_gif');
-                if ($thumbnails.children().length >= MAX_ANIGIF - 1)
+                if ($thumbnails.children().length >= MAX_ANIGIFS - 1)
                     $('#sharePicture').attr('data-disabled', 'true');
             }
             // 通常GIF
             else {
+                // サイズチェック
+                if (file.size > MAX_SIZE_IMAGE) {
+                    filesizeError('image');
+                    return;
+                }
                 // ステータスアイコン
                 $('#imageEnabled').attr('data-enabled', true)
                     .siblings('.attachmentStatus').attr('data-enabled', false);
                 // モード変更
                 $thumbnails.attr('data-mode', 'tweet_image');
-                if ($thumbnails.children().length >= MAX_PICS - 1)
+                if ($thumbnails.children().length >= MAX_IMAGES - 1)
                     $('#sharePicture').attr('data-disabled', 'true');
             }
             break;
         case 'video/mp4':
+            // サイズチェック
+            if (file.size > MAX_SIZE_VIDEO) {
+                filesizeError('video');
+                return;
+            }
             // ステータスアイコン
-            $('#movieEnabled').attr('data-enabled', true)
+            $('#videoEnabled').attr('data-enabled', true)
                 .siblings('.attachmentStatus').attr('data-enabled', false);
             // モード変更
             $thumbnails.attr('data-mode', 'tweet_video');
-            if ($thumbnails.children().length >= MAX_MOVIE - 1)
+            if ($thumbnails.children().length >= MAX_VIDEOS - 1)
                 $('#sharePicture').attr('data-disabled', 'true');
             break;
         }
@@ -674,7 +697,12 @@ function pickedFile(filepicker)
         switch (file.type) {
         case 'image/png':
         case 'image/jpeg':
-            if ($thumbnails.children().length >= MAX_PICS - 1)
+            // サイズチェック
+            if (file.size > MAX_SIZE_IMAGE) {
+                filesizeError('image');
+                return;
+            }
+            if ($thumbnails.children().length >= MAX_IMAGES - 1)
                 $('#sharePicture').attr('data-disabled', 'true');
             break;
         case 'image/gif':
@@ -685,7 +713,12 @@ function pickedFile(filepicker)
             }
             // 通常GIF
             else {
-                if ($thumbnails.children().length >= MAX_PICS - 1)
+                // サイズチェック
+                if (file.size > MAX_SIZE_IMAGE) {
+                    filesizeError('image');
+                    return;
+                }
+                if ($thumbnails.children().length >= MAX_IMAGES - 1)
                     $('#sharePicture').attr('data-disabled', 'true');
             }
             break;
@@ -704,7 +737,12 @@ function pickedFile(filepicker)
         case 'image/gif':
             // アニメーションGIF
             if (confirm(('confirmAniGif'))) {
-                if ($thumbnails.children().length >= MAX_ANIGIF - 1)
+                // サイズチェック
+                if (file.size > MAX_SIZE_ANIGIF) {
+                    filesizeError('gif');
+                    return;
+                }
+                if ($thumbnails.children().length >= MAX_ANIGIFS - 1)
                     $('#sharePicture').attr('data-disabled', 'true');
             }
             // 通常GIF
@@ -727,7 +765,12 @@ function pickedFile(filepicker)
             typeError();
             return;
         case 'video/mp4':
-            if ($thumbnails.children().length >= MAX_MOVIE - 1)
+            // サイズチェック
+            if (file.size > MAX_SIZE_VIDEO) {
+                filesizeError('video');
+                return;
+            }
+            if ($thumbnails.children().length >= MAX_VIDEOS - 1)
                 $('#sharePicture').attr('data-disabled', 'true');
             break;
         }
@@ -750,6 +793,24 @@ function pickedFile(filepicker)
         filepicker.value = null;
         return;
     }
+    function filesizeError(type)
+    {
+        switch (type) {
+        case 'image':
+            UI.showMessage(browser.i18n.getMessage('messageUploadFilesizeImages'));
+            break;
+        case 'gif':
+            UI.showMessage(browser.i18n.getMessage('messageUploadFilesizeAniGifs'));
+            break;
+        case 'video':
+            UI.showMessage(browser.i18n.getMessage('messageUploadFilesizeVideos'));
+            break;
+        }
+
+        URL.revokeObjectURL(file);
+        filepicker.value = null;
+        return;
+    }
 }
 
 function cancelFile(file)
@@ -763,6 +824,8 @@ function cancelFile(file)
         // モード変更
         $('#pictureThumbnails').attr('data-mode', '');
     }
+
+    countNewTweet();
 }
 
 function cancelAllFile()
@@ -774,6 +837,8 @@ function cancelAllFile()
     $('.attachmentStatus').attr('data-enabled', false);
     // モード変更
     $('#pictureThumbnails').attr('data-mode', '');
+
+    countNewTweet();
 }
 
 function sharePage()

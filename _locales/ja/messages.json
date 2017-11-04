@@ -358,6 +358,15 @@
     "messageUploadType" : {
         "message" : "画像（4枚まで）、アニメーションGIF（1枚まで）または動画（1本まで）のうち1種類のみアップロードできます"
     },
+    "messageUploadFilesizeImages" : {
+        "message" : "画像は1枚につき5MBまでアップロードできます"
+    },
+    "messageUploadFilesizeAniGifs" : {
+        "message" : "アニメーションGIFは15MBまでアップロードできます"
+    },
+    "messageUploadFilesizeVideos" : {
+        "message" : "動画は512MBまでアップロードできます"
+    },
 
     //
     // Window title
