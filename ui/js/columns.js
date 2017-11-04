@@ -154,11 +154,11 @@ function showColumns(focus)
                 $listItem.children().eq(2).attr('title', browser.i18n.getMessage(
                     'column_' + TwitSideModule.getTimelineName(columninfo.tl_type)
                 ));
-                $listItem.children().eq(3).prop('checked', columninfo.options.notif);
-                $listItem.children().eq(4).prop('checked', columninfo.options.onstart);
-                $listItem.children().eq(5).prop('checked', columninfo.options.autoreload);
-                $listItem.children().eq(6).prop('checked', columninfo.options.stream);
-                $listItem.children().eq(7).prop('checked', columninfo.options.veil);
+                $listItem.children().eq(3).find('input').prop('checked', columninfo.options.notif);
+                $listItem.children().eq(4).find('input').prop('checked', columninfo.options.onstart);
+                $listItem.children().eq(5).find('input').prop('checked', columninfo.options.autoreload);
+                $listItem.children().eq(6).find('input').prop('checked', columninfo.options.stream);
+                $listItem.children().eq(7).find('input').prop('checked', columninfo.options.veil);
 
                 if (columninfo.parameters.q) {
                     $listItem.children().eq(8).attr('title', 'KEYWORD: ' + columninfo.parameters.q);
