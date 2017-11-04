@@ -513,31 +513,6 @@ input[type="text"], textarea, select {
             opacity: 1;
         }
     }
-
-//    @at-root #tinyUrlEnabled {
-//        width: 50px;
-//        height: 20px;
-//        margin-right: 2px;
-//        background-image: url('../../images/shortenurl_disabled.svg');
-//        background-repeat: no-repeat;
-//        background-size: 50px 20px;
-//
-//        &[data-enabled="true"] {
-//            background-image: url('../../images/shortenurl_enabled.svg');
-//        }
-//    }
-//    @at-root #imageEnabled {
-//        width: 50px;
-//        height: 20px;
-//        margin-right: 2px;
-//        background-image: url('../../images/image_disabled.svg');
-//        background-repeat: no-repeat;
-//        background-size: 50px 20px;
-//
-//        &[data-enabled="true"] {
-//            background-image: url('../..//images/image_enabled.svg');
-//        }
-//    }
 }
 
 #replyUsersSelection {
