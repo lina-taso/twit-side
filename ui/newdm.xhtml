@@ -43,15 +43,17 @@
         <textarea id="newTweet"
                   spellcheck="false"
                   tabindex="1" />
-        <div id="newTweetCount"
-             data-labelcolor="countOk">10000</div>
       </div>
-
     </div>
 
     <div class="textButtonList">
       <div class="spacer" />
-      <div id="tweetButton" class="buttonItem textButtonItem" tabindex="1" />
+      <div id="tweetButton" class="buttonItem textButtonItem" tabindex="1"
+           data-label=""
+           data-disabled="">
+        <span id="newTweetCount"
+              data-labelcolor="countOk">10000/10000</span>
+      </div>
       <div id="closeButton" class="buttonItem textButtonItem" tabindex="1" />
     </div>
 

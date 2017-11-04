@@ -455,12 +455,9 @@ function countNewTweet(e)
 
     // URL
     var urls = twttr.txt.extractUrls($newTweet.val());
-//    $('#tinyUrlEnabled').attr('data-enabled', urls.length ? 'true' : 'false');
-    // 画像
-//    $('#imageEnabled').attr('data-enabled', $('#pictureThumbnails').children().length ? 'true' : 'false');
 
     // 文字数
-    $newTweetCount.text(TWEET_MAX_LENGTH - count);
+    $newTweetCount.text((TWEET_MAX_LENGTH - count).toString() + '/' + TWEET_MAX_LENGTH);
     if (count > TWEET_MAX_LENGTH) {
         $newTweetCount.attr('data-labelcolor', 'countNg');
         $tweetButton.attr('data-disabled', 'true');

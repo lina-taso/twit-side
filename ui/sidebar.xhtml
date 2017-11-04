@@ -97,15 +97,17 @@
                   placeholder="Alt+Shift+K"
                   spellcheck="false"
                   tabindex="1" />
-        <div id="newTweetCount"
-             data-labelcolor="countOk">140</div>
       </div>
       <select id="suggestContainer"
               size="3"
               style="display: none;" />
       <div id="newTweetSubContainer3">
         <div id="tweetButton" class="buttonItem textButtonItem" tabindex="1"
-             data-disabled="true" />
+             data-label=""
+             data-disabled="true">
+          <span id="newTweetCount"
+                data-labelcolor="countOk">140/140</span>
+        </div>
         <div class="spacer" />
         <div id="pictureThumbnails"
              data-mode=""/>

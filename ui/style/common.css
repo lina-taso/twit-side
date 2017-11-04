@@ -773,17 +773,6 @@ input[type="text"], textarea, select {
     width: calc( 100% - 10px );
     padding: 4px;
     resize: none; }
-  #newTweetCount {
-    position: absolute;
-    bottom: 0;
-    right: 20px;
-    pointer-events: none; }
-    #newTweetCount[data-labelcolor="countOk"] {
-      color: lime; }
-    #newTweetCount[data-labelcolor="countWarn"] {
-      color: orange; }
-    #newTweetCount[data-labelcolor="countNg"] {
-      color: red; }
 
 #suggestContainer {
   width: calc( 100% - 2px );
@@ -827,6 +816,18 @@ input[type="text"], textarea, select {
   margin-top: 4px;
   display: flex;
   align-items: center; }
+  #tweetButton::before {
+    content: attr(data-label); }
+  #newTweetCount {
+    border-radius: 10px;
+    padding: 2px 4px;
+    color: white; }
+    #newTweetCount[data-labelcolor="countOk"] {
+      background-color: limegreen; }
+    #newTweetCount[data-labelcolor="countWarn"] {
+      background-color: orange; }
+    #newTweetCount[data-labelcolor="countNg"] {
+      background-color: red; }
   #pictureThumbnails {
     display: flex; }
     #pictureThumbnails > div {

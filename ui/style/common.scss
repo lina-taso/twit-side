@@ -557,23 +557,6 @@ input[type="text"], textarea, select {
         padding: $newtweet-padding;
         resize: none;
     }
-
-    @at-root #newTweetCount {
-        position: absolute;
-        bottom: 0;
-        right: 20px;
-        pointer-events: none;
-
-        &[data-labelcolor="countOk"] {
-            color: lime;
-        }
-        &[data-labelcolor="countWarn"] {
-            color: orange;
-        }
-        &[data-labelcolor="countNg"] {
-            color: red;
-        }
-    }
 }
 
 #suggestContainer {
@@ -599,6 +582,27 @@ input[type="text"], textarea, select {
     margin-top: $dialog-padding;
     display: flex;
     align-items: center;
+
+    @at-root #tweetButton {
+        &::before {
+            content: attr( data-label );
+        }
+    }
+    @at-root #newTweetCount {
+        border-radius: 10px;
+        padding: 2px 4px;
+        color: white;
+
+        &[data-labelcolor="countOk"] {
+            background-color: limegreen;
+        }
+        &[data-labelcolor="countWarn"] {
+            background-color: orange;
+        }
+        &[data-labelcolor="countNg"] {
+            background-color: red;
+        }
+    }
 
     @at-root #pictureThumbnails {
         display: flex;

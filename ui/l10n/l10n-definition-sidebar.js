@@ -59,7 +59,8 @@ const l10nDefinition = [
     },
     {
         "selector" : "#tweetButton",
-        "place"    : "text",
+        "place"    : "attr",
+        "attr"     : "data-label",
         "word"     : "top.tweet"
     },
     {

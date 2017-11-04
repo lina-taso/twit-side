@@ -177,7 +177,7 @@ function countNewTweet(e)
     var urls = twttr.txt.extractUrls($newTweet.val());
 
     // 文字数
-    $newTweetCount.text(TWEET_MAX_LENGTH - count);
+    $newTweetCount.text((TWEET_MAX_LENGTH - count).toString() + '/' + TWEET_MAX_LENGTH);
     if (count > TWEET_MAX_LENGTH) {
         $newTweetCount.attr('data-labelcolor', 'countNg');
         $tweetButton.attr('data-disabled', 'true');
