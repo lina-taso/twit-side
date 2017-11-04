@@ -835,11 +835,17 @@ input[type="text"], textarea, select {
       height: 32px;
       margin: 2px;
       background: center center / cover no-repeat;
+      position: relative;
       cursor: pointer; }
+      #pictureThumbnails > div > video {
+        width: 32px;
+        height: 32px; }
       #pictureThumbnails > div:hover::after {
         width: 32px;
         height: 32px;
         position: absolute;
+        top: 0;
+        left: 0;
         background-color: rgba(0, 0, 0, 0.4);
         color: white;
         content: '\f00d';

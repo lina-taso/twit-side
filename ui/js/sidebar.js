@@ -778,8 +778,19 @@ function pickedFile(filepicker)
 
     }
 
-    $('<div tabindex="1" />').css('background-image', 'url(' + url + ')')
-        .appendTo($thumbnails)[0].file = file;
+    // サムネイル（画像）
+    if ($thumbnails.attr('data-mode') !== 'tweet_video')
+        $thumbnails.append(
+            $('<div tabindex="1" />').css('background-image', 'url(' + url + ')')
+        )[0].file = file;
+
+    // サムネイル（動画）
+    else
+        $thumbnails.append(
+            $('<div tabindex="1" />').append(
+                $('<video />').append(
+                    $('<source />').attr({ src : url, type : file.type })))
+        )[0].file = file;
 
     URL.revokeObjectURL(file);
     filepicker.value = null;
