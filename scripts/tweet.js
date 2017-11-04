@@ -7,7 +7,7 @@
 
 const streamMaxTime = 90000,
       streamMaxItems = 500,
-      uploadChunkSize = 1024 * 1024; // 1MB
+      uploadChunkSize = 1 * 1024 * 1024; // 1MB
 
 var Tweet = function(userinfo) {
 
@@ -850,7 +850,8 @@ Tweet.prototype = {
                 .then(() => {
                     // 分割
                     var segments = Math.ceil(file.size / uploadChunkSize),
-                        seg_uploading = [];
+                        seg_uploading = [],
+                        seg_uploading_percent = [];
 
                     // APPEND
                     for (let i=0; i<segments; i++) {
@@ -875,8 +876,18 @@ Tweet.prototype = {
 
                         let uploading = this._createOauthSignature('SIGNATURE', _data_hash, timestamp)
                             .then( this._send2Twitter.bind(this, 'SIGNATURE', _data_hash, timestamp,
-                                                           cb, null) );
+                                                           update_percent.bind(this, i, cb), null) );
                         seg_uploading.push(uploading);
+                    }
+
+                    function update_percent(segment, cb, e)
+                    {
+                        seg_uploading_percent[segment] = e.loaded / e.total;
+                        var loaded = seg_uploading_percent.reduce(function(prev, current, i, arr) {
+                            return prev + current;
+                        }) / seg_uploading_percent.length;
+
+                        cb({ loaded : loaded, total : 1 });
                     }
 
                     return Promise.all(seg_uploading);

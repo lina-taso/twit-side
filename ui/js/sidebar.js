@@ -14,9 +14,9 @@ const COLUMN_TAB_WIDTH = 150,
       MAX_IMAGES = 4,
       MAX_ANIGIFS = 1,
       MAX_VIDEOS = 1,
-      MAX_SIZE_IMAGE = 5 * 1000 * 1000,
-      MAX_SIZE_ANIGIF = 15 * 1000 * 1000,
-      MAX_SIZE_VIDEO = 512 * 1000 * 1000,
+      MAX_SIZE_IMAGE = 5 * 1024 * 1024,
+      MAX_SIZE_ANIGIF = 15 * 1024 * 1024,
+      MAX_SIZE_VIDEO = 512 * 1024 * 1024,
       LOADWAIT = 1000;
 
 var prefs = {},
@@ -780,17 +780,15 @@ function pickedFile(filepicker)
 
     // サムネイル（画像）
     if ($thumbnails.attr('data-mode') !== 'tweet_video')
-        $thumbnails.append(
-            $('<div tabindex="1" />').css('background-image', 'url(' + url + ')')
-        )[0].file = file;
+        $('<div tabindex="1" />').css('background-image', 'url(' + url + ')')
+        .appendTo($thumbnails)[0].file = file;
 
     // サムネイル（動画）
     else
-        $thumbnails.append(
-            $('<div tabindex="1" />').append(
-                $('<video />').append(
-                    $('<source />').attr({ src : url, type : file.type })))
-        )[0].file = file;
+        $('<div tabindex="1" />').append(
+            $('<video />').append(
+                $('<source />').attr({ src : url, type : file.type })))
+        .appendTo($thumbnails)[0].file = file;
 
     URL.revokeObjectURL(file);
     filepicker.value = null;
