@@ -521,7 +521,7 @@
     "top.uploadimage" : {
         "message" : "画像を投稿します"
     },
-    "top.uploadmovie" : {
+    "top.uploadvideo" : {
         "message" : "動画を投稿します"
     },
     "top.uploadanigif" : {

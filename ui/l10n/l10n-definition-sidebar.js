@@ -28,10 +28,10 @@ const l10nDefinition = [
         "word"     : "top.uploadimage"
     },
     {
-        "selector" : "#movieEnabled",
+        "selector" : "#videoEnabled",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "top.uploadmovie"
+        "word"     : "top.uploadvideo"
     },
     {
         "selector" : "#aniGifEnabled",

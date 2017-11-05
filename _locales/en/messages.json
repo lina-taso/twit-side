@@ -521,8 +521,8 @@
     "top.uploadimage" : {
         "message" : "Upload pictures"
     },
-    "top.uploadmovie" : {
-        "message" : "Upload a movie"
+    "top.uploadvideo" : {
+        "message" : "Upload a video"
     },
     "top.uploadanigif" : {
         "message" : "Upload an animation gif"
