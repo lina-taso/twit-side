@@ -900,6 +900,9 @@
     "pref.timeout" : {
         "message" : "Timeout [sec]"
     },
+    "pref.timeout_upload" : {
+        "message" : "Timeout for uploading [sec]"
+    },
     "pref.timeline_count" : {
         "message" : "Number of tweets obtaining at once (Timeline)"
     },

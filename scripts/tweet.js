@@ -848,49 +848,79 @@ Tweet.prototype = {
                 })
 
                 .then(() => {
-                    // 分割
-                    var segments = Math.ceil(file.size / uploadChunkSize),
-                        seg_uploading = [],
-                        seg_uploading_percent = [];
-
                     // APPEND
-                    for (let i=0; i<segments; i++) {
-                        let _data_hash = {
-                            api                : data_hash.api,
-                            method             : 'POST',
-                            oauth_token        : data_hash.oauth_token,
-                            oauth_token_secret : data_hash.oauth_token_secret,
-                            baseurl            : data_hash.baseurl,
-                            url                : data_hash.url,
-                            options : {
-                                command        : 'APPEND',
-                                media_id       : media_id,
-                                media          : file.slice(uploadChunkSize * i,
-                                                            uploadChunkSize * (i+1),
-                                                            file.type),
-                                segment_index  : i
-                            },
-                            form : TwitSideModule.hash.hash2sortedForm({ url : data_hash.url })
+                    // 先にシグネチャ生成
+                    var _data_hash = {
+                        api                : data_hash.api,
+                        method             : 'POST',
+                        oauth_token        : data_hash.oauth_token,
+                        oauth_token_secret : data_hash.oauth_token_secret,
+                        baseurl            : data_hash.baseurl,
+                        url                : data_hash.url,
+                        options : {
+                            command        : 'APPEND',
+                            media_id       : media_id
                         },
-                            timestamp = TwitSideModule.text.getUnixTime();
+                        form : TwitSideModule.hash.hash2sortedForm({ url : data_hash.url })
+                    },
+                        timestamp = TwitSideModule.text.getUnixTime();
 
-                        let uploading = this._createOauthSignature('SIGNATURE', _data_hash, timestamp)
-                            .then( this._send2Twitter.bind(this, 'SIGNATURE', _data_hash, timestamp,
-                                                           update_percent.bind(this, i, cb), null) );
-                        seg_uploading.push(uploading);
-                    }
+                    return this._createOauthSignature('SIGNATURE', _data_hash, timestamp)
+                        .then((signature) => {
+                            // 分割
+                            var segments = Math.ceil(file.size / uploadChunkSize),
+                                seg_uploading = [],
+                                seg_uploading_percent = new Array(segments);
 
-                    function update_percent(segment, cb, e)
-                    {
-                        seg_uploading_percent[segment] = e.loaded / e.total;
-                        var loaded = seg_uploading_percent.reduce(function(prev, current, i, arr) {
-                            return prev + current;
-                        }) / seg_uploading_percent.length;
+                            for (let i=0; i<segments; i++) {
+                                // セグメント毎のパラメータ
+                                let __data_hash = JSON.parse(JSON.stringify(_data_hash));
+                                __data_hash.options.media = file.slice(uploadChunkSize * i,
+                                                                       uploadChunkSize * (i+1),
+                                                                       file.type);
+                                __data_hash.options.segment_index = i;
 
-                        cb({ loaded : loaded, total : 1 });
-                    }
+                                // アップロード
+                                let uploading = wait_connection(i)
+                                    .then( this._send2Twitter.bind(this, 'SIGNATURE',
+                                                                   __data_hash, timestamp,
+                                                                   update_progress.bind(this, i, cb),
+                                                                   null, signature) );
+                                seg_uploading.push(uploading);
+                            }
 
-                    return Promise.all(seg_uploading);
+                            // 同時接続数計測ループ
+                            function wait_connection(segment) {
+                                const MAX_CONN = 10;
+                                if (segment >= MAX_CONN) {
+                                    // 完了済コネクション
+                                    let done = seg_uploading_percent.filter((ele) => {
+                                        return ele == 1;
+                                    }).length;
+                                    // 待機
+                                    if ((segment - done) >= MAX_CONN)
+                                        return timer(5).then(wait_connection.bind(this, segment));
+                                    // 接続開始
+                                    else
+                                        return Promise.resolve();
+                                }
+                                else
+                                    return Promise.resolve();
+                            };
+
+                            function update_progress(segment, cb, e)
+                            {
+                                seg_uploading_percent[segment] = e.loaded / e.total;
+                                var loaded = seg_uploading_percent
+                                    .reduce(function(prev, current, i, arr) {
+                                        return prev + current;
+                                    }) / seg_uploading_percent.length;
+
+                                cb({ loaded : loaded, total : 1 });
+                            }
+
+                            return Promise.all(seg_uploading);
+                        });
                 })
 
                 .then(() => {
@@ -934,14 +964,12 @@ Tweet.prototype = {
                         form.url = _data_hash.url;
                         _data_hash.form = TwitSideModule.hash.hash2sortedForm(form);
 
+                        // 待機時間（初回）
+                        return timer(result.data.processing_info.check_after_secs)
+                            .then(loop.bind(this));
+
                         // ステータスチェック用ループ
-                        let timer = function(secs) {
-                            return new Promise((resolve, reject) => {
-                                setTimeout(() => { resolve(); },
-                                           secs * 1000);
-                            });
-                        };
-                        let loop = () => {
+                        function loop() {
                             // STATUS
                             var timestamp = TwitSideModule.text.getUnixTime();
                             return this._createOauthSignature('SIGNATURE', _data_hash, timestamp)
@@ -958,18 +986,17 @@ Tweet.prototype = {
                                               error : new Error(),
                                               status : xhr.status }));
                                     case 'in_progress':
+                                        // Twitter処理率
+                                        cb({ loaded : result.data.processing_info.progress_percent || 0,
+                                             total : 100 });
                                         // 待機時間（2回目以降）
                                         return timer(result.data.processing_info.check_after_secs)
-                                            .then(loop);
+                                            .then(loop.bind(this));
                                     default:
                                         return Promise.reject();
                                     }
                                 });
                         };
-
-                        // 待機時間（初回）
-                        return timer(result.data.processing_info.check_after_secs)
-                            .then(loop);
                     }
                     // STATUSが完了
                     else {
@@ -981,6 +1008,15 @@ Tweet.prototype = {
         }
 
         return Promise.all(media_uploading);
+
+        // 待ち時間
+        function timer(secs)
+        {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => { resolve(); },
+                           secs * 1000);
+            });
+        }
     },
 
     _send2Twitter: function(type, data_hash, timestamp, cb, error, signature)
@@ -1048,15 +1084,15 @@ Tweet.prototype = {
                     break;
                 case 'MULTI':
                     param = createFormData(data_hash.options);
-                    // タイムアウト無効
-                    xhr.timeout = 0;
+                    // タイムアウト
+                    xhr.timeout = TwitSideModule.config.getPref('timeout_upload') * 1000;
                     // プログレスバー
                     xhr.upload.onprogress = cb;
                     break;
                 case 'UPLOAD':
                     param = createFormData(data_hash.options);
-                    // タイムアウト無効
-                    xhr.timeout = 0;
+                    // タイムアウト
+                    xhr.timeout = TwitSideModule.config.getPref('timeout_upload') * 1000;
                     // プログレスバー
                     xhr.upload.onprogress = cb;
                     break;

@@ -9,6 +9,7 @@ TwitSideModule.DefaultPrefs = {
     version: '',
     // update
     timeout: 10,
+    timeout_upload: 600,
     timeline_count: 50,
     connect_count: 20,
     retweeted_count: 20,

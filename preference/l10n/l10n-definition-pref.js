@@ -27,6 +27,11 @@ const l10nDefinition = [
         "word"     : "pref.timeout"
     },
     {
+        "selector" : "[for=timeout_upload]",
+        "place"    : "text",
+        "word"     : "pref.timeout_upload"
+    },
+    {
         "selector" : "[for=timeline_count]",
         "place"    : "text",
         "word"     : "pref.timeline_count"

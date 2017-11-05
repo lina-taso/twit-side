@@ -900,6 +900,9 @@
     "pref.timeout" : {
         "message" : "タイムアウト [秒]"
     },
+    "pref.timeout_upload" : {
+        "message" : "アップロードのタイムアウト [秒]"
+    },
     "pref.timeline_count" : {
         "message" : "一度に取得するツイート数（タイムライン）"
     },
