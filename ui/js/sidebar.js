@@ -623,184 +623,127 @@ function pickedFile(filepicker)
     var $thumbnails = $('#pictureThumbnails');
 
     var file = filepicker.files[0],
-        url = URL.createObjectURL(file);
+        url = URL.createObjectURL(file),
+        anigif_flag = null;
 
-    // 種別チェック
-    switch ($thumbnails.attr('data-mode')) {
-    case '': // 1枚目（種別未指定）
-        switch (file.type) {
-        case 'image/png':
-        case 'image/jpeg':
-            // サイズチェック
-            if (file.size > MAX_SIZE_IMAGE) {
-                filesizeError('image');
-                return;
-            }
-            // ステータスアイコン
-            $('#imageEnabled').attr('data-enabled', true)
-                .siblings('.attachmentStatus').attr('data-enabled', false);
-            // モード変更
-            $thumbnails.attr('data-mode', 'tweet_image');
-            if ($thumbnails.children().length >= MAX_IMAGES - 1)
-                $('#sharePicture').attr('data-disabled', 'true');
-            break;
-        case 'image/gif':
-            // アニメーションGIF
-            if (confirm(browser.i18n.getMessage('confirmAniGif'))) {
-                // サイズチェック
-                if (file.size > MAX_SIZE_ANIGIF) {
-                    filesizeError('gif');
-                    return;
-                }
-                // ステータスアイコン
-                $('#aniGifEnabled').attr('data-enabled', true)
-                    .siblings('.attachmentStatus').attr('data-enabled', false);
-                // モード変更
-                $thumbnails.attr('data-mode', 'tweet_gif');
-                if ($thumbnails.children().length >= MAX_ANIGIFS - 1)
-                    $('#sharePicture').attr('data-disabled', 'true');
-            }
-            // 通常GIF
-            else {
-                // サイズチェック
-                if (file.size > MAX_SIZE_IMAGE) {
-                    filesizeError('image');
-                    return;
-                }
-                // ステータスアイコン
-                $('#imageEnabled').attr('data-enabled', true)
-                    .siblings('.attachmentStatus').attr('data-enabled', false);
-                // モード変更
-                $thumbnails.attr('data-mode', 'tweet_image');
-                if ($thumbnails.children().length >= MAX_IMAGES - 1)
-                    $('#sharePicture').attr('data-disabled', 'true');
-            }
-            break;
-        case 'video/mp4':
-            // サイズチェック
-            if (file.size > MAX_SIZE_VIDEO) {
-                filesizeError('video');
-                return;
-            }
-            // ステータスアイコン
-            $('#videoEnabled').attr('data-enabled', true)
-                .siblings('.attachmentStatus').attr('data-enabled', false);
-            // モード変更
-            $thumbnails.attr('data-mode', 'tweet_video');
-            if ($thumbnails.children().length >= MAX_VIDEOS - 1)
-                $('#sharePicture').attr('data-disabled', 'true');
-            break;
-        }
+    // gif フラグ
+    if (file.type === 'image/gif')
+        anigif_flag = confirm(browser.i18n.getMessage('confirmAniGif'));
+
+    // ファイルサイズチェック
+    var filesizeError_flag = null;
+    switch (file.type) {
+    case 'image/png':
+    case 'image/jpeg':
+        if (file.size > MAX_SIZE_IMAGE)
+            filesizeError_flag = 'image';
         break;
-
-    case 'tweet_image':
-        switch (file.type) {
-        case 'image/png':
-        case 'image/jpeg':
-            // サイズチェック
-            if (file.size > MAX_SIZE_IMAGE) {
-                filesizeError('image');
-                return;
-            }
-            if ($thumbnails.children().length >= MAX_IMAGES - 1)
-                $('#sharePicture').attr('data-disabled', 'true');
-            break;
-        case 'image/gif':
-            // アニメーションGIF
-            if (confirm(browser.i18n.getMessage('confirmAniGif'))) {
-                typeError();
-                return;
-            }
-            // 通常GIF
-            else {
-                // サイズチェック
-                if (file.size > MAX_SIZE_IMAGE) {
-                    filesizeError('image');
-                    return;
-                }
-                if ($thumbnails.children().length >= MAX_IMAGES - 1)
-                    $('#sharePicture').attr('data-disabled', 'true');
-            }
-            break;
-        case 'video/mp4':
-            typeError();
-            return;
-        }
+    case 'image/gif':
+        if (!anigif_flag && file.size > MAX_SIZE_IMAGE)
+            filesizeError_flag = 'image';
+        else if (anigif_flag && file.size > MAX_SIZE_ANIGIF)
+            filesizeError_flag = 'gif';
         break;
-
-    case 'tweet_gif':
-        switch (file.type) {
-        case 'image/png':
-        case 'image/jpeg':
-            typeError();
-            return;
-        case 'image/gif':
-            // アニメーションGIF
-            if (confirm(('confirmAniGif'))) {
-                // サイズチェック
-                if (file.size > MAX_SIZE_ANIGIF) {
-                    filesizeError('gif');
-                    return;
-                }
-                if ($thumbnails.children().length >= MAX_ANIGIFS - 1)
-                    $('#sharePicture').attr('data-disabled', 'true');
-            }
-            // 通常GIF
-            else {
-                typeError();
-                return;
-            }
-            break;
-        case 'video/mp4':
-            typeError();
-            return;
-        }
+    case 'video/mp4':
+        if (file.size > MAX_SIZE_VIDEO)
+            filesizeError_flag = 'video';
         break;
-
-    case 'tweet_video':
-        switch (file.type) {
-        case 'image/png':
-        case 'image/jpeg':
-        case 'image/gif':
-            typeError();
-            return;
-        case 'video/mp4':
-            // サイズチェック
-            if (file.size > MAX_SIZE_VIDEO) {
-                filesizeError('video');
-                return;
-            }
-            if ($thumbnails.children().length >= MAX_VIDEOS - 1)
-                $('#sharePicture').attr('data-disabled', 'true');
-            break;
-        }
-        break;
-
     }
 
-    // サムネイル（画像）
-    if ($thumbnails.attr('data-mode') !== 'tweet_video')
+    // 種別チェック
+    var filetypeError_flag = null;
+    switch ($thumbnails.attr('data-mode')) {
+    case '':
+        break;
+    case 'tweet_image':
+        filetypeError_flag =
+            file.type !== 'image/png'
+            && file.type !== 'image/jpeg'
+            && anigif_flag !== false;
+        break;
+    case 'tweet_gif':
+        filetypeError_flag = !anigif_flag;
+        break;
+    case 'tweet_video':
+        filetypeError_flag = file.type !== 'video/mp4';
+        break;
+    }
+
+    // エラーメッセージ
+    if (filesizeError_flag) {
+        filesizeError(filesizeError_flag);
+        return;
+    }
+    else if (filetypeError_flag) {
+        filetypeError();
+        return;
+    }
+    // アップロードファイルへ登録
+    else if (file.type !== 'video/mp4')
         $('<div tabindex="1" />').css('background-image', 'url(' + url + ')')
         .appendTo($thumbnails)[0].file = file;
-
-    // サムネイル（動画）
     else
         $('<div tabindex="1" />').append(
             $('<video />').append(
                 $('<source />').attr({ src : url, type : file.type })))
         .appendTo($thumbnails)[0].file = file;
 
-    URL.revokeObjectURL(file);
-    filepicker.value = null;
-
+    closeFile();
     countNewTweet();
 
-    function typeError()
+    // ステータス変更・枚数チェック
+    switch (file.type) {
+    case 'image/png':
+    case 'image/jpeg':
+        // モード変更
+        $thumbnails.attr('data-mode', 'tweet_image');
+        // ステータスアイコン
+        $('#imageEnabled').attr('data-enabled', true)
+            .siblings('.attachmentStatus').attr('data-enabled', false);
+        // 最大枚数
+        if ($thumbnails.children().length >= MAX_IMAGES)
+            $('#sharePicture').attr('data-disabled', true);
+        break;
+    case 'image/gif':
+        // 静止画GIF
+        if (!anigif_flag) {
+            // モード変更
+            $thumbnails.attr('data-mode', 'tweet_image');
+            // ステータスアイコン
+            $('#imageEnabled').attr('data-enabled', true)
+                .siblings('.attachmentStatus').attr('data-enabled', false);
+            // 最大枚数
+            if ($thumbnails.children().length >= MAX_IMAGES)
+                $('#sharePicture').attr('data-disabled', true);
+        }
+        // アニメーションGIF
+        else {
+            // モード変更
+            $thumbnails.attr('data-mode', 'tweet_gif');
+            // ステータスアイコン
+            $('#anigifEnabled').attr('data-enabled', true)
+                .siblings('.attachmentStatus').attr('data-enabled', false);
+            // 最大枚数
+            if (anigif_flag && $thumbnails.children().length >= MAX_ANIGIFS)
+                $('#sharePicture').attr('data-disabled', true);
+        }
+        break;
+    case 'video/mp4':
+        // モード変更
+        $thumbnails.attr('data-mode', 'tweet_video');
+        // ステータスアイコン
+        $('#videoEnabled').attr('data-enabled', true)
+            .siblings('.attachmentStatus').attr('data-enabled', false);
+        // 最大枚数
+        if ($thumbnails.children().length >= MAX_VIDEOS)
+            $('#sharePicture').attr('data-disabled', true);
+        break;
+    }
+
+    function filetypeError()
     {
         UI.showMessage(browser.i18n.getMessage('messageUploadType'));
-        URL.revokeObjectURL(file);
-        filepicker.value = null;
-        return;
+        closeFile();
     }
     function filesizeError(type)
     {
@@ -815,10 +758,12 @@ function pickedFile(filepicker)
             UI.showMessage(browser.i18n.getMessage('messageUploadFilesizeVideos'));
             break;
         }
-
+        closeFile();
+    }
+    function closeFile()
+    {
         URL.revokeObjectURL(file);
         filepicker.value = null;
-        return;
     }
 }
 

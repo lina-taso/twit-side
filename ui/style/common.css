@@ -816,8 +816,10 @@ input[type="text"], textarea, select {
   margin-top: 4px;
   display: flex;
   align-items: center; }
-  #tweetButton::before {
-    content: attr(data-label); }
+  #tweetButton {
+    word-break: normal; }
+    #tweetButton::before {
+      content: attr(data-label); }
   #newTweetCount {
     border-radius: 10px;
     padding: 2px 4px;
@@ -829,11 +831,12 @@ input[type="text"], textarea, select {
     #newTweetCount[data-labelcolor="countNg"] {
       background-color: red; }
   #pictureThumbnails {
-    display: flex; }
+    line-height: 0; }
     #pictureThumbnails > div {
       width: 32px;
       height: 32px;
       margin: 2px;
+      display: inline-block;
       background: center center / cover no-repeat;
       position: relative;
       cursor: pointer; }

@@ -584,6 +584,7 @@ input[type="text"], textarea, select {
     align-items: center;
 
     @at-root #tweetButton {
+        word-break: normal;
         &::before {
             content: attr( data-label );
         }
@@ -605,11 +606,12 @@ input[type="text"], textarea, select {
     }
 
     @at-root #pictureThumbnails {
-        display: flex;
+        line-height: 0;
         > div {
             width: $newtweet-thumbnail-size;
             height: $newtweet-thumbnail-size;
             margin: 2px;
+            display: inline-block;
             background: center center / cover no-repeat;
             position: relative;
             cursor: pointer;

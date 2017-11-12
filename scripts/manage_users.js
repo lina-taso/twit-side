@@ -28,25 +28,25 @@ var ManageUsers = function() {
      * Private functions
      */
     // ユーザ情報の更新
-    function updateUser(userid_int, userinfo)
+    function updateUser(userid_str, userinfo)
     {
         // 保存値読み込み、保存されていない場合は初期ハッシュ
         var users = JSON.parse(TwitSideModule.config.getPref('users')
                                || '{}');
 
         var data = {};
-        if (users[userid_int].screen_name != userinfo.screen_name) {
-            users[userid_int].screen_name = userinfo.screen_name;
+        if (users[userid_str].screen_name != userinfo.screen_name) {
+            users[userid_str].screen_name = userinfo.screen_name;
             data.screen_name = userinfo.screen_name;
         }
-        if (!users[userid_int].profile_image_url
-            || users[userid_int].profile_image_url != userinfo.profile_image_url) {
-            users[userid_int].profile_image_url = userinfo.profile_image_url;
+        if (!users[userid_str].profile_image_url
+            || users[userid_str].profile_image_url != userinfo.profile_image_url) {
+            users[userid_str].profile_image_url = userinfo.profile_image_url;
             data.profile_image_url = userinfo.profile_image_url;
         }
-        if (!users[userid_int].lang
-            || users[userid_int].lang != userinfo.lang) {
-            users[userid_int].lang = userinfo.lang;
+        if (!users[userid_str].lang
+            || users[userid_str].lang != userinfo.lang) {
+            users[userid_str].lang = userinfo.lang;
             data.lang = userinfo.lang;
         }
 
@@ -55,7 +55,7 @@ var ManageUsers = function() {
 
         // 設定に保存
         TwitSideModule.config.setPref('users', JSON.stringify(users));
-        return users[userid_int];
+        return users[userid_str];
     }
 
     /**
@@ -90,6 +90,7 @@ var ManageUsers = function() {
         {
             clearInterval(autoUpdateTimer);
             autoUpdateTimer = null;
+            userUpdated = {};
 
             initialized = false;
         },
@@ -177,15 +178,16 @@ var ManageUsers = function() {
 
         // 設定上からユーザを削除
         // return Promise
-        deleteUser : function(userid_int)
+        deleteUser : function(userid_str)
         {
-            if (userid_int == null) throw new Error('PARAMETER_IS_NOT_DEFINED');
+            if (userid_str == null) throw new Error('PARAMETER_IS_NOT_DEFINED');
 
             // 保存値読み込み、保存されていない場合は初期ハッシュ
             var users = JSON.parse(TwitSideModule.config.getPref('users')
                                    || '{}');
-            if (users[userid_int] == null) throw new Error('USER_IS_NOT_REGISTERED');
-            delete users[userid_int];
+            if (users[userid_str] == null) throw new Error('USER_IS_NOT_REGISTERED');
+            delete userUpdated[userid_str];
+            delete users[userid_str];
             // 設定に保存
             return TwitSideModule.config.setPref('users', JSON.stringify(users))
                 .then(() => {
@@ -193,7 +195,7 @@ var ManageUsers = function() {
                     postMessage({
                         reason : TwitSideModule.UPDATE.USER_CHANGED,
                         action : TwitSideModule.ACTION.DELETE,
-                        userid : userid_int
+                        userid : userid_str
                     });
                 });
         },
@@ -323,6 +325,7 @@ var ManageUsers = function() {
         // return Promise
         reset : function()
         {
+            userUpdated = {};
             return TwitSideModule.config.setPref('users', JSON.stringify({}))
                 .then(() => {
                     // 更新通知
