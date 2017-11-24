@@ -26,16 +26,16 @@
     opacity: 0; }
   100% {
     opacity: 1; } }
+@keyframes fade-out {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
 @keyframes progress {
   0% {
     background-position: 0; }
   100% {
     background-position: 100px; } }
-@keyframes blink {
-  0% {
-    opacity: 1; }
-  100% {
-    opacity: 0; } }
 @keyframes spin {
   0% {
     transform: rotate(0deg); }
@@ -48,7 +48,7 @@
     transition: opacity 0.2s ease 0s, visibility 0s linear 0.2s; }
 
 .blink {
-  animation: blink 1s ease-in-out infinite alternate; }
+  animation: fade-out 1s ease-in-out infinite alternate; }
   .blink:hover {
     animation: none; }
 
@@ -256,7 +256,7 @@ input[type="text"], textarea, select {
   #progressBarOther[data-loading="true"] {
     background-position: 100px;
     visibility: visible;
-    animation: progress  1s linear infinite; }
+    animation: progress 1s linear infinite; }
 
 #loading {
   width: 100vw;
@@ -275,6 +275,8 @@ input[type="text"], textarea, select {
     content: '\f1ce';
     font-family: FontAwesome;
     animation: spin 1s linear infinite; }
+  #loading.hidden::before {
+    animation-play-state: paused; }
 
 #grayout {
   width: 100vw;
@@ -1539,7 +1541,7 @@ input[type="text"], textarea, select {
   .progressBarColumn[data-loading="true"] {
     background-position: 100px;
     visibility: visible;
-    animation: progress  1s linear infinite; }
+    animation: progress 1s linear infinite; }
 
 .clearRepliesBox {
   display: none;

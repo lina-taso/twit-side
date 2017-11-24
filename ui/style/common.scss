@@ -27,21 +27,21 @@
     }
 }
 
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 @keyframes progress {
     0% {
         background-position: 0;
     }
     100% {
         background-position: 100px;
-    }
-}
-
-@keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
     }
 }
 
@@ -70,7 +70,7 @@
     &[data-loading="true"] {
         background-position: 100px;
         visibility: visible;
-        animation: progress  1s linear infinite;
+        animation: progress 1s linear infinite;
     }
 }
 
@@ -85,7 +85,7 @@
 }
 
 .blink {
-    animation: blink 1s ease-in-out infinite alternate;
+    animation: fade-out 1s ease-in-out infinite alternate;
     &:hover {
         animation: none;
     }
@@ -269,6 +269,9 @@ input[type="text"], textarea, select {
         content: '\f1ce';
         font-family: FontAwesome;
         animation: spin 1s linear infinite;
+    }
+    &.hidden::before {
+        animation-play-state: paused;
     }
 }
 
