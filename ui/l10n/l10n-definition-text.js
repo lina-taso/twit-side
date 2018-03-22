@@ -8,11 +8,11 @@ const l10nDefinition = [
 
     {
         "selector" : "title",
-        "word"     : "window.text.title"
+        "word"     : "windowTextTitle"
     },
     {
         "selector" : "#closeButton",
         "place"    : "text",
-        "word"     : "text.close"
+        "word"     : "textClose"
     },
 ];

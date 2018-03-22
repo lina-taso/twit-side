@@ -148,13 +148,14 @@ TwitSideModule.Message = (function() {
             data.content = TwitSideModule.text.unescapeHTML(data.content).replace(
                     /\n/g,
                 TwitSideModule.config.getPref('linefeed') ? '\n' : '');
+            data.icon = data.icon || browser.extension.getURL('images/logo.svg');
             data.boxid = data.boxid || '';
 
             // ポップアップ
             browser.notifications.create(
                 'twit-side-'+id, {
                     type : 'basic',
-                    iconUrl : browser.extension.getURL('images/logo.svg'),
+                    iconUrl : data.icon,
                     title : data.title,
                     message : data.content
                 }

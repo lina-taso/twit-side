@@ -120,6 +120,7 @@ Tweet.prototype = {
     // 発言
     tweet : function(optionsHash)
     {
+        optionsHash['weighted_character_count'] = 'true';
         var data = {
             api     : 'API',
             method  : 'POST',

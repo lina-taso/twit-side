@@ -1,7 +1,4 @@
 {
-    //
-    // Addon info
-    //
     "extensionDescription" : {
         "message" : "サイドバーにツイッターのタイムラインを表示します。"
     },
@@ -12,9 +9,7 @@
         "message" : "ツイート入力ボックスにフォーカスします。"
     },
 
-    //
-    // Messages
-    //
+
     "enterPinNumber" : {
         "message" : "PINを入力して下さい。"
     },
@@ -95,6 +90,9 @@
     },
     "streamDisconnected" : {
         "message" : "ストリームが切断されました。"
+    },
+    "streamExceedApiLimit" : {
+        "message" : "API制限に達したためストリームに接続できませんでした。"
     },
     "streamMaintainance" : {
         "message" : "ストリームの定期切断を行いました。"
@@ -201,9 +199,7 @@
         "message" : "Twitterが何らかの原因で処理に失敗しました。再試行して下さい。（HTTP504）"
     },
 
-    //
-    // Notifications
-    //
+
     "no_notif" : {
         "message" : "通知はありません"
     },
@@ -298,9 +294,7 @@
         }
     },
 
-    //
-    // Alerts
-    //
+
     "confirmTweet" : {
         "message" : "ツイートしますか？"
     },
@@ -368,13 +362,11 @@
         "message" : "動画は512MBまでアップロードできます"
     },
 
-    //
-    // Window title
-    //
-    "window.profile.defaulttitle" : {
+
+    "windowProfileDefaulttitle" : {
         "message" : "プロフィール"
     },
-    "window.profile.usertitle" : {
+    "windowProfileUsertitle" : {
         "message" : "$USER$のプロフィール",
         "placeholders" : {
             "user" : {
@@ -383,25 +375,25 @@
             }
         }
     },
-    "window.search.title" : {
+    "windowSearchTitle" : {
         "message" : "検索"
     },
-    "window.columns.title" : {
+    "windowColumnsTitle" : {
         "message" : "カラムの管理"
     },
-    "window.newdm.title" : {
+    "windowNewdmTitle" : {
         "message" : "DMの作成"
     },
-    "window.text.title" : {
+    "windowTextTitle" : {
         "message" : "ツイートのテキスト"
     },
-    "window.mute.title" : {
+    "windowMuteTitle" : {
         "message" : "ミュート一覧"
     },
-    "window.noretweet.title" : {
+    "windowNoretweetTitle" : {
         "message" : "リツイート非表示一覧"
     },
-    "window.listmember.title" : {
+    "windowListmemberTitle" : {
         "message" : "メンバー一覧：$USER$のリスト：$LISTNAME$",
         "placeholders" : {
             "user" : {
@@ -413,7 +405,7 @@
             }
         }
     },
-    "window.listsubscriber.title" : {
+    "windowListsubscriberTitle" : {
         "message" : "購読者一覧：$USER$のリスト：$LISTNAME$：",
         "placeholders" : {
             "user" : {
@@ -425,17 +417,14 @@
             }
         }
     },
-    "window.photo.title" : {
+    "windowPhotoTitle" : {
         "message" : "写真"
     },
-    "window.api.title" : {
+    "windowApiTitle" : {
         "message" : "API"
     },
 
-    //
-    // Column labels
-    //
-    // default Columns' label
+
     "defaultTimeline" : {
         "message" : "タイムライン"
     },
@@ -461,7 +450,6 @@
         }
     },
 
-    // Column's label
     "column_timeline" : {
         "message" : "タイムライン"
     },
@@ -487,7 +475,6 @@
         "message" : "自動更新"
     },
 
-    // Profile columns' label
     "column_follow" : {
         "message" : "フォロー"
     },
@@ -504,234 +491,227 @@
         "message" : "被メンバリスト"
     },
 
-    //
-    // Main ui labels
-    //
-    // for content
-    "auth.request" : {
+
+    "authRequest" : {
         "message" : "(1) アプリケーションを認証"
     },
-    "auth.pin" : {
+    "authPin" : {
         "message" : "(2) PINを入力"
     },
-    "auth.access" : {
+    "authAccess" : {
         "message" : "(3) アプリケーションを許可"
     },
 
-    "top.uploadimage" : {
+    "topUploadimage" : {
         "message" : "画像を投稿します"
     },
-    "top.uploadvideo" : {
+    "topUploadvideo" : {
         "message" : "動画を投稿します"
     },
-    "top.uploadanigif" : {
+    "topUploadanigif" : {
         "message" : "アニメーションGIFを投稿します"
     },
-    "top.sharepicture" : {
+    "topSharepicture" : {
         "message" : "画像や動画を共有する"
     },
-    "top.sharepage" : {
+    "topSharepage" : {
         "message" : "ページを共有する"
     },
-    "top.additionalreplyto" : {
+    "topAdditionalreplyto" : {
         "message" : "返信先: "
     },
-    "top.tweet" : {
+    "topTweet" : {
         "message" : "ツイート"
     },
-    "top.replytweet" : {
+    "topReplytweet" : {
         "message" : "以下のツイートに返信"
     },
-    "top.inlinetweet" : {
+    "topInlinetweet" : {
         "message" : "以下のツイートを引用"
     },
 
-    "top.person" : {
+    "topPerson" : {
         "message" : "ユーザプロフィール"
     },
-    "top.search" : {
+    "topSearch" : {
         "message" : "検索"
     },
-    "top.adduser" : {
+    "topAdduser" : {
         "message" : "ユーザを追加"
     },
-    "top.managecolumns" : {
+    "topManagecolumns" : {
         "message" : "カラムの管理"
     },
-    "top.pref" : {
+    "topPref" : {
         "message" : "設定"
     },
-    "top.help" : {
+    "topHelp" : {
         "message" : "ヘルプ"
     },
-    "top.logout" : {
+    "topLogout" : {
         "message" : "全てログアウト"
     },
 
-    // tweetBox
-    "tweet.retweets" : {
+    "tweetRetweets" : {
         "message" : "がリツイート"
     },
-    "tweet.rtcount" : {
+    "tweetRtcount" : {
         "message" : "人がリツイート"
     },
-    "tweet.more" : {
+    "tweetMore" : {
         "message" : "続きを読み込む"
     },
 
-    "tweet.clear_replies" : {
+    "tweetClear_replies" : {
         "message" : "会話を全て閉じる"
     },
-    "tweet.replyto" : {
+    "tweetReplyto" : {
         "message" : "返信先: "
     },
-    "tweet.replies" : {
+    "tweetReplies" : {
         "message" : "会話: "
     },
 
-    // contextMenu
-    "tweet.retweet" : {
+    "tweetRetweet" : {
         "message" : "リツイート"
     },
-    "tweet.quote" : {
+    "tweetQuote" : {
         "message" : "引用リツイート"
     },
-    "tweet.rt" : {
+    "tweetRt" : {
         "message" : "引用RT"
     },
-    "tweet.showtext" : {
+    "tweetShowtext" : {
         "message" : "ツイートテキストを選択"
     },
-    "tweet.opentweeturl" : {
+    "tweetOpentweeturl" : {
         "message" : "ツイートを開く"
     },
-    "tweet.reply" : {
+    "tweetReply" : {
         "message" : "返信"
     },
-    "tweet.replyall" : {
+    "tweetReplyall" : {
         "message" : "全員に返信"
     },
-    "tweet.favorite" : {
+    "tweetFavorite" : {
         "message" : "お気に入り"
     },
-    "tweet.unfavorite" : {
+    "tweetUnfavorite" : {
         "message" : "お気に入り取消"
     },
-    "tweet.showreply" : {
+    "tweetShowreply" : {
         "message" : "会話を表示"
     },
-    "tweet.destroy" : {
+    "tweetDestroy" : {
         "message" : "削除"
     },
-    "tweet.showretweetedusers" : {
+    "tweetShowretweetedusers" : {
         "message" : "リツイートしたユーザ"
     },
-    "tweet.users" : {
+    "tweetUsers" : {
         "message" : "ユーザ"
     },
-    "tweet.hashtags" : {
+    "tweetHashtags" : {
         "message" : "ハッシュタグ"
     },
-    "tweet.urls" : {
+    "tweetUrls" : {
         "message" : "URL"
     },
 
-    "tweet.destroylist" : {
+    "tweetDestroylist" : {
         "message" : "リストを削除"
     },
-    "tweet.updatelist" : {
+    "tweetUpdatelist" : {
         "message" : "リストを編集"
     },
-    "tweet.showmembers" : {
+    "tweetShowmembers" : {
         "message" : "メンバー一覧"
     },
-    "tweet.showsubscribers" : {
+    "tweetShowsubscribers" : {
         "message" : "購読者一覧"
     },
-    "tweet.subscribe" : {
+    "tweetSubscribe" : {
         "message" : "リストを購読"
     },
-    "tweet.unsubscribe" : {
+    "tweetUnsubscribe" : {
         "message" : "リストの購読解除"
     },
-    "tweet.addcolumn" : {
+    "tweetAddcolumn" : {
         "message" : "カラムに追加"
     },
 
-    "tweet.destroyuser" : {
+    "tweetDestroyuser" : {
         "message" : "ユーザを削除"
     },
 
-    //
-    // Userprofile window labels
-    //
-    "profile.tweet" : {
+
+    "profileTweet" : {
         "message" : "ツイート"
     },
-    "profile.senddm" : {
+    "profileSenddm" : {
         "message" : "DMを送る"
     },
-    "profile.restriction1" : {
+    "profileRestriction1" : {
         "message" : "API制限"
     },
-    "profile.restriction2" : {
+    "profileRestriction2" : {
         "message" : "ミュート一覧"
     },
-    "profile.restriction3" : {
+    "profileRestriction3" : {
         "message" : "リツイート非表示一覧"
     },
-    "profile.relation1following" : {
+    "profileRelation1following" : {
         "message" : "フォローしている"
     },
-    "profile.relation1follow" : {
+    "profileRelation1follow" : {
         "message" : "フォローする"
     },
-    "profile.relation1requesting" : {
+    "profileRelation1requesting" : {
         "message" : "フォローリクエスト中"
     },
-    "profile.relation2followed" : {
+    "profileRelation2followed" : {
         "message" : "フォローされている"
     },
-    "profile.relation2notfollowed" : {
+    "profileRelation2notfollowed" : {
         "message" : "フォローされていない"
     },
-    "profile.relation3muting" : {
+    "profileRelation3muting" : {
         "message" : "ミュートしている"
     },
-    "profile.relation3mute" : {
+    "profileRelation3mute" : {
         "message" : "ミュートする"
     },
-    "profile.relation4noretweeting" : {
+    "profileRelation4noretweeting" : {
         "message" : "リツイート非表示中"
     },
-    "profile.relation4noretweet" : {
+    "profileRelation4noretweet" : {
         "message" : "リツイートを非表示"
     },
-    "profile.addlist" : {
+    "profileAddlist" : {
         "message" : "リスト追加"
     },
-    "profile.editlist" : {
+    "profileEditlist" : {
         "message" : "リスト編集"
     },
-    "profile.listlabel" : {
+    "profileListlabel" : {
         "message" : "リストラベル"
     },
-    "profile.listdescription" : {
+    "profileListdescription" : {
         "message" : "説明"
     },
-    "profile.listmode" : {
+    "profileListmode" : {
         "message" : "公開/非公開"
     },
-    "profile.public" : {
+    "profilePublic" : {
         "message" : "公開"
     },
-    "profile.private" : {
+    "profilePrivate" : {
         "message" : "非公開"
     },
-    "profile.message.enterlistlabel" : {
+    "profileMessageEnterlistlabel" : {
         "message" : "リストラベルを入力してください"
     },
-    "profile.message.toolonglistlabel" : {
+    "profileMessageToolonglistlabel" : {
         "message" : "リストラベルは$LENGTH$文字以下で入力してください",
         "placeholders" : {
             "length" : {
@@ -740,7 +720,7 @@
             }
         }
     },
-    "profile.message.toolonglistdesc" : {
+    "profileMessageToolonglistdesc" : {
         "message" : "説明は$LENGTH$文字以下で入力してください",
         "placeholders" : {
             "length" : {
@@ -750,427 +730,410 @@
         }
     },
 
-    //
-    // Search window labels
-    //
-    "search.autoreload" : {
+
+
+    "searchAutoreload" : {
         "message" : "自動更新"
     },
-    "search.usage" : {
+    "searchUsage" : {
         "message" : "検索例：キーワード\nOR検索例：キーワード1 OR キーワード2\nAND検索例：キーワード1 キーワード2\nフレーズ検索例：\"キーワード1 キーワード2\"\nハッシュタグ検索例：#ハッシュタグ\nリプライ検索例：@スクリーンネーム\n投稿者検索例：from:スクリーンネーム\nソース検索例：キーワード source:アプリ名"
     },
 
-    //
-    // Columns window labels
-    //
-    "columns.draggable" : {
+
+    "columnsDraggable" : {
         "message" : "ドラッグでカラムの順序を変更できます"
     },
-    "columns.columnlabel" : {
+    "columnsColumnlabel" : {
         "message" : "カラムラベル"
     },
-    "columns.screenname" : {
+    "columnsScreenname" : {
         "message" : "スクリーンネーム"
     },
-    "columns.type" : {
+    "columnsType" : {
         "message" : "種別"
     },
-    "columns.notif" : {
+    "columnsNotif" : {
         "message" : "通知"
     },
-    "columns.onstart" : {
+    "columnsOnstart" : {
         "message" : "起動時に開始"
     },
-    "columns.autoreload" : {
+    "columnsAutoreload" : {
         "message" : "自動更新"
     },
-    "columns.stream" : {
+    "columnsStream" : {
         "message" : "ストリーム"
     },
-    "columns.veil" : {
+    "columnsVeil" : {
         "message" : "プライバシーモード"
     },
-    "columns.other" : {
+    "columnsOther" : {
         "message" : "その他"
     },
-    "columns.add" : {
+    "columnsAdd" : {
         "message" : "カラム追加"
     },
-    "columns.remove" : {
+    "columnsRemove" : {
         "message" : "カラム削除"
     },
-    "columns.edit" : {
+    "columnsEdit" : {
         "message" : "カラム編集"
     },
-    "columns.close" : {
+    "columnsClose" : {
         "message" : "閉じる"
     },
-    "columns.message.entercolumnlabel" : {
+    "columnsMessageEntercolumnlabel" : {
         "message" : "カラムラベルを入力してください"
     },
 
-    //
-    // Newdm window labels
-    //
-    "newdm.from" : {
+
+    "newdmFrom" : {
         "message" : "送信元"
     },
-    "newdm.to" : {
+    "newdmTo" : {
         "message" : "送信先"
     },
-    "newdm.send" : {
+    "newdmSend" : {
         "message" : "DM送信"
     },
-    "newdm.close" : {
+    "newdmClose" : {
         "message" : "閉じる"
     },
 
-    //
-    // Text window labels
-    //
-    "text.close" : {
+
+    "textClose" : {
         "message" : "閉じる"
     },
 
-    //
-    // Mute window labels
-    //
-    "mute.close" : {
+
+    "muteClose" : {
         "message" : "閉じる"
     },
 
-    //
-    // Noretweet window labels
-    //
-    "noretweet.close" : {
+
+    "noretweetClose" : {
         "message" : "閉じる"
     },
 
-    //
-    // Listmember window labels
-    //
-    "listmember.close" : {
+
+    "listmemberClose" : {
         "message" : "閉じる"
     },
 
-    //
-    // Photo window labels
-    //
-    "photo.url" : {
+
+    "photoUrl" : {
         "message" : "写真のURL"
     },
-    "photo.openurl" : {
+    "photoOpenurl" : {
         "message" : "オリジナルのURLを開く"
     },
-    "photo.close" : {
+    "photoClose" : {
         "message" : "閉じる"
     },
-    //
-    // API window labels
-    //
-    "api.api" : {
+
+
+
+    "apiApi" : {
         "message" : "API"
     },
-    "api.remaining" : {
+    "apiRemaining" : {
         "message" : "残り [回]"
     },
-    "api.limit" : {
+    "apiLimit" : {
         "message" : "制限 [回]"
     },
-    "api.reset_time" : {
+    "apiReset_time" : {
         "message" : "リセット日時"
     },
-    "api.close" : {
+    "apiClose" : {
         "message" : "閉じる"
     },
 
 
-    //
-    // Preferences
-    //
-    "pref.label.save_button" : {
+
+    "prefLabelSave_button" : {
         "message" : "このセクションの設定を保存"
     },
-    "pref.label.update" : {
+    "prefLabelUpdate" : {
         "message" : "更新"
     },
-    "pref.label.update.parameters" : {
+    "prefLabelUpdateParameters" : {
         "message" : "パラメータ"
     },
-    "pref.timeout" : {
+    "prefTimeout" : {
         "message" : "タイムアウト [秒]"
     },
-    "pref.timeout_upload" : {
+    "prefTimeout_upload" : {
         "message" : "アップロードのタイムアウト [秒]"
     },
-    "pref.timeline_count" : {
+    "prefTimeline_count" : {
         "message" : "一度に取得するツイート数（タイムライン）"
     },
-    "pref.connect_count" : {
+    "prefConnect_count" : {
         "message" : "一度に取得するツイート数（つながり）"
     },
-    "pref.retweeted_count" : {
+    "prefRetweeted_count" : {
         "message" : "一度に取得するツイート数（リツイート）"
     },
-    "pref.favorite_count" : {
+    "prefFavorite_count" : {
         "message" : "一度に取得するツイート数（お気に入り）"
     },
-    "pref.search_count" : {
+    "prefSearch_count" : {
         "message" : "一度に取得するツイート数（検索）"
     },
-    "pref.profile_count" : {
+    "prefProfile_count" : {
         "message" : "一度に取得するツイート数（ユーザタイムライン）"
     },
-    "pref.label.update.autopager" : {
+    "prefLabelUpdateAutopager" : {
         "message" : "オートページャ"
     },
-    "pref.autopager" : {
+    "prefAutopager" : {
         "message" : "カラムの下の方へスクロールしたら続きを読み込む"
     },
-    "pref.autopager_count" : {
+    "prefAutopager_count" : {
         "message" : "一度に取得するツイート数（オートページャ）"
     },
-    "pref.label.update.autoreload" : {
+    "prefLabelUpdateAutoreload" : {
         "message" : "自動更新"
     },
-    "pref.autoreload_time" : {
+    "prefAutoreload_time" : {
         "message" : "自動更新が有効なカラムを次の時間毎に更新する [秒]"
     },
-    "pref.autosearch_time" : {
+    "prefAutosearch_time" : {
         "message" : "ただし、検索カラムは次の時間毎に更新する [秒]"
     },
-    "pref.autoreload_aftertweet" : {
+    "prefAutoreload_aftertweet" : {
         "message" : "ツイート投稿後にそのユーザのタイムラインを更新する（ストリーム接続時は無視されます）"
     },
-    "pref.autoreload_totop" : {
+    "prefAutoreload_totop" : {
         "message" : "カラムの最上部を維持する"
     },
-    "pref.label.extra" : {
+    "prefLabelExtra" : {
         "message" : "追加機能"
     },
-    "pref.label.extra.url" : {
+    "prefLabelExtraUrl" : {
         "message" : "URL"
     },
-    "pref.label.extra.restart_required" : {
+    "prefLabelExtraRestart_required" : {
         "message" : "既に読み込んだツイートに反映するには、Firefoxを再起動する必要があります"
     },
-    "pref.exURL" : {
+    "prefExURL" : {
         "message" : "短縮URLを展開する"
     },
-    "pref.exURL_cut" : {
+    "prefExURL_cut" : {
         "message" : "展開したURLをTwitter公式と同様省略する"
     },
-    "pref.URL_tabactive" : {
+    "prefURL_tabactive" : {
         "message" : "開いたタブをアクティブにする"
     },
-    "pref.label.extra.mute" : {
+    "prefLabelExtraMute" : {
         "message" : "ミュート"
     },
-    "pref.mute_onsearch" : {
+    "prefMute_onsearch" : {
         "message" : "ミュート設定したユーザのツイートを検索カラムでも表示しない"
     },
-    "pref.mute_ts" : {
+    "prefMute_ts" : {
         "message" : "Twit Side独自ミュート機能を有効にする"
     },
-    "pref.label.extra.retweet" : {
+    "prefLabelExtraRetweet" : {
         "message" : "リツイート"
     },
-    "pref.retweets_onlyfriends" : {
+    "prefRetweets_onlyfriends" : {
         "message" : "フォロー外のリツイートを表示しない（ストリーム有効時）"
     },
-    "pref.label.extra.search" : {
+    "prefLabelExtraSearch" : {
         "message" : "検索"
     },
-    "pref.domestic_search" : {
+    "prefDomestic_search" : {
         "message" : "あなたの言語のツイートのみ取得する"
     },
-    "pref.label.style" : {
+    "prefLabelStyle" : {
         "message" : "スタイル"
     },
-    "pref.label.style.design" : {
+    "prefLabelStyleDesign" : {
         "message" : "デザイン"
     },
-    "pref.theme" : {
+    "prefTheme" : {
         "message" : "テーマ"
     },
-    "pref.color_retweets" : {
+    "prefColor_retweets" : {
         "message" : "リツイートの背景色を変える"
     },
-    "pref.screenname_first" : {
+    "prefScreenname_first" : {
         "message" : "スクリーンネーム (ユーザー名) の順で表示する"
     },
-    "pref.circle_icon" : {
+    "prefCircle_icon" : {
         "message" : "ユーザアイコンを丸くする"
     },
-    "pref.label.style.timestamp" : {
+    "prefLabelStyleTimestamp" : {
         "message" : "タイムスタンプ"
     },
-    "pref.label.style.restart_required" : {
+    "prefLabelStyleRestart_required" : {
         "message" : "既に読み込んだツイートに反映するには、Firefoxを再起動する必要があります"
     },
-    "pref.timeformat" : {
+    "prefTimeformat" : {
         "message" : "日時の表示形式"
     },
-    "pref.label.style.photo" : {
+    "prefLabelStylePhoto" : {
         "message" : "画像表示"
     },
-    "pref.viewthumbnail" : {
+    "prefViewthumbnail" : {
         "message" : "サムネイル画像を表示する"
     },
-    "pref.popup_photo" : {
+    "prefPopup_photo" : {
         "message" : "画像をポップアップで表示する"
     },
-    "pref.label.style.misc" : {
+    "prefLabelStyleMisc" : {
         "message" : "その他"
     },
-    "pref.viewsource" : {
+    "prefViewsource" : {
         "message" : "ツイートに投稿ソースを表示する"
     },
-    "pref.linefeed" : {
+    "prefLinefeed" : {
         "message" : "改行を反映する"
     },
-    "pref.animation" : {
+    "prefAnimation" : {
         "message" : "アニメーションを有効にする"
     },
-    "pref.label.scale" : {
+    "prefLabelScale" : {
         "message" : "スケール"
     },
-    "pref.label.scale.minwidth" : {
+    "prefLabelScaleMinwidth" : {
         "message" : "最小幅"
     },
-    "pref.label.scale.minwidth_notice" : {
+    "prefLabelScaleMinwidth_notice" : {
         "message" : "この値で、表示できるカラム数が変わります"
     },
-    "pref.column_minwidth" : {
+    "prefColumn_minwidth" : {
         "message" : "カラムの最小幅 [ピクセル]"
     },
-    "pref.label.scale.size" : {
+    "prefLabelScaleSize" : {
         "message" : "サイズ"
     },
-    "pref.label.scale.fontsize_notice" : {
+    "prefLabelScaleFontsize_notice" : {
         "message" : "フォントサイズが小さくならない場合は、Firefoxの最小フォントサイズ設定を確認して下さい"
     },
-    "pref.font_size" : {
+    "prefFont_size" : {
         "message" : "フォントサイズ（標準12） [ピクセル]"
     },
-    "pref.icon_size" : {
+    "prefIcon_size" : {
         "message" : "アイコンサイズ"
     },
-    "pref.button_size" : {
+    "prefButton_size" : {
         "message" : "ボタンサイズ"
     },
-    "pref.label.notification" : {
+    "prefLabelNotification" : {
         "message" : "通知"
     },
-    "pref.label.notification.turnonnotif" : {
+    "prefLabelNotificationTurnonnotif" : {
         "message" : "カラムの設定で通知機能を有効にしてください"
     },
-    "pref.label.notification.enabledonstream" : {
+    "prefLabelNotificationEnabledonstream" : {
         "message" : "* ストリーム使用時のみ有効"
     },
-    "pref.notif_all" : {
+    "prefNotif_all" : {
         "message" : "すべてのツイートを通知する（ポップアップのみ）"
     },
-    "pref.notif_forme" : {
+    "prefNotif_forme" : {
         "message" : "あなた宛のツイートが届いたことを通知する"
     },
-    "pref.notif_forme_retweeted" : {
+    "prefNotif_forme_retweeted" : {
         "message" : "あなたのツイートがリツイートされたことを通知する *"
     },
-    "pref.notif_favorite" : {
+    "prefNotif_favorite" : {
         "message" : "あなたのツイートがお気に入りに追加されたことを通知する *"
     },
-    "pref.notif_unfavorite" : {
+    "prefNotif_unfavorite" : {
         "message" : "あなたのツイートがお気に入りから削除されたことを通知する *"
     },
-    "pref.notif_follow" : {
+    "prefNotif_follow" : {
         "message" : "あなたがフォローされたことを通知する *"
     },
-    "pref.notif_directmessage" : {
+    "prefNotif_directmessage" : {
         "message" : "ダイレクトメッセージが届いたことを通知する *"
     },
-    "pref.notif_count" : {
+    "prefNotif_count" : {
         "message" : "1ページに表示する通知の件数"
     },
-    "pref.label.tweetmenu" : {
+    "prefLabelTweetmenu" : {
         "message" : "ツイートメニュー"
     },
-    "pref.label.tweetmenu.contextmenu" : {
+    "prefLabelTweetmenuContextmenu" : {
         "message" : "右クリック"
     },
-    "pref.label.tweetmenu.fortypist" : {
+    "prefLabelTweetmenuFortypist" : {
         "message" : "ツイートのアイコンをクリックする以外に、キーボードによる操作をする方向け"
     },
-    "pref.menu_reply" : {
+    "prefMenu_reply" : {
         "message" : "「返信」メニューを表示する"
     },
-    "pref.menu_favorite" : {
+    "prefMenu_favorite" : {
         "message" : "「お気に入り」メニューを表示する"
     },
-    "pref.menu_conversation" : {
+    "prefMenu_conversation" : {
         "message" : "「会話を表示」メニューを表示する"
     },
-    "pref.menu_url" : {
+    "prefMenu_url" : {
         "message" : "URLメニューを表示する"
     },
-    "pref.label.tweetmenu.hovermenu" : {
+    "prefLabelTweetmenuHovermenu" : {
         "message" : "ホバーメニュー"
     },
-    "pref.label.tweetmenu.upto2menu" : {
+    "prefLabelTweetmenuUpto2menu" : {
         "message" : "2つまでショートカットを追加出来ます（合計4つまで）"
     },
-    "pref.label.tweetmenu.draggable" : {
+    "prefLabelTweetmenuDraggable" : {
         "message" : "ドラッグでメニューの順序を変更できます"
     },
-    "pref.hover_retweet" : {
+    "prefHover_retweet" : {
         "message" : "リツイート"
     },
-    "pref.hover_quote" : {
+    "prefHover_quote" : {
         "message" : "引用リツイート"
     },
-    "pref.hover_rt" : {
+    "prefHover_rt" : {
         "message" : "引用RT"
     },
-    "pref.hover_showtext" : {
+    "prefHover_showtext" : {
         "message" : "ツイートテキストを選択"
     },
-    "pref.hover_opentweeturl" : {
+    "prefHover_opentweeturl" : {
         "message" : "ツイートを開く"
     },
-    "pref.hover_replyall" : {
+    "prefHover_replyall" : {
         "message" : "返信 / 全員に返信"
     },
-    "pref.hover_favorite" : {
+    "prefHover_favorite" : {
         "message" : "お気に入り（必須）"
     },
-    "pref.hover_showreply" : {
+    "prefHover_showreply" : {
         "message" : "会話を表示（必須）"
     },
-    "pref.label.confirm" : {
+    "prefLabelConfirm" : {
         "message" : "確認画面"
     },
-    "pref.confirm_tweet" : {
+    "prefConfirm_tweet" : {
         "message" : "Ctrl+Enterでツイートするときに確認画面を表示する"
     },
-    "pref.confirm_retweet" : {
+    "prefConfirm_retweet" : {
         "message" : "リツイートするときに確認画面を表示する"
     },
-    "pref.confirm_favorite" : {
+    "prefConfirm_favorite" : {
         "message" : "お気に入りに追加/削除するときに確認画面を表示する"
     },
-    "pref.confirm_delete" : {
+    "prefConfirm_delete" : {
         "message" : "ツイート/リストを削除するときに確認画面を表示する"
     },
-    "pref.confirm_follow" : {
+    "prefConfirm_follow" : {
         "message" : "ユーザをフォロー/アンフォローするときに確認画面を表示する"
     },
-    "pref.confirm_mute" : {
+    "prefConfirm_mute" : {
         "message" : "ユーザをミュート/ミュート解除するときに確認画面を表示する"
     },
-    "pref.confirm_noretweet" : {
+    "prefConfirm_noretweet" : {
         "message" : "ユーザのリツイート非表示/表示するときに確認画面を表示する"
     },
-    "pref.confirm_deletecolumn" : {
+    "prefConfirm_deletecolumn" : {
         "message" : "カラムを削除するときに確認画面を表示する"
     }
 

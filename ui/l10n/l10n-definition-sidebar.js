@@ -8,112 +8,112 @@ const l10nDefinition = [
     {
         "selector" : "#request",
         "place"    : "text",
-        "word"     : "auth.request"
+        "word"     : "authRequest"
     },
     {
         "selector" : "#pin",
         "place"    : "attr",
         "attr"     : "placeholder",
-        "word"     : "auth.pin"
+        "word"     : "authPin"
     },
     {
         "selector" : "#access",
         "place"    : "text",
-        "word"     : "auth.access"
+        "word"     : "authAccess"
     },
     {
         "selector" : "#imageEnabled",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "top.uploadimage"
+        "word"     : "topUploadimage"
     },
     {
         "selector" : "#videoEnabled",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "top.uploadvideo"
+        "word"     : "topUploadvideo"
     },
     {
         "selector" : "#aniGifEnabled",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "top.uploadanigif"
+        "word"     : "topUploadanigif"
     },
     {
         "selector" : "#sharePicture",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "top.sharepicture"
+        "word"     : "topSharepicture"
     },
     {
         "selector" : "#sharePage",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "top.sharepage"
+        "word"     : "topSharepage"
     },
     {
         "selector" : "#replyUsersSelection",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "top.additionalreplyto"
+        "word"     : "topAdditionalreplyto"
     },
     {
         "selector" : "#tweetButton",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "top.tweet"
+        "word"     : "topTweet"
     },
     {
         "selector" : ".refTweetTitle.replyTitle",
         "place"    : "text",
-        "word"     : "top.replytweet"
+        "word"     : "topReplytweet"
     },
     {
         "selector" : ".refTweetTitle.inlineTitle",
         "place"    : "text",
-        "word"     : "top.inlinetweet"
+        "word"     : "topInlinetweet"
     },
     {
         "selector" : "#menuProfile",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "top.person"
+        "word"     : "topPerson"
     },
     {
         "selector" : "#menuSearch",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "top.search"
+        "word"     : "topSearch"
     },
     {
         "selector" : "#menuLogin",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "top.adduser"
+        "word"     : "topAdduser"
     },
     {
         "selector" : "#menuManageColumns",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "top.managecolumns"
+        "word"     : "topManagecolumns"
     },
     {
         "selector" : "#menuPreferences",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "top.pref"
+        "word"     : "topPref"
     },
     {
         "selector" : "#menuHelp",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "top.help"
+        "word"     : "topHelp"
     },
     {
         "selector" : "#menuLogout",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "top.logout"
+        "word"     : "topLogout"
     },
     {
         "selector" : "#clearNotif",
@@ -130,31 +130,31 @@ const l10nDefinition = [
     {
         "selector" : ".tweetRetweeterName",
         "place"    : "text",
-        "word"     : "tweet.retweets"
+        "word"     : "tweetRetweets"
     },
     {
         "selector" : ".tweetRetweeterCount",
         "place"    : "text",
-        "word"     : "tweet.rtcount"
+        "word"     : "tweetRtcount"
     },
     {
         "selector" : ".tweetMoreBox",
         "place"    : "text",
-        "word"     : "tweet.more"
+        "word"     : "tweetMore"
     },
     {
         "selector" : ".clearRepliesBox",
         "place"    : "text",
-        "word"     : "tweet.clear_replies"
+        "word"     : "tweetClear_replies"
     },
     {
         "selector" : ".replytoUserBox > .putAlways",
         "place"    : "text",
-        "word"     : "tweet.replyto"
+        "word"     : "tweetReplyto"
     },
     {
         "selector" : ".replyTweetTitle",
         "place"    : "text",
-        "word"     : "tweet.replies"
+        "word"     : "tweetReplies"
     },
 ];

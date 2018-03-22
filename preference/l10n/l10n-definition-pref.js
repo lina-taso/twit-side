@@ -9,467 +9,467 @@ const l10nDefinition = [
     {
         "selector" : ".save_button, .save_button2",
         "place"    : "text",
-        "word"     : "pref.label.save_button"
+        "word"     : "prefLabelSave_button"
     },
     {
         "selector" : "[id='label.update']",
         "place"    : "text",
-        "word"     : "pref.label.update"
+        "word"     : "prefLabelUpdate"
     },
     {
         "selector" : "[id='label.update.parameters']",
         "place"    : "text",
-        "word"     : "pref.label.update.parameters"
+        "word"     : "prefLabelUpdateParameters"
     },
     {
         "selector" : "[for=timeout]",
         "place"    : "text",
-        "word"     : "pref.timeout"
+        "word"     : "prefTimeout"
     },
     {
         "selector" : "[for=timeout_upload]",
         "place"    : "text",
-        "word"     : "pref.timeout_upload"
+        "word"     : "prefTimeout_upload"
     },
     {
         "selector" : "[for=timeline_count]",
         "place"    : "text",
-        "word"     : "pref.timeline_count"
+        "word"     : "prefTimeline_count"
     },
     {
         "selector" : "[for=connect_count]",
         "place"    : "text",
-        "word"     : "pref.connect_count"
+        "word"     : "prefConnect_count"
     },
     {
         "selector" : "[for=retweeted_count]",
         "place"    : "text",
-        "word"     : "pref.retweeted_count"
+        "word"     : "prefRetweeted_count"
     },
     {
         "selector" : "[for=favorite_count]",
         "place"    : "text",
-        "word"     : "pref.favorite_count"
+        "word"     : "prefFavorite_count"
     },
     {
         "selector" : "[for=search_count]",
         "place"    : "text",
-        "word"     : "pref.search_count"
+        "word"     : "prefSearch_count"
     },
     {
         "selector" : "[for=profile_count]",
         "place"    : "text",
-        "word"     : "pref.profile_count"
+        "word"     : "prefProfile_count"
     },
     {
         "selector" : "[id='label.update.autopager']",
         "place"    : "text",
-        "word"     : "pref.label.update.autopager"
+        "word"     : "prefLabelUpdateAutopager"
     },
     {
         "selector" : "[for=autopager]",
         "place"    : "text",
-        "word"     : "pref.autopager"
+        "word"     : "prefAutopager"
     },
     {
         "selector" : "[for=autopager_count]",
         "place"    : "text",
-        "word"     : "pref.autopager_count"
+        "word"     : "prefAutopager_count"
     },
     {
         "selector" : "[id='label.update.autoreload']",
         "place"    : "text",
-        "word"     : "pref.label.update.autoreload"
+        "word"     : "prefLabelUpdateAutoreload"
     },
     {
         "selector" : "[for=autoreload_time]",
         "place"    : "text",
-        "word"     : "pref.autoreload_time"
+        "word"     : "prefAutoreload_time"
     },
     {
         "selector" : "[for=autosearch_time]",
         "place"    : "text",
-        "word"     : "pref.autosearch_time"
+        "word"     : "prefAutosearch_time"
     },
     {
         "selector" : "[for=autoreload_aftertweet]",
         "place"    : "text",
-        "word"     : "pref.autoreload_aftertweet"
+        "word"     : "prefAutoreload_aftertweet"
     },
     {
         "selector" : "[for=autoreload_totop]",
         "place"    : "text",
-        "word"     : "pref.autoreload_totop"
+        "word"     : "prefAutoreload_totop"
     },
     {
         "selector" : "[id='label.extra']",
         "place"    : "text",
-        "word"     : "pref.label.extra"
+        "word"     : "prefLabelExtra"
     },
     {
         "selector" : "[id='label.extra.url']",
         "place"    : "text",
-        "word"     : "pref.label.extra.url"
+        "word"     : "prefLabelExtraUrl"
     },
     {
         "selector" : "[id='label.extra.restart_required']",
         "place"    : "text",
-        "word"     : "pref.label.extra.restart_required"
+        "word"     : "prefLabelExtraRestart_required"
     },
     {
         "selector" : "[for=exURL]",
         "place"    : "text",
-        "word"     : "pref.exURL"
+        "word"     : "prefExURL"
     },
     {
         "selector" : "[for=exURL_cut]",
         "place"    : "text",
-        "word"     : "pref.exURL_cut"
+        "word"     : "prefExURL_cut"
     },
     {
         "selector" : "[for=URL_tabactive]",
         "place"    : "text",
-        "word"     : "pref.URL_tabactive"
+        "word"     : "prefURL_tabactive"
     },
     {
         "selector" : "[id='label.extra.mute']",
         "place"    : "text",
-        "word"     : "pref.label.extra.mute"
+        "word"     : "prefLabelExtraMute"
     },
     {
         "selector" : "[for=mute_onsearch]",
         "place"    : "text",
-        "word"     : "pref.mute_onsearch"
+        "word"     : "prefMute_onsearch"
     },
     {
         "selector" : "[id='label.extra.retweet']",
         "place"    : "text",
-        "word"     : "pref.label.extra.retweet"
+        "word"     : "prefLabelExtraRetweet"
     },
     {
         "selector" : "[for=retweets_onlyfriends]",
         "place"    : "text",
-        "word"     : "pref.retweets_onlyfriends"
+        "word"     : "prefRetweets_onlyfriends"
     },
     {
         "selector" : "[id='label.extra.search']",
         "place"    : "text",
-        "word"     : "pref.label.extra.search"
+        "word"     : "prefLabelExtraSearch"
     },
     {
         "selector" : "[for=domestic_search]",
         "place"    : "text",
-        "word"     : "pref.domestic_search"
+        "word"     : "prefDomestic_search"
     },
     {
         "selector" : "[id='label.style']",
         "place"    : "text",
-        "word"     : "pref.label.style"
+        "word"     : "prefLabelStyle"
     },
     {
         "selector" : "[id='label.style.design']",
         "place"    : "text",
-        "word"     : "pref.label.style.design"
+        "word"     : "prefLabelStyleDesign"
     },
     {
         "selector" : "[for=theme]",
         "place"    : "text",
-        "word"     : "pref.theme"
+        "word"     : "prefTheme"
     },
     {
         "selector" : "[for=color_retweets]",
         "place"    : "text",
-        "word"     : "pref.color_retweets"
+        "word"     : "prefColor_retweets"
     },
     {
         "selector" : "[for=screenname_first]",
         "place"    : "text",
-        "word"     : "pref.screenname_first"
+        "word"     : "prefScreenname_first"
     },
     {
         "selector" : "[for=circle_icon]",
         "place"    : "text",
-        "word"     : "pref.circle_icon"
+        "word"     : "prefCircle_icon"
     },
     {
         "selector" : "[id='label.style.timestamp']",
         "place"    : "text",
-        "word"     : "pref.label.style.timestamp"
+        "word"     : "prefLabelStyleTimestamp"
     },
     {
         "selector" : "[for=timeformat]",
         "place"    : "text",
-        "word"     : "pref.timeformat"
+        "word"     : "prefTimeformat"
     },
     {
         "selector" : "[id='label.style.photo']",
         "place"    : "text",
-        "word"     : "pref.label.style.photo"
+        "word"     : "prefLabelStylePhoto"
     },
     {
         "selector" : "[for=viewthumbnail]",
         "place"    : "text",
-        "word"     : "pref.viewthumbnail"
+        "word"     : "prefViewthumbnail"
     },
     {
         "selector" : "[for=popup_photo]",
         "place"    : "text",
-        "word"     : "pref.popup_photo"
+        "word"     : "prefPopup_photo"
     },
     {
         "selector" : "[id='label.style.misc']",
         "place"    : "text",
-        "word"     : "pref.label.style.misc"
+        "word"     : "prefLabelStyleMisc"
     },
     {
         "selector" : "[for=viewsource]",
         "place"    : "text",
-        "word"     : "pref.viewsource"
+        "word"     : "prefViewsource"
     },
     {
         "selector" : "[for=linefeed]",
         "place"    : "text",
-        "word"     : "pref.linefeed"
+        "word"     : "prefLinefeed"
     },
     {
         "selector" : "[for=animation]",
         "place"    : "text",
-        "word"     : "pref.animation"
+        "word"     : "prefAnimation"
     },
     {
         "selector" : "[id='label.scale']",
         "place"    : "text",
-        "word"     : "pref.label.scale"
+        "word"     : "prefLabelScale"
     },
     {
         "selector" : "[id='label.scale.minwidth']",
         "place"    : "text",
-        "word"     : "pref.label.scale.minwidth"
+        "word"     : "prefLabelScaleMinwidth"
     },
     {
         "selector" : "[id='label.scale.minwidth_notice']",
         "place"    : "text",
-        "word"     : "pref.label.scale.minwidth_notice"
+        "word"     : "prefLabelScaleMinwidth_notice"
     },
     {
         "selector" : "[for=column_minwidth]",
         "place"    : "text",
-        "word"     : "pref.column_minwidth"
+        "word"     : "prefColumn_minwidth"
     },
     {
         "selector" : "[id='label.scale.size']",
         "place"    : "text",
-        "word"     : "pref.label.scale.size"
+        "word"     : "prefLabelScaleSize"
     },
     {
         "selector" : "[id='label.scale.fontsize_notice']",
         "place"    : "text",
-        "word"     : "pref.label.scale.fontsize_notice"
+        "word"     : "prefLabelScaleFontsize_notice"
     },
     {
         "selector" : "[for=font_size]",
         "place"    : "text",
-        "word"     : "pref.font_size"
+        "word"     : "prefFont_size"
     },
     {
         "selector" : "[for=icon_size]",
         "place"    : "text",
-        "word"     : "pref.icon_size"
+        "word"     : "prefIcon_size"
     },
     {
         "selector" : "[for=button_size]",
         "place"    : "text",
-        "word"     : "pref.button_size"
+        "word"     : "prefButton_size"
     },
     {
         "selector" : "[id='label.notification']",
         "place"    : "text",
-        "word"     : "pref.label.notification"
+        "word"     : "prefLabelNotification"
     },
     {
         "selector" : "[id='label.notification.enabledonstream']",
         "place"    : "text",
-        "word"     : "pref.label.notification.enabledonstream"
+        "word"     : "prefLabelNotificationEnabledonstream"
     },
     {
         "selector" : "[id='label.notification.turnonnotif']",
         "place"    : "text",
-        "word"     : "pref.label.notification.turnonnotif"
+        "word"     : "prefLabelNotificationTurnonnotif"
     },
     {
         "selector" : "[for=notif_all]",
         "place"    : "text",
-        "word"     : "pref.notif_all"
+        "word"     : "prefNotif_all"
     },
     {
         "selector" : "[for=notif_forme]",
         "place"    : "text",
-        "word"     : "pref.notif_forme"
+        "word"     : "prefNotif_forme"
     },
     {
         "selector" : "[for=notif_forme_retweeted]",
         "place"    : "text",
-        "word"     : "pref.notif_forme_retweeted"
+        "word"     : "prefNotif_forme_retweeted"
     },
     {
         "selector" : "[for=notif_favorite]",
         "place"    : "text",
-        "word"     : "pref.notif_favorite"
+        "word"     : "prefNotif_favorite"
     },
     {
         "selector" : "[for=notif_unfavorite]",
         "place"    : "text",
-        "word"     : "pref.notif_unfavorite"
+        "word"     : "prefNotif_unfavorite"
     },
     {
         "selector" : "[for=notif_follow]",
         "place"    : "text",
-        "word"     : "pref.notif_follow"
+        "word"     : "prefNotif_follow"
     },
     {
         "selector" : "[for=notif_directmessage]",
         "place"    : "text",
-        "word"     : "pref.notif_directmessage"
+        "word"     : "prefNotif_directmessage"
     },
     {
         "selector" : "[for=notif_count]",
         "place"    : "text",
-        "word"     : "pref.notif_count"
+        "word"     : "prefNotif_count"
     },
     {
         "selector" : "[id='label.tweetmenu']",
         "place"    : "text",
-        "word"     : "pref.label.tweetmenu"
+        "word"     : "prefLabelTweetmenu"
     },
     {
         "selector" : "[id='label.tweetmenu.contextmenu']",
         "place"    : "text",
-        "word"     : "pref.label.tweetmenu.contextmenu"
+        "word"     : "prefLabelTweetmenuContextmenu"
     },
     {
         "selector" : "[id='label.tweetmenu.fortypist']",
         "place"    : "text",
-        "word"     : "pref.label.tweetmenu.fortypist"
+        "word"     : "prefLabelTweetmenuFortypist"
     },
     {
         "selector" : "[for=menu_reply]",
         "place"    : "text",
-        "word"     : "pref.menu_reply"
+        "word"     : "prefMenu_reply"
     },
     {
         "selector" : "[for=menu_favorite]",
         "place"    : "text",
-        "word"     : "pref.menu_favorite"
+        "word"     : "prefMenu_favorite"
     },
     {
         "selector" : "[for=menu_conversation]",
         "place"    : "text",
-        "word"     : "pref.menu_conversation"
+        "word"     : "prefMenu_conversation"
     },
     {
         "selector" : "[for=menu_url]",
         "place"    : "text",
-        "word"     : "pref.menu_url"
+        "word"     : "prefMenu_url"
     },
     {
         "selector" : "[id='label.tweetmenu.hovermenu']",
         "place"    : "text",
-        "word"     : "pref.label.tweetmenu.hovermenu"
+        "word"     : "prefLabelTweetmenuHovermenu"
     },
     {
         "selector" : "[id='label.tweetmenu.upto2menu']",
         "place"    : "text",
-        "word"     : "pref.label.tweetmenu.upto2menu"
+        "word"     : "prefLabelTweetmenuUpto2menu"
     },
     {
         "selector" : "[id='label.tweetmenu.draggable']",
         "place"    : "text",
-        "word"     : "pref.label.tweetmenu.draggable"
+        "word"     : "prefLabelTweetmenuDraggable"
     },
     {
         "selector" : "[for=hover_retweet]",
         "place"    : "text",
-        "word"     : "pref.hover_retweet"
+        "word"     : "prefHover_retweet"
     },
     {
         "selector" : "[for=hover_quote]",
         "place"    : "text",
-        "word"     : "pref.hover_quote"
+        "word"     : "prefHover_quote"
     },
     {
         "selector" : "[for=hover_rt]",
         "place"    : "text",
-        "word"     : "pref.hover_rt"
+        "word"     : "prefHover_rt"
     },
     {
         "selector" : "[for=hover_showtext]",
         "place"    : "text",
-        "word"     : "pref.hover_showtext"
+        "word"     : "prefHover_showtext"
     },
     {
         "selector" : "[for=hover_opentweeturl]",
         "place"    : "text",
-        "word"     : "pref.hover_opentweeturl"
+        "word"     : "prefHover_opentweeturl"
     },
     {
         "selector" : "[for=hover_replyall]",
         "place"    : "text",
-        "word"     : "pref.hover_replyall"
+        "word"     : "prefHover_replyall"
     },
     {
         "selector" : "[for=hover_favorite]",
         "place"    : "text",
-        "word"     : "pref.hover_favorite"
+        "word"     : "prefHover_favorite"
     },
     {
         "selector" : "[for=hover_showreply]",
         "place"    : "text",
-        "word"     : "pref.hover_showreply"
+        "word"     : "prefHover_showreply"
     },
     {
         "selector" : "[id='label.confirm']",
         "place"    : "text",
-        "word"     : "pref.label.confirm"
+        "word"     : "prefLabelConfirm"
     },
     {
         "selector" : "[for=confirm_tweet]",
         "place"    : "text",
-        "word"     : "pref.confirm_tweet"
+        "word"     : "prefConfirm_tweet"
     },
     {
         "selector" : "[for=confirm_retweet]",
         "place"    : "text",
-        "word"     : "pref.confirm_retweet"
+        "word"     : "prefConfirm_retweet"
     },
     {
         "selector" : "[for=confirm_favorite]",
         "place"    : "text",
-        "word"     : "pref.confirm_favorite"
+        "word"     : "prefConfirm_favorite"
     },
     {
         "selector" : "[for=confirm_delete]",
         "place"    : "text",
-        "word"     : "pref.confirm_delete"
+        "word"     : "prefConfirm_delete"
     },
     {
         "selector" : "[for=confirm_follow]",
         "place"    : "text",
-        "word"     : "pref.confirm_follow"
+        "word"     : "prefConfirm_follow"
     },
     {
         "selector" : "[for=confirm_mute]",
         "place"    : "text",
-        "word"     : "pref.confirm_mute"
+        "word"     : "prefConfirm_mute"
     },
     {
         "selector" : "[for=confirm_noretweet]",
         "place"    : "text",
-        "word"     : "pref.confirm_noretweet"
+        "word"     : "prefConfirm_noretweet"
     },
     {
         "selector" : "[for=confirm_deletecolumn]",
         "place"    : "text",
-        "word"     : "pref.confirm_deletecolumn"
+        "word"     : "prefConfirm_deletecolumn"
     },
 
 ];

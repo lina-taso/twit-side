@@ -5,11 +5,12 @@
  * @license Mozilla Public License, version 2.0
  */
 
-const networkWait = 250,
-      apiWait = 60000,
-      httpWait = 5000,
-      infWait = 300000,
-      autoClearWait = 60000,
+const networkWait       = 250,
+      apiWait           = 60000,
+      httpWait          = 5000,
+      infWait           = 300000,
+      autoClearWait     = 60000,
+      autoClearVoteWait = 5000,
       LIMIT_RETWEET_CNT = 5;
 
 var Timeline = function(
@@ -747,8 +748,21 @@ Timeline.prototype = {
                 this._wait = 0;
                 this._lastStreamDisconnectReason = result.status;
                 break;
-            case TwitSideModule.TWEET_STATUS.CLOSED_NETWORK:
             case TwitSideModule.TWEET_STATUS.CLOSED_API:
+                this._streamstate = TwitSideModule.TL_STATE.WAITING_STREAM;
+                postMessage({
+                    reason : TwitSideModule.UPDATE.STATE_CHANGED,
+                    state : TwitSideModule.TL_STATE.WAITING_STREAM,
+                    columnid : this._columnid,
+                    window_type : this._win_type,
+                    message : TwitSideModule.Message.transMessage('streamExceedApiLimit')
+                });
+                // 待ち時間クリアしない
+                clearTimeout(this._waitClearTimer);
+                this._waitClearTimer = null;
+                this._lastStreamDisconnectReason = result.status;
+                break;
+            case TwitSideModule.TWEET_STATUS.CLOSED_NETWORK:
             case TwitSideModule.TWEET_STATUS.CLOSED_HTTP:
                 this._streamstate = TwitSideModule.TL_STATE.WAITING_STREAM;
                 postMessage({
@@ -917,14 +931,16 @@ Timeline.prototype = {
         // MAIN以外はは対象外
         if (this._win_type != TwitSideModule.WINDOW_TYPE.MAIN) return;
 
-        // true なら最上部
-        vote ? this._autoClearCount-- : this._autoClearCount++;
-
-        // 0ならautoclear
-        if (this._autoClearCount == 0)
-            this.startAutoClear();
-        else
-            this.stopAutoClear();
+        // true なら最上部じゃないカラム
+        if (vote) this._autoClearCount++;
+//        // true なら最上部
+//        vote ? this._autoClearCount-- : this._autoClearCount++;
+//
+//        // 0ならautoclear
+//        if (this._autoClearCount == 0)
+//            this.startAutoClear();
+//        else
+//            this.stopAutoClear();
     },
     startAutoClear: function()
     {
@@ -932,9 +948,23 @@ Timeline.prototype = {
         if (this._win_type != TwitSideModule.WINDOW_TYPE.MAIN) return;
 
         // タイマー設定
-        this._autoClearTimer = setInterval(function() {
-            this._clearOlder();
-        }.bind(this), autoClearWait);
+        this._autoClearTimer = setInterval(() => {
+            this._autoClearCount = 0;
+
+            // 投票依頼
+            postMessage({
+                reason : TwitSideModule.UPDATE.VOTE_REQUIRED,
+                columnid : this._columnid,
+                window_type : this._win_type
+            });
+
+            // 5秒待ち
+            setTimeout(() => {
+                // 過去ツイート削除
+                if (!this._autoClearCount)
+                    this._clearOlder();
+            }, autoClearVoteWait);
+        }, autoClearWait);
     },
     stopAutoClear: function()
     {
@@ -954,7 +984,7 @@ Timeline.prototype = {
             this._reportError('retweetLimit');
             return;
         }
-        this._tweet.retweet({}, retweetid)
+        this._tweetRetweet({}, retweetid)
             .then(success.bind(this)).catch(error.bind(this));
 
         function success(result)
@@ -1007,10 +1037,10 @@ Timeline.prototype = {
     favorite: function(favoriteid, sw)
     {
         if (sw)
-            this._tweet.favorite({ id : favoriteid })
+            this._tweetFavorite({ id : favoriteid })
             .then(success.bind(this)).catch(error.bind(this));
         else
-            this._tweet.unfavorite({ id : favoriteid })
+            this._tweetUnfavorite({ id : favoriteid })
             .then(success.bind(this)).catch(error.bind(this));
 
         function success(result)
@@ -1105,12 +1135,12 @@ Timeline.prototype = {
     {
         // DMはそのまま削除
         if (this.isDirectMessage)
-            this._tweet.destroyDm({ id : destroyid })
+            this._tweetDestroyDm({ id : destroyid })
             .then(callback_mine.bind(this)).catch(error.bind(this));
 
         // リスト
         else if (this.isList)
-            this._tweet.destroyList({ list_id : destroyid })
+            this._tweetDestroyList({ list_id : destroyid })
             .then(callback_list.bind(this)).catch(error.bind(this));
 
         // フレンド
@@ -1146,7 +1176,7 @@ Timeline.prototype = {
 
         // 自分のツイートはそのまま削除
         else if (this.record.data[destroyid].meta.isMine)
-            this._tweet.destroy({ }, destroyid)
+            this._tweetDestroy({ }, destroyid)
             .then(callback_mine.bind(this)).catch(error.bind(this));
 
         // コールバック
@@ -1154,7 +1184,7 @@ Timeline.prototype = {
         {
             // リツイートしたことが確認出来た
             if (result.data.current_user_retweet) {
-                this._tweet.destroy({ }, result.data.current_user_retweet.id_str)
+                this._tweetDestroy({ }, result.data.current_user_retweet.id_str)
                     .then(callback_retweet.bind(this)).catch(error.bind(this));
             }
         }
@@ -1250,7 +1280,7 @@ Timeline.prototype = {
         var rawid = this.record.data[tweetid].raw.retweeted_status
             ? this.record.data[tweetid].raw.retweeted_status.id_str
             : this.record.data[tweetid].raw.id_str;
-        this._tweet.retweeters({ id : rawid, count : 100 })
+        this._tweetRetweeters({ id : rawid, count : 100 })
             .then(callback.bind(this)).catch(error.bind(this));
 
         function callback(result)
@@ -1259,7 +1289,7 @@ Timeline.prototype = {
             this.record.data[tweetid].meta.retweeters = [];
             for (let rt of (result.data)) {
                 this.record.data[tweetid].meta.retweeters.push({
-                    src : rt.user.profile_image_url,
+                    src : rt.user.profile_image_url_https,
                     title : '@' + rt.user.screen_name
                 });
             }
@@ -1352,7 +1382,7 @@ Timeline.prototype = {
     // リストの購読
     subscribeList: function(listid)
     {
-        this._tweet.subscribeList({ list_id : listid })
+        this._tweetSubscribeList({ list_id : listid })
             .then(callback.bind(this)).catch(error.bind(this));
 
         function callback(result)
@@ -1384,7 +1414,7 @@ Timeline.prototype = {
     // リストの購読解除
     unsubscribeList: function(listid)
     {
-        this._tweet.unsubscribeList({ list_id : listid })
+        this._tweetUnsubscribeList({ list_id : listid })
             .then(callback.bind(this)).catch(error.bind(this));
 
         function callback(result)
@@ -1432,7 +1462,7 @@ Timeline.prototype = {
         case TwitSideModule.TL_TYPE.CONNECT:
             return this._tweet.connect(optionsHash);
         case TwitSideModule.TL_TYPE.RETWEETED:
-            return this._tweet.retweeted(optionsHash);
+            return this._tweetRetweeted(optionsHash);
         case TwitSideModule.TL_TYPE.DIRECTMESSAGE:
         case TwitSideModule.TL_TYPE.TEMP_DIRECTMESSAGE:
             return this._getDirectMessage(optionsHash);
@@ -1454,7 +1484,7 @@ Timeline.prototype = {
             return this._lists.getListMembers(optionsHash);
         case TwitSideModule.TL_TYPE.FAVORITE:
         case TwitSideModule.TL_TYPE.TEMP_FAVORITE:
-            return this._tweet.favoritelist(optionsHash);
+            return this._tweetFavoritelist(optionsHash);
         case TwitSideModule.TL_TYPE.SEARCH:
         case TwitSideModule.TL_TYPE.TEMP_SEARCH:
             return this._tweet.search(optionsHash)
@@ -1799,6 +1829,7 @@ Timeline.prototype = {
                 userid : this._own_userid,
                 title : browser.i18n.getMessage(
                     'newDirectMessage', ['@' + sender.screen_name]),
+                icon : sender.profile_image_url_https.replace('_normal.', '.'),
                 content : text
             });
     },
@@ -1846,6 +1877,7 @@ Timeline.prototype = {
                     userid : this._own_userid,
                     title : browser.i18n.getMessage(
                         'newFollowed', ['@' + source.screen_name]),
+                    icon : source.profile_image_url_https.replace('_normal.', '.'),
                     content : ''
                 });
             // フォロー更新
@@ -2011,6 +2043,7 @@ Timeline.prototype = {
                             userid : this._own_userid,
                             title : browser.i18n.getMessage(
                                 'newMention', ['@' + datum.user.screen_name]),
+                            icon : datum.user.profile_image_url_https.replace('_normal.', '.'),
                             content : meta.text
                         });
                     }
@@ -2021,6 +2054,7 @@ Timeline.prototype = {
                             userid : this._own_userid,
                             title : browser.i18n.getMessage(
                                 'newRetweet', ['@' + datum.user.screen_name]),
+                            icon : datum.user.profile_image_url_https.replace('_normal.', '.'),
                             content : meta.text
                         });
                     }
@@ -2040,10 +2074,14 @@ Timeline.prototype = {
                 let target_user = data[0].retweeted_status
                     ? data[0].retweeted_status.user.screen_name
                     : data[0].user.screen_name;
+                let target_user_icon = data[0].retweeted_status
+                    ? data[0].retweeted_status.user.profile_image_url_https.replace('_normal.', '.')
+                    : data[0].user.profile_image_url_https.replace('_normal.', '.');
                 TwitSideModule.Message.showNotification({
                     userid : this._own_userid,
                     title : browser.i18n.getMessage(
                         'newTweet', ['@' + target_user]),
+                    icon : target_user_icon,
                     content : this.record.data[data[0].id_str].meta.text
                 }, true);
             }

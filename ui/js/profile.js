@@ -260,7 +260,7 @@ function initialize()
 
     // 初期化
     profileJson = null;
-    document.title = browser.i18n.getMessage('window.profile.defaulttitle');
+    document.title = browser.i18n.getMessage('windowProfileDefaulttitle');
     $('#profileContainer').css('background-image', '');
     $('#profileUserImage').attr('src', '');
     $('#profileContainer').attr({ 'data-profile-own' : 'true',
@@ -508,7 +508,7 @@ function updateProfile(data)
 
     // 結果から情報表示
     profileJson = data;
-    document.title = browser.i18n.getMessage('window.profile.usertitle', '@'+data.screen_name);
+    document.title = browser.i18n.getMessage('windowProfileUsertitle', '@'+data.screen_name);
 
     data.profile_banner_url && $('#profileContainer')
         .css('background-image', 'url(' + data.profile_banner_url + '/web)');
@@ -681,15 +681,15 @@ function onAcceptForAddList()
     var type = $('#addListContainer').attr('data-type');
 
     if (!$('#listLabel').val()) {
-        alert(browser.i18n.getMessage('profile.message.enterlistlabel'));
+        alert(browser.i18n.getMessage('profileMessageEnterlistlabel'));
         return;
     }
     if ($('#listLabel').val().length > LISTNAME_MAX_LENGTH) {
-        alert(browser.i18n.getMessage('profile.message.toolonglistlabel', LISTNAME_MAX_LENGTH));
+        alert(browser.i18n.getMessage('profileMessageToolonglistlabel', LISTNAME_MAX_LENGTH));
         return;
     }
     if ($('#listDescription').val().length > LISTDESC_MAX_LENGTH) {
-        alert(browser.i18n.getMessage('profile.message.toolonglistdesc', LISTDESC_MAX_LENGTH));
+        alert(browser.i18n.getMessage('profileMessageToolonglistdesc', LISTDESC_MAX_LENGTH));
         return;
     }
 

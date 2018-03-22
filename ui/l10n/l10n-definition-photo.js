@@ -8,22 +8,22 @@ const l10nDefinition = [
 
     {
         "selector" : "title",
-        "word"     : "window.photo.title"
+        "word"     : "windowPhotoTitle"
     },
     {
         "selector" : "#photoinfoContainer",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "photo.url"
+        "word"     : "photoUrl"
     },
     {
         "selector" : "#openDirectUrl",
         "place"    : "text",
-        "word"     : "photo.openurl"
+        "word"     : "photoOpenurl"
     },
     {
         "selector" : "#closeButton",
         "place"    : "text",
-        "word"     : "photo.close"
+        "word"     : "photoClose"
     },
 ];

@@ -343,7 +343,7 @@ function onAcceptForAddColumn()
     var type = $('#addColumnContainer').attr('data-type');
 
     if (!$('#columnLabel').val()) {
-        alert(browser.i18n.getMessage('columns.message.entercolumnlabel'));
+        alert(browser.i18n.getMessage('columnsMessageEntercolumnlabel'));
         return;
     }
 

@@ -257,6 +257,9 @@ var UI = {
         case TwitSideModule.UPDATE.NOTIF_CHANGED:
             notifChanged();
             break;
+        case TwitSideModule.UPDATE.VOTE_REQUIRED:
+            voteRequired();
+            break;
         case TwitSideModule.UPDATE.UI_CHANGED:
             break;
         case TwitSideModule.UPDATE.COLUMN_CHANGED:
@@ -378,6 +381,32 @@ var UI = {
                 readNotifications(data.unread,
                                   data.count);
                 break;
+            }
+        }
+
+        /**
+         * VOTE_REQUIRED
+         */
+        function voteRequired()
+        {
+            var columnid = data.columnid;
+            var $column = $('#'+columnid),
+                timeline = $column.find('.timelineBox')[0];
+
+            // window_typeがmainじゃないときは無視
+            if (UI._win_type !== TwitSideModule.WINDOW_TYPE.MAIN)
+                return;
+
+            // 最上部
+            if (timeline.scrollTop != 0) {
+                // 投票
+                browser.runtime.sendMessage({
+                    command : TwitSideModule.COMMAND.COLUMN_OPE,
+                    action : TwitSideModule.COMMAND.TL_VOTE,
+                    columnindex : $column.index(),
+                    win_type : TwitSideModule.WINDOW_TYPE.MAIN,
+                    vote : true
+                });
             }
         }
 
@@ -920,7 +949,7 @@ var UI = {
 
         // 返信
         contextMenu.reply = {
-            name : browser.i18n.getMessage('tweet.reply'),
+            name : browser.i18n.getMessage('tweetReply'),
             icon : 'fa-reply',
             visible : function() { return document.body.dataset.menuReply == 'true'; }
         };
@@ -928,14 +957,14 @@ var UI = {
         $tweetBox.attr('data-screennames', record.meta.screennames.join(' '));
         if (record.meta.screennames.length > 1)
             contextMenu.replyall = {
-                name : browser.i18n.getMessage('tweet.replyall'),
+                name : browser.i18n.getMessage('tweetReplyall'),
                 icon : 'fa-reply-all',
                 visible : function() { return document.body.dataset.menuReply == 'true'; }
             };
         // 公式RT
         {
             contextMenu.retweet = {
-                name : browser.i18n.getMessage('tweet.retweet'),
+                name : browser.i18n.getMessage('tweetRetweet'),
                 icon : 'fa-retweet'
             };
             if ( record.raw.retweeted
@@ -945,12 +974,12 @@ var UI = {
         };
         // 引用リツイート
         contextMenu.quote = {
-            name : browser.i18n.getMessage('tweet.quote'),
+            name : browser.i18n.getMessage('tweetQuote'),
             icon : 'fa-retweet'
         };
         // 引用してRT
         contextMenu.rt = {
-            name : browser.i18n.getMessage('tweet.rt'),
+            name : browser.i18n.getMessage('tweetRt'),
             icon : 'fa-quote-left'
         };
         // お気に入り
@@ -958,7 +987,7 @@ var UI = {
             $tweetContent.attr('data-favorited', 'true');
             // お気に入り解除
             contextMenu.favorite = {
-                name : browser.i18n.getMessage('tweet.unfavorite'),
+                name : browser.i18n.getMessage('tweetUnfavorite'),
                 icon : 'fa-star',
                 visible : function() { return document.body.dataset.menuFavorite == 'true'; }
             };
@@ -966,19 +995,19 @@ var UI = {
         else {
             // お気に入り追加
             contextMenu.favorite = {
-                name : browser.i18n.getMessage('tweet.favorite'),
+                name : browser.i18n.getMessage('tweetFavorite'),
                 icon : 'fa-star',
                 visible : function() { return document.body.dataset.menuFavorite == 'true'; }
             };
         }
         // ツイートテキスト
         contextMenu.showtext = {
-            name : browser.i18n.getMessage('tweet.showtext'),
+            name : browser.i18n.getMessage('tweetShowtext'),
             icon : 'fa-clipboard'
         };
         // ツイートを開く
         contextMenu.opentweeturl = {
-            name : browser.i18n.getMessage('tweet.opentweeturl'),
+            name : browser.i18n.getMessage('tweetOpentweeturl'),
             icon : 'fa-external-link'
         };
         // 会話
@@ -988,7 +1017,7 @@ var UI = {
 
             $tweetContent.attr('data-inreply', 'true');
             contextMenu.showreply = {
-                name : browser.i18n.getMessage('tweet.showreply'),
+                name : browser.i18n.getMessage('tweetShowreply'),
                 icon : 'fa-commenting',
                 visible : function() { return document.body.dataset.menuConversation == 'true'; }
             };
@@ -996,14 +1025,14 @@ var UI = {
         // 削除
         if (record.meta.isMine || record.raw.retweeted)
             contextMenu.destroy = {
-                name : browser.i18n.getMessage('tweet.destroy'),
+                name : browser.i18n.getMessage('tweetDestroy'),
                 icon : 'fa-trash'
             };
         // リツイートされたツイート
         if (record.raw.retweet_count
             || record.raw.retweeted_status && record.raw.retweeted_status.retweet_count)
             contextMenu.showretweetedusers = {
-                name : browser.i18n.getMessage('tweet.showretweetedusers'),
+                name : browser.i18n.getMessage('tweetShowretweetedusers'),
                 icon : 'fa-users'
             };
         // 既にメタデータ取得済み
@@ -1019,7 +1048,7 @@ var UI = {
         // スクリーンネーム
         if (record.meta.screennames.length) {
             contextMenu.users = {
-                name : browser.i18n.getMessage('tweet.users'),
+                name : browser.i18n.getMessage('tweetUsers'),
                 icon : 'fa-user-circle',
                 items : {}
             };
@@ -1043,7 +1072,7 @@ var UI = {
         // ハッシュタグ
         if (entities.hashtags.length) {
             contextMenu.hashtags = {
-                name : browser.i18n.getMessage('tweet.hashtags'),
+                name : browser.i18n.getMessage('tweetHashtags'),
                 icon : 'fa-tag',
                 items : {}
             };
@@ -1066,7 +1095,7 @@ var UI = {
         }
         // URLの数だけメニュー化＆本文置換
         contextMenu.urls = {
-            name : browser.i18n.getMessage('tweet.urls'),
+            name : browser.i18n.getMessage('tweetUrls'),
             icon : 'fa-link',
             items : {},
             visible : function() { return document.body.dataset.menuUrl == 'true'; }
@@ -1249,41 +1278,41 @@ var UI = {
         if (record.meta.isMine) {
             // 削除
             contextMenu.destroy = {
-                name : browser.i18n.getMessage('tweet.destroylist'),
+                name : browser.i18n.getMessage('tweetDestroylist'),
                 icon : 'fa-trash'
             };
             // 編集
             contextMenu.updatelist = {
-                name : browser.i18n.getMessage('tweet.updatelist'),
+                name : browser.i18n.getMessage('tweetUpdatelist'),
                 icon : 'fa-pencil'
             };
         }
         // メンバー一覧
         contextMenu.showmembers = {
-            name : browser.i18n.getMessage('tweet.showmembers'),
+            name : browser.i18n.getMessage('tweetShowmembers'),
             icon : 'fa-users'
         };
         // 購読者一覧
         contextMenu.showsubscribers = {
-            name : browser.i18n.getMessage('tweet.showsubscribers'),
+            name : browser.i18n.getMessage('tweetShowsubscribers'),
             icon : 'fa-users'
         };
         // リストを購読
         if (record.meta.subscriptionable)
             contextMenu.subscribe = {
-                name : browser.i18n.getMessage('tweet.subscribe'),
+                name : browser.i18n.getMessage('tweetSubscribe'),
                 icon : 'fa-plus-circle'
             };
         // リストの購読解除
         if (record.meta.unsubscriptionable)
             contextMenu.unsubscribe = {
-                name : browser.i18n.getMessage('tweet.unsubscribe'),
+                name : browser.i18n.getMessage('tweetUnsubscribe'),
                 icon : 'fa-minus-circle'
             };
         // カラムに追加
         if (record.meta.registrable)
             contextMenu.addlist2column = {
-                name : browser.i18n.getMessage('tweet.addcolumn'),
+                name : browser.i18n.getMessage('tweetAddcolumn'),
                 icon : 'fa-plus'
             };
         // スクリーンネーム
@@ -1409,23 +1438,23 @@ var UI = {
 
         // 返信
         contextMenu.replydm = {
-            name : browser.i18n.getMessage('tweet.reply'),
+            name : browser.i18n.getMessage('tweetReply'),
             icon : 'fa-reply'
         };
         // ツイートテキスト
         contextMenu.showtext = {
-            name : browser.i18n.getMessage('tweet.showtext'),
+            name : browser.i18n.getMessage('tweetShowtext'),
             icon : 'fa-clipboard'
         };
         // 削除
         contextMenu.destroy = {
-            name : browser.i18n.getMessage('tweet.destroy'),
+            name : browser.i18n.getMessage('tweetDestroy'),
             icon : 'fa-trash'
         };
         // スクリーンネーム
         if (record.meta.screennames.length) {
             contextMenu.users = {
-                name : browser.i18n.getMessage('tweet.users'),
+                name : browser.i18n.getMessage('tweetUsers'),
                 icon : 'fa-users',
                 items : {}
             };
@@ -1448,7 +1477,7 @@ var UI = {
         }
         // URLの数だけメニュー化＆本文置換
         contextMenu.urls = {
-            name : browser.i18n.getMessage('tweet.urls'),
+            name : browser.i18n.getMessage('tweetUrls'),
             icon : 'fa-link',
             items : {},
             visible : function() { return document.body.dataset.menuUrl == 'true'; }
@@ -1542,7 +1571,7 @@ var UI = {
 
         // 削除
         contextMenu.destroyuser = {
-            name : browser.i18n.getMessage('tweet.destroyuser'),
+            name : browser.i18n.getMessage('tweetDestroyuser'),
             icon : 'fa-user-times',
             visible : function() { return document.body.dataset.ownList == 'true'; }
         };
@@ -1938,7 +1967,7 @@ function buttonize(buttonItems, commandExec)
         // click or on press Enter
         if (e.type == 'keypress'
             && !(e.originalEvent.key == 'Enter'
-                 || e.originalEvent.key == 'Space')) return;
+                 || e.originalEvent.key == ' ')) return;
         // stop if disabled
         if (this.dataset.disabled == "true") return;
 

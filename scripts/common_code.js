@@ -47,7 +47,7 @@ TwitSideModule.COMMAND = {
     TL_LISTUNSUBSCRIBE:344, // action：リスト購読解除
     TL_GETTWEETINFO :  351, // action：ツイートの情報を取得
     TL_RENOTIFYSTATUS: 352, // action：タイムラインの状態再通知
-    TL_VOTE :      353, // action：自動削除投票
+    TL_VOTE :          353, // action：自動削除投票
     USER_OPE :         40,
     USER_ADD :         401, // action：追加
     USER_DELETE :      402, // action：削除
@@ -88,6 +88,7 @@ TwitSideModule.UPDATE = {
     ACTION_COMPLETED : 12, // ツイートの操作完了時
     MESSAGE_RCVD :     21, // メッセージ受信時
     NOTIF_CHANGED :    22, // 通知内容更新時
+    VOTE_REQUIRED :    23, // 投票
     UI_CHANGED :       31, // UI更新時
     COLUMN_CHANGED :   32, // カラム情報更新時
     BUTTON_CHANGED :   33, // ツールバーボタン更新時

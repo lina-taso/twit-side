@@ -8,48 +8,48 @@ const l10nDefinition = [
 
     {
         "selector" : "title",
-        "word"     : "window.search.title"
+        "word"     : "windowSearchTitle"
     },
     {
         "selector" : "label[for=autoreload]",
         "place"    : "text",
-        "word"     : "search.autoreload"
+        "word"     : "searchAutoreload"
     },
     {
         "selector" : "#grayout",
         "place"    : "text",
-        "word"     : "search.usage"
+        "word"     : "searchUsage"
     },
 
     // tweetBox
     {
         "selector" : ".tweetRetweeterName",
         "place"    : "text",
-        "word"     : "tweet.retweets"
+        "word"     : "tweetRetweets"
     },
     {
         "selector" : ".tweetRetweeterCount",
         "place"    : "text",
-        "word"     : "tweet.rtcount"
+        "word"     : "tweetRtcount"
     },
     {
         "selector" : ".tweetMoreBox",
         "place"    : "text",
-        "word"     : "tweet.more"
+        "word"     : "tweetMore"
     },
     {
         "selector" : ".clearRepliesBox",
         "place"    : "text",
-        "word"     : "tweet.clear_replies"
+        "word"     : "tweetClear_replies"
     },
     {
         "selector" : ".replytoUserBox > .putAlways",
         "place"    : "text",
-        "word"     : "tweet.replyto"
+        "word"     : "tweetReplyto"
     },
     {
         "selector" : ".replyTweetTitle",
         "place"    : "text",
-        "word"     : "tweet.replies"
+        "word"     : "tweetReplies"
     },
 ];

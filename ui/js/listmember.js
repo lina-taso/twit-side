@@ -121,9 +121,9 @@ function initialize(tl_type)
 {
     // タイトル
     if (tl_type == TwitSideModule.TL_TYPE.TEMP_LISTMEMBER)
-        document.title = browser.i18n.getMessage('window.listmember.title');
+        document.title = browser.i18n.getMessage('windowListmemberTitle');
     else if (tl_type == TwitSideModule.TL_TYPE.TEMP_LISTSUBSCRIBER)
-        document.title = browser.i18n.getMessage('window.listsubscriber.title');
+        document.title = browser.i18n.getMessage('windowListsubscriberTitle');
 
     // カラム初期化
     return browser.runtime.sendMessage({ command : TwitSideModule.COMMAND.COLUMN_OPE,

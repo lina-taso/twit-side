@@ -8,131 +8,131 @@ const l10nDefinition = [
 
     {
         "selector" : "title",
-        "word"     : "window.columns.title"
+        "word"     : "windowColumnsTitle"
     },
     {
         "selector" : "#draggable",
         "place"    : "text",
-        "word"     : "columns.draggable"
+        "word"     : "columnsDraggable"
     },
     {
         "selector" : "#columnListHead th:eq(0)",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "columns.columnlabel"
+        "word"     : "columnsColumnlabel"
     },
     {
         "selector" : "#columnListHead th:eq(1)",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "columns.screenname"
+        "word"     : "columnsScreenname"
     },
     {
         "selector" : "#columnListHead th:eq(2)",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "columns.type"
+        "word"     : "columnsType"
     },
     {
         "selector" : "#columnListHead th:eq(3)",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "columns.notif"
+        "word"     : "columnsNotif"
     },
     {
         "selector" : "#columnListHead th:eq(4)",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "columns.onstart"
+        "word"     : "columnsOnstart"
     },
     {
         "selector" : "#columnListHead th:eq(5)",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "columns.autoreload"
+        "word"     : "columnsAutoreload"
     },
     {
         "selector" : "#columnListHead th:eq(6)",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "columns.stream"
+        "word"     : "columnsStream"
     },
     {
         "selector" : "#columnListHead th:eq(7)",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "columns.veil"
+        "word"     : "columnsVeil"
     },
     {
         "selector" : "#columnListHead th:eq(8)",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "columns.other"
+        "word"     : "columnsOther"
     },
     {
         "selector" : "#addButton, #addColumnTitle",
         "place"    : "text",
-        "word"     : "columns.add"
+        "word"     : "columnsAdd"
     },
     {
         "selector" : "#removeButton",
         "place"    : "text",
-        "word"     : "columns.remove"
+        "word"     : "columnsRemove"
     },
     {
         "selector" : "#editButton, #editColumnTitle",
         "place"    : "text",
-        "word"     : "columns.edit"
+        "word"     : "columnsEdit"
     },
     {
         "selector" : "#closeButton",
         "place"    : "text",
-        "word"     : "columns.close"
+        "word"     : "columnsClose"
     },
     {
         "selector" : "label[for=columnLabel]",
         "place"    : "text",
-        "word"     : "columns.columnlabel"
+        "word"     : "columnsColumnlabel"
     },
     {
         "selector" : "label[for=screenname]",
         "place"    : "text",
-        "word"     : "columns.screenname"
+        "word"     : "columnsScreenname"
     },
     {
         "selector" : "label[for=tlType]",
         "place"    : "text",
-        "word"     : "columns.type"
+        "word"     : "columnsType"
     },
     {
         "selector" : "label[for=notif]",
         "place"    : "text",
-        "word"     : "columns.notif"
+        "word"     : "columnsNotif"
     },
     {
         "selector" : "label[for=onstart]",
         "place"    : "text",
-        "word"     : "columns.onstart"
+        "word"     : "columnsOnstart"
     },
     {
         "selector" : "label[for=autoreload]",
         "place"    : "text",
-        "word"     : "columns.autoreload"
+        "word"     : "columnsAutoreload"
     },
     {
         "selector" : "label[for=stream]",
         "place"    : "text",
-        "word"     : "columns.stream"
+        "word"     : "columnsStream"
     },
     {
         "selector" : "label[for=veil]",
         "place"    : "text",
-        "word"     : "columns.veil"
+        "word"     : "columnsVeil"
     },
     {
         "selector" : "label[for=parameter]",
         "place"    : "text",
-        "word"     : "columns.other"
+        "word"     : "columnsOther"
     },
     {
         "selector" : ".tlTypeOption:eq(0)",

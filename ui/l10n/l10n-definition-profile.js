@@ -10,79 +10,79 @@ const l10nDefinition = [
         "selector" : "#restrictionButton1",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "profile.restriction1"
+        "word"     : "profileRestriction1"
     },
     {
         "selector" : "#restrictionButton2",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "profile.restriction2"
+        "word"     : "profileRestriction2"
     },
     {
         "selector" : "#restrictionButton3",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "profile.restriction3"
+        "word"     : "profileRestriction3"
     },
     {
         "selector" : "#relationButton1",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "profile.relation1following"
+        "word"     : "profileRelation1following"
     },
     {
         "selector" : "#relationButton1",
         "place"    : "attr",
         "attr"     : "data-label2",
-        "word"     : "profile.relation1follow"
+        "word"     : "profileRelation1follow"
     },
     {
         "selector" : "#relationButton1",
         "place"    : "attr",
         "attr"     : "data-label3",
-        "word"     : "profile.relation1requesting"
+        "word"     : "profileRelation1requesting"
     },
     {
         "selector" : "#relationButton2",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "profile.relation2followed"
+        "word"     : "profileRelation2followed"
     },
     {
         "selector" : "#relationButton2",
         "place"    : "attr",
         "attr"     : "data-label2",
-        "word"     : "profile.relation2notfollowed"
+        "word"     : "profileRelation2notfollowed"
     },
     {
         "selector" : "#relationButton3",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "profile.relation3muting"
+        "word"     : "profileRelation3muting"
     },
     {
         "selector" : "#relationButton3",
         "place"    : "attr",
         "attr"     : "data-label2",
-        "word"     : "profile.relation3mute"
+        "word"     : "profileRelation3mute"
     },
     {
         "selector" : "#relationButton4",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "profile.relation4noretweeting"
+        "word"     : "profileRelation4noretweeting"
     },
     {
         "selector" : "#relationButton4",
         "place"    : "attr",
         "attr"     : "data-label2",
-        "word"     : "profile.relation4noretweet"
+        "word"     : "profileRelation4noretweet"
     },
     {
         "selector" : "#profileButton1",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "profile.tweet"
+        "word"     : "profileTweet"
     },
     {
         "selector" : "#profileButton2",
@@ -130,44 +130,44 @@ const l10nDefinition = [
         "selector" : "#profileButton8",
         "place"    : "attr",
         "attr"     : "data-label2",
-        "word"     : "profile.senddm"
+        "word"     : "profileSenddm"
     },
 
     // addListContainer
     {
         "selector" : "#addListTitle",
         "place"    : "text",
-        "word"     : "profile.addlist"
+        "word"     : "profileAddlist"
     },
     {
         "selector" : "#editListTitle",
         "place"    : "text",
-        "word"     : "profile.editlist"
+        "word"     : "profileEditlist"
     },
     {
         "selector" : "label[for=listLabel]",
         "place"    : "text",
-        "word"     : "profile.listlabel"
+        "word"     : "profileListlabel"
     },
     {
         "selector" : "label[for=listDescription]",
         "place"    : "text",
-        "word"     : "profile.listdescription"
+        "word"     : "profileListdescription"
     },
     {
         "selector" : "#modeLabel",
         "place"    : "text",
-        "word"     : "profile.listmode"
+        "word"     : "profileListmode"
     },
     {
         "selector" : "label[for=public]",
         "place"    : "text",
-        "word"     : "profile.public"
+        "word"     : "profilePublic"
     },
     {
         "selector" : "label[for=private]",
         "place"    : "text",
-        "word"     : "profile.private"
+        "word"     : "profilePrivate"
     },
 
 
@@ -175,31 +175,31 @@ const l10nDefinition = [
     {
         "selector" : ".tweetRetweeterName",
         "place"    : "text",
-        "word"     : "tweet.retweets"
+        "word"     : "tweetRetweets"
     },
     {
         "selector" : ".tweetRetweeterCount",
         "place"    : "text",
-        "word"     : "tweet.rtcount"
+        "word"     : "tweetRtcount"
     },
     {
         "selector" : ".tweetMoreBox",
         "place"    : "text",
-        "word"     : "tweet.more"
+        "word"     : "tweetMore"
     },
     {
         "selector" : ".clearRepliesBox",
         "place"    : "text",
-        "word"     : "tweet.clear_replies"
+        "word"     : "tweetClear_replies"
     },
     {
         "selector" : ".replytoUserBox > .putAlways",
         "place"    : "text",
-        "word"     : "tweet.replyto"
+        "word"     : "tweetReplyto"
     },
     {
         "selector" : ".replyTweetTitle",
         "place"    : "text",
-        "word"     : "tweet.replies"
+        "word"     : "tweetReplies"
     },
 ];

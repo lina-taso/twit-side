@@ -1,7 +1,4 @@
 {
-    //
-    // Addon info
-    //
     "extensionDescription" : {
         "message" : "Display Twitter's timelines in a sidebar."
     },
@@ -12,9 +9,7 @@
         "message" : "Focus on an input area of new tweet."
     },
 
-    //
-    // Messages
-    //
+
     "enterPinNumber" : {
         "message" : "Enter PIN numbers."
     },
@@ -95,6 +90,9 @@
     },
     "streamDisconnected" : {
         "message" : "Userstream has been disconnected unexpectedly."
+    },
+    "streamExceedApiLimit" : {
+        "message" : "Can't connect to an userstream because of exceeding API limit."
     },
     "streamMaintainance" : {
         "message" : "Userstream has been disconnected for maintainance."
@@ -201,9 +199,7 @@
         "message" : "Gateway Timeout (HTTP504)"
     },
 
-    //
-    // Notifications
-    //
+
     "no_notif" : {
         "message" : "No notification"
     },
@@ -298,9 +294,7 @@
         }
     },
 
-    //
-    // Alerts
-    //
+
     "confirmTweet" : {
         "message" : "Post a tweet?"
     },
@@ -368,13 +362,11 @@
         "message" : "Uploadable file size is up to 512MB per video"
     },
 
-    //
-    // Window title
-    //
-    "window.profile.defaulttitle" : {
+
+    "windowProfileDefaulttitle" : {
         "message" : "Profile"
     },
-    "window.profile.usertitle" : {
+    "windowProfileUsertitle" : {
         "message" : "$USER$'s profile",
         "placeholders" : {
             "user" : {
@@ -383,25 +375,25 @@
             }
         }
     },
-    "window.search.title" : {
+    "windowSearchTitle" : {
         "message" : "Search"
     },
-    "window.columns.title" : {
+    "windowColumnsTitle" : {
         "message" : "Managing columns"
     },
-    "window.newdm.title" : {
+    "windowNewdmTitle" : {
         "message" : "New DM"
     },
-    "window.text.title" : {
+    "windowTextTitle" : {
         "message" : "Tweet text"
     },
-    "window.mute.title" : {
+    "windowMuteTitle" : {
         "message" : "Mutes list"
     },
-    "window.noretweet.title" : {
+    "windowNoretweetTitle" : {
         "message" : "Noretweet list"
     },
-    "window.listmember.title" : {
+    "windowListmemberTitle" : {
         "message" : "List members : $USER$'s list : $LISTNAME$ : ",
         "placeholders" : {
             "user" : {
@@ -413,7 +405,7 @@
             }
         }
     },
-    "window.listsubscriber.title" : {
+    "windowListsubscriberTitle" : {
         "message" : "List subscribers : $USER$'s list : $LISTNAME$ : ",
         "placeholders" : {
             "user" : {
@@ -425,17 +417,14 @@
             }
         }
     },
-    "window.photo.title" : {
+    "windowPhotoTitle" : {
         "message" : "Photos"
     },
-    "window.api.title" : {
+    "windowApiTitle" : {
         "message" : "API"
     },
 
-    //
-    // Column labels
-    //
-    // default Columns' label
+
     "defaultTimeline" : {
         "message" : "Timeline"
     },
@@ -461,7 +450,6 @@
         }
     },
 
-    // Columns' label
     "column_timeline" : {
         "message" : "Timeline"
     },
@@ -487,7 +475,6 @@
         "message" : "Auto reloading"
     },
 
-    // Profile columns' label
     "column_follow" : {
         "message" : "Follow"
     },
@@ -504,234 +491,227 @@
         "message" : "Followed lists"
     },
 
-    //
-    // Main ui labels
-    //
-    // for content
-    "auth.request" : {
+
+    "authRequest" : {
         "message" : "(1) Authorize this application"
     },
-    "auth.pin" : {
+    "authPin" : {
         "message" : "(2) Enter PIN number"
     },
-    "auth.access" : {
+    "authAccess" : {
         "message" : "(3) Allow this application"
     },
 
-    "top.uploadimage" : {
+    "topUploadimage" : {
         "message" : "Upload pictures"
     },
-    "top.uploadvideo" : {
+    "topUploadvideo" : {
         "message" : "Upload a video"
     },
-    "top.uploadanigif" : {
+    "topUploadanigif" : {
         "message" : "Upload an animation gif"
     },
-    "top.sharepicture" : {
+    "topSharepicture" : {
         "message" : "Share pictures or a video"
     },
-    "top.sharepage" : {
+    "topSharepage" : {
         "message" : "Share a web page"
     },
-    "top.additionalreplyto" : {
+    "topAdditionalreplyto" : {
         "message" : "Reply to: "
     },
-    "top.tweet" : {
+    "topTweet" : {
         "message" : "Tweet"
     },
-    "top.replytweet" : {
+    "topReplytweet" : {
         "message" : "Reply to"
     },
-    "top.inlinetweet" : {
+    "topInlinetweet" : {
         "message" : "Retweet w/your comment to"
     },
 
-    "top.person" : {
+    "topPerson" : {
         "message" : "User profile"
     },
-    "top.search" : {
+    "topSearch" : {
         "message" : "Search"
     },
-    "top.adduser" : {
+    "topAdduser" : {
         "message" : "Add an account"
     },
-    "top.managecolumns" : {
+    "topManagecolumns" : {
         "message" : "Manage columns"
     },
-    "top.pref" : {
+    "topPref" : {
         "message" : "Preferences"
     },
-    "top.help" : {
+    "topHelp" : {
         "message" : "Help"
     },
-    "top.logout" : {
+    "topLogout" : {
         "message" : "Logout all"
     },
 
-    // tweetBox
-    "tweet.retweets" : {
+    "tweetRetweets" : {
         "message" : "retweeted"
     },
-    "tweet.rtcount" : {
+    "tweetRtcount" : {
         "message" : "retweets"
     },
-    "tweet.more" : {
+    "tweetMore" : {
         "message" : "Load more tweets"
     },
 
-    "tweet.clear_replies" : {
+    "tweetClear_replies" : {
         "message" : "Clear all conversations"
     },
-    "tweet.replyto" : {
+    "tweetReplyto" : {
         "message" : "Reply to: "
     },
-    "tweet.replies" : {
+    "tweetReplies" : {
         "message" : "Conversations: "
     },
 
-    // contextMenu
-    "tweet.retweet" : {
+    "tweetRetweet" : {
         "message" : "Retweet"
     },
-    "tweet.quote" : {
+    "tweetQuote" : {
         "message" : "Retweet w/your comment"
     },
-    "tweet.rt" : {
+    "tweetRt" : {
         "message" : "Inline retweet"
     },
-    "tweet.showtext" : {
+    "tweetShowtext" : {
         "message" : "Select a tweet text"
     },
-    "tweet.opentweeturl" : {
+    "tweetOpentweeturl" : {
         "message" : "Open a tweet's URL"
     },
-    "tweet.reply" : {
+    "tweetReply" : {
         "message" : "Reply"
     },
-    "tweet.replyall" : {
+    "tweetReplyall" : {
         "message" : "Reply all"
     },
-    "tweet.favorite" : {
+    "tweetFavorite" : {
         "message" : "Favorite"
     },
-    "tweet.unfavorite" : {
+    "tweetUnfavorite" : {
         "message" : "Unfavorite"
     },
-    "tweet.showreply" : {
+    "tweetShowreply" : {
         "message" : "Show conversations"
     },
-    "tweet.destroy" : {
+    "tweetDestroy" : {
         "message" : "Delete"
     },
-    "tweet.showretweetedusers" : {
+    "tweetShowretweetedusers" : {
         "message" : "Show retweeted users"
     },
-    "tweet.users" : {
+    "tweetUsers" : {
         "message" : "Users"
     },
-    "tweet.hashtags" : {
+    "tweetHashtags" : {
         "message" : "Hashtags"
     },
-    "tweet.urls" : {
+    "tweetUrls" : {
         "message" : "URL"
     },
 
-    "tweet.destroylist" : {
+    "tweetDestroylist" : {
         "message" : "Delete a list"
     },
-    "tweet.updatelist" : {
+    "tweetUpdatelist" : {
         "message" : "Edit a list"
     },
-    "tweet.showmembers" : {
+    "tweetShowmembers" : {
         "message" : "List members"
     },
-    "tweet.showsubscribers" : {
+    "tweetShowsubscribers" : {
         "message" : "List subscribers"
     },
-    "tweet.subscribe" : {
+    "tweetSubscribe" : {
         "message" : "Subscribe a list"
     },
-    "tweet.unsubscribe" : {
+    "tweetUnsubscribe" : {
         "message" : "Unsubscribe a list"
     },
-    "tweet.addcolumn" : {
+    "tweetAddcolumn" : {
         "message" : "Add into columns"
     },
 
-    "tweet.destroyuser" : {
+    "tweetDestroyuser" : {
         "message" : "Remove a user"
     },
 
-    //
-    // Userprofile window labels
-    //
-    "profile.tweet" : {
+
+    "profileTweet" : {
         "message" : "Tweet"
     },
-    "profile.senddm" : {
+    "profileSenddm" : {
         "message" : "Send a DM to"
     },
-    "profile.restriction1" : {
+    "profileRestriction1" : {
         "message" : "API limits"
     },
-    "profile.restriction2" : {
+    "profileRestriction2" : {
         "message" : "Mutes list"
     },
-    "profile.restriction3" : {
+    "profileRestriction3" : {
         "message" : "Noretweets list"
     },
-    "profile.relation1following" : {
+    "profileRelation1following" : {
         "message" : "Following"
     },
-    "profile.relation1follow" : {
+    "profileRelation1follow" : {
         "message" : "Follow"
     },
-    "profile.relation1requesting" : {
+    "profileRelation1requesting" : {
         "message" : "Follow requesting"
     },
-    "profile.relation2followed" : {
+    "profileRelation2followed" : {
         "message" : "Followed"
     },
-    "profile.relation2notfollowed" : {
+    "profileRelation2notfollowed" : {
         "message" : "Not followed"
     },
-    "profile.relation3muting" : {
+    "profileRelation3muting" : {
         "message" : "Muting"
     },
-    "profile.relation3mute" : {
+    "profileRelation3mute" : {
         "message" : "Mute"
     },
-    "profile.relation4noretweeting" : {
+    "profileRelation4noretweeting" : {
         "message" : "Retweets hiding"
     },
-    "profile.relation4noretweet" : {
+    "profileRelation4noretweet" : {
         "message" : "Show retweets"
     },
-    "profile.addlist" : {
+    "profileAddlist" : {
         "message" : "Add a list"
     },
-    "profile.editlist" : {
+    "profileEditlist" : {
         "message" : "Edit a list"
     },
-    "profile.listlabel" : {
+    "profileListlabel" : {
         "message" : "Label"
     },
-    "profile.listdescription" : {
+    "profileListdescription" : {
         "message" : "Description"
     },
-    "profile.listmode" : {
+    "profileListmode" : {
         "message" : "Public/Private"
     },
-    "profile.public" : {
+    "profilePublic" : {
         "message" : "Public"
     },
-    "profile.private" : {
+    "profilePrivate" : {
         "message" : "Private"
     },
-    "profile.message.enterlistlabel" : {
+    "profileMessageEnterlistlabel" : {
         "message" : "Enter a label"
     },
-    "profile.message.toolonglistlabel" : {
+    "profileMessageToolonglistlabel" : {
         "message" : "Enter a label with up to $LENGTH$",
         "placeholders" : {
             "length" : {
@@ -740,7 +720,7 @@
             }
         }
     },
-    "profile.message.toolonglistdesc" : {
+    "profileMessageToolonglistdesc" : {
         "message" : "Enter a description with up to $LENGTH$",
         "placeholders" : {
             "length" : {
@@ -750,427 +730,409 @@
         }
     },
 
-    //
-    // Search window labels
-    //
-    "search.autoreload" : {
+
+    "searchAutoreload" : {
         "message" : "Auto reloading"
     },
-    "search.usage" : {
+    "searchUsage" : {
         "message" : "Ex) : KEYWORD\nEx) for OR search : KEYWORD1 OR KEYWORD2\nEx) for AND search : KEYWORD1 KEYWORD2\nEx) for phrase search : \"KEYWORD1 KEYWORD2\"\nEx) for hashtag search : #HASHTAG\nEx) for reply search : @SCREENNAME\nEx) for author search : from:SCREENNAME\nEx) for source search : KEYWORD source:APPLICATION"
     },
 
-    //
-    // Columns window labels
-    //
-    "columns.draggable" : {
+
+    "columnsDraggable" : {
         "message" : "You can change the order of columns by dragging"
     },
-    "columns.columnlabel" : {
+    "columnsColumnlabel" : {
         "message" : "Label"
     },
-    "columns.screenname" : {
+    "columnsScreenname" : {
         "message" : "Screenname"
     },
-    "columns.type" : {
+    "columnsType" : {
         "message" : "Type"
     },
-    "columns.notif" : {
+    "columnsNotif" : {
         "message" : "Notify"
     },
-    "columns.onstart" : {
+    "columnsOnstart" : {
         "message" : "Loading on startup"
     },
-    "columns.autoreload" : {
+    "columnsAutoreload" : {
         "message" : "Auto reloading"
     },
-    "columns.stream" : {
+    "columnsStream" : {
         "message" : "Stream"
     },
-    "columns.veil" : {
+    "columnsVeil" : {
         "message" : "Privacy mode"
     },
-    "columns.other" : {
+    "columnsOther" : {
         "message" : "Misc"
     },
-    "columns.add" : {
+    "columnsAdd" : {
         "message" : "Add a column"
     },
-    "columns.remove" : {
+    "columnsRemove" : {
         "message" : "Delete a column"
     },
-    "columns.edit" : {
+    "columnsEdit" : {
         "message" : "Edit a column"
     },
-    "columns.close" : {
+    "columnsClose" : {
         "message" : "Close"
     },
-    "columns.message.entercolumnlabel" : {
+    "columnsMessageEntercolumnlabel" : {
         "message" : "Enter a label"
     },
 
-    //
-    // Newdm window labels
-    //
-    "newdm.from" : {
+
+    "newdmFrom" : {
         "message" : "FROM"
     },
-    "newdm.to" : {
+    "newdmTo" : {
         "message" : "TO"
     },
-    "newdm.send" : {
+    "newdmSend" : {
         "message" : "Send a message"
     },
-    "newdm.close" : {
+    "newdmClose" : {
         "message" : "Close"
     },
 
-    //
-    // Text window labels
-    //
-    "text.close" : {
+
+    "textClose" : {
         "message" : "Close"
     },
 
-    //
-    // Mute window labels
-    //
-    "mute.close" : {
+
+    "muteClose" : {
         "message" : "Close"
     },
 
-    //
-    // Noretweet window labels
-    //
-    "noretweet.close" : {
+
+    "noretweetClose" : {
         "message" : "Close"
     },
 
-    //
-    // Listmember window labels
-    //
-    "listmember.close" : {
+
+    "listmemberClose" : {
         "message" : "Close"
     },
 
-    //
-    // Photo window labels
-    //
-    "photo.url" : {
+
+    "photoUrl" : {
         "message" : "Photo's URL"
     },
-    "photo.openurl" : {
+    "photoOpenurl" : {
         "message" : "Open the original URL"
     },
-    "photo.close" : {
+    "photoClose" : {
         "message" : "Close"
     },
-    //
-    // API window labels
-    //
-    "api.api" : {
+
+
+
+    "apiApi" : {
         "message" : "API"
     },
-    "api.remaining" : {
+    "apiRemaining" : {
         "message" : "remaining [times]"
     },
-    "api.limit" : {
+    "apiLimit" : {
         "message" : "limit [times]"
     },
-    "api.reset_time" : {
+    "apiReset_time" : {
         "message" : "reset time"
     },
-    "api.close" : {
+    "apiClose" : {
         "message" : "Close"
     },
 
 
-    //
-    // Preferences
-    //
-    "pref.label.save_button" : {
+
+    "prefLabelSave_button" : {
         "message" : "Save preferences on this section."
     },
-    "pref.label.update" : {
+    "prefLabelUpdate" : {
         "message" : "Update"
     },
-    "pref.label.update.parameters" : {
+    "prefLabelUpdateParameters" : {
         "message" : "Parameters"
     },
-    "pref.timeout" : {
+    "prefTimeout" : {
         "message" : "Timeout [sec]"
     },
-    "pref.timeout_upload" : {
+    "prefTimeout_upload" : {
         "message" : "Timeout for uploading [sec]"
     },
-    "pref.timeline_count" : {
+    "prefTimeline_count" : {
         "message" : "Number of tweets obtaining at once (Timeline)"
     },
-    "pref.connect_count" : {
+    "prefConnect_count" : {
         "message" : "Number of tweets obtaining at once (Connect)"
     },
-    "pref.retweeted_count" : {
+    "prefRetweeted_count" : {
         "message" : "Number of tweets obtaining at once (Retweet)"
     },
-    "pref.favorite_count" : {
+    "prefFavorite_count" : {
         "message" : "Number of tweets obtaining at once (Favorite)"
     },
-    "pref.search_count" : {
+    "prefSearch_count" : {
         "message" : "Number of tweets obtaining at once (Search)"
     },
-    "pref.profile_count" : {
+    "prefProfile_count" : {
         "message" : "Number of tweets obtaining at once  (User timeline)"
     },
-    "pref.label.update.autopager" : {
+    "prefLabelUpdateAutopager" : {
         "message" : "Autopager"
     },
-    "pref.autopager" : {
+    "prefAutopager" : {
         "message" : "Enable autopager"
     },
-    "pref.autopager_count" : {
+    "prefAutopager_count" : {
         "message" : "Number of tweets obtaining at once with autopager"
     },
-    "pref.label.update.autoreload" : {
+    "prefLabelUpdateAutoreload" : {
         "message" : "Auto reloading"
     },
-    "pref.autoreload_time" : {
+    "prefAutoreload_time" : {
         "message" : "If autoreload is enabled, auto reloading every [sec]"
     },
-    "pref.autosearch_time" : {
+    "prefAutosearch_time" : {
         "message" : "But for search column, auto reloading every [sec]"
     },
-    "pref.autoreload_aftertweet" : {
+    "prefAutoreload_aftertweet" : {
         "message" : "After posting a tweet, auto reload ones timelines (if stream is connected, it is ignored)."
     },
-    "pref.autoreload_totop" : {
+    "prefAutoreload_totop" : {
         "message" : "Keep on top of columns"
     },
-    "pref.label.extra" : {
+    "prefLabelExtra" : {
         "message" : "Additional"
     },
-    "pref.label.extra.url" : {
+    "prefLabelExtraUrl" : {
         "message" : "URL"
     },
-    "pref.label.extra.restart_required" : {
+    "prefLabelExtraRestart_required" : {
         "message" : "Some changes are restart Firefox required"
     },
-    "pref.exURL" : {
+    "prefExURL" : {
         "message" : "Extract shorten URL"
     },
-    "pref.exURL_cut" : {
+    "prefExURL_cut" : {
         "message" : "Display the URL same as Tweeter"
     },
-    "pref.URL_tabactive" : {
+    "prefURL_tabactive" : {
         "message" : "Active the opened tab"
     },
-    "pref.label.extra.mute" : {
+    "prefLabelExtraMute" : {
         "message" : "Mutes"
     },
-    "pref.mute_onsearch" : {
+    "prefMute_onsearch" : {
         "message" : "Hide tweets from muted users on a Search column"
     },
-    "pref.mute_ts" : {
+    "prefMute_ts" : {
         "message" : "Enable Twit Side specific mute feature"
     },
-    "pref.label.extra.retweet" : {
+    "prefLabelExtraRetweet" : {
         "message" : "Retweets"
     },
-    "pref.retweets_onlyfriends" : {
+    "prefRetweets_onlyfriends" : {
         "message" : "Hide retweets from users you don't follow (on userstream is connected)"
     },
-    "pref.label.extra.search" : {
+    "prefLabelExtraSearch" : {
         "message" : "Search"
     },
-    "pref.domestic_search" : {
+    "prefDomestic_search" : {
         "message" : "Get search results only in your language"
     },
-    "pref.label.style" : {
+    "prefLabelStyle" : {
         "message" : "Style"
     },
-    "pref.label.style.design" : {
+    "prefLabelStyleDesign" : {
         "message" : "Design"
     },
-    "pref.theme" : {
+    "prefTheme" : {
         "message" : "Theme"
     },
-    "pref.color_retweets" : {
+    "prefColor_retweets" : {
         "message" : "Color the background of retweets"
     },
-    "pref.screenname_first" : {
+    "prefScreenname_first" : {
         "message" : "Display user in format '@screenname (name)'"
     },
-    "pref.circle_icon" : {
+    "prefCircle_icon" : {
         "message" : "Round the user icon"
     },
-    "pref.label.style.timestamp" : {
+    "prefLabelStyleTimestamp" : {
         "message" : "Timestamp"
     },
-    "pref.label.style.restart_required" : {
+    "prefLabelStyleRestart_required" : {
         "message" : "Some changes are restart Firefox required"
     },
-    "pref.timeformat" : {
+    "prefTimeformat" : {
         "message" : "Time format"
     },
-    "pref.label.style.photo" : {
+    "prefLabelStylePhoto" : {
         "message" : "Photo"
     },
-    "pref.viewthumbnail" : {
+    "prefViewthumbnail" : {
         "message" : "Display thumbnail images"
     },
-    "pref.popup_photo" : {
+    "prefPopup_photo" : {
         "message" : "Pop up photos"
     },
-    "pref.label.style.misc" : {
+    "prefLabelStyleMisc" : {
         "message" : "Misc"
     },
-    "pref.viewsource" : {
+    "prefViewsource" : {
         "message" : "Display source"
     },
-    "pref.linefeed" : {
+    "prefLinefeed" : {
         "message" : "Display line break"
     },
-    "pref.animation" : {
+    "prefAnimation" : {
         "message" : "Enable animation"
     },
-    "pref.label.scale" : {
+    "prefLabelScale" : {
         "message" : "Scale"
     },
-    "pref.label.scale.minwidth" : {
+    "prefLabelScaleMinwidth" : {
         "message" : "Minimum width"
     },
-    "pref.label.scale.minwidth_notice" : {
+    "prefLabelScaleMinwidth_notice" : {
         "message" : "The value affect a number of column displayed"
     },
-    "pref.column_minwidth" : {
+    "prefColumn_minwidth" : {
         "message" : "Minimum width of a column [px]"
     },
-    "pref.label.scale.size" : {
+    "prefLabelScaleSize" : {
         "message" : "Size"
     },
-    "pref.label.scale.fontsize_notice" : {
+    "prefLabelScaleFontsize_notice" : {
         "message" : "If some text don't become small, check Minimum font size preference of your Firefox"
     },
-    "pref.font_size" : {
+    "prefFont_size" : {
         "message" : "Font size (default:12) [px]"
     },
-    "pref.icon_size" : {
+    "prefIcon_size" : {
         "message" : "Icon size"
     },
-    "pref.button_size" : {
+    "prefButton_size" : {
         "message" : "Button size"
     },
-    "pref.label.notification" : {
+    "prefLabelNotification" : {
         "message" : "Notification"
     },
-    "pref.label.notification.turnonnotif" : {
+    "prefLabelNotificationTurnonnotif" : {
         "message" : "Please enable notify on Manage columns window"
     },
-    "pref.label.notification.enabledonstream" : {
+    "prefLabelNotificationEnabledonstream" : {
         "message" : "* In operation if userstream is connected"
     },
-    "pref.notif_all" : {
+    "prefNotif_all" : {
         "message" : "Notify all tweets (pop up only)"
     },
-    "pref.notif_forme" : {
+    "prefNotif_forme" : {
         "message" : "Notify the tweet addressed to you"
     },
-    "pref.notif_forme_retweeted" : {
+    "prefNotif_forme_retweeted" : {
         "message" : "Notify that your tweet is retweeted *"
     },
-    "pref.notif_favorite" : {
+    "prefNotif_favorite" : {
         "message" : "Notify that your tweet is added to favorite *"
     },
-    "pref.notif_unfavorite" : {
+    "prefNotif_unfavorite" : {
         "message" : "Notify that your tweet is deleted to favorite *"
     },
-    "pref.notif_follow" : {
+    "prefNotif_follow" : {
         "message" : "Notify that you are followed *"
     },
-    "pref.notif_directmessage" : {
+    "prefNotif_directmessage" : {
         "message" : "Notify that you get direct message *"
     },
-    "pref.notif_count" : {
+    "prefNotif_count" : {
         "message" : "Number of notifications displaying on a page"
     },
-    "pref.label.tweetmenu" : {
+    "prefLabelTweetmenu" : {
         "message" : "Tweet menu"
     },
-    "pref.label.tweetmenu.contextmenu" : {
+    "prefLabelTweetmenuContextmenu" : {
         "message" : "Context menu"
     },
-    "pref.label.tweetmenu.fortypist" : {
+    "prefLabelTweetmenuFortypist" : {
         "message" : "For the user that uses keyboard operation mainly"
     },
-    "pref.menu_reply" : {
+    "prefMenu_reply" : {
         "message" : "Display 'reply' menu"
     },
-    "pref.menu_favorite" : {
+    "prefMenu_favorite" : {
         "message" : "Display 'favotite' menu"
     },
-    "pref.menu_conversation" : {
+    "prefMenu_conversation" : {
         "message" : "Display 'Show conversation' menu"
     },
-    "pref.menu_url" : {
+    "prefMenu_url" : {
         "message" : "Display URL menu"
     },
-    "pref.label.tweetmenu.hovermenu" : {
+    "prefLabelTweetmenuHovermenu" : {
         "message" : "Hover menu"
     },
-    "pref.label.tweetmenu.upto2menu" : {
+    "prefLabelTweetmenuUpto2menu" : {
         "message" : "You can add shortcuts up to 2 (up to 4 total)"
     },
-    "pref.label.tweetmenu.draggable" : {
+    "prefLabelTweetmenuDraggable" : {
         "message" : "You can change the order of menus by dragging"
     },
-    "pref.hover_retweet" : {
+    "prefHover_retweet" : {
         "message" : "Retweet"
     },
-    "pref.hover_quote" : {
+    "prefHover_quote" : {
         "message" : "Retweet w/your comment"
     },
-    "pref.hover_rt" : {
+    "prefHover_rt" : {
         "message" : "Inline retweet"
     },
-    "pref.hover_showtext" : {
+    "prefHover_showtext" : {
         "message" : "Select a tweet text"
     },
-    "pref.hover_opentweeturl" : {
+    "prefHover_opentweeturl" : {
         "message" : "Open a tweet's URL"
     },
-    "pref.hover_replyall" : {
+    "prefHover_replyall" : {
         "message" : "Reply / Reply all"
     },
-    "pref.hover_favorite" : {
+    "prefHover_favorite" : {
         "message" : "Favorite (Required)"
     },
-    "pref.hover_showreply" : {
+    "prefHover_showreply" : {
         "message" : "Show conversations (Required)"
     },
-    "pref.label.confirm" : {
+    "prefLabelConfirm" : {
         "message" : "Confirm dialog"
     },
-    "pref.confirm_tweet" : {
+    "prefConfirm_tweet" : {
         "message" : "Confirm before posting a new tweet with Ctrl+Enter"
     },
-    "pref.confirm_retweet" : {
+    "prefConfirm_retweet" : {
         "message" : "Confirm before retweeting a tweet"
     },
-    "pref.confirm_favorite" : {
+    "prefConfirm_favorite" : {
         "message" : "Confirm before adding to / removing from favorites"
     },
-    "pref.confirm_delete" : {
+    "prefConfirm_delete" : {
         "message" : "Confirm before deleting a (re)tweet or a list, a user"
     },
-    "pref.confirm_follow" : {
+    "prefConfirm_follow" : {
         "message" : "Confirm before (un)following"
     },
-    "pref.confirm_mute" : {
+    "prefConfirm_mute" : {
         "message" : "Confirm before (un)muting a user"
     },
-    "pref.confirm_noretweet" : {
+    "prefConfirm_noretweet" : {
         "message" : "Confirm before turning off/on retweets from a user"
     },
-    "pref.confirm_deletecolumn" : {
+    "prefConfirm_deletecolumn" : {
         "message" : "Confirm before deleting a column"
     }
 

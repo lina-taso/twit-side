@@ -8,28 +8,28 @@ const l10nDefinition = [
 
     {
         "selector" : "title",
-        "word"     : "window.newdm.title"
+        "word"     : "windowNewdmTitle"
     },
     {
         "selector" : "label[for=tweetUserSelection]",
         "place"    : "text",
-        "word"     : "newdm.from"
+        "word"     : "newdmFrom"
     },
     {
         "selector" : "label[for=recipientScreenname]",
         "place"    : "text",
-        "word"     : "newdm.to"
+        "word"     : "newdmTo"
     },
     {
         "selector" : "#tweetButton",
         "place"    : "attr",
         "attr"     : "data-label",
-        "word"     : "newdm.send"
+        "word"     : "newdmSend"
     },
     {
         "selector" : "#closeButton",
         "place"    : "text",
-        "word"     : "newdm.close"
+        "word"     : "newdmClose"
     },
 
 ];

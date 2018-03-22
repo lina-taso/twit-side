@@ -9,11 +9,11 @@ const l10nDefinition = [
     {
         "selector" : ".tweetMoreBox",
         "place"    : "text",
-        "word"     : "tweet.more"
+        "word"     : "tweetMore"
     },
     {
         "selector" : "#closeButton",
         "place"    : "text",
-        "word"     : "listmember.close"
+        "word"     : "listmemberClose"
     },
 ];

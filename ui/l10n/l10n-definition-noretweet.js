@@ -8,16 +8,16 @@ const l10nDefinition = [
 
     {
         "selector" : "title",
-        "word"     : "window.noretweet.title"
+        "word"     : "windowNoretweetTitle"
     },
     {
         "selector" : ".tweetMoreBox",
         "place"    : "text",
-        "word"     : "tweet.more"
+        "word"     : "tweetMore"
     },
     {
         "selector" : "#closeButton",
         "place"    : "text",
-        "word"     : "noretweet.close"
+        "word"     : "noretweetClose"
     },
 ];

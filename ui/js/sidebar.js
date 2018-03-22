@@ -7,17 +7,17 @@
 
 var myport;
 
-const COLUMN_TAB_WIDTH = 150,
+const COLUMN_TAB_WIDTH  = 150,
       COLUMN_TAB_MARGIN = 2, // horizontal margin
-      HELP_URL = 'https://www2.filewo.net/wordpress/%e8%a3%bd%e4%bd%9c%e7%89%a9/twit-side-%e8%aa%ac%e6%98%8e%e6%9b%b8/',
-      TWEET_MAX_LENGTH = 140,
-      MAX_IMAGES = 4,
-      MAX_ANIGIFS = 1,
-      MAX_VIDEOS = 1,
-      MAX_SIZE_IMAGE = 5 * 1024 * 1024,
-      MAX_SIZE_ANIGIF = 15 * 1024 * 1024,
-      MAX_SIZE_VIDEO = 512 * 1024 * 1024,
-      LOADWAIT = 1000;
+      HELP_URL          = 'https://www2.filewo.net/wordpress/%e8%a3%bd%e4%bd%9c%e7%89%a9/twit-side-%e8%aa%ac%e6%98%8e%e6%9b%b8/',
+      TWEET_MAX_LENGTH  = 280,
+      MAX_IMAGES        = 4,
+      MAX_ANIGIFS       = 1,
+      MAX_VIDEOS        = 1,
+      MAX_SIZE_IMAGE    = 5 * 1024 * 1024,
+      MAX_SIZE_ANIGIF   = 15 * 1024 * 1024,
+      MAX_SIZE_VIDEO    = 512 * 1024 * 1024,
+      LOADWAIT          = 1000;
 
 var prefs = {},
     oauth_token,
@@ -167,27 +167,11 @@ function vivify()
             if (this.scrollTop == 0) {
                 if (this.parentNode.dataset.top == 'false') {
                     this.parentNode.dataset.top = true;
-                    // 投票
-                    browser.runtime.sendMessage({
-                        command : TwitSideModule.COMMAND.COLUMN_OPE,
-                        action : TwitSideModule.COMMAND.TL_VOTE,
-                        columnindex : $(this).index(),
-                        win_type : TwitSideModule.WINDOW_TYPE.MAIN,
-                        vote : true
-                    });
                 }
             }
             else {
                 if (this.parentNode.dataset.top == 'true') {
                     this.parentNode.dataset.top = false;
-                    // 投票
-                    browser.runtime.sendMessage({
-                        command : TwitSideModule.COMMAND.COLUMN_OPE,
-                        action : TwitSideModule.COMMAND.TL_VOTE,
-                        columnindex : $(this).index(),
-                        win_type : TwitSideModule.WINDOW_TYPE.MAIN,
-                        vote : false
-                    });
                 }
                 // オートページャ
                 if (this.scrollHeight - this.clientHeight - 200 < this.scrollTop

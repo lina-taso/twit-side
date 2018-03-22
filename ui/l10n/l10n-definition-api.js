@@ -8,32 +8,32 @@ const l10nDefinition = [
 
     {
         "selector" : "title",
-        "word"     : "window.api.title"
+        "word"     : "windowApiTitle"
     },
     {
         "selector" : "#apiHead > th:eq(0)",
         "place"    : "text",
-        "word"     : "api.api"
+        "word"     : "apiApi"
     },
     {
         "selector" : "#apiHead > th:eq(1)",
         "place"    : "text",
-        "word"     : "api.remaining"
+        "word"     : "apiRemaining"
     },
     {
         "selector" : "#apiHead > th:eq(2)",
         "place"    : "text",
-        "word"     : "api.limit"
+        "word"     : "apiLimit"
     },
     {
         "selector" : "#apiHead > th:eq(3)",
         "place"    : "text",
-        "word"     : "api.reset_time"
+        "word"     : "apiReset_time"
     },
     {
         "selector" : "#closeButton",
         "place"    : "text",
-        "word"     : "api.close"
+        "word"     : "apiClose"
     },
 
 ];

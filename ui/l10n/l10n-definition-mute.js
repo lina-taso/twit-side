@@ -8,16 +8,16 @@ const l10nDefinition = [
 
     {
         "selector" : "title",
-        "word"     : "window.mute.title"
+        "word"     : "windowMuteTitle"
     },
     {
         "selector" : ".tweetMoreBox",
         "place"    : "text",
-        "word"     : "tweet.more"
+        "word"     : "tweetMore"
     },
     {
         "selector" : "#closeButton",
         "place"    : "text",
-        "word"     : "mute.close"
+        "word"     : "muteClose"
     },
 ];
