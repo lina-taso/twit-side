@@ -211,7 +211,7 @@
         "placeholders" : {
             "count" : {
                 "content" : "$1",
-                "example" : 10
+                "example" : "10"
             }
         }
     },
@@ -716,7 +716,7 @@
         "placeholders" : {
             "length" : {
                 "content" : "$1",
-                "example" : 10
+                "example" : "10"
             }
         }
     },
@@ -725,7 +725,7 @@
         "placeholders" : {
             "length" : {
                 "content" : "$1",
-                "example" : 10
+                "example" : "10"
             }
         }
     },
