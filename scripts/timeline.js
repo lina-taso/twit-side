@@ -984,7 +984,7 @@ Timeline.prototype = {
             this._reportError('retweetLimit');
             return;
         }
-        this._tweetRetweet({}, retweetid)
+        this._tweet.retweet({}, retweetid)
             .then(success.bind(this)).catch(error.bind(this));
 
         function success(result)
@@ -1037,10 +1037,10 @@ Timeline.prototype = {
     favorite: function(favoriteid, sw)
     {
         if (sw)
-            this._tweetFavorite({ id : favoriteid })
+            this._tweet.favorite({ id : favoriteid })
             .then(success.bind(this)).catch(error.bind(this));
         else
-            this._tweetUnfavorite({ id : favoriteid })
+            this._tweet.unfavorite({ id : favoriteid })
             .then(success.bind(this)).catch(error.bind(this));
 
         function success(result)
@@ -1135,12 +1135,12 @@ Timeline.prototype = {
     {
         // DMはそのまま削除
         if (this.isDirectMessage)
-            this._tweetDestroyDm({ id : destroyid })
+            this._tweet.destroyDm({ id : destroyid })
             .then(callback_mine.bind(this)).catch(error.bind(this));
 
         // リスト
         else if (this.isList)
-            this._tweetDestroyList({ list_id : destroyid })
+            this._tweet.destroyList({ list_id : destroyid })
             .then(callback_list.bind(this)).catch(error.bind(this));
 
         // フレンド
@@ -1176,7 +1176,7 @@ Timeline.prototype = {
 
         // 自分のツイートはそのまま削除
         else if (this.record.data[destroyid].meta.isMine)
-            this._tweetDestroy({ }, destroyid)
+            this._tweet.destroy({ }, destroyid)
             .then(callback_mine.bind(this)).catch(error.bind(this));
 
         // コールバック
@@ -1184,7 +1184,7 @@ Timeline.prototype = {
         {
             // リツイートしたことが確認出来た
             if (result.data.current_user_retweet) {
-                this._tweetDestroy({ }, result.data.current_user_retweet.id_str)
+                this._tweet.destroy({ }, result.data.current_user_retweet.id_str)
                     .then(callback_retweet.bind(this)).catch(error.bind(this));
             }
         }
@@ -1280,7 +1280,7 @@ Timeline.prototype = {
         var rawid = this.record.data[tweetid].raw.retweeted_status
             ? this.record.data[tweetid].raw.retweeted_status.id_str
             : this.record.data[tweetid].raw.id_str;
-        this._tweetRetweeters({ id : rawid, count : 100 })
+        this._tweet.retweeters({ id : rawid, count : 100 })
             .then(callback.bind(this)).catch(error.bind(this));
 
         function callback(result)
@@ -1382,7 +1382,7 @@ Timeline.prototype = {
     // リストの購読
     subscribeList: function(listid)
     {
-        this._tweetSubscribeList({ list_id : listid })
+        this._tweet.subscribeList({ list_id : listid })
             .then(callback.bind(this)).catch(error.bind(this));
 
         function callback(result)
@@ -1414,7 +1414,7 @@ Timeline.prototype = {
     // リストの購読解除
     unsubscribeList: function(listid)
     {
-        this._tweetUnsubscribeList({ list_id : listid })
+        this._tweet.unsubscribeList({ list_id : listid })
             .then(callback.bind(this)).catch(error.bind(this));
 
         function callback(result)
@@ -1462,7 +1462,7 @@ Timeline.prototype = {
         case TwitSideModule.TL_TYPE.CONNECT:
             return this._tweet.connect(optionsHash);
         case TwitSideModule.TL_TYPE.RETWEETED:
-            return this._tweetRetweeted(optionsHash);
+            return this._tweet.retweeted(optionsHash);
         case TwitSideModule.TL_TYPE.DIRECTMESSAGE:
         case TwitSideModule.TL_TYPE.TEMP_DIRECTMESSAGE:
             return this._getDirectMessage(optionsHash);
@@ -1484,7 +1484,7 @@ Timeline.prototype = {
             return this._lists.getListMembers(optionsHash);
         case TwitSideModule.TL_TYPE.FAVORITE:
         case TwitSideModule.TL_TYPE.TEMP_FAVORITE:
-            return this._tweetFavoritelist(optionsHash);
+            return this._tweet.favoritelist(optionsHash);
         case TwitSideModule.TL_TYPE.SEARCH:
         case TwitSideModule.TL_TYPE.TEMP_SEARCH:
             return this._tweet.search(optionsHash)
