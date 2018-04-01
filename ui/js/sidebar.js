@@ -438,7 +438,7 @@ function countNewTweet(e)
     var $newTweetCount = $('#newTweetCount'),
         $newTweet = $('#newTweet'),
         $tweetButton = $('#tweetButton'),
-        count = twttr.txt.getTweetLength($newTweet.val());
+        count = twttr.txt.parseTweet($newTweet.val()).weightedLength;
 
     // URL
     var urls = twttr.txt.extractUrls($newTweet.val());
