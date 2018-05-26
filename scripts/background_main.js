@@ -63,7 +63,7 @@ function init()
 // connection from content script
 function onconnect(p)
 {
-    p.onDisconnect.addListener(ondisconnect);
+//    p.onDisconnect.addListener(ondisconnect);
     ports.push(p);
     TwitSideModule.debug.log("Connected from content script. Number of ports:" + ports.length);
 }

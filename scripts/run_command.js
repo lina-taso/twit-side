@@ -271,7 +271,7 @@ function WINDOW_OPE(message) {
     case TwitSideModule.COMMAND.WINDOW_INITED:
         return Promise.resolve(updateWindow(wininfo.id, wininfo.parameters));
     case TwitSideModule.COMMAND.WINDOW_RUNINMAINUI:
-        return runInMainUI();
+        return Promise.resolve(runInMainUI());
     }
     return Promise.reject('ACTION_IS_NOT_DEFINED');
 
