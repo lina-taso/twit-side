@@ -63,7 +63,7 @@ function init()
 // connection from content script
 function onconnect(p)
 {
-//    p.onDisconnect.addListener(ondisconnect);
+    p.onDisconnect.addListener(ondisconnect);
     ports.push(p);
     TwitSideModule.debug.log("Connected from content script. Number of ports:" + ports.length);
 }
@@ -133,12 +133,12 @@ function postMessage(data, winname)
 function onremoved(winname)
 {
     // close port
-    for (let p of ports) {
-        if (p.name == winname.toString()) {
-            ondisconnect(p);
-            break;
-        }
-    }
+//    for (let p of ports) {
+//        if (p.name == winname.toString()) {
+//            ondisconnect(p);
+//            break;
+//        }
+//    }
     // remove from windows hash
     for (let suffix in windows) {
         if (windows[suffix].id.toString() == winname) {
