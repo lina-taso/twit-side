@@ -11,7 +11,8 @@ const networkWait       = 250,
       infWait           = 300000,
       autoClearWait     = 60000,
       autoClearVoteWait = 5000,
-      LIMIT_RETWEET_CNT = 5;
+      LIMIT_RETWEET_CNT = 5,
+      ZERO_FILL         = '0000000000000000000000000';
 
 var Timeline = function(
     tl_type_int,        // タイムライン種別
@@ -1914,6 +1915,9 @@ Timeline.prototype = {
         // リスト、フォロー、フォロワー、リストメンバーの場合はソートしない
         if (this.isList || this.isFriend || this.isListMember) {
             for (let datum of data) {
+                // idを0埋め文字列
+                datum.id_str = (ZERO_FILL + datum.id_str).slice(-25);
+
                 this.record.ids.push(datum.id_str);
                 this.record.data[datum.id_str] = {meta : {}, raw : datum};
 
@@ -1931,6 +1935,8 @@ Timeline.prototype = {
         else if (this.isDirectMessage) {
             // dataは新しいもの順
             for (let datum of data) {
+                // idを0埋め文字列
+                datum.id_str = (ZERO_FILL + datum.id_str).slice(-25);
 
                 if (this.record.ids.indexOf(datum.id_str) < 0) {
                     // ID一覧更新
@@ -1972,6 +1978,8 @@ Timeline.prototype = {
 
             // dataは新しいもの順
             for (let datum of data) {
+                // idを0埋め文字列
+                datum.id_str = (ZERO_FILL + datum.id_str).slice(-25);
 
                 // muteの時は破棄
                 if (mutes.length
