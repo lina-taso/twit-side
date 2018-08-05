@@ -12,7 +12,8 @@ const networkWait       = 250,
       autoClearWait     = 60000,
       autoClearVoteWait = 5000,
       LIMIT_RETWEET_CNT = 5,
-      ZERO_FILL         = '0000000000000000000000000';
+      ZERO_FILL         = '0000000000000000000000000',
+      ZERO_FILL_LEN     = 25;
 
 var Timeline = function(
     tl_type_int,        // タイムライン種別
@@ -412,14 +413,14 @@ Timeline.prototype = {
                 break;
             default: // それ以外は件数確認
                 if (this.record.ids.length
-                    && this.record.ids[0] < result.data[len-1].id_str
+                    && this.record.ids[0] < (ZERO_FILL + result.data[len-1].id_str).slice(-ZERO_FILL_LEN)
                     || !this.record.ids.length
                     && result.data.length > 5)
                     more = true;
 
                 // フィルタ（読み込み済のものは除去）
                 result.data = result.data.filter(function(el) {
-                    return this.record.ids.indexOf(el.id_str) < 0;
+                    return this.record.ids.indexOf((ZERO_FILL + el.id_str).slice(-ZERO_FILL_LEN)) < 0;
                 }, this);
             }
 
@@ -429,7 +430,7 @@ Timeline.prototype = {
 
             // 最後のIDの次を検索
             if (tweets.length) {
-                let lastidx = this.record.ids.indexOf(tweets[tweets.length - 1].raw.id_str);
+                let lastidx = this.record.ids.indexOf((ZERO_FILL + tweets[tweets.length - 1].raw.id_str).slice(-ZERO_FILL_LEN));
                 if (lastidx != null)
                     nextid = this.record.ids[lastidx + 1];
             }
@@ -532,7 +533,7 @@ Timeline.prototype = {
 
                 // フィルタ（読み込み済のものは除去）
                 result.data = result.data.filter(function(el) {
-                    return this.record.ids.indexOf(el.id_str) < 0;
+                    return this.record.ids.indexOf((ZERO_FILL + el.id_str).slice(-ZERO_FILL_LEN)) < 0;
                 }, this);
             }
 
@@ -614,7 +615,7 @@ Timeline.prototype = {
 
             // フィルタ（読み込み済のものは除去）
             result.data = result.data.filter(function(el) {
-                return this.record.ids.indexOf(el.id_str) < 0;
+                return this.record.ids.indexOf((ZERO_FILL + el.id_str).slice(-ZERO_FILL_LEN)) < 0;
             }, this);
 
             // 受信データを登録
@@ -623,7 +624,7 @@ Timeline.prototype = {
 
             // 最後のIDの次を検索
             if (tweets.length) {
-                let lastidx = this.record.ids.indexOf(tweets[tweets.length - 1].raw.id_str);
+                let lastidx = this.record.ids.indexOf((ZERO_FILL + tweets[tweets.length - 1].raw.id_str).slice(-ZERO_FILL_LEN));
                 if (lastidx != null)
                     nextid = this.record.ids[lastidx + 1];
             }
@@ -1797,7 +1798,7 @@ Timeline.prototype = {
 
             // 最後のIDの次を検索
             if (tweets.length) {
-                let lastidx = this.record.ids.indexOf(tweets[0].raw.id_str);
+                let lastidx = this.record.ids.indexOf((ZERO_FILL + tweets[0].raw.id_str).slice(-ZERO_FILL_LEN));
                 if (lastidx != null)
                     nextid = this.record.ids[lastidx + 1];
             }
@@ -1916,7 +1917,7 @@ Timeline.prototype = {
         if (this.isList || this.isFriend || this.isListMember) {
             for (let datum of data) {
                 // idを0埋め文字列
-                datum.id_str = (ZERO_FILL + datum.id_str).slice(-25);
+                datum.id_str = (ZERO_FILL + datum.id_str).slice(-ZERO_FILL_LEN);
 
                 this.record.ids.push(datum.id_str);
                 this.record.data[datum.id_str] = {meta : {}, raw : datum};
@@ -1936,7 +1937,7 @@ Timeline.prototype = {
             // dataは新しいもの順
             for (let datum of data) {
                 // idを0埋め文字列
-                datum.id_str = (ZERO_FILL + datum.id_str).slice(-25);
+                datum.id_str = (ZERO_FILL + datum.id_str).slice(-ZERO_FILL_LEN);
 
                 if (this.record.ids.indexOf(datum.id_str) < 0) {
                     // ID一覧更新
@@ -1979,7 +1980,7 @@ Timeline.prototype = {
             // dataは新しいもの順
             for (let datum of data) {
                 // idを0埋め文字列
-                datum.id_str = (ZERO_FILL + datum.id_str).slice(-25);
+                datum.id_str = (ZERO_FILL + datum.id_str).slice(-ZERO_FILL_LEN);
 
                 // muteの時は破棄
                 if (mutes.length
@@ -2085,12 +2086,14 @@ Timeline.prototype = {
                 let target_user_icon = data[0].retweeted_status
                     ? data[0].retweeted_status.user.profile_image_url_https.replace('_normal.', '.')
                     : data[0].user.profile_image_url_https.replace('_normal.', '.');
+                // idを0埋め文字列
+                let datum_id_str = (ZERO_FILL + data[0].id_str).slice(-ZERO_FILL_LEN);
                 TwitSideModule.Message.showNotification({
                     userid : this._own_userid,
                     title : browser.i18n.getMessage(
                         'newTweet', ['@' + target_user]),
                     icon : target_user_icon,
-                    content : this.record.data[data[0].id_str].meta.text
+                    content : this.record.data[datum_id_str].meta.text
                 }, true);
             }
             // 検索
