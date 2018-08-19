@@ -40,7 +40,7 @@ TwitSideModule.COMMAND = {
     TL_REPLIES :       326,
     TL_DESTROY :       327,
     TL_RETWEETERS :    328,
-    TL_STOPSTREAM :    331,
+//    TL_STOPSTREAM :    331,
     TL_LISTCREATE :    341, // action：リスト作成
     TL_LISTUPDATE :    342, // action：リスト修正
     TL_LISTSUBSCRIBE : 343, // action：リスト購読
@@ -79,7 +79,7 @@ TwitSideModule.UPDATE = {
     TWEET_LOADED :     1,  // ツイート取得後
     REPLACE_LOADED :   2,  // 既存ツイートの差し替え時
     REPLY_LOADED :     3,  // 返信ツイート取得時
-    STREAM_EVENT :     4,  // ストリームイベント受信時
+//    STREAM_EVENT :     4,  // ストリームイベント受信時
     PROGRESS :         5,  // 画像ツイート進捗
     IMAGE_LOADED :     8,  // 画像イメージ更新時
     TWEET_DELETED :    9,  // 既存ツイートの削除時
@@ -101,15 +101,15 @@ TwitSideModule.UPDATE = {
 
 TwitSideModule.TL_STATE = {
     STOPPED :         1,  // 取得前、取得後停止
-    STREAM_STOPPED :  2,  // ストリーム停止
+//    STREAM_STOPPED :  2,  // ストリーム停止
     STARTING :        11, // 最新ツイート取得中
     STARTED :         12, // ツイート取得後：自動更新動作中
     LOADING :         13, // ツイート取得後：過去、途中ツイート取得中
-    LOADED :          14, // ツイート取得後：過去、途中ツイート取得後
-    STARTING_STREAM : 21, // ストリーム開始中
-    STREAMING :       22, // ストリーム動作中
-    WAITING_START :   31, // 予期しない切断後ウェイト
-    WAITING_STREAM :  32  // 予期しないストリーム切断後ウェイト
+    LOADED :          14  // ツイート取得後：過去、途中ツイート取得後
+//    STARTING_STREAM : 21, // ストリーム開始中
+//    STREAMING :       22, // ストリーム動作中
+//    WAITING_START :   31, // 予期しない切断後ウェイト
+//    WAITING_STREAM :  32  // 予期しないストリーム切断後ウェイト
 };
 
 // columns, addcolumnsと連携
@@ -167,7 +167,7 @@ TwitSideModule.getTimelineName = function(tl_type)
 TwitSideModule.TWEET_STATUS = {
     OK :                 1,
     CONNECTED :          11,
-    STREAM_RECEIVED :    13,
+//    STREAM_RECEIVED :    13,
     CLOSED_MANUALLY :    21,
     CLOSED_MAINTAINANCE: 22,
     CLOSED_NETWORK :     23,

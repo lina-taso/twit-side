@@ -334,9 +334,6 @@ function commandExec(btn)
     case btn.classList.contains('updateButton'):
         loadNewer(getColumnIndexFromBox(btn));
         break;
-    case btn.classList.contains('stopStreamButton'):
-        stopStream(getColumnIndexFromBox(btn));
-        break;
     case btn.classList.contains('newListButton'):
         break;
     case btn.classList.contains('newDmButton'):
@@ -576,14 +573,11 @@ function sendTweet()
                                           action : TwitSideModule.COMMAND.COLUMN_SEARCH,
                                           win_type : TwitSideModule.WINDOW_TYPE.MAIN,
                                           query_hash : { userid : userid,
-                                                         tl_type : TwitSideModule.TL_TYPE.TIMELINE,
-                                                         streaming : false }
+                                                         tl_type : TwitSideModule.TL_TYPE.TIMELINE }
                                         })
                 .then((indexes) => {
                     for (let i of indexes) {
-                        if (UI.$columnC.children().eq(i).find('.stopStreamButton')
-                            .attr('data-disabled') != 'false')
-                            loadNewer(i);
+                        loadNewer(i);
                     }
                 });
         }
@@ -1120,8 +1114,7 @@ function onClickAccess()
                       + ' (@' + oauth_hash.screen_name + ')',
                       userid : oauth_hash.user_id,
                       options : { onstart : true,
-                                  autoreload : false,
-                                  stream : true,
+                                  autoreload : true,
                                   notif : true,
                                   veil : false },
                       parameters : null });
@@ -1134,7 +1127,6 @@ function onClickAccess()
                       userid : oauth_hash.user_id,
                       options : { onstart : true,
                                   autoreload : true,
-                                  stream : false,
                                   notif : false,
                                   veil : false },
                       parameters : null });
@@ -1147,7 +1139,6 @@ function onClickAccess()
                       userid : oauth_hash.user_id,
                       options : { onstart : true,
                                   autoreload : true,
-                                  stream: false,
                                   notif : false,
                                   veil : false },
                       parameters : null });
@@ -1162,8 +1153,7 @@ function onClickAccess()
                       + ' (@' + oauth_hash.screen_name + ')',
                       userid : oauth_hash.user_id,
                       options : { onstart : true,
-                                  autoreload : false,
-                                  stream : true,
+                                  autoreload : true,
                                   notif : true,
                                   veil : false },
                       parameters : null });

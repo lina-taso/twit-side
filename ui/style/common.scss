@@ -844,17 +844,6 @@ input[type="text"], textarea, select {
             cursor: pointer;
         }
     }
-    &[data-stream-waiting="true"] {
-        .columnMenuBox .stopStreamButton {
-            .streamStop {
-                display: none;
-            }
-            .streamWait {
-                display: initial;
-                animation: spin 1s linear infinite;
-            }
-        }
-    }
 }
 .timelineBox {
     width: 100%;
@@ -964,9 +953,6 @@ input[type="text"], textarea, select {
         pointer-events: initial;
     }
 
-    .stopStreamButton {
-        position: relative;
-    }
     .newListButton,
     .addColumnButton {
         position: relative;
@@ -979,22 +965,6 @@ input[type="text"], textarea, select {
                 }
             }
         }
-    }
-    // .stopStreamButton
-    .streamStop,
-    .streamWait {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        @each $size, $px in $button-size {
-            [data-button-size="#{$size}"] & {
-                font-size: #{$px * 1 / 2};
-            }
-        }
-    }
-    // .stopStreamButton
-    .streamWait {
-        display: none;
     }
     // .newListButton
     // .addColumnButton
@@ -1010,16 +980,10 @@ input[type="text"], textarea, select {
     }
 
     @at-root
-    .stopStreamButton,
     .newListButton,
     .newDmButton,
     .addColumnButton {
         display: none;
-    }
-    @at-root .column[data-column-type="timeline"] {
-        .stopStreamButton {
-            display: initial;
-        }
     }
     @at-root .column[data-column-type="directmessage"] {
         .newDmButton {
@@ -2079,8 +2043,7 @@ input[type="text"], textarea, select {
     th:nth-of-type(5) { width: 5%; }
     th:nth-of-type(6) { width: 5%; }
     th:nth-of-type(7) { width: 5%; }
-    th:nth-of-type(8) { width: 5%; }
-    th:nth-of-type(9) { width: 25%; }
+    th:nth-of-type(8) { width: 30%; }
 }
 
 .columnListRow {
@@ -2109,7 +2072,6 @@ input[type="text"], textarea, select {
     td:nth-of-type(5) { text-align: center; }
     td:nth-of-type(6) { text-align: center; }
     td:nth-of-type(7) { text-align: center; }
-    td:nth-of-type(8) { text-align: center; }
 }
 
 

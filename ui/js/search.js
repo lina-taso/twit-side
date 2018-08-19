@@ -93,7 +93,6 @@ function vivify()
                   columninfo : {
                       options : { onstart : false,
                                   autoreload : $(this).prop('checked'),
-                                  stream : false,
                                   notif : false,
                                   veil : false }
                   } });
@@ -210,7 +209,6 @@ async function searchTweet()
           temp_index : 0,
           options : { onstart : false,
                       autoreload : autoreload,
-                      stream : false,
                       notif : false,
                       veil : false },
           parameters : {q : keyword} });

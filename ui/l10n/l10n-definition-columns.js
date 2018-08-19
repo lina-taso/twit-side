@@ -55,16 +55,10 @@ const l10nDefinition = [
         "selector" : "#columnListHead th:eq(6)",
         "place"    : "attr",
         "attr"     : "title",
-        "word"     : "columnsStream"
-    },
-    {
-        "selector" : "#columnListHead th:eq(7)",
-        "place"    : "attr",
-        "attr"     : "title",
         "word"     : "columnsVeil"
     },
     {
-        "selector" : "#columnListHead th:eq(8)",
+        "selector" : "#columnListHead th:eq(7)",
         "place"    : "attr",
         "attr"     : "title",
         "word"     : "columnsOther"
@@ -118,11 +112,6 @@ const l10nDefinition = [
         "selector" : "label[for=autoreload]",
         "place"    : "text",
         "word"     : "columnsAutoreload"
-    },
-    {
-        "selector" : "label[for=stream]",
-        "place"    : "text",
-        "word"     : "columnsStream"
     },
     {
         "selector" : "label[for=veil]",

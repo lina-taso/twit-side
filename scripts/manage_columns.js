@@ -90,7 +90,6 @@ var ManageColumns = function() {
     function createTimeline(tl_type, columnid, userinfo, win_type)
     {
         win_type = win_type || TwitSideModule.WINDOW_TYPE.MAIN;
-
         return new Timeline(tl_type, columnid, userinfo, win_type);
     }
 
@@ -273,7 +272,6 @@ var ManageColumns = function() {
          * options_hash
          * { onstart : {boolean}
          *   autoreload : {boolean}
-         *   stream : {boolean}
          *   notif : {boolean} }
          */
 
@@ -466,22 +464,6 @@ var ManageColumns = function() {
             for (let idx in columns[win_type]) {
                 let match = true;
                 for (let key in query_hash) {
-                    // 特殊キー
-                    if (key == 'streaming') {
-                        if (query_hash[key] == true
-                            && timelines[win_type][idx].timeline.loadingStreamState
-                            != TwitSideModule.TL_STATE.STREAMING) {
-                            match = false;
-                            break;
-                        }
-                        else if (query_hash[key] == false
-                                 && timelines[win_type][idx].timeline.loadingStreamState
-                                 == TwitSideModule.TL_STATE.STREAMING) {
-                            match = false;
-                            break;
-                        }
-                        continue;
-                    }
                     // キー存在無し
                     if (!columns[win_type][idx][key])
                         throw new Error('QUERY_KEY_IS_NOT_DEFINED');

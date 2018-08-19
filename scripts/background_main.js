@@ -16,7 +16,8 @@ const firstrun_url = 'https://www2.filewo.net/wordpress/category/twit-side-addon
       panel_url = browser.extension.getURL('/ui/sidebar.xhtml');
 
 var ports = [],
-    windows = {};
+    windows = {},
+    updated = false;
 
 // load preferences
 TwitSideModule.config.loadPrefs().then(() => {
@@ -31,33 +32,44 @@ function startup()
 
 function install()
 {
-    checkVersion();
     TwitSideModule.browsers.openURL(firstrun_url);
-
-    function checkVersion()
-    {
-        var addoninfo = browser.runtime.getManifest(),
-        current_version = addoninfo.version,
-        config_version = TwitSideModule.config.getPref('version');
-
-        // do something after upgrading if necessary.
-        return TwitSideModule.config.setPref('version', current_version);
-    }
+    updated = true;
 }
 
-function init()
+async function init()
 {
+    if (updated) {
+        await checkVersion();
+    }
+
     // start TwitSide in background
     TwitSideModule.ManageUsers = new ManageUsers();
     TwitSideModule.ManageColumns = new ManageColumns();
     TwitSideModule.Mutes = new Mutes();
 
     // modules init
-    return Promise.all([ TwitSideModule.ManageUsers.initialize(),
-                         TwitSideModule.ManageColumns.initialize() ])
-        .then(() => {
-            TwitSideModule.debug.log('TwitSide working in background');
-        });
+    Promise.all([ TwitSideModule.ManageUsers.initialize(),
+                  TwitSideModule.ManageColumns.initialize() ]);
+    TwitSideModule.debug.log('TwitSide working in background');
+
+    async function checkVersion()
+    {
+        var addoninfo = browser.runtime.getManifest(),
+        current_version = addoninfo.version,
+        config_version = TwitSideModule.config.getPref('version');
+
+        // from ver 0.9.4 stream disable
+        if (config_version < '0.9.4') {
+            let columns = JSON.parse(TwitSideModule.config.getPref('columns'));
+            for (let i in columns) {
+                delete columns[i].options.stream;
+            }
+            await TwitSideModule.config.setPref('columns', JSON.stringify(columns));
+        }
+
+        // do something after upgrading if necessary.
+        await TwitSideModule.config.setPref('version', current_version);
+    }
 }
 
 // connection from content script
@@ -150,8 +162,7 @@ function onremoved(winname)
 
 function onclicked(tab)
 {
-    console.log(tab);
-    browser.sidebarAction.getPanel({tabId: tab.id}).then(console.log);
+    browser.sidebarAction.getPanel({tabId: tab.id});
 
     // check window id
     for (let p of ports) {

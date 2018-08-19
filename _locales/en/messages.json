@@ -82,28 +82,6 @@
         "message" : "New column is added."
     },
 
-    "streamConnected" : {
-        "message" : "Connected to an userstream."
-    },
-    "streamManuallyStopped" : {
-        "message" : "Userstream has been disconnected manually."
-    },
-    "streamDisconnected" : {
-        "message" : "Userstream has been disconnected unexpectedly."
-    },
-    "streamExceedApiLimit" : {
-        "message" : "Can't connect to an userstream because of exceeding API limit."
-    },
-    "streamMaintainance" : {
-        "message" : "Userstream has been disconnected for maintainance."
-    },
-    "reconnectDisabled" : {
-        "message" : "Please wait until automatically reconnected."
-    },
-    "reconnectStopped" : {
-        "message" : "Reconnecting to an userstream has been stopped."
-    },
-
     "commonError" : {
         "message" : "Internal error."
     },
@@ -760,9 +738,6 @@
     "columnsAutoreload" : {
         "message" : "Auto reloading"
     },
-    "columnsStream" : {
-        "message" : "Stream"
-    },
     "columnsVeil" : {
         "message" : "Privacy mode"
     },
@@ -902,7 +877,7 @@
         "message" : "But for search column, auto reloading every [sec]"
     },
     "prefAutoreload_aftertweet" : {
-        "message" : "After posting a tweet, auto reload ones timelines (if stream is connected, it is ignored)."
+        "message" : "After posting a tweet, auto reload ones timelines."
     },
     "prefAutoreload_totop" : {
         "message" : "Keep on top of columns"
@@ -933,12 +908,6 @@
     },
     "prefMute_ts" : {
         "message" : "Enable Twit Side specific mute feature"
-    },
-    "prefLabelExtraRetweet" : {
-        "message" : "Retweets"
-    },
-    "prefRetweets_onlyfriends" : {
-        "message" : "Hide retweets from users you don't follow (on userstream is connected)"
     },
     "prefLabelExtraSearch" : {
         "message" : "Search"
@@ -1027,29 +996,14 @@
     "prefLabelNotificationTurnonnotif" : {
         "message" : "Please enable notify on Manage columns window"
     },
-    "prefLabelNotificationEnabledonstream" : {
-        "message" : "* In operation if userstream is connected"
-    },
     "prefNotif_all" : {
         "message" : "Notify all tweets (pop up only)"
     },
     "prefNotif_forme" : {
         "message" : "Notify the tweet addressed to you"
     },
-    "prefNotif_forme_retweeted" : {
-        "message" : "Notify that your tweet is retweeted *"
-    },
-    "prefNotif_favorite" : {
-        "message" : "Notify that your tweet is added to favorite *"
-    },
-    "prefNotif_unfavorite" : {
-        "message" : "Notify that your tweet is deleted to favorite *"
-    },
-    "prefNotif_follow" : {
-        "message" : "Notify that you are followed *"
-    },
     "prefNotif_directmessage" : {
-        "message" : "Notify that you get direct message *"
+        "message" : "Notify that you get direct message (in development)"
     },
     "prefNotif_count" : {
         "message" : "Number of notifications displaying on a page"

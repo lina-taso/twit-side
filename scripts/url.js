@@ -10,7 +10,6 @@ TwitSideModule.urls = {
     {
         oauthBase : 'https://api.twitter.com/oauth',
         apiBase : 'https://api.twitter.com/1.1',
-        streamBase : 'https://userstream.twitter.com/1.1',
         tonBase : 'https://ton.twitter.com/1.1',
         uploadBase : 'https://upload.twitter.com/1.1',
         /**
@@ -21,8 +20,6 @@ TwitSideModule.urls = {
         urlRequest : '/request_token?',
         urlAuthorize : '/authorize?',
         urlAccess : '/access_token',
-
-        urlUserStream : '/user.json',
 
         urlStatusesUpdate : '/statuses/update.json',
         urlStatusesUpdateWithMedia : '/statuses/update_with_media.json',

@@ -5,9 +5,7 @@
  * @license Mozilla Public License, version 2.0
  */
 
-const streamMaxTime = 90000,
-      streamMaxItems = 500,
-      uploadChunkSize = 1 * 1024 * 1024; // 1MB
+const uploadChunkSize = 1 * 1024 * 1024; // 1MB
 
 var Tweet = function(userinfo) {
 
@@ -32,13 +30,6 @@ Tweet.prototype = {
     consumer_key : '8cJhiTxoeMV4z1c3bfLhw',
     oauth_token : '',
     oauth_token_secret : '',
-    // ストリーム用
-    _streamXhr : null,
-    _streamTimer : null,
-    _streamManuallyStop : false,
-    _streamConnectionError : false,
-    _streamItems : 0,
-    _streamOffset : 0,
 
     get basicValues() {
         return {
@@ -86,35 +77,6 @@ Tweet.prototype = {
     {
         return this._createOauthSignature('MESSAGE', null, TwitSideModule.text.getUnixTime());
         // return messageTitle"\n"messageBody to callback
-    },
-
-    // ユーザーストリーム
-    startUserStream : function(optionsHash, callbackFunction, errorFunction)
-    {
-        // 初期化
-        this._streamTimer = null;
-        this._streamManuallyStop = false;
-        this._streamConnectionError = false;
-
-        optionsHash['stringify_friend_ids'] = 'true';
-        var data = {
-            api     : 'STREAM',
-            method  : 'POST',
-            options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.streamBase,
-            url     : TwitSideModule.urls.twit.urlUserStream
-        };
-        return this._sendRequest('SIGNATURE', data, callbackFunction, errorFunction);
-        // stream接続時: return Promise
-        // streamstate変更時: return cb, error
-    },
-
-    // ユーザーストリーム停止
-    stopUserStream: function()
-    {
-        if (this._streamXhr == null) return;
-        this._streamManuallyStop = true;
-        this._streamXhr.abort();
     },
 
     // 発言
@@ -1074,15 +1036,6 @@ Tweet.prototype = {
                 case 'TON':
                     xhr.responseType = 'blob';
                     break;
-                case 'STREAM':
-                    // タイムアウト無効
-                    xhr.timeout = 0;
-                    // ストリーム用コールバック
-                    xhr.onreadystatechange = this._streamStatechange.bind(this, cb, error);
-                    // ストリームのエラーはreadystatechangeで確認
-                    xhr.onerror = null;
-                    this._streamXhr = xhr;
-                    break;
                 case 'MULTI':
                     param = createFormData(data_hash.options);
                     // タイムアウト
@@ -1153,9 +1106,6 @@ Tweet.prototype = {
             function returnResponse()
             {
                 switch (data_hash.api) {
-                case 'STREAM':
-                    resolve();
-                    return;
                 case 'TON':
                     if (xhr.status == 200) {
                         resolve({ status : TwitSideModule.TWEET_STATUS.OK,
@@ -1214,108 +1164,11 @@ Tweet.prototype = {
             {
                 var formData = new FormData();
                 for (let key in dataHash) {
-//                    if (key.match(/^file[0-9]/)) {
-//                        formData.append('media[]', dataHash[key], 'file0');
-//                    }
-//                    else formData.append(key, dataHash[key]);
                     formData.append(key, dataHash[key]);
                 }
                 return formData;
             }
         });
-    },
-
-    // streamXhr の状態遷移
-    _streamStatechange: function(cb, error)
-    {
-        TwitSideModule.debug.log('statechanged ' + this._streamXhr.readyState);
-
-        switch (this._streamXhr.readyState) {
-        case 2: // 接続完了
-            this._streamItems = 0;
-            this._streamOffset = 0;
-            cb({ status : TwitSideModule.TWEET_STATUS.CONNECTED });
-            break;
-        case 3: // 何かを受信
-            if (this._streamXhr.getResponseHeader('Content-Type')
-                .indexOf('application/json') != -1) {
-                this._streamCheckContent(cb, error);
-            }
-            else {
-                error({ result : this._streamXhr.responseText,
-                        error : new Error(),
-                        status : this._streamXhr.status });
-                return;
-            }
-            break;
-        case 4: // 通信が終了した
-            clearTimeout(this._streamTimer);
-            let reason;
-            // 手動停止の場合
-            if (this._streamManuallyStop)
-                reason = TwitSideModule.TWEET_STATUS.CLOSED_MANUALLY;
-            // ネットワークエラーだった場合
-            else if (this._StreamConnectionError)
-                reason = TwitSideModule.TWEET_STATUS.CLOSED_NETWORK;
-            // ネットワークエラーだった場合（切断等）
-            else if (this._streamXhr.status == 0)
-                reason = TwitSideModule.TWEET_STATUS.CLOSED_NETWORK;
-            // API制限
-            else if (this._streamXhr.status == 420)
-                reason = TwitSideModule.TWEET_STATUS.CLOSED_API;
-            // HTTPエラー
-            else if (this._streamXhr.status != 200)
-                reason = TwitSideModule.TWEET_STATUS.CLOSED_HTTP;
-            // 定期切断
-            else
-                reason = TwitSideModule.TWEET_STATUS.CLOSED_MAINTAINANCE;
-
-            this._streamXhr = null;
-            TwitSideModule.debug.log('disconnected stream because ' + reason);
-            cb({ status : reason });
-            break;
-        }
-    },
-
-    _streamCheckContent : function(cb, error) {
-        // タイマーリセット
-        clearTimeout(this._streamTimer);
-        this._streamTimer = setTimeout(function() {
-            this._StreamConnectionError = true;
-            this._streamXhr.abort();
-        }.bind(this), streamMaxTime);
-
-        // 500件を超えるアイテムを受信した場合
-        if (this._streamItems > streamMaxItems) {
-            this._streamXhr.abort();
-            return;
-        }
-
-        var responseText = this._streamXhr.responseText;
-        while (true) {
-            // 開始位置から \r までの範囲を切り出す
-            let index = responseText.indexOf('\r', this._streamOffset);
-            if (index == -1) break;
-
-            let line = responseText.substr(
-                this._streamOffset,
-                index - this._streamOffset
-            );
-
-            // 接続維持用の空行でない場合
-            if (line.length >= 2) {
-                try {
-                    cb({ status : TwitSideModule.TWEET_STATUS.STREAM_RECEIVED,
-                         data : JSON.parse(line) });
-                } catch (e) {
-                    error({ result : line,
-                            error : e,
-                            status : this._streamXhr.status });
-                }
-                ++this._streamItems;
-            }
-            this._streamOffset = index + 2;
-        }
     },
 
     // 認証サーバへシグネチャ取得

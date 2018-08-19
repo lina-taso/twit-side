@@ -219,8 +219,6 @@ var UI = {
                           data.original_inlineid,
                           data.reply);
             break;
-        case TwitSideModule.UPDATE.STREAM_EVENT:
-            break;
         case TwitSideModule.UPDATE.PROGRESS:
             showProgressbar(data.data);
             break;
@@ -301,17 +299,12 @@ var UI = {
             var columnid = data.columnid;
 
             var $column = $('#'+columnid),
-                $update_button = $column.find('.updateButton'),
-                $stream_button = $column.find('.stopStreamButton');
+                $update_button = $column.find('.updateButton');
 
             switch (data.state) {
             case TwitSideModule.TL_STATE.STOPPED:
                 showLoadingProgressbar(false, columnid);
                 $update_button.attr('data-disabled', 'false');
-                break;
-            case TwitSideModule.TL_STATE.STREAM_STOPPED:
-                $column.attr('data-stream-waiting', '');
-                $stream_button.attr('data-disabled', 'true');
                 break;
             case TwitSideModule.TL_STATE.STARTING:
                 showLoadingProgressbar(true, columnid);
@@ -326,24 +319,6 @@ var UI = {
                 break;
             case TwitSideModule.TL_STATE.LOADED:
                 showLoadingProgressbar(false, columnid);
-                break;
-            case TwitSideModule.TL_STATE.STARTING_STREAM:
-                $column.attr('data-stream-waiting', '');
-                $stream_button.attr('data-disabled', 'false');
-                break;
-            case TwitSideModule.TL_STATE.STREAMING:
-                $column.attr('data-stream-waiting', '');
-                $stream_button.attr('data-disabled', 'false');
-                break;
-            case TwitSideModule.TL_STATE.WAITING_START:
-                $update_button.attr('data-disabled', 'true');
-                $column.attr('data-stream-waiting', '');
-                $stream_button.attr('data-disabled', 'false');
-                break;
-            case TwitSideModule.TL_STATE.WAITING_STREAM:
-                $update_button.attr('data-disabled', 'false');
-                $column.attr('data-stream-waiting', 'true');
-                $stream_button.attr('data-disabled', 'false');
                 break;
             }
 
@@ -2068,15 +2043,6 @@ function timelineMove(dir_str)
         UI.getActiveColumn().children('.timelineBox').children().first().focus();
     else if (dir_str == 'bottom')
         UI.getActiveColumn().children('.timelineBox').children().last().focus();
-}
-
-// ストリーム停止
-function stopStream(columnindex_int)
-{
-    browser.runtime.sendMessage({ command : TwitSideModule.COMMAND.COLUMN_OPE,
-                                  action : TwitSideModule.COMMAND.TL_STOPSTREAM,
-                                  columnindex : columnindex_int,
-                                  win_type : UI._win_type });
 }
 
 // キーボードイベント

@@ -157,14 +157,13 @@ function showColumns(focus)
                 $listItem.children().eq(3).find('input').prop('checked', columninfo.options.notif);
                 $listItem.children().eq(4).find('input').prop('checked', columninfo.options.onstart);
                 $listItem.children().eq(5).find('input').prop('checked', columninfo.options.autoreload);
-                $listItem.children().eq(6).find('input').prop('checked', columninfo.options.stream);
-                $listItem.children().eq(7).find('input').prop('checked', columninfo.options.veil);
+                $listItem.children().eq(6).find('input').prop('checked', columninfo.options.veil);
 
                 if (columninfo.parameters.q) {
-                    $listItem.children().eq(8).attr('title', 'KEYWORD: ' + columninfo.parameters.q);
+                    $listItem.children().eq(7).attr('title', 'KEYWORD: ' + columninfo.parameters.q);
                 }
                 if (columninfo.parameters.list_id) {
-                    $listItem.children().eq(8).attr('title', 'LISTID: ' + columninfo.parameters.list_id);
+                    $listItem.children().eq(7).attr('title', 'LISTID: ' + columninfo.parameters.list_id);
                 }
                 $listItem.appendTo($columnList);
             }
@@ -237,7 +236,7 @@ function resetAddColumnC(columninfo)
         $('#screenname').removeAttr('disabled')[0].selectedIndex = 0;
         $('#tlType > .tlTypeOption:gt(4)').css('display', 'none').attr('disabled', 'disabled');
         $('#tlType').removeAttr('disabled')[0].selectedIndex = 0;
-        $('#notif, #onstart, #autoreload, #stream, #veil').prop('checked', false);
+        $('#notif, #onstart, #autoreload, #veil').prop('checked', false);
         $('#parameter').css('display', 'none');
     }
     else {
@@ -254,7 +253,6 @@ function resetAddColumnC(columninfo)
         $('#notif').prop('checked', columninfo.options.notif);
         $('#onstart').prop('checked', columninfo.options.onstart);
         $('#autoreload').prop('checked', columninfo.options.autoreload);
-        $('#stream').prop('checked', columninfo.options.stream);
         $('#veil').prop('checked', columninfo.options.veil);
         if (columninfo.parameters.q) {
             $('.columninfoBox:eq(8)').css('display', '');
@@ -278,60 +276,49 @@ function checkboxControl()
     var tlType = parseInt($('#tlType')[0].selectedOptions[0].value),
         $notif = $('#notif'),
         $onstart = $('#onstart'),
-        $autoreload = $('#autoreload'),
-        $stream = $('#stream');
+        $autoreload = $('#autoreload');
 
     switch (tlType) {
     case TwitSideModule.TL_TYPE.TIMELINE:
         $notif.removeAttr('disabled');
         $onstart.removeAttr('disabled');
         $autoreload.removeAttr('disabled');
-        $stream.removeAttr('disabled');
-        $autoreload.disabled = $stream.checked ? true : false;
-        $stream.disabled = $autoreload.checked ? true : false;
         break;
     case TwitSideModule.TL_TYPE.CONNECT:
         $notif.attr('disabled', 'disabled'); $notif.prop('checked', false);
         $onstart.removeAttr('disabled');
         $autoreload.removeAttr('disabled');
-        $stream.attr('disabled', 'disabled'); $stream.prop('checked', false);
         break;
     case TwitSideModule.TL_TYPE.RETWEETED:
         $notif.attr('disabled', 'disabled'); $notif.prop('checked', false);
         $onstart.removeAttr('disabled');
         $autoreload.removeAttr('disabled');
-        $stream.attr('disabled', 'disabled'); $stream.prop('checked', false);
         break;
     case TwitSideModule.TL_TYPE.FAVORITE:
         $notif.attr('disabled', 'disabled'); $notif.prop('checked', false);
         $onstart.removeAttr('disabled');
         $autoreload.removeAttr('disabled');
-        $stream.attr('disabled', 'disabled'); $stream.prop('checked', false);
         break;
     case TwitSideModule.TL_TYPE.DIRECTMESSAGE:
         $notif.attr('disabled', 'disabled'); $notif.prop('checked', false);
         $onstart.removeAttr('disabled');
         $autoreload.removeAttr('disabled');
-        $stream.attr('disabled', 'disabled'); $stream.prop('checked', false);
         break;
     case TwitSideModule.TL_TYPE.SEARCH:
         $notif.removeAttr('disabled');
         $onstart.removeAttr('disabled');
         $autoreload.removeAttr('disabled');
-        $stream.attr('disabled', 'disabled'); $stream.prop('checked', false);
         break;
     case TwitSideModule.TL_TYPE.LISTTIMELINE:
         $notif.removeAttr('disabled');
         $onstart.removeAttr('disabled');
         $autoreload.removeAttr('disabled');
-        $stream.attr('disabled', 'disabled'); $stream.prop('checked', false);
         break;
     }
 
     if ($notif.attr('disabled')) $notif.prop('checked', false);
     if ($onstart.attr('disabled')) $onstart.prop('checked', false);
     if ($autoreload.attr('disabled')) $autoreload.prop('checked', false);
-    if ($stream.attr('disabled')) $stream.prop('checked', false);
 }
 
 
@@ -357,7 +344,6 @@ function onAcceptForAddColumn()
               userid : $('#screenname')[0].selectedOptions[0].value,
               options : { onstart : $('#onstart').prop('checked'),
                           autoreload : $('#autoreload').prop('checked'),
-                          stream : $('#stream').prop('checked'),
                           notif : $('#notif').prop('checked'),
                           veil : $('#veil').prop('checked') },
               parameters : null })
@@ -375,7 +361,6 @@ function onAcceptForAddColumn()
                   columnlabel : $('#columnLabel').val(),
                   options : { onstart : $('#onstart').prop('checked'),
                               autoreload : $('#autoreload').prop('checked'),
-                              stream : $('#stream').prop('checked'),
                               notif : $('#notif').prop('checked'),
                               veil : $('#veil').prop('checked') },
                   parameters : null }

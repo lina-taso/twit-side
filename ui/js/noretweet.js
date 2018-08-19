@@ -145,7 +145,6 @@ async function showNoretweets()
           temp_index : 0,
           options : { onstart : false,
                       autoreload : false,
-                      stream : false,
                       notif : false,
                       veil : false },
           parameters : null });

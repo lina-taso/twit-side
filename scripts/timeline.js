@@ -35,27 +35,19 @@ var Timeline = function(
         data : {}, // 順序無視生データ { meta, raw }
         ids : [] // ソートされたid一覧
     };
-    // ストリームのタイマー時間
-    this._wait = 0;
-    this._waitClearTimer = null;
-    this._streamReconnectTimer = null;
-    this._lastStreamDisconnectReason = null;
     // 自動更新タイマー
     this._autoReloadTimer = null;
     // 自動削除タイマー
     this._autoClearTimer = null;
     // オプション
     this._autoReloadEnabled = false;
-    this._streamEnabled = false;
     this._notifEnabled = false;
     // ステータス
     this._state = TwitSideModule.TL_STATE.STOPPED;
     this._state2 = TwitSideModule.TL_STATE.STOPPED;
-    this._streamstate = TwitSideModule.TL_STATE.STREAM_STOPPED;
     // options_hash
     this._getNewerHash = {};
     this._getOlderHash = {};
-    this._startStreamHash = {};
     // 回数制限（1分間）
     this._limitCount = {
         retweet : {
@@ -63,8 +55,6 @@ var Timeline = function(
             history : []
         }
     };
-    // ストリーム用フォロー
-    this._follows = {ids : [], updated : 0};
 
     // オートクリア開始
     this._autoClearCount = 0;
@@ -79,7 +69,6 @@ Timeline.prototype = {
     // オブジェクト削除前のお掃除
     beforeDestroy: function()
     {
-        this.stopStream();
         this.stopAutoReload();
         this.stopAutoClear();
         // フレンドクリア
@@ -149,11 +138,6 @@ Timeline.prototype = {
     {
         return this._state2;
     },
-    // Stream state
-    get loadingStreamState()
-    {
-        return this._streamstate;
-    },
     // リスト使用
     get isList()
     {
@@ -220,11 +204,6 @@ Timeline.prototype = {
     {
         this._getOlderHash = options_hash || {};
     },
-    // 読み込みパラメータ
-    set startStreamHash(options_hash)
-    {
-        this._startStreamHash = options_hash || {};
-    },
     // 全ツイート取得
     get allTweets()
     {
@@ -253,11 +232,6 @@ Timeline.prototype = {
         // 無効時に停止
         if (!options.autoreload) this.stopAutoReload();
 
-        // ストリーム
-        this._streamEnabled = options.stream;
-        // 無効化時に停止
-        if (!options.stream) this.stopStream();
-
         // 起動時読み込み
         if (options.onstart
             && this._state === TwitSideModule.TL_STATE.STOPPED)
@@ -269,12 +243,6 @@ Timeline.prototype = {
         postMessage({
             reason : TwitSideModule.UPDATE.STATE_CHANGED,
             state : this._state,
-            columnid : this._columnid,
-            window_type : this._win_type
-        });
-        postMessage({
-            reason : TwitSideModule.UPDATE.STATE_CHANGED,
-            state : this._streamstate,
             columnid : this._columnid,
             window_type : this._win_type
         });
@@ -453,11 +421,8 @@ Timeline.prototype = {
                 window_type : this._win_type
             });
 
-            // ストリーム開始
-            if (this._streamEnabled)
-                this.startStream();
             // 自動再読込開始
-            else if (this._autoReloadEnabled)
+            if (this._autoReloadEnabled)
                 this.startAutoReload();
         }
         function error(result)
@@ -656,223 +621,6 @@ Timeline.prototype = {
                 columnid : this._columnid,
                 window_type : this._win_type,
                 message : TwitSideModule.Message.transMessage(result)
-            });
-        }
-    },
-
-    /**
-     * ストリーム
-     */
-    startStream: function(reconnect)
-    {
-        if (this._streamstate !== TwitSideModule.TL_STATE.STREAM_STOPPED) {
-            if (this._streamstate === TwitSideModule.TL_STATE.WAITING_STREAM) {
-                this._reportError('reconnectDisabled');
-            }
-            return;
-        }
-
-        // Twitterに送信するオプション
-        var optionsHash = JSON.parse(JSON.stringify(this._startStreamHash));
-
-        this._streamstate = TwitSideModule.TL_STATE.STARTING_STREAM;
-        postMessage({
-            reason : TwitSideModule.UPDATE.STATE_CHANGED,
-            state : TwitSideModule.TL_STATE.STARTING_STREAM,
-            columnid : this._columnid,
-            window_type : this._win_type
-        });
-
-        // 読み込み
-        this._tweet.startUserStream(optionsHash, stream_callback.bind(this), stream_error.bind(this))
-            .catch(error.bind(this));
-
-        function error(result)
-        {
-            TwitSideModule.debug.log('start stream failed with xhr error');
-            this.reconnectStream(TwitSideModule.TWEET_STATUS.CLOSED_NETWORK);
-        }
-
-        function stream_callback(result)
-        {
-            switch (result.status) {
-            case TwitSideModule.TWEET_STATUS.CONNECTED:
-                this._streamstate = TwitSideModule.TL_STATE.STREAMING;
-                postMessage({
-                    reason : TwitSideModule.UPDATE.STATE_CHANGED,
-                    state : TwitSideModule.TL_STATE.STREAMING,
-                    columnid : this._columnid,
-                    window_type : this._win_type,
-                    message : TwitSideModule.Message.transMessage('streamConnected')
-                });
-                // 5秒以上経過で待ち時間クリア
-                this._waitClearTimer = setTimeout(function() {
-                    this._waitClearTimer = null;
-                    this._wait = 0;
-                    // 再接続時に再読込
-                    if (reconnect)
-                        this.getNewer();
-                }.bind(this), 5000);
-                return;
-            case TwitSideModule.TWEET_STATUS.STREAM_RECEIVED:
-                this._analyzeStreamData(result.data);
-                return;
-            case TwitSideModule.TWEET_STATUS.CLOSED_MANUALLY:
-                this._streamstate = TwitSideModule.TL_STATE.STREAM_STOPPED;
-                postMessage({
-                    reason : TwitSideModule.UPDATE.STATE_CHANGED,
-                    state : TwitSideModule.TL_STATE.STREAM_STOPPED,
-                    columnid : this._columnid,
-                    window_type : this._win_type,
-                    message : TwitSideModule.Message.transMessage('streamManuallyStopped')
-                });
-                // 待ち時間クリア
-                clearTimeout(this._waitClearTimer);
-                this._waitClearTimer = null;
-                this._wait = 0;
-                this._lastStreamDisconnectReason = result.status;
-                // フォロー初期化
-                this._follows = {ids : [], updated : 0};
-                return;
-
-            case TwitSideModule.TWEET_STATUS.CLOSED_MAINTAINANCE:
-                this._streamstate = TwitSideModule.TL_STATE.WAITING_STREAM;
-                postMessage({
-                    reason : TwitSideModule.UPDATE.STATE_CHANGED,
-                    state : TwitSideModule.TL_STATE.WAITING_STREAM,
-                    columnid : this._columnid,
-                    window_type : this._win_type,
-                    message : TwitSideModule.Message.transMessage('streamMaintainance')
-                });
-                // 待ち時間クリア
-                clearTimeout(this._waitClearTimer);
-                this._waitClearTimer = null;
-                this._wait = 0;
-                this._lastStreamDisconnectReason = result.status;
-                break;
-            case TwitSideModule.TWEET_STATUS.CLOSED_API:
-                this._streamstate = TwitSideModule.TL_STATE.WAITING_STREAM;
-                postMessage({
-                    reason : TwitSideModule.UPDATE.STATE_CHANGED,
-                    state : TwitSideModule.TL_STATE.WAITING_STREAM,
-                    columnid : this._columnid,
-                    window_type : this._win_type,
-                    message : TwitSideModule.Message.transMessage('streamExceedApiLimit')
-                });
-                // 待ち時間クリアしない
-                clearTimeout(this._waitClearTimer);
-                this._waitClearTimer = null;
-                this._lastStreamDisconnectReason = result.status;
-                break;
-            case TwitSideModule.TWEET_STATUS.CLOSED_NETWORK:
-            case TwitSideModule.TWEET_STATUS.CLOSED_HTTP:
-                this._streamstate = TwitSideModule.TL_STATE.WAITING_STREAM;
-                postMessage({
-                    reason : TwitSideModule.UPDATE.STATE_CHANGED,
-                    state : TwitSideModule.TL_STATE.WAITING_STREAM,
-                    columnid : this._columnid,
-                    window_type : this._win_type,
-                    message : TwitSideModule.Message.transMessage('streamDisconnected')
-                });
-                // 待ち時間クリアしない
-                clearTimeout(this._waitClearTimer);
-                this._waitClearTimer = null;
-                this._lastStreamDisconnectReason = result.status;
-                break;
-            }
-            // フォロー初期化
-            this._follows = {ids : [], updated : 0};
-            this.reconnectStream(result.status);
-        }
-        function stream_error(result)
-        {
-            // 自動再接続に失敗
-            if (this._wait != 0)
-                this.reconnectStream(this._lastStreamDisconnectReason);
-
-            // API制限
-            else if (result.status == 420)
-                this.reconnectStream(TwitSideModule.TWEET_STATUS.CLOSED_API);
-
-            // その他のエラーはストリーム停止
-            else {
-                TwitSideModule.debug.log('start stream failed');
-
-                this.stopStream();
-                this._streamstate = TwitSideModule.TL_STATE.STREAM_STOPPED;
-                postMessage({
-                    reason : TwitSideModule.UPDATE.STATE_CHANGED,
-                    state : TwitSideModule.TL_STATE.STREAM_STOPPED,
-                    columnid : this._columnid,
-                    window_type : this._win_type,
-                    message : TwitSideModule.Message.transMessage(result)
-                });
-                // 待ち時間クリア
-                this._wait = 0;
-            }
-        }
-    },
-    reconnectStream: function(status)
-    {
-        // エラーと状態変化の両方による再読込を阻止
-        if (this._streamReconnectTimer != null)
-            return;
-
-        TwitSideModule.debug.log('waiting reconnecting to stream');
-
-        this._streamstate = TwitSideModule.TL_STATE.WAITING_STREAM;
-        postMessage({
-            reason : TwitSideModule.UPDATE.STATE_CHANGED,
-            state : TwitSideModule.TL_STATE.WAITING_STREAM,
-            columnid : this._columnid,
-            window_type : this._win_type
-        });
-
-        // ウェイトして再接続
-        switch (status) {
-        case TwitSideModule.TWEET_STATUS.CLOSED_NETWORK:
-            // 待ち時間
-            if (this._wait == 0) this._wait = networkWait;
-            else if (this._wait < 16 * 1000) this._wait *= 2;
-            break;
-        case TwitSideModule.TWEET_STATUS.CLOSED_API:
-            // 待ち時間
-            if (this._wait == 0) this._wait = apiWait;
-            else if (this._wait < 900 * 1000) this._wait *= 2;
-            break;
-        case TwitSideModule.TWEET_STATUS.CLOSED_HTTP:
-            // 待ち時間
-            if (this._wait == 0) this._wait = httpWait;
-            else if (this._wait < 320 * 1000) this._wait *= 2;
-            break;
-        }
-        this._streamReconnectTimer = setTimeout(function() {
-            TwitSideModule.debug.log('reconnecting to stream automatically');
-
-            this._streamReconnectTimer = null;
-            this._streamstate = TwitSideModule.TL_STATE.STREAM_STOPPED;
-            // ストリーム開始後にgetNewer
-            this.startStream(true);
-        }.bind(this), this._wait);
-    },
-    stopStream: function()
-    {
-        this._tweet.stopUserStream();
-
-        // 再接続中なら、再接続も停止
-        if (this._streamReconnectTimer != null) {
-            // 待ち時間クリア
-            clearTimeout(this._streamReconnectTimer);
-            this._streamReconnectTimer = null;
-            this._wait = 0;
-
-            this._streamstate = TwitSideModule.TL_STATE.STREAM_STOPPED;
-            postMessage({
-                reason : TwitSideModule.UPDATE.STATE_CHANGED,
-                state : TwitSideModule.TL_STATE.STREAM_STOPPED,
-                columnid : this._columnid,
-                window_type : this._win_type,
-                message : TwitSideModule.Message.transMessage('reconnectStopped')
             });
         }
     },
@@ -1749,162 +1497,6 @@ Timeline.prototype = {
         }
     },
 
-    /**
-     * ストリーム
-     */
-    _analyzeStreamData: function(data, loop)
-    {
-        if (data.delete) {
-        }
-        else if (data.scrub_geo) {
-        }
-        else if (data.limit) {
-        }
-        else if (data.status_withheld) {
-        }
-        else if (data.user_withheld) {
-        }
-        else if (data.disconnect) {
-        }
-        else if (data.warning) {
-        }
-        else if (data.direct_message) {
-            this._analyzeStreamDMEvent(data);
-        }
-        else if (data.event) {
-            this._analyzeStreamEvent(data);
-        }
-        else if (data.friends_str) {
-            //TwitSideModule.Friends.updateFollowsFromStream(this._own_userid, data.friends_str);
-            this._follows.ids = data.friends_str;
-            this._follows.updated = TwitSideModule.text.getUnixTime();
-        }
-        else {
-            // ツイート取得中は表示を待つ
-            if (this._state === TwitSideModule.TL_STATE.STARTING
-                || this._state === TwitSideModule.TL_STATE.LOADING) {
-                // 無限ループ防止
-                if (loop && loop > TwitSideModule.config.getPref('timeout')) return;
-                setTimeout(function() {
-                    loop ? loop++ : loop = 1;
-                    this._analyzeStreamData(data, loop);
-                }.bind(this), 1000);
-                return;
-            }
-
-            // 受信データを登録
-            let tweets = this._saveTweets([data], null, true),
-                nextid = null;
-
-            // 最後のIDの次を検索
-            if (tweets.length) {
-                let lastidx = this.record.ids.indexOf((ZERO_FILL + tweets[0].raw.id_str).slice(-ZERO_FILL_LEN));
-                if (lastidx != null)
-                    nextid = this.record.ids[lastidx + 1];
-            }
-
-            postMessage({
-                reason : TwitSideModule.UPDATE.TWEET_LOADED,
-                tweets : tweets,
-                nextid : nextid,
-                tl_type : this._tl_type,
-                columnid : this._columnid,
-                scroll_top : true,
-                window_type : this._win_type
-            });
-        }
-    },
-    // DM受信イベント
-    _analyzeStreamDMEvent: function(result)
-    {
-        var sender = result.direct_message.sender || '',
-            recipient = result.direct_message.recipient || '',
-            text = result.direct_message.text || '';
-
-        // 最近のスクリーンネーム
-        TwitSideModule.Friends.updateLatestFriends(sender.screen_name);
-
-        if (recipient.id_str === this._own_userid
-            && this._notifEnabled
-            && TwitSideModule.config.getPref('notif_directmessage'))
-            TwitSideModule.Message.showNotification({
-                userid : this._own_userid,
-                title : browser.i18n.getMessage(
-                    'newDirectMessage', ['@' + sender.screen_name]),
-                icon : sender.profile_image_url_https.replace('_normal.', '.'),
-                content : text
-            });
-    },
-    // ストリームイベント
-    _analyzeStreamEvent: function(result)
-    {
-        var source = result.source || '',
-            target = result.target || '',
-            tweet = result.target_object || '';
-
-        switch (result.event) {
-        case 'favorite':
-            // 最近のスクリーンネーム
-            TwitSideModule.Friends.updateLatestFriends(source.screen_name);
-            if (target.id_str === this._own_userid
-                && this._notifEnabled
-                && TwitSideModule.config.getPref('notif_favorite'))
-                TwitSideModule.Message.showNotification({
-                    userid : this._own_userid,
-                    title : browser.i18n.getMessage(
-                        'newFavorited', ['@' + source.screen_name]),
-                    content : tweet.text
-                });
-            break;
-        case 'unfavorite':
-            // 最近のスクリーンネーム
-            TwitSideModule.Friends.updateLatestFriends(source.screen_name);
-            if (target.id_str === this._own_userid
-                && this._notifEnabled
-                && TwitSideModule.config.getPref('notif_unfavorite'))
-                TwitSideModule.Message.showNotification({
-                    userid : this._own_userid,
-                    title : browser.i18n.getMessage(
-                        'newUnFavorited', ['@' + source.screen_name]),
-                    content : tweet.text
-                });
-            break;
-        case 'follow':
-            // 最近のスクリーンネーム
-            TwitSideModule.Friends.updateLatestFriends(source.screen_name);
-            if (target.id_str === this._own_userid
-                && this._notifEnabled
-                && TwitSideModule.config.getPref('notif_follow'))
-                TwitSideModule.Message.showNotification({
-                    userid : this._own_userid,
-                    title : browser.i18n.getMessage(
-                        'newFollowed', ['@' + source.screen_name]),
-                    icon : source.profile_image_url_https.replace('_normal.', '.'),
-                    content : ''
-                });
-            // フォロー更新
-            if (source.id_str === this._own_userid)
-                this._follows.ids.unshift(target.id_str);
-            break;
-        case 'unfollow':
-            // フォロー更新
-            if (source.id_str === this._own_userid) {
-                let idx = this._follows.ids.indexOf(target.id_str);
-                if (idx >= 0)
-                    this._follows.ids.splice(idx, 1);
-            }
-            break;
-        case 'list_created':
-        case 'list_destroyed':
-        case 'list_updated':
-        case 'list_member_added':
-        case 'list_member_removed':
-        case 'list_user_subscribed':
-        case 'list_user_unsubscribed':
-        default:
-            break;
-        }
-    },
     // ツイートを保存して変更があったid一覧を返す
     _saveTweets: function(data, more, notif)
     {
@@ -1992,13 +1584,6 @@ Timeline.prototype = {
                 if (datum.retweeted_status
                     && noretweets.length
                     && noretweets.indexOf(datum.user.id_str) >= 0)
-                    continue;
-
-                // フォロー外のリツイートは破棄（ストリーム向け）
-                if (this._follows.ids.length
-                    && datum.retweeted_status
-                    && TwitSideModule.config.getPref('retweets_onlyfriends')
-                    && this._follows.ids.indexOf(datum.user.id_str) < 0)
                     continue;
 
                 if (this.record.ids.indexOf(datum.id_str) < 0) {
@@ -2372,17 +1957,6 @@ Timeline.prototype = {
             urls.provider = 'moby';
             urls.id = RegExp.$1;
             break;
-
-//        case (re = RegExp('^https?://vine[.]co/v/([\\w-]+)([?].*)?$')).test(url):
-//            // vine
-//            urls.rawurl = '';
-//            urls.provider = 'vine';
-//            urls.id = RegExp.$1;
-//            urls.thumburl = url.replace(re, browser.extension.getURL('images/loading.svg')
-//                                        + '?' + urls.provider + '#' + urls.id);
-//            urls.loading = true;
-//            analyzePicApi().catch(this._reportError);
-//            break;
 
         case (re = RegExp('^https?://ton[.]twitter[.]com/1[.]1([\\w/.]+)$')).test(url):
             // twitter (for DM)

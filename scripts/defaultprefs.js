@@ -28,7 +28,7 @@ TwitSideModule.DefaultPrefs = {
     URL_tabactive: true,
     mute_onsearch: false,
     mute_ts: true,
-    retweets_onlyfriends: false,
+//    retweets_onlyfriends: false,
     domestic_search: true,
     // style
     theme: "card_white",
@@ -50,10 +50,10 @@ TwitSideModule.DefaultPrefs = {
     // notification
     notif_all: false,
     notif_forme: true,
-    notif_forme_retweeted: true,
-    notif_favorite: true,
-    notif_unfavorite: true,
-    notif_follow: true,
+//    notif_forme_retweeted: true,
+//    notif_favorite: true,
+//    notif_unfavorite: true,
+//    notif_follow: true,
     notif_directmessage: true,
     notif_count: 10,
     // tweetmenu

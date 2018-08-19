@@ -341,7 +341,6 @@ async function searchUser()
           temp_index : 0,
           options : { onstart : false,
                       autoreload : false,
-                      stream : false,
                       notif : false,
                       veil : false },
           parameters : { user_id : profileJson.id_str } });
@@ -358,7 +357,6 @@ async function searchUser()
           temp_index : 1,
           options : { onstart : false,
                       autoreload : false,
-                      stream : false,
                       notif : false,
                       veil : false },
           parameters : { user_id : profileJson.id_str } });
@@ -375,7 +373,6 @@ async function searchUser()
           temp_index : 2,
           options : { onstart : false,
                       autoreload : false,
-                      stream : false,
                       notif : false,
                       veil : false },
           parameters : { user_id : profileJson.id_str } });
@@ -392,7 +389,6 @@ async function searchUser()
           temp_index : 3,
           options : { onstart : false,
                       autoreload : false,
-                      stream : false,
                       notif : false,
                       veil : false },
           parameters : { user_id : profileJson.id_str } });
@@ -409,7 +405,6 @@ async function searchUser()
           temp_index : 4,
           options : { onstart : false,
                       autoreload : false,
-                      stream : false,
                       notif : false,
                       veil : false },
           parameters : { user_id : profileJson.id_str } });
@@ -426,7 +421,6 @@ async function searchUser()
           temp_index : 5,
           options : { onstart : false,
                       autoreload : false,
-                      stream : false,
                       notif : false,
                       veil : false },
           parameters : {user_id : profileJson.id_str} });
@@ -443,7 +437,6 @@ async function searchUser()
           temp_index : 6,
           options : { onstart : false,
                       autoreload : false,
-                      stream : false,
                       notif : false,
                       veil : false },
           parameters : { user_id : profileJson.id_str } });
@@ -461,7 +454,6 @@ async function searchUser()
               temp_index : 7,
               options : { onstart : false,
                           autoreload : false,
-                          stream : false,
                           notif : false,
                           veil : false },
               parameters : null });
@@ -808,7 +800,6 @@ function onClickAddList2Column(vbox)
               win_type : TwitSideModule.WINDOW_TYPE.MAIN,
               options : { onstart : true,
                           autoreload : true,
-                          stream : false,
                           notif : true,
                           veil : false },
               parameters : { list_id : listid } }),

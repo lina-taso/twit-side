@@ -142,16 +142,6 @@ const l10nDefinition = [
         "word"     : "prefMute_onsearch"
     },
     {
-        "selector" : "[id='label.extra.retweet']",
-        "place"    : "text",
-        "word"     : "prefLabelExtraRetweet"
-    },
-    {
-        "selector" : "[for=retweets_onlyfriends]",
-        "place"    : "text",
-        "word"     : "prefRetweets_onlyfriends"
-    },
-    {
         "selector" : "[id='label.extra.search']",
         "place"    : "text",
         "word"     : "prefLabelExtraSearch"
@@ -287,11 +277,6 @@ const l10nDefinition = [
         "word"     : "prefLabelNotification"
     },
     {
-        "selector" : "[id='label.notification.enabledonstream']",
-        "place"    : "text",
-        "word"     : "prefLabelNotificationEnabledonstream"
-    },
-    {
         "selector" : "[id='label.notification.turnonnotif']",
         "place"    : "text",
         "word"     : "prefLabelNotificationTurnonnotif"
@@ -305,26 +290,6 @@ const l10nDefinition = [
         "selector" : "[for=notif_forme]",
         "place"    : "text",
         "word"     : "prefNotif_forme"
-    },
-    {
-        "selector" : "[for=notif_forme_retweeted]",
-        "place"    : "text",
-        "word"     : "prefNotif_forme_retweeted"
-    },
-    {
-        "selector" : "[for=notif_favorite]",
-        "place"    : "text",
-        "word"     : "prefNotif_favorite"
-    },
-    {
-        "selector" : "[for=notif_unfavorite]",
-        "place"    : "text",
-        "word"     : "prefNotif_unfavorite"
-    },
-    {
-        "selector" : "[for=notif_follow]",
-        "place"    : "text",
-        "word"     : "prefNotif_follow"
     },
     {
         "selector" : "[for=notif_directmessage]",

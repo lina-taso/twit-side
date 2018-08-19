@@ -82,28 +82,6 @@
         "message" : "カラムを追加しました。"
     },
 
-    "streamConnected" : {
-        "message" : "ストリームに接続しました。"
-    },
-    "streamManuallyStopped" : {
-        "message" : "ストリームを手動切断しました。"
-    },
-    "streamDisconnected" : {
-        "message" : "ストリームが切断されました。"
-    },
-    "streamExceedApiLimit" : {
-        "message" : "API制限に達したためストリームに接続できませんでした。"
-    },
-    "streamMaintainance" : {
-        "message" : "ストリームの定期切断を行いました。"
-    },
-    "reconnectDisabled" : {
-        "message" : "再接続が自動で行われるまでお待ちください。"
-    },
-    "reconnectStopped" : {
-        "message" : "ストリームの再接続を中止しました。"
-    },
-
     "commonError" : {
         "message" : "内部エラーです。"
     },
@@ -761,9 +739,6 @@
     "columnsAutoreload" : {
         "message" : "自動更新"
     },
-    "columnsStream" : {
-        "message" : "ストリーム"
-    },
     "columnsVeil" : {
         "message" : "プライバシーモード"
     },
@@ -903,7 +878,7 @@
         "message" : "ただし、検索カラムは次の時間毎に更新する [秒]"
     },
     "prefAutoreload_aftertweet" : {
-        "message" : "ツイート投稿後にそのユーザのタイムラインを更新する（ストリーム接続時は無視されます）"
+        "message" : "ツイート投稿後にそのユーザのタイムラインを更新する"
     },
     "prefAutoreload_totop" : {
         "message" : "カラムの最上部を維持する"
@@ -934,12 +909,6 @@
     },
     "prefMute_ts" : {
         "message" : "Twit Side独自ミュート機能を有効にする"
-    },
-    "prefLabelExtraRetweet" : {
-        "message" : "リツイート"
-    },
-    "prefRetweets_onlyfriends" : {
-        "message" : "フォロー外のリツイートを表示しない（ストリーム有効時）"
     },
     "prefLabelExtraSearch" : {
         "message" : "検索"
@@ -1028,29 +997,14 @@
     "prefLabelNotificationTurnonnotif" : {
         "message" : "カラムの設定で通知機能を有効にしてください"
     },
-    "prefLabelNotificationEnabledonstream" : {
-        "message" : "* ストリーム使用時のみ有効"
-    },
     "prefNotif_all" : {
         "message" : "すべてのツイートを通知する（ポップアップのみ）"
     },
     "prefNotif_forme" : {
         "message" : "あなた宛のツイートが届いたことを通知する"
     },
-    "prefNotif_forme_retweeted" : {
-        "message" : "あなたのツイートがリツイートされたことを通知する *"
-    },
-    "prefNotif_favorite" : {
-        "message" : "あなたのツイートがお気に入りに追加されたことを通知する *"
-    },
-    "prefNotif_unfavorite" : {
-        "message" : "あなたのツイートがお気に入りから削除されたことを通知する *"
-    },
-    "prefNotif_follow" : {
-        "message" : "あなたがフォローされたことを通知する *"
-    },
     "prefNotif_directmessage" : {
-        "message" : "ダイレクトメッセージが届いたことを通知する *"
+        "message" : "ダイレクトメッセージが届いたことを通知する（開発予定）"
     },
     "prefNotif_count" : {
         "message" : "1ページに表示する通知の件数"

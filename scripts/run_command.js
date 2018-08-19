@@ -134,10 +134,6 @@ function COLUMN_OPE(message) {
         return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type
         ).retweeters(message.tweetid));
-    case TwitSideModule.COMMAND.TL_STOPSTREAM:
-        return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
-            message.columnindex, 'timeline', message.win_type
-        ).stopStream());
     case TwitSideModule.COMMAND.TL_LISTCREATE:
         return TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type

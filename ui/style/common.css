@@ -1478,11 +1478,6 @@ input[type="text"], textarea, select {
     opacity: 1 !important; }
   .column[data-column-type="follow"] .tweetBox, .column[data-column-type="follower"] .tweetBox {
     cursor: pointer; }
-  .column[data-stream-waiting="true"] .columnMenuBox .stopStreamButton .streamStop {
-    display: none; }
-  .column[data-stream-waiting="true"] .columnMenuBox .stopStreamButton .streamWait {
-    display: initial;
-    animation: spin 1s linear infinite; }
 
 .timelineBox {
   width: 100%;
@@ -1751,8 +1746,6 @@ input[type="text"], textarea, select {
   .columnMenuBox:focus, .columnMenuBox:hover {
     opacity: 1;
     pointer-events: initial; }
-  .columnMenuBox .stopStreamButton {
-    position: relative; }
   .columnMenuBox .newListButton,
   .columnMenuBox .addColumnButton {
     position: relative; }
@@ -1772,25 +1765,6 @@ input[type="text"], textarea, select {
       [data-button-size="large"] .columnMenuBox .newListButton .buttonImage, [data-button-size="large"]
       .columnMenuBox .addColumnButton .buttonImage {
         font-size: 21px; }
-  .columnMenuBox .streamStop,
-  .columnMenuBox .streamWait {
-    position: absolute;
-    bottom: 0;
-    right: 0; }
-    [data-button-size="xsmall"] .columnMenuBox .streamStop, [data-button-size="xsmall"]
-    .columnMenuBox .streamWait {
-      font-size: 8px; }
-    [data-button-size="small"] .columnMenuBox .streamStop, [data-button-size="small"]
-    .columnMenuBox .streamWait {
-      font-size: 10px; }
-    [data-button-size="medium"] .columnMenuBox .streamStop, [data-button-size="medium"]
-    .columnMenuBox .streamWait {
-      font-size: 12px; }
-    [data-button-size="large"] .columnMenuBox .streamStop, [data-button-size="large"]
-    .columnMenuBox .streamWait {
-      font-size: 14px; }
-  .columnMenuBox .streamWait {
-    display: none; }
   .columnMenuBox .plusImage {
     position: absolute;
     bottom: 0;
@@ -1803,13 +1777,10 @@ input[type="text"], textarea, select {
       font-size: 12px; }
     [data-button-size="large"] .columnMenuBox .plusImage {
       font-size: 14px; }
-  .stopStreamButton,
   .newListButton,
   .newDmButton,
   .addColumnButton {
     display: none; }
-  .column[data-column-type="timeline"] .stopStreamButton {
-    display: initial; }
   .column[data-column-type="directmessage"] .newDmButton {
     display: initial; }
   .column[data-column-type="ownershiplists"] .newListButton {
@@ -3260,9 +3231,7 @@ input[type="text"], textarea, select {
 #columnListHead th:nth-of-type(7) {
   width: 5%; }
 #columnListHead th:nth-of-type(8) {
-  width: 5%; }
-#columnListHead th:nth-of-type(9) {
-  width: 25%; }
+  width: 30%; }
 
 .columnListRow {
   cursor: pointer; }
@@ -3287,8 +3256,6 @@ input[type="text"], textarea, select {
   .columnListRow td:nth-of-type(6) {
     text-align: center; }
   .columnListRow td:nth-of-type(7) {
-    text-align: center; }
-  .columnListRow td:nth-of-type(8) {
     text-align: center; }
 
 /*******************
