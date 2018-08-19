@@ -347,7 +347,7 @@ var ManageColumns = function() {
                                 options, parameters, win_type)
                 .then(() => {
                     // タイムライン更新
-                    updateTimeline(tl, columninfo);
+                    updateTimeline(tl, columns[win_type][columnindex_int]);
 
                     // 更新通知
                     postMessage({
