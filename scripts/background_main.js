@@ -19,29 +19,58 @@ var ports = [],
     windows = {},
     updated = false;
 
+
 // load preferences
 TwitSideModule.config.loadPrefs().then(() => {
     TwitSideModule.debug.log('TwitSide startup');
     init();
 });
 
-
 function startup()
 {
 }
 
-function install()
+async function install()
 {
-    TwitSideModule.browsers.openURL(firstrun_url);
-    updated = true;
-}
+    await TwitSideModule.config.loadPrefs();
 
-async function init()
-{
-    if (updated) {
-        await checkVersion();
+    var current_version = browser.runtime.getManifest().version,
+        config_version = TwitSideModule.config.getPref('version');
+
+    // first run
+    if (!config_version) {
+        await TwitSideModule.browsers.openURL(firstrun_url);
+        await TwitSideModule.config.setPref('version', current_version);
+        return;
+    }
+    // latest release installed
+    if (current_version == config_version) {
+        await TwitSideModule.browsers.openURL(firstrun_url);
+        return;
     }
 
+    // do something after upgrading if necessary.
+    // from ver 0.9.4 stream disable
+    if (config_version < '0.9.4') {
+        let columns = JSON.parse(TwitSideModule.config.getPref('columns') || '{}');
+        for (let i in columns) {
+            if (columns[i].options.stream != null) {
+                // if stream is enabled, enable autoreload
+                if (columns[i].options.stream) {
+                    columns[i].options.autoreload = true;
+                }
+                delete columns[i].options.stream;
+            }
+        }
+        await TwitSideModule.config.setPref('columns', JSON.stringify(columns));
+    }
+
+    await TwitSideModule.config.setPref('version', current_version);
+    browser.runtime.reload();
+}
+
+function init()
+{
     // start TwitSide in background
     TwitSideModule.ManageUsers = new ManageUsers();
     TwitSideModule.ManageColumns = new ManageColumns();
@@ -51,25 +80,6 @@ async function init()
     Promise.all([ TwitSideModule.ManageUsers.initialize(),
                   TwitSideModule.ManageColumns.initialize() ]);
     TwitSideModule.debug.log('TwitSide working in background');
-
-    async function checkVersion()
-    {
-        var addoninfo = browser.runtime.getManifest(),
-        current_version = addoninfo.version,
-        config_version = TwitSideModule.config.getPref('version');
-
-        // from ver 0.9.4 stream disable
-        if (config_version < '0.9.4') {
-            let columns = JSON.parse(TwitSideModule.config.getPref('columns'));
-            for (let i in columns) {
-                delete columns[i].options.stream;
-            }
-            await TwitSideModule.config.setPref('columns', JSON.stringify(columns));
-        }
-
-        // do something after upgrading if necessary.
-        await TwitSideModule.config.setPref('version', current_version);
-    }
 }
 
 // connection from content script

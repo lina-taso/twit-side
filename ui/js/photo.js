@@ -15,7 +15,7 @@ var prefs = {},
 
 window.addEventListener('load', () => {
     localization();
-    buttonize(['.buttonItem'], commandExec);
+    buttonize(['.buttonItem', '#prevPhoto', '#nextPhoto'], commandExec);
     vivify();
 
     // コンフィグ取得
@@ -47,16 +47,6 @@ window.addEventListener('beforeunload', () => {
 // add other event listener
 function vivify()
 {
-    $('#prevPhoto')
-        .on('click', () => {
-            var index = $('#photoContainer').attr('data-active-photo');
-            changePhoto(--index);
-        });
-    $('#nextPhoto')
-        .on('click', () => {
-            var index = $('#photoContainer').attr('data-active-photo');
-            changePhoto(++index);
-        });
 }
 
 // event asignment
@@ -72,6 +62,12 @@ function commandExec(btn)
             .then((win) => {
                 browser.windows.remove(win.id);
             });
+        break;
+    case 'prevPhoto':
+            changePhoto(parseInt($('#photoContainer').attr('data-active-photo')) - 1);
+        break;
+    case 'nextPhoto':
+            changePhoto(parseInt($('#photoContainer').attr('data-active-photo')) + 1);
         break;
 //    case '':
 //        break;

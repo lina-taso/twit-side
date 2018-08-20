@@ -72,7 +72,7 @@ TwitSideModule.config = {
 TwitSideModule.browsers = {
     openURL : function(url)
     {
-        browser.tabs.create({
+        return browser.tabs.create({
             url : url,
             active : TwitSideModule.config.getPref('URL_tabactive')
         });
