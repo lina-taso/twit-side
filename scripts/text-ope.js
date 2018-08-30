@@ -100,10 +100,12 @@ TwitSideModule.text = {
         }
     },
 
-    analyzeTimestamp : function(str)
+    analyzeTimestamp : function(date)
     {
         // Sun Jul 01 11:45:04 +0000 2012
-        return new Date(Date.parse(str));
+        return typeof date === 'number'
+            ? new Date(date)
+            : new Date(Date.parse(date));
     },
 
     getUnixTime : function()

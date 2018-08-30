@@ -1750,9 +1750,6 @@ Timeline.prototype = {
             if (mention.id_str === this._own_userid)
                 // 自分宛
                 meta.isForMe = true;
-
-            // 最近のスクリーンネーム
-            TwitSideModule.Friends.updateLatestFriends(mention);
         }
         // 自分宛
         if (datum.in_reply_to_user_id_str === this._own_userid)

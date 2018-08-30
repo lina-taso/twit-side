@@ -1401,7 +1401,7 @@ var UI = {
         // タイムスタンプ
         $tweetContent.find('.tweetTime')
             .text(TwitSideModule.text.convertTimeStamp(
-                TwitSideModule.text.analyzeTimestamp(recordStatus.created_timestamp),
+                TwitSideModule.text.analyzeTimestamp(parseInt(recordStatus.created_timestamp)),
                 getPref('timeformat')
             ));
 

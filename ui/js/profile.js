@@ -104,8 +104,12 @@ function vivify()
 
             // オートページャ
             if (this.scrollHeight - this.clientHeight - 200 < this.scrollTop
-                && getPref('autopager'))
+                && getPref('autopager')
+                && this.parentNode.dataset.more == '') {
+                // 重複読み込み防止
+                this.parentNode.dataset.more = true;
                 loadMore(this.lastChild);
+            }
         });
 }
 

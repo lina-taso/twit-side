@@ -352,7 +352,7 @@ TwitSideModule.Friends = (function() {
             var idx = latestfriends.findIndex((v) => {
                 return v.id_str == userinfo.id_str;
             });
-            if (idx) latestfriends.splice(idx, 1);
+            if (idx >= 0) latestfriends.splice(idx, 1);
 
             latestfriends.unshift(userinfo);
 
