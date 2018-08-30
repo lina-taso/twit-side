@@ -56,14 +56,14 @@ Lists.prototype = {
         return this._mode;
     },
     // 続きの有無（リスト）
-    get hasMorelist()
+    get hasMoreList()
     {
         return this._lists_cursor != '0';
     },
     // 続きの有無（メンバー）
     get hasMoreListMember()
     {
-        return this._lists.members.cursor != '0';
+        return this._members_cursor != '0';
     },
     // 最初から読み込む（リスト）
     resetListsCursor: function()
@@ -104,7 +104,7 @@ Lists.prototype = {
             this._lists_cursor = result.data.next_cursor_str;
             return Promise.resolve({ status : result.status,
                                      data : result.data.lists,
-                                     more : this._lists_cursor != '0' });
+                                     more : this.hasMoreList });
         }
     },
     // リストメンバー一覧
@@ -134,7 +134,7 @@ Lists.prototype = {
             this._members_cursor = result.data.next_cursor_str;
             return Promise.resolve({ status : result.status,
                                      data : result.data.users,
-                                     more : this._members_cursor != '0' });
+                                     more : this.hasMoreListMember });
         }
     },
 

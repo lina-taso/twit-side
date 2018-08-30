@@ -67,10 +67,9 @@ TwitSideModule.urls = {
         urlFriendshipsUpdate : '/friendships/update.json',
 
 
-        urlDirectMessages : '/direct_messages.json?',
-        urlDirectMessagesSent : '/direct_messages/sent.json?',
-        urlDirectMessagesDestroy : '/direct_messages/destroy.json',
-        urlDirectMessagesNew : '/direct_messages/new.json',
+        urlDirectMessagesEventsList : '/direct_messages/events/list.json?',
+        urlDirectMessagesEventsNew : '/direct_messages/events/new.json',
+        urlDirectMessagesEventsDestory : '/direct_messages/events/destroy.json?',
 
         urlSearchTweets : '/search/tweets.json?',
         urlHelpConfiguration : '/help/configuration.json?',

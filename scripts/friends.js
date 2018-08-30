@@ -8,7 +8,7 @@
 TwitSideModule.Friends = (function() {
 
     const INTERVAL = 600,
-          FRIENDSCOUNT = 500;
+          FRIENDSCOUNT = 200;
 
 
     /**
@@ -18,7 +18,7 @@ TwitSideModule.Friends = (function() {
         followers = {},
         mutes = {},
         noretweets = {}, // {userid: { ids: [userid, userid,...], updated}, userid: {}...}
-        latestfriends = [];
+        latestfriends = []; // [ userinfo_hash, ... ]
 
 
     /**
@@ -122,9 +122,16 @@ TwitSideModule.Friends = (function() {
         // return value
         get latestfriends()
         {
-            return latestfriends;
+            return latestfriends.map(v => '@' + v.screen_name);
         },
-
+        // return value
+        searchFriend : function(userid)
+        {
+            var data = latestfriends.find((v) => {
+                return v.id_str == userid;
+            });
+            return data;
+        },
         // 友達のユーザID一覧を取得
         // return Promise
         loadFriendIdList : function(type, tweet, userid)
@@ -339,13 +346,15 @@ TwitSideModule.Friends = (function() {
 
         // 最近のスクリーンネーム
         // return value
-        updateLatestFriends : function(friendid)
+        updateLatestFriends : function(userinfo)
         {
-            var idx = latestfriends.indexOf(friendid);
+            // useridを検索して存在すれば削除
+            var idx = latestfriends.findIndex((v) => {
+                return v.id_str == userinfo.id_str;
+            });
+            if (idx) latestfriends.splice(idx, 1);
 
-            if (idx >= 0)
-                latestfriends.splice(idx, 1);
-            latestfriends.unshift(friendid);
+            latestfriends.unshift(userinfo);
 
             if (latestfriends.length > FRIENDSCOUNT)
                 latestfriends.pop();

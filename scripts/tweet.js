@@ -98,31 +98,6 @@ Tweet.prototype = {
     },
 
     // 発言
-    tweet_withmedia: function(optionsHash, updatewin)
-    {
-        var data = {
-            api     : 'MULTI',
-            method  : 'POST',
-            options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.apiBase,
-            url     : TwitSideModule.urls.twit.urlStatusesUpdateWithMedia
-        };
-        return this._sendRequest('SIGNATURE', data, progress)
-            .then((result) => {
-                result.message = TwitSideModule.Message.transMessage('tweetSent');
-                return Promise.resolve(result);
-            });
-
-        function progress(e)
-        {
-            postMessage({ reason : TwitSideModule.UPDATE.PROGRESS,
-                          data : e.loaded / e.total * 100,
-                          window_type : updatewin.win_type },
-                        updatewin.id);
-        }
-    },
-
-    // 発言
     upload_media: function(optionsHash, files, updatewin)
     {
         var data = {
@@ -509,54 +484,41 @@ Tweet.prototype = {
         return this._sendRequest('SIGNATURE', data);
     },
 
-    // 受信ダイレクトメッセージ
-    dmRcvList: function(optionsHash)
+    // ダイレクトメッセージ一覧（新API）
+    dmList2: function(optionsHash)
     {
         var data = {
             api     : 'API',
             method  : 'GET',
             options : optionsHash,
             baseurl : TwitSideModule.urls.twit.apiBase,
-            url     : TwitSideModule.urls.twit.urlDirectMessages
+            url     : TwitSideModule.urls.twit.urlDirectMessagesEventsList
         };
         return this._sendRequest('SIGNATURE', data);
     },
 
-    // 送信ダイレクトメッセージ
-    dmSntList: function(optionsHash)
+    // ダイレクトメッセージ削除（新API）
+    destroyDm2: function(optionsHash)
     {
         var data = {
             api     : 'API',
-            method  : 'GET',
+            method  : 'DELETE',
             options : optionsHash,
             baseurl : TwitSideModule.urls.twit.apiBase,
-            url     : TwitSideModule.urls.twit.urlDirectMessagesSent
+            url     : TwitSideModule.urls.twit.urlDirectMessagesEventsDestory
         };
         return this._sendRequest('SIGNATURE', data);
     },
 
-    // ダイレクトメッセージ削除
-    destroyDm: function(optionsHash)
+    // ダイレクトメッセージ作成（新API）
+    dmNew2: function(optionsHash)
     {
         var data = {
-            api     : 'API',
+            api     : 'API_JSON',
             method  : 'POST',
             options : optionsHash,
             baseurl : TwitSideModule.urls.twit.apiBase,
-            url     : TwitSideModule.urls.twit.urlDirectMessagesDestroy
-        };
-        return this._sendRequest('SIGNATURE', data);
-    },
-
-    // ダイレクトメッセージ作成
-    dmNew: function(optionsHash)
-    {
-        var data = {
-            api     : 'API',
-            method  : 'POST',
-            options : optionsHash,
-            baseurl : TwitSideModule.urls.twit.apiBase,
-            url     : TwitSideModule.urls.twit.urlDirectMessagesNew
+            url     : TwitSideModule.urls.twit.urlDirectMessagesEventsNew
         };
         return this._sendRequest('SIGNATURE', data)
             .then((result) => {
@@ -765,12 +727,16 @@ Tweet.prototype = {
             data_hash.oauth_token = this.oauth_token;
             data_hash.oauth_token_secret = this.oauth_token_secret;
             let form;
-            if (data_hash.method !== 'MULTI') {
+            switch (data_hash.api) {
+            case 'MULTI':
+            case 'UPLOAD':
+            case 'API_JSON':
+                form = { url : data_hash.url };
+                break;
+            default:
                 form = JSON.parse(JSON.stringify(data_hash.options));
                 form.url = data_hash.url;
             }
-            else
-                form = { url : data_hash.url };
             data_hash.form = TwitSideModule.hash.hash2sortedForm(form);
             break;
         default:
@@ -1026,9 +992,12 @@ Tweet.prototype = {
                     break;
                 case 'POST':
                     xhr.open('POST', data_hash.baseurl + data_hash.url);
-                    if (data_hash.api !== 'MULTI'
-                        && data_hash.api !== 'UPLOAD')
+                    if (data_hash.api !== 'MULTI' && data_hash.api !== 'UPLOAD')
                         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    break;
+                case 'DELETE':
+                    xhr.open('DELETE', data_hash.baseurl + data_hash.url + param);
+                    data_hash.method = 'GET';
                     break;
                 }
 
@@ -1049,6 +1018,10 @@ Tweet.prototype = {
                     xhr.timeout = TwitSideModule.config.getPref('timeout_upload') * 1000;
                     // プログレスバー
                     xhr.upload.onprogress = cb;
+                    break;
+                case 'API_JSON':
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    param = JSON.stringify(data_hash.options);
                     break;
                 }
                 xhr.setRequestHeader('Authorization', authHeader);
@@ -1141,6 +1114,11 @@ Tweet.prototype = {
                         }
                         return;
                     }
+                    // DELETE method
+                    else if (xhr.status == 204) {
+                        resolve({ status : TwitSideModule.TWEET_STATUS.OK,
+                                  data : null });
+                    }
                 }
 
                 // エラー
@@ -1198,10 +1176,12 @@ Tweet.prototype = {
                          + timestamp);
                 break;
             case 'SIGNATURE':
+                let api = data_hash.api;
+                if (api == 'API_JSON') api = 'API';
                 xhr.open('POST', TwitSideModule.urls.auth.urlBase
                          + TwitSideModule.urls.auth.urlSignature
                          + timestamp
-                         + '/' + data_hash.api
+                         + '/' + api
                          + '/' + data_hash.method
                          + '/' + data_hash.oauth_token
                          + '/' + data_hash.oauth_token_secret);

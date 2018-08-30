@@ -124,42 +124,6 @@ function commandExec(btn)
 
 
 /**
- * Panel operation
- */
-function initialize()
-{
-    var $photoContainer = $('#photoContainer');
-
-    // 初期化
-    $photoContainer.empty()
-        .attr('data-active-photo', 0);
-
-    // 写真を追加
-    for (let i=0; i<photos.length; i++) {
-        let $box = $('<video />');
-        // 写真
-        $box.addClass('photo')
-            .attr('poster', photos[i].urls.rawurl);
-        // 動画
-        if (photos[i].urls.variants) {
-            for (let source of photos[i].urls.variants) {
-                let $video =  $('<source />')
-                    .attr({ src : source.url,
-                            type : source.content_type })
-                    .appendTo($box);
-            }
-            $box.addClass('video')
-                .attr({ preload : 'auto',
-                        loop : 'loop',
-                        controls : 'contols',
-                        muted : 'muted' });
-        }
-        $box.appendTo($photoContainer);
-    }
-}
-
-
-/**
  * Posting tweet operation
  */
 // 新規ツイート文字数カウント
@@ -240,19 +204,31 @@ function sendTweet()
         button = $('#tweetButton')[0],
         $newTweet = $('#newTweet');
 
-    // tweet
-    var optionsHash = {
-        screen_name : $('#recipientScreenname').val(),
-        text : $('#newTweet').val()
-    };
-
     button.dataset.disabled = true;
 
+    // get recipient user id
     browser.runtime.sendMessage({ command : TwitSideModule.COMMAND.TWEET_OPE,
-                                  action : TwitSideModule.COMMAND.TWEET_SENDDM,
+                                  action : TwitSideModule.COMMAND.TWEET_USERSHOW,
                                   userid : userid,
-                                  options : optionsHash })
-        .then(callback).catch(error);
+                                  options : { screen_name : $('#recipientScreenname').val() } })
+        .then((result) => {
+            // tweet
+            var optionsHash = {
+                event : {
+                    type : "message_create",
+                    message_create : {
+                        target : { recipient_id : result.data.id_str },
+                        message_data : { text : $('#newTweet').val() }
+                    }
+                }
+            };
+
+            // send dm
+            return browser.runtime.sendMessage({ command : TwitSideModule.COMMAND.TWEET_OPE,
+                                                 action : TwitSideModule.COMMAND.TWEET_SENDDM,
+                                                 userid : userid,
+                                                 options : optionsHash });
+        }).then(callback).catch(error);
 
     function callback(result)
     {

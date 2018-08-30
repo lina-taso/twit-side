@@ -16,8 +16,7 @@ const firstrun_url = 'https://www2.filewo.net/wordpress/category/twit-side-addon
       panel_url = browser.extension.getURL('/ui/sidebar.xhtml');
 
 var ports = [],
-    windows = {},
-    updated = false;
+    windows = {};
 
 
 // load preferences
@@ -37,15 +36,16 @@ async function install()
     var current_version = browser.runtime.getManifest().version,
         config_version = TwitSideModule.config.getPref('version');
 
-    // first run
-    if (!config_version) {
-        await TwitSideModule.browsers.openURL(firstrun_url);
-        await TwitSideModule.config.setPref('version', current_version);
-        return;
-    }
     // latest release installed
     if (current_version == config_version) {
-        await TwitSideModule.browsers.openURL(firstrun_url);
+        return;
+    }
+
+    TwitSideModule.browsers.openURL(firstrun_url);
+
+    // first run
+    if (!config_version) {
+        TwitSideModule.config.setPref('version', current_version);
         return;
     }
 

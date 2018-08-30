@@ -88,9 +88,9 @@ TwitSideModule.hash = {
             form = [];
         keys.sort();
 
-        for (let i=0; i<len; i++)
-            form.push(keys[i]+'=' + TwitSideModule.text.encodeURI(hash[keys[i]]));
-
+        for (let key of keys) {
+            form.push(key+'=' + TwitSideModule.text.encodeURI(hash[key]));
+        }
         return form.join('&');
     },
 

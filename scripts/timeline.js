@@ -89,6 +89,8 @@ Timeline.prototype = {
             }
         // リストオブジェクト削除
         if (this.listInitialized) delete this._lists;
+        // ダイレクトメッセージオブジェクト削除
+        if (this.dmInitialized) delete this._dm;
         // ツイートオブジェクト削除
         delete this._tweet;
 
@@ -102,6 +104,15 @@ Timeline.prototype = {
         }
         else
             throw new Error('THIS_TIMELINE_IS_NOT_FOR_LIST');
+    },
+    // ダイレクトメッセージオブジェクトの作成
+    dmInitialize: function()
+    {
+        if (this.isDirectMessage) {
+            this._dm = new DM(this._tweet, this._tl_type);
+        }
+        else
+            throw new Error('THIS_TIMELINE_IS_NOT_FOR_DIRECTMESSAGE');
     },
     // カラムID文字列取得
     get columnid()
@@ -146,6 +157,13 @@ Timeline.prototype = {
         if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_MEMBERSHIPLISTS) return true;
         return false;
     },
+    // リストメンバー、購読者
+    get isListMember()
+    {
+        if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_LISTMEMBER) return true;
+        if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_LISTSUBSCRIBER) return true;
+        return false;
+    },
     // リストオブジェクト作成済
     get listInitialized()
     {
@@ -158,13 +176,6 @@ Timeline.prototype = {
         if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_FOLLOWER) return true;
         if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_MUTE) return true;
         if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_NORETWEET) return true;
-        return false;
-    },
-    // リストメンバー、購読者
-    get isListMember()
-    {
-        if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_LISTMEMBER) return true;
-        if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_LISTSUBSCRIBER) return true;
         return false;
     },
     // 検索
@@ -180,6 +191,11 @@ Timeline.prototype = {
         if (this._tl_type === TwitSideModule.TL_TYPE.DIRECTMESSAGE) return true;
         if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_DIRECTMESSAGE) return true;
         return false;
+    },
+    // ダイレクトメッセージオブジェクト作成済
+    get dmInitialized()
+    {
+        return this._dm == null ? false : true;
     },
     // target_userid設定
     set targetid(target_userid)
@@ -288,6 +304,20 @@ Timeline.prototype = {
             // カーソルリセット
             this._lists.resetListsCursor();
         }
+        // リストメンバー
+        else if (this.isListMember) {
+            // 一覧クリア
+            this._removeAllTweet();
+            // カーソルリセット
+            this._lists.resetListMembersCursor();
+        }
+        // ダイレクトメッセージ
+        else if (this.isDirectMessage) {
+            // 一覧クリア
+            this._removeAllTweet();
+            // カーソルリセット
+            this._dm.resetDmCursor();
+        }
         // フォロー、フォロワー
         else if (this.isFriend) {
             // 一覧クリア
@@ -321,13 +351,6 @@ Timeline.prototype = {
             }
             // Lookupインデックスリセット
             this._index = 0;
-        }
-        // リストメンバー
-        else if (this.isListMember) {
-            // 一覧クリア
-            this._removeAllTweet();
-            // カーソルリセット
-            this._lists.resetListMembersCursor();
         }
 
         // Twitterに送信するオプション
@@ -377,6 +400,8 @@ Timeline.prototype = {
             case TwitSideModule.TL_TYPE.TEMP_NORETWEET:
             case TwitSideModule.TL_TYPE.TEMP_LISTMEMBER:
             case TwitSideModule.TL_TYPE.TEMP_LISTSUBSCRIBER:
+            case TwitSideModule.TL_TYPE.DIRECTMESSAGE:
+            case TwitSideModule.TL_TYPE.TEMP_DIRECTMESSAGE:
                 more = result.more;
                 break;
             default: // それ以外は件数確認
@@ -448,8 +473,8 @@ Timeline.prototype = {
         // Twitterに送信するオプション
         var optionsHash = JSON.parse(JSON.stringify(this._getOlderHash));
 
-        // リスト、フォロー、フォロワー、リストメンバーの場合はoptionsHashを指定しない
-        if (this.isList || this.isFriend || this.isListMember) {
+        // リスト、フォロー、フォロワー、リストメンバー、ダイレクトメッセージの場合はoptionsHashを指定しない
+        if (this.isList || this.isFriend || this.isListMember || this.isDirectMessage) {
             optionsHash = {};
         }
         else {
@@ -479,7 +504,7 @@ Timeline.prototype = {
             // more確認
             var more = false;
 
-            // リスト、フォロー、フォロワー、リストメンバーの場合はカーソル確認
+            // リスト、フォロー、フォロワー、リストメンバー、ダイレクトメッセージの場合はカーソル確認
             switch (this._tl_type) {
             case TwitSideModule.TL_TYPE.TEMP_OWNERSHIPLISTS:
             case TwitSideModule.TL_TYPE.TEMP_SUBSCRIPTIONLISTS:
@@ -490,6 +515,8 @@ Timeline.prototype = {
             case TwitSideModule.TL_TYPE.TEMP_NORETWEET:
             case TwitSideModule.TL_TYPE.TEMP_LISTMEMBER:
             case TwitSideModule.TL_TYPE.TEMP_LISTSUBSCRIBER:
+            case TwitSideModule.TL_TYPE.DIRECTMESSAGE:
+            case TwitSideModule.TL_TYPE.TEMP_DIRECTMESSAGE:
                 more = result.more;
                 break;
             default: // それ以外は5件以上取得時
@@ -535,8 +562,8 @@ Timeline.prototype = {
     },
     getMore: function(moreid)
     {
-        // リスト、フォロー、フォロワー、リストメンバーの場合はgetOlder
-        if (this.isList || this.isFriend || this.isListMember) {
+        // リスト、フォロー、フォロワー、リストメンバー、ダイレクトメッセージの場合はgetOlder
+        if (this.isList || this.isFriend || this.isListMember || this.isDirectMessage) {
             this.getOlder();
             return true;
         }
@@ -885,7 +912,7 @@ Timeline.prototype = {
     {
         // DMはそのまま削除
         if (this.isDirectMessage)
-            this._tweet.destroyDm({ id : destroyid })
+            this._tweet.destroyDm2({ id : destroyid })
             .then(callback_mine.bind(this)).catch(error.bind(this));
 
         // リスト
@@ -1205,6 +1232,11 @@ Timeline.prototype = {
             this._reportError('LIST_IS_NOT_INITIALIZED');
             return Promise.reject();
         }
+        if (this.isDirectMessage
+            && !this.dmInitialized) {
+            this._reportError('DM_IS_NOT_INITIALIZED');
+            return Promise.reject();
+        }
 
         switch (this._tl_type) {
         case TwitSideModule.TL_TYPE.TIMELINE:
@@ -1215,7 +1247,7 @@ Timeline.prototype = {
             return this._tweet.retweeted(optionsHash);
         case TwitSideModule.TL_TYPE.DIRECTMESSAGE:
         case TwitSideModule.TL_TYPE.TEMP_DIRECTMESSAGE:
-            return this._getDirectMessage(optionsHash);
+            return this._dm.getDm(optionsHash);
         case TwitSideModule.TL_TYPE.LISTTIMELINE:
             return this._tweet.listTimeline(optionsHash);
         case TwitSideModule.TL_TYPE.TEMP_USERTIMELINE:
@@ -1244,51 +1276,6 @@ Timeline.prototype = {
                 });
         }
         return Promise.reject();
-    },
-    // ダイレクトメッセージ向け（tweetの代わり）
-    _getDirectMessage: function(optionsHash)
-    {
-        var optionsHash_rcv = {count : 20, full_text : 'true'},
-            optionsHash_snt = {count : 200, full_text : 'true'};
-
-        if (optionsHash.max_id) {
-            optionsHash_rcv.max_id = optionsHash.max_id;
-            optionsHash_snt.max_id = optionsHash.max_id;
-        }
-
-        // 受信一覧取得
-        return this._tweet.dmRcvList(optionsHash_rcv)
-            .then(callback_rcv.bind(this));
-
-        // 受信一覧処理
-        function callback_rcv(result)
-        {
-            // 受信DMの一番古いものより新しいDMのみ取得
-            // ただし受信が無い場合は底なし
-            if (result.data.length)
-                optionsHash_snt.since_id = result.data[result.data.length-1].id_str;
-            // 送信一覧取得
-            return this._tweet.dmSntList(optionsHash_snt)
-                .then(callback_snt.bind(this, result));
-        }
-        // 送信・受信一覧処理
-        function callback_snt(rcv_result, snt_result)
-        {
-            return Promise.resolve({
-                status : snt_result.status,
-                data : rcv_result.data.concat(snt_result.data).sort(sortFunc),
-                data_rcv : rcv_result.data,
-                data_snt : snt_result.data
-            });
-        }
-        // ソート
-        function sortFunc(record1, record2)
-        {
-            if (!record1.id_str || !record2.id_str) return 0;
-            else if (record1.id_str < record2.id_str) return 1;
-            else if (record1.id_str > record2.id_str) return -1;
-            else return 0;
-        }
     },
     // フォロー、フォロワー向け（tweetの代わり）
     _getFriends: function(optionsHash)
@@ -1521,45 +1508,25 @@ Timeline.prototype = {
                 // 更新データ（取得順）
                 tweets.push(this.record.data[datum.id_str]);
             }
-
             lastidx = this.record.ids.length+1;
         }
-        // ダイレクトメッセージの場合はミュートなどを見ない
+        // ダイレクトメッセージの場合はソートしない
         else if (this.isDirectMessage) {
             // dataは新しいもの順
             for (let datum of data) {
-                // idを0埋め文字列
-                datum.id_str = (ZERO_FILL + datum.id_str).slice(-ZERO_FILL_LEN);
+                // idを0埋め文字列 id:string
+                datum.id_str = (ZERO_FILL + datum.id).slice(-ZERO_FILL_LEN);
 
-                if (this.record.ids.indexOf(datum.id_str) < 0) {
-                    // ID一覧更新
-                    let len = this.record.ids.length;
-
-                    // 挿入ソート（前から、新しいものから）
-                    for (i; i<=len; i++) {
-                        // 末尾
-                        if (i===len) {
-                            this.record.ids.push(datum.id_str);
-                            lastidx = i+1;
-                            break;
-                        }
-                        if (this.record.ids[i] < datum.id_str) {
-                            this.record.ids.splice(i, 0, datum.id_str);
-                            lastidx = i+1;
-                            break;
-                        }
-                    }
-                }
-
+                this.record.ids.push(datum.id_str);
                 this.record.data[datum.id_str] = {meta : {}, raw : datum};
 
                 // メタデータ確認
-                let meta = this._getDmMetadata(datum);
-                this.record.data[datum.id_str].meta = meta;
+                this.record.data[datum.id_str].meta = this._getDmMetadata(datum);
 
                 // 更新データ（新しいもの順）
                 tweets.push(this.record.data[datum.id_str]);
             }
+            lastidx = this.record.ids.length+1;
         }
         else {
             let mutes = this._muteEnabled
@@ -1753,29 +1720,39 @@ Timeline.prototype = {
                 || datum.text; // 通常
         }
 
+        // ユーザ一覧
         var screennamelist = [],  // ツイートに含まれるすべてのユーザ（リツイートした人も含む）
             userids = [];         // 投稿者ユーザID（ミュート用）
 
-        // ツイートしたユーザ
+        // 普通のツイート
         if (!datum.retweeted_status) {
             screennamelist.push('@' + datum.user.screen_name);
             userids.push(datum.user.id_str);
+            // 最近のスクリーンネーム
+            TwitSideModule.Friends.updateLatestFriends(datum.user);
         }
+        // リツイート
         else {
+            // 元ツイート
             screennamelist.push('@' + datum.retweeted_status.user.screen_name);
             userids.push(datum.retweeted_status.user.id_str);
+            // 最近のスクリーンネーム
+            TwitSideModule.Friends.updateLatestFriends(datum.retweeted_status.user);
+            // リツイート
+            screennamelist.push('@' + datum.user.screen_name);
+            userids.push(datum.user.id_str);
+            // 最近のスクリーンネーム
+            TwitSideModule.Friends.updateLatestFriends(datum.user);
         }
         // メンション
         for (let mention of meta.entities.user_mentions) {
             screennamelist.push('@' + mention.screen_name);
-            if (mention.screen_name === this._own_screenname)
+            if (mention.id_str === this._own_userid)
                 // 自分宛
                 meta.isForMe = true;
-        }
-        // リツイートしたユーザ
-        if (datum.retweeted_status) {
-            screennamelist.push('@' + datum.user.screen_name);
-            userids.push(datum.user.id_str);
+
+            // 最近のスクリーンネーム
+            TwitSideModule.Friends.updateLatestFriends(mention);
         }
         // 自分宛
         if (datum.in_reply_to_user_id_str === this._own_userid)
@@ -1783,10 +1760,6 @@ Timeline.prototype = {
 
         meta.screennames = screennamelist.filter((x, i, self) => self.indexOf(x) === i); // 重複削除
         meta.userids = userids;
-
-        // 最近のスクリーンネーム
-        for (let sn of screennamelist)
-            TwitSideModule.Friends.updateLatestFriends(sn);
 
         // Quote
         if (datum.retweeted_status
@@ -1803,20 +1776,20 @@ Timeline.prototype = {
     {
         var meta = {};
 
-        meta.isMine = (datum.sender.id_str === this._own_userid);
-        meta.isForMe = (datum.recipient.id_str === this._own_userid);
+        meta.isMine = (datum.message_create.sender_id === this._own_userid);
+        meta.isForMe = (datum.message_create.target.recipient_id === this._own_userid);
         meta.pics = [];
 
         // エンティティ
-        if (datum.entities) {
-            meta.entities = datum.entities;
+        if (datum.message_create.message_data.entities) {
+            meta.entities = datum.message_create.message_data.entities;
             // メディア
-            for (let media of datum.entities.media || []) {
+            for (let media of datum.message_create.message_data.entities.media || []) {
                 // Twitter
                 let urlResult = this._analyzePicURL(datum.id_str, media.media_url_https);
                 if (urlResult) meta.pics.push(urlResult);
             }
-            for (let url of datum.entities.urls || []) {
+            for (let url of datum.message_create.message_data.entities.urls || []) {
                 // サードパーティ
                 let urlResult = this._analyzePicURL(datum.id_str, url.expanded_url);
                 if (urlResult) meta.pics.push(urlResult);
@@ -1825,20 +1798,65 @@ Timeline.prototype = {
 
         var screennamelist = [];
 
-        if (datum.sender.screen_name !== datum.recipient.screen_name) {
-            screennamelist.push('@' + datum.sender.screen_name);
-            screennamelist.push('@' + datum.recipient.screen_name);
+        var sender = TwitSideModule.Friends.searchFriend(datum.message_create.sender_id),
+            recipient = TwitSideModule.Friends.searchFriend(datum.message_create.target.recipient_id);
+
+        // スクリーンネームがすぐに判明する場合
+        if (sender && recipient) {
+            if (sender !== recipient) {
+                screennamelist.push('@' + sender.screen_name);
+                screennamelist.push('@' + recipient.screen_name);
+            }
+            else {
+                screennamelist.push('@' + sender.screen_name);
+            }
+            meta.sender = sender;
+            meta.recipient = recipient;
+            meta.screennames = screennamelist;
         }
-        else
-            screennamelist = ['@'+datum.recipient.screen_name];
 
-        meta.screennames = screennamelist;
+        // スクリーンネームを取得する必要がある場合
+        else {
+            let lookup = [];
+            if (!sender) lookup.push(datum.message_create.sender_id);
+            if (!recipient) lookup.push(datum.message_create.target.recipient_id);
 
-        // 最近のスクリーンネーム
-        for (let sn of screennamelist)
-            TwitSideModule.Friends.updateLatestFriends(sn);
+            TwitSideModule.Friends.lookup(lookup, this._tweet)
+                .then(callback.bind(this)).catch(error.bind(this));
+
+            meta.sender = {};
+            meta.recipient = {};
+            meta.screennames = [];
+        }
 
         return meta;
+
+        function callback(result) {
+            for (let user of result.data)
+                TwitSideModule.Friends.updateLatestFriends(user);
+            // メタデータ更新
+            this.record.data[datum.id_str].meta = this._getDmMetadata(datum);
+            postMessage({
+                reason : TwitSideModule.UPDATE.REPLACE_LOADED,
+                tweets : [this.record.data[datum.id_str]],
+                tl_type : this._tl_type,
+                columnid : this._columnid,
+                window_type : this._win_type
+            });
+        }
+        function error(result)
+        {
+            // アクション完了
+            postMessage({
+                reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
+                action : '',
+                result : 'failed',
+                id : datum.id_str,
+                columnid : this._columnid,
+                window_type : this._win_type,
+                message : result.result.message || ''
+            });
+        }
     },
     // メタデータの作成（リスト）
     _getListMetadata: function(datum)

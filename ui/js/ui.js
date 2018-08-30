@@ -1376,32 +1376,32 @@ var UI = {
         // 属性設定
         $tweetBox.attr({
             'data-tweetid'    : recordStatus.id_str,
-            'data-rawcontent' : record.meta.text,
-            'data-screenname' : '@' + recordStatus.sender.screen_name
+            'data-rawcontent' : recordStatus.message_create.message_data.text,
+            'data-screenname' : '@' + record.meta.sender.screen_name
         });
         if (record.meta.isMine) $tweetContent.attr('data-mine', 'true');
         if (record.meta.isForMe) $tweetContent.attr('data-forme', 'true');
 
         // ユーザ情報
         $tweetContent.find('.tweetUserImage')
-            .attr('src', recordStatus.sender.profile_image_url_https);
+            .attr('src', record.meta.sender.profile_image_url_https);
         $tweetContent.find('.tweetUserName').attr({
-            'data-screenname' : '@' + recordStatus.sender.screen_name,
-            'data-username'   : recordStatus.sender.name
+            'data-screenname' : '@' + record.meta.sender.screen_name,
+            'data-username'   : record.meta.sender.name
         });
         $tweetContent.find('.tweetUserRecipient').attr({
-            'data-screenname' : '@' + recordStatus.recipient.screen_name,
-            'data-username'   : recordStatus.recipient.name,
-            'data-userid'     : recordStatus.recipient.id_str
+            'data-screenname' : '@' + record.meta.recipient.screen_name,
+            'data-username'   : record.meta.recipient.name,
+            'data-userid'     : record.meta.recipient.id_str
         });
 
         // 本文
         $tweetContent.find('.tweetText')
-            .text(TwitSideModule.text.unescapeHTML(record.raw.text));
+            .text(TwitSideModule.text.unescapeHTML(recordStatus.message_create.message_data.text));
         // タイムスタンプ
         $tweetContent.find('.tweetTime')
             .text(TwitSideModule.text.convertTimeStamp(
-                TwitSideModule.text.analyzeTimestamp(recordStatus.created_at),
+                TwitSideModule.text.analyzeTimestamp(recordStatus.created_timestamp),
                 getPref('timeformat')
             ));
 

@@ -59,20 +59,6 @@ window.addEventListener('load', () => {
     });
 });
 window.addEventListener('unload', function() {
-//    var ret = [];
-//    $('#columnContainer .timelineBox').each(() => {
-//        if (this.scrollTop != 0) {
-//            // 投票
-//            ret.push(browser.runtime.sendMessage({
-//                command : TwitSideModule.COMMAND.COLUMN_OPE,
-//                action : TwitSideModule.COMMAND.TL_VOTE,
-//                columnindex : $(this).closest('.column').index(),
-//                win_type : TwitSideModule.WINDOW_TYPE.MAIN,
-//                vote : true
-//            }));
-//        }
-//    });
-//    return Promise.all(ret);
 });
 
 // キーボードショートカット

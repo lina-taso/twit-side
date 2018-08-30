@@ -73,6 +73,7 @@
             "scripts/friends.js",
             "scripts/mutes.js",
             "scripts/lists.js",
+            "scripts/directmessages.js",
             "scripts/timeline.js",
             "scripts/background_main.js"
         ]

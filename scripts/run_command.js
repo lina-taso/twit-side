@@ -24,12 +24,9 @@ function TWEET_OPE(message) {
     case TwitSideModule.COMMAND.TWEET_TWEET:
         return (new Tweet(TwitSideModule.ManageUsers.getUserInfo(message.userid)))
             .tweet(message.options);
-    case TwitSideModule.COMMAND.TWEET_TWEET_MEDIA:
-        return (new Tweet(TwitSideModule.ManageUsers.getUserInfo(message.userid)))
-            .tweet_withmedia(message.options, { win_type : message.win_type, id : message.id });
     case TwitSideModule.COMMAND.TWEET_SENDDM:
         return (new Tweet(TwitSideModule.ManageUsers.getUserInfo(message.userid)))
-            .dmNew(message.options);
+            .dmNew2(message.options);
     case TwitSideModule.COMMAND.TWEET_USERSHOW:
         return (new Tweet(TwitSideModule.ManageUsers.getUserInfo(message.userid)))
             .userShow(message.options);

@@ -140,9 +140,8 @@ var ManageColumns = function() {
             break;
         case TwitSideModule.TL_TYPE.DIRECTMESSAGE:
         case TwitSideModule.TL_TYPE.TEMP_DIRECTMESSAGE:
-            // Timelineモジュール埋め込みのため空白
-            timeline.getNewerHash = {};
-            timeline.getOlderHash = {};
+            // リスト初期化
+            timeline.dmInitialize();
             break;
         case TwitSideModule.TL_TYPE.SEARCH:
         case TwitSideModule.TL_TYPE.TEMP_SEARCH:

@@ -16,7 +16,7 @@ TwitSideModule.COMMAND = {
     TWEET_REQUEST :    201, // action：リクエスト
     TWEET_ACCESS :     202, // action：アクセス
     TWEET_TWEET :      211, // action：ツイート
-    TWEET_TWEET_MEDIA: 212, // action：ツイート
+//    TWEET_TWEET_MEDIA: 212, // action：ツイート
     TWEET_SENDDM :     213, // action：DM送信
     TWEET_USERSHOW:    221, // action：ユーザ情報取得
     TWEET_SHOWAPI:     222, // action：API
