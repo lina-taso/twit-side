@@ -99,10 +99,13 @@
     },
 
     "retweetLimit" : {
-        "message" : "Retweet failed : more than 5 retweets/min are restricted."
+        "message" : "Retweet failed : limit to 5 retweets/min."
+    },
+    "newdmLimit" : {
+        "message" : "Send direct message failed : limit to 50 messages/day."
     },
     "code32" : {
-        "message" : "Can't communicate with Twitter."
+        "message" : "Couldn't communicate with Twitter."
     },
     "code34" : {
         "message" : "Not found. (404)"
@@ -111,7 +114,7 @@
         "message" : "Your account is suspended and is not permitted to access this feature. (403)"
     },
     "code88" : {
-        "message" : "You reached an API limit.<html:br/>Please try it again at a little time."
+        "message" : "You reached an API limit.\nPlease try it again at a little time."
     },
     "code89" : {
         "message" : "Try to re-authenticate your account."
@@ -444,7 +447,7 @@
         "message" : "Search"
     },
     "column_directmessage" : {
-        "message" : "DirectMessage"
+        "message" : "Direct Message"
     },
     "column_listtimeline" : {
         "message" : "List"

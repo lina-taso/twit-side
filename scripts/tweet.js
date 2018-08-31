@@ -992,7 +992,9 @@ Tweet.prototype = {
                     break;
                 case 'POST':
                     xhr.open('POST', data_hash.baseurl + data_hash.url);
-                    if (data_hash.api !== 'MULTI' && data_hash.api !== 'UPLOAD')
+                    if (data_hash.api !== 'MULTI'
+                        && data_hash.api !== 'UPLOAD'
+                        && data_hash.api !== 'API_JSON')
                         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     break;
                 case 'DELETE':

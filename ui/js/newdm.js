@@ -8,7 +8,9 @@
 var myport;
 
 const SUFFIX = 'newdm',
-      TWEET_MAX_LENGTH = 10000;
+      TWEET_MAX_LENGTH = 10000,
+      LIMIT_NEWDM_CNT = 50,
+      LIMIT_NEWDM_TERM = 86400;
 
 var prefs = {},
     winid;
@@ -200,6 +202,15 @@ function keypressRecipient(e)
 // メッセージ送信
 function sendTweet()
 {
+    // 回数制限
+    var limitHistory = JSON.parse(getPref('limit_newdm'));
+    if (!getPref('debug')
+        && limitHistory.length >= LIMIT_NEWDM_CNT
+        && TwitSideModule.text.getUnixTime() - (limitHistory[0] || 0) < LIMIT_NEWDM_TERM) {
+        UI.showMessage(browser.i18n.getMessage('newdmLimit'));
+        return;
+    }
+
     var userid = $('#tweetUserSelection')[0].selectedOptions[0].value,
         button = $('#tweetButton')[0],
         $newTweet = $('#newTweet');
@@ -236,6 +247,13 @@ function sendTweet()
         UI.showMessage(result.message);
         $newTweet.val('');
         countNewTweet();
+
+        // 回数制限
+        while (limitHistory.length >= LIMIT_NEWDM_CNT) {
+            limitHistory.shift();
+        }
+        limitHistory.push(TwitSideModule.text.getUnixTime());
+        setPref('limit_newdm', JSON.stringify(limitHistory));
     }
     function error(result)
     {

@@ -85,7 +85,10 @@ TwitSideModule.DefaultPrefs = {
     users: "",
     hidden_message: "[]",
     newtweet_pinned: false,
-    tutorial: true
+    tutorial: true,
+    // limit
+    limit_retweet: "[]",
+    limit_newdm: "[]"
 };
 
 Object.freeze(TwitSideModule.DefaultPrefs);

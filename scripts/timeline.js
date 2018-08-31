@@ -5,15 +5,16 @@
  * @license Mozilla Public License, version 2.0
  */
 
-const networkWait       = 250,
-      apiWait           = 60000,
-      httpWait          = 5000,
-      infWait           = 300000,
-      autoClearWait     = 60000,
-      autoClearVoteWait = 5000,
-      LIMIT_RETWEET_CNT = 5,
-      ZERO_FILL         = '0000000000000000000000000',
-      ZERO_FILL_LEN     = 25;
+const networkWait        = 250,
+      apiWait            = 60000,
+      httpWait           = 5000,
+      infWait            = 300000,
+      autoClearWait      = 60000,
+      autoClearVoteWait  = 5000,
+      LIMIT_RETWEET_CNT  = 5,
+      LIMIT_RETWEET_TERM = 60,
+      ZERO_FILL          = '0000000000000000000000000',
+      ZERO_FILL_LEN      = 25;
 
 var Timeline = function(
     tl_type_int,        // タイムライン種別
@@ -747,12 +748,14 @@ Timeline.prototype = {
     retweet: function(retweetid)
     {
         // 回数制限
+        var limitHistory = JSON.parse(TwitSideModule.config.getPref('limit_retweet'));
         if (!TwitSideModule.config.getPref('debug')
-            && this._limitCount.retweet.history.length >= this._limitCount.retweet.limit
-            && TwitSideModule.text.getUnixTime() - (this._limitCount.retweet.history[0] || 0) < 60) {
+            && limitHistory.length >= LIMIT_RETWEET_CNT
+            && TwitSideModule.text.getUnixTime() - (limitHistory[0] || 0) < LIMIT_RETWEET_TERM) {
             this._reportError('retweetLimit');
             return;
         }
+
         this._tweet.retweet({}, retweetid)
             .then(success.bind(this)).catch(error.bind(this));
 
@@ -768,6 +771,12 @@ Timeline.prototype = {
                 window_type : this._win_type
             });
             // 回数制限
+            while (limitHistory.length >= LIMIT_RETWEET_CNT) {
+                limitHistory.shift();
+            }
+            limitHistory.push(TwitSideModule.text.getUnixTime());
+            TwitSideModule.config.setPref('limit_retweet', JSON.stringify(limitHistory));
+
             while (this._limitCount.retweet.history.length >= this._limitCount.retweet.limit) {
                 this._limitCount.retweet.history.shift();
             }
