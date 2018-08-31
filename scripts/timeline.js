@@ -423,8 +423,8 @@ Timeline.prototype = {
 
             // 最後のIDの次を検索
             if (tweets.length) {
-                let lastidx = this.record.ids.indexOf((ZERO_FILL + tweets[tweets.length - 1].raw.id_str).slice(-ZERO_FILL_LEN));
-                if (lastidx != null)
+                let lastidx = this.record.ids.indexOf(tweets[tweets.length - 1].raw.id_str);
+                if (lastidx >= 0)
                     nextid = this.record.ids[lastidx + 1];
             }
 
@@ -616,8 +616,8 @@ Timeline.prototype = {
 
             // 最後のIDの次を検索
             if (tweets.length) {
-                let lastidx = this.record.ids.indexOf((ZERO_FILL + tweets[tweets.length - 1].raw.id_str).slice(-ZERO_FILL_LEN));
-                if (lastidx != null)
+                let lastidx = this.record.ids.indexOf(tweets[tweets.length - 1].raw.id_str);
+                if (lastidx >= 0)
                     nextid = this.record.ids[lastidx + 1];
             }
 
@@ -710,14 +710,6 @@ Timeline.prototype = {
 
         // true なら最上部じゃないカラム
         if (vote) this._autoClearCount++;
-//        // true なら最上部
-//        vote ? this._autoClearCount-- : this._autoClearCount++;
-//
-//        // 0ならautoclear
-//        if (this._autoClearCount == 0)
-//            this.startAutoClear();
-//        else
-//            this.stopAutoClear();
     },
     startAutoClear: function()
     {
