@@ -205,7 +205,6 @@ var UI = {
         switch (data.reason) {
         case TwitSideModule.UPDATE.TWEET_LOADED:
         case TwitSideModule.UPDATE.REPLACE_LOADED:
-            $('#'+data.columnid).attr('data-more', '');
             UI._showTweets(data.tl_type,
                            data.columnid,
                            data.tweets,
@@ -232,9 +231,6 @@ var UI = {
             break;
         case TwitSideModule.UPDATE.TWEET_ALLDELETED:
             UI._deleteAllTweet(data.columnid);
-            break;
-        case TwitSideModule.UPDATE.STATE_CHANGED:
-            stateChanged();
             break;
         case TwitSideModule.UPDATE.STATE_CHANGED:
             stateChanged();
@@ -318,6 +314,7 @@ var UI = {
                 showLoadingProgressbar(true, columnid);
                 break;
             case TwitSideModule.TL_STATE.LOADED:
+                $column.attr('data-more', '');
                 showLoadingProgressbar(false, columnid);
                 break;
             }
@@ -2020,6 +2017,9 @@ function loadNewer(columnindex_int)
 function loadMore(morebox)
 {
     if (!/_more$/.test(morebox.id)) return;
+    // 重複読み込み防止
+    if (!$(morebox).closest('.column').attr('data-more') == '') return;
+    $(morebox).closest('.column').attr('data-more', 'true');
     browser.runtime.sendMessage({ command : TwitSideModule.COMMAND.COLUMN_OPE,
                                   action : TwitSideModule.COMMAND.TL_GETMORE,
                                   columnindex : getColumnIndexFromBox(morebox),

@@ -2741,6 +2741,10 @@ input[type="text"], textarea, select {
   padding: 10px 0;
   cursor: pointer;
   text-align: center; }
+  [data-more="true"] .tweetMoreBox {
+    cursor: not-allowed;
+    color: #767676;
+    -moz-user-select: none; }
 
 #filepicker {
   display: none; }

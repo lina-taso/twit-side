@@ -1587,6 +1587,11 @@ input[type="text"], textarea, select {
     padding: 10px 0;
     cursor: pointer;
     text-align: center;
+
+    [data-more="true"] & {
+        cursor: not-allowed;
+        color: map-get( $default-color-custom, font-accent2 );
+    }
 }
 
 #filepicker {
