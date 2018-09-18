@@ -188,6 +188,7 @@ var ManageUsers = function() {
             if (users[userid_str] == null) throw new Error('USER_IS_NOT_REGISTERED');
             delete userUpdated[userid_str];
             delete users[userid_str];
+
             // 設定に保存
             return TwitSideModule.config.setPref('users', JSON.stringify(users))
                 .then(() => {
@@ -195,7 +196,8 @@ var ManageUsers = function() {
                     postMessage({
                         reason : TwitSideModule.UPDATE.USER_CHANGED,
                         action : TwitSideModule.ACTION.DELETE,
-                        userid : userid_str
+                        userid : userid_str,
+                        window_type : TwitSideModule.WINDOW_TYPE.MAIN
                     });
                 });
         },

@@ -408,7 +408,7 @@ var ManageColumns = function() {
                 throw new Error('COLUMN_IS_NOT_REGISTERED');
 
             var delete_id = target_timelines[columnindex_int].id,
-            userid = target_columns[columnindex_int].userid;
+                userid = target_columns[columnindex_int].userid;
 
             target_timelines[columnindex_int].timeline.beforeDestroy();
             target_timelines[columnindex_int].timeline = null;
@@ -428,15 +428,6 @@ var ManageColumns = function() {
                 // 値を保存
                 return TwitSideModule.config.setPref('columns', JSON.stringify(columns[win_type]))
                     .then(() => {
-                        // ユーザーが使用しているカラム数取得
-                        var count = this.count(userid);
-                        // ユーザーが使用しているカラムが0件の場合は、ユーザーも削除
-                        if (count == 0)
-                            return TwitSideModule.ManageUsers.deleteUser(userid);
-                        else
-                            return Promise.resolve();
-                    })
-                    .then(() => {
                         // 更新通知
                         postMessage({
                             reason : TwitSideModule.UPDATE.COLUMN_CHANGED,
@@ -445,6 +436,11 @@ var ManageColumns = function() {
                             columnid : delete_id,
                             window_type : win_type
                         });
+                        // ユーザーが使用しているカラムが0件の場合は、ユーザーも削除
+                        if (this.count(userid) == 0)
+                            return TwitSideModule.ManageUsers.deleteUser(userid);
+                        else
+                            return Promise.resolve();
                     });
             }
             else
