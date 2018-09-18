@@ -188,7 +188,7 @@
         "message" : "Clear all notifications"
     },
     "clear_notif_next" : {
-        "message" : "Clear below notifications and show next $COUNT% notifications",
+        "message" : "Clear below notifications and show next $COUNT$ notifications",
         "placeholders" : {
             "count" : {
                 "content" : "$1",
