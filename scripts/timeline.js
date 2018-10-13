@@ -783,7 +783,7 @@ Timeline.prototype = {
             this._limitCount.retweet.history.push(TwitSideModule.text.getUnixTime());
 
             // ツイート再読込
-            this._tweet.show({ id : parentid })
+            this._tweet.show({ id : parentid || origid })
                 .then(callback.bind(this)).catch(error.bind(this));
         }
         function callback(result)
