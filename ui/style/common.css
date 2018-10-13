@@ -2489,11 +2489,17 @@ input[type="text"], textarea, select {
         margin: 0; }
     .tweetContentLeft > .tweetStatus > .tweetStatusRetweeted {
       color: green; }
-    .tweetContent[data-retweeted=""] .tweetStatusRetweeted {
-      display: none; }
-    .tweetContentLeft > .tweetStatus .tweetStatusPlace {
+      .tweetContent .tweetContentLeft > .tweetStatus > .tweetStatusRetweeted {
+        display: flex; }
+      .tweetContent[data-retweeted=""] .tweetContentLeft > .tweetStatus > .tweetStatusRetweeted {
+        display: none; }
+      .inlineTweetBox .tweetContent .tweetContentLeft > .tweetStatus > .tweetStatusRetweeted {
+        display: flex; }
+      .inlineTweetBox .tweetContent[data-retweeted=""] .tweetContentLeft > .tweetStatus > .tweetStatusRetweeted {
+        display: none; }
+    .tweetContentLeft > .tweetStatus > .tweetStatusPlace {
       cursor: pointer; }
-      .tweetContentLeft > .tweetStatus .tweetStatusPlace[title=""] {
+      .tweetContentLeft > .tweetStatus > .tweetStatusPlace[title=""] {
         display: none; }
 
 .tweetContentRight {
@@ -2743,8 +2749,7 @@ input[type="text"], textarea, select {
   text-align: center; }
   [data-more="true"] .tweetMoreBox {
     cursor: not-allowed;
-    color: #767676;
-    -moz-user-select: none; }
+    color: #767676; }
 
 #filepicker {
   display: none; }

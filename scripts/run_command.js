@@ -114,7 +114,7 @@ function COLUMN_OPE(message) {
     case TwitSideModule.COMMAND.TL_RETWEET:
         return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type
-        ).retweet(message.tweetid));
+        ).retweet(message.origid, message.parentid));
     case TwitSideModule.COMMAND.TL_FAVORITE:
         return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type

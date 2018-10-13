@@ -17,7 +17,7 @@
     <script src="js/jquery.ui.position.min.js"></script>
     <script src="js/twitter-text.js"></script>
 
-    <style id="countboxStyle" />
+    <style id="countboxStyle"></style>
   </head>
 
   <body
@@ -264,7 +264,8 @@
       <!-- screennames : 全てのアカウント -->
       <div id="" class="tweetBox"
            data-tweetid=""
-           data-rawid=""
+           data-origid=""
+           data-parentid=""
            data-rawcontent=""
            data-screenname=""
            data-screennames=""
@@ -347,7 +348,8 @@
       <!-- tweetMoreBox Template -->
       <div id="" class="tweetBox tweetMoreBox"
            tabindex="100"
-           data-rawid="" />
+           data-origid=""
+           data-parentid="" />
 
       <!-- .tweetBox > .tweetRetweeterList > .tweetRetweeterImage Template -->
       <img class="tweetRetweeterImage" src=""

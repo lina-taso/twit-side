@@ -537,8 +537,7 @@ var UI = {
                         var tweetBox = UI._createTweetBox(
                             tlinfo._tl_type,
                             tweetinfo,
-                            'tweetRef_' + tweetinfo.raw.id_str,
-                            false
+                            'tweetRef_' + tweetinfo.raw.id_str
                         );
                         switch (data.function) {
                         case TwitSideModule.FUNCTION_TYPE.QUOTE:
@@ -716,8 +715,7 @@ var UI = {
                     this._createTweetBox(
                         type,
                         tweets[idx],
-                        columnid+'_'+id,
-                        false
+                        columnid+'_'+id
                     ),
                     nextBox
                 );
@@ -800,14 +798,14 @@ var UI = {
     },
 
     // ツイート用
-    _createTweetBox : function(type, record, boxid, inline)
+    _createTweetBox : function(type, record, boxid, parentTweetid)
     {
         // more
         if (/_more$/.test(boxid)) {
             return this.$tweetMoreBoxTemplate.clone()
                 .attr({
                     id : boxid,
-                    'data-rawid' : record.raw.id_str
+                    'data-origid' : record.raw.id_str
                 })[0];
         }
 
@@ -817,6 +815,7 @@ var UI = {
 
         // 属性設定
         $tweetBox.attr('data-tweetid', record.raw.id_str);
+        $tweetBox.attr('data-parentid', parentTweetid || '');
         if (record.meta.isMine) $tweetContent.attr('data-mine', 'true');
         if (record.meta.isForMe) $tweetContent.attr('data-forme', 'true');
         if (record.raw.retweeted) $tweetContent.attr('data-retweeted', 'true');
@@ -833,7 +832,7 @@ var UI = {
 
             // ツイートの情報
             $tweetBox.attr({
-                'data-rawid'      : recordStatus.id_str,
+                'data-origid'      : recordStatus.id_str,
                 'data-rawcontent' : record.meta.text,
                 'data-screenname' : '@' + recordStatus.user.screen_name
             });
@@ -1157,9 +1156,10 @@ var UI = {
         }
 
         // Quote
-        if (!inline) {
+        if (!parentTweetid) {
             let inlineId, inlineBoxId, inlineData;
 
+            // リツイートが引用している場合
             if (record.raw.retweeted_status
                 && record.raw.retweeted_status.is_quote_status
                 && record.raw.retweeted_status.quoted_status) {
@@ -1169,10 +1169,12 @@ var UI = {
                     meta : record.meta.quote,
                     raw : record.raw.retweeted_status.quoted_status
                 };
-                let result = this._createTweetBox(type, inlineData, inlineBoxId, true);
+                // 引用ボックス作成
+                let result = this._createTweetBox(type, inlineData, inlineBoxId, record.raw.id_str);
                 if (result)
                     $tweetInline.append(result);
             }
+            // ツイートが引用している場合
             else if (record.raw.is_quote_status
                   && record.raw.quoted_status) {
                 inlineId = record.raw.quoted_status_id_str,
@@ -1181,7 +1183,8 @@ var UI = {
                     meta : record.meta.quote,
                     raw : record.raw.quoted_status
                 };
-                let result = this._createTweetBox(type, inlineData, inlineBoxId, true);
+                // 引用ボックス作成
+                let result = this._createTweetBox(type, inlineData, inlineBoxId, record.raw.id_str);
                 if (result)
                     $tweetInline.append(result);
             }
@@ -1206,7 +1209,7 @@ var UI = {
             return this.$tweetMoreBoxTemplate.clone()
                 .attr({
                     id : boxid,
-                    'data-rawid' : record.raw.id_str
+                    'data-origid' : record.raw.id_str
                 })[0];
         }
 
@@ -1318,7 +1321,7 @@ var UI = {
             return this.$tweetMoreBoxTemplate.clone()
                 .attr({
                     id : boxid,
-                    'data-rawid' : record.raw.id_str
+                    'data-origid' : record.raw.id_str
                 })[0];
         }
 
@@ -1361,7 +1364,7 @@ var UI = {
             return this.$tweetMoreBoxTemplate.clone()
                 .attr({
                     id : boxid,
-                    'data-rawid' : record.raw.id_str
+                    'data-origid' : record.raw.id_str
                 })[0];
         }
 
@@ -1513,7 +1516,7 @@ var UI = {
             return this.$tweetMoreBoxTemplate.clone()
                 .attr({
                     id : boxid,
-                    'data-rawid' : record.raw.id_str
+                    'data-origid' : record.raw.id_str
                 })[0];
         }
 
@@ -2024,7 +2027,7 @@ function loadMore(morebox)
                                   action : TwitSideModule.COMMAND.TL_GETMORE,
                                   columnindex : getColumnIndexFromBox(morebox),
                                   win_type : UI._win_type,
-                                  tweetid : morebox.dataset.rawid });
+                                  tweetid : morebox.dataset.origid });
 }
 
 // タイムライン過去ツイート読み込み
@@ -2158,7 +2161,8 @@ function onClickRetweet(tweetBox)
                                   action : TwitSideModule.COMMAND.TL_RETWEET,
                                   columnindex : getColumnIndexFromBox(tweetBox),
                                   win_type : UI._win_type,
-                                  tweetid : tweetBox.dataset.tweetid });
+                                  origid : tweetBox.dataset.tweetid,
+                                  parentid : tweetBox.dataset.parentid });
 }
 
 // [MAIN] コメントつきリツイート
@@ -2166,9 +2170,9 @@ function onClickQuote(tweetBox, tweetinfo)
 {
     if (UI._win_type === TwitSideModule.WINDOW_TYPE.MAIN) {
         // ツイート情報
-        var rawid = tweetBox.dataset.rawid,
+        var origid = tweetBox.dataset.origid,
             screenname = tweetBox.dataset.screenname,
-            status = 'https://twitter.com/' + screenname.replace(/^@/, '') + '/status/' + rawid;
+            status = 'https://twitter.com/' + screenname.replace(/^@/, '') + '/status/' + origid;
 
         newTweetContainerToggle(true);
         $('#newTweet').attr({
@@ -2228,10 +2232,10 @@ function onClickShowtext(tweetBox)
 function onClickOpentweeturl(tweetBox)
 {
     // ツイート情報
-    var rawid = tweetBox.dataset.rawid,
+    var origid = tweetBox.dataset.origid,
         screenname = tweetBox.dataset.screenname;
 
-    openURL('https://twitter.com/' + screenname.replace(/^@/, '') + '/status/' + rawid);
+    openURL('https://twitter.com/' + screenname.replace(/^@/, '') + '/status/' + origid);
 }
 
 // [MAIN] 返信
@@ -2239,12 +2243,12 @@ function onClickReply(tweetBox, tweetinfo)
 {
     if (UI._win_type === TwitSideModule.WINDOW_TYPE.MAIN) {
         // ツイート情報
-        var rawid = tweetBox.dataset.rawid;
+        var origid = tweetBox.dataset.origid;
 
         newTweetContainerToggle(true);
         $('#newTweet').attr({
             'data-attachment-url' : '',
-            'data-reply-id' : rawid
+            'data-reply-id' : origid
         });
 
         // 返信ツイート表示
@@ -2265,12 +2269,12 @@ function onClickReplyall(tweetBox, tweetinfo)
 {
     if (UI._win_type === TwitSideModule.WINDOW_TYPE.MAIN) {
         // ツイート情報
-        var rawid = tweetBox.dataset.rawid;
+        var origid = tweetBox.dataset.origid;
 
         newTweetContainerToggle(true);
         $('#newTweet').attr({
             'data-attachment-url' : '',
-            'data-reply-id' : rawid
+            'data-reply-id' : origid
         });
 
         // 返信ツイート表示
@@ -2290,7 +2294,7 @@ function onClickReplyall(tweetBox, tweetinfo)
 function onClickFavorite(tweetBox)
 {
     // ツイート情報
-    var tweetid = tweetBox.dataset.rawid,
+    var tweetid = tweetBox.dataset.origid,
         state = $(tweetBox).children('.tweetContent').attr('data-favorited') == 'true';
 
     if (state) {
@@ -2319,6 +2323,7 @@ function onClickShowreply(tweetBox)
     var tweetid,
         inlineid;
 
+    // 引用ツイートの会話
     if (tweetBox.id.match(/_inline$/)) {
         tweetid = $(tweetBox).parent().closest('.tweetBox').attr('data-tweetid');
         inlineid = tweetBox.dataset.tweetid;

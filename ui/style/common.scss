@@ -1349,13 +1349,22 @@ input[type="text"], textarea, select {
         }
         > .tweetStatusRetweeted {
             color: green;
-        }
 
-        @at-root
-        .tweetContent[data-retweeted=""] .tweetStatusRetweeted {
-            display: none;
+            .tweetContent & {
+                display: flex;
+            }
+            .tweetContent[data-retweeted=""] & {
+                display: none;
+            }
+
+            .inlineTweetBox .tweetContent & {
+                display: flex;
+            }
+            .inlineTweetBox .tweetContent[data-retweeted=""] & {
+                display: none;
+            }
         }
-        .tweetStatusPlace {
+        > .tweetStatusPlace {
             cursor: pointer;
             &[title=""] {
                 display: none;

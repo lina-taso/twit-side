@@ -745,7 +745,7 @@ Timeline.prototype = {
     /**
      * ツイート操作系
      */
-    retweet: function(retweetid)
+    retweet: function(origid, parentid)
     {
         // 回数制限
         var limitHistory = JSON.parse(TwitSideModule.config.getPref('limit_retweet'));
@@ -756,7 +756,7 @@ Timeline.prototype = {
             return;
         }
 
-        this._tweet.retweet({}, retweetid)
+        this._tweet.retweet({}, origid)
             .then(success.bind(this)).catch(error.bind(this));
 
         function success(result)
@@ -766,7 +766,7 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : 'retweet',
                 result : 'success',
-                id : retweetid,
+                id : origid,
                 columnid : this._columnid,
                 window_type : this._win_type
             });
@@ -783,7 +783,7 @@ Timeline.prototype = {
             this._limitCount.retweet.history.push(TwitSideModule.text.getUnixTime());
 
             // ツイート再読込
-            this._tweet.show({ id : retweetid })
+            this._tweet.show({ id : parentid })
                 .then(callback.bind(this)).catch(error.bind(this));
         }
         function callback(result)
@@ -805,7 +805,7 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : 'retweet',
                 result : 'failed',
-                id : retweetid,
+                id : origid,
                 columnid : this._columnid,
                 window_type : this._win_type,
                 message : result.result.message || ''
@@ -1055,10 +1055,10 @@ Timeline.prototype = {
     },
     retweeters: function(tweetid)
     {
-        var rawid = this.record.data[tweetid].raw.retweeted_status
+        var origid = this.record.data[tweetid].raw.retweeted_status
             ? this.record.data[tweetid].raw.retweeted_status.id_str
             : this.record.data[tweetid].raw.id_str;
-        this._tweet.retweeters({ id : rawid, count : 100 })
+        this._tweet.retweeters({ id : origid, count : 100 })
             .then(callback.bind(this)).catch(error.bind(this));
 
         function callback(result)
