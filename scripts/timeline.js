@@ -866,18 +866,24 @@ Timeline.prototype = {
             });
         }
     },
-    replies: function(tweetid, inlineid, replyid)
+    replies: function(tweetid, parentid, replyid)
     {
         // 最初のツイート
         if (!replyid) {
-            if (!inlineid) {
+            // 通常ツイートの会話
+            if (!parentid) {
                 if (!this.record.data[tweetid].raw.retweeted_status)
                     replyid = this.record.data[tweetid].raw.in_reply_to_status_id_str;
                 else
                     replyid = this.record.data[tweetid].raw.retweeted_status.in_reply_to_status_id_str;
             }
-            else
-                replyid = this.record.data[tweetid].raw.quoted_status.in_reply_to_status_id_str;
+            // 引用ツイートの会話
+            else {
+                if (!this.record.data[parentid].raw.retweeted_status)
+                    replyid = this.record.data[parentid].raw.quoted_status.in_reply_to_status_id_str;
+                else
+                    replyid = this.record.data[parentid].raw.retweeted_status.quoted_status.in_reply_to_status_id_str;
+            }
         }
 
         this._tweet.show({ id : replyid })
@@ -893,7 +899,7 @@ Timeline.prototype = {
             postMessage({
                 reason : TwitSideModule.UPDATE.REPLY_LOADED,
                 original_tweetid : tweetid,
-                origina_inlineid : inlineid,
+                original_parentid : parentid,
                 reply : data,
                 tl_type : this._tl_type,
                 columnid : this._columnid,
@@ -902,7 +908,7 @@ Timeline.prototype = {
 
             // 続きを読み込み
             if (result.data.in_reply_to_status_id_str)
-                this.replies(tweetid, inlineid, result.data.in_reply_to_status_id_str);
+                this.replies(tweetid, parentid, result.data.in_reply_to_status_id_str);
         }
         function error(result)
         {
@@ -1053,27 +1059,54 @@ Timeline.prototype = {
             });
         }
     },
-    retweeters: function(tweetid)
+    retweeters: function(tweetid, parentid)
     {
-        var origid = this.record.data[tweetid].raw.retweeted_status
-            ? this.record.data[tweetid].raw.retweeted_status.id_str
-            : this.record.data[tweetid].raw.id_str;
+        var origid;
+        // 通常ツイート
+        if (!parentid) {
+            if (!this.record.data[tweetid].raw.retweeted_status)
+                origid = this.record.data[tweetid].raw.id_str;
+            else
+                origid = this.record.data[tweetid].raw.retweeted_status.id_str;
+        }
+        // 引用ツイート
+        else {
+            if (!this.record.data[parentid].raw.retweeted_status)
+                origid = this.record.data[parentid].raw.quoted_status.id_str;
+            else
+                origid = this.record.data[parentid].raw.retweeted_status.quoted_status.id_str;
+        }
+
         this._tweet.retweeters({ id : origid, count : 100 })
             .then(callback.bind(this)).catch(error.bind(this));
 
         function callback(result)
         {
             // メタデータ更新
-            this.record.data[tweetid].meta.retweeters = [];
-            for (let rt of (result.data)) {
-                this.record.data[tweetid].meta.retweeters.push({
-                    src : rt.user.profile_image_url_https,
-                    title : '@' + rt.user.screen_name
-                });
+            if (!parentid) {
+                this.record.data[tweetid].meta.retweeters = [];
+
+                for (let rt of (result.data)) {
+                    this.record.data[tweetid].meta.retweeters.push({
+                        src : rt.user.profile_image_url_https,
+                        title : '@' + rt.user.screen_name
+                    });
+                }
             }
+            else {
+                this.record.data[parentid].meta.quote.retweeters = [];
+
+                for (let rt of (result.data)) {
+                    this.record.data[parentid].meta.quote.retweeters.push({
+                        src : rt.user.profile_image_url_https,
+                        title : '@' + rt.user.screen_name
+                    });
+                }
+            }
+
             postMessage({
                 reason : TwitSideModule.UPDATE.REPLACE_LOADED,
-                tweets : [this.record.data[tweetid]],
+                tweets : [this.record.data[parentid || tweetid]],
                 tl_type : this._tl_type,
                 columnid : this._columnid,
                 window_type : this._win_type
@@ -1541,6 +1574,13 @@ Timeline.prototype = {
             for (let datum of data) {
                 // idを0埋め文字列
                 datum.id_str = (ZERO_FILL + datum.id_str).slice(-ZERO_FILL_LEN);
+                if (datum.retweeted_status)
+                    datum.retweeted_status.id_str = (ZERO_FILL + datum.retweeted_status.id_str).slice(-ZERO_FILL_LEN);
+                if (datum.quoted_status)
+                    datum.quoted_status.id_str = (ZERO_FILL + datum.quoted_status.id_str).slice(-ZERO_FILL_LEN);
+                if (datum.retweeted_status && datum.retweeted_status.quoted_status)
+                    datum.retweeted_status.quoted_status.id_str =
+                    (ZERO_FILL + datum.retweeted_status.quoted_status.id_str).slice(-ZERO_FILL_LEN);
 
                 // muteの時は破棄
                 if (mutes.length

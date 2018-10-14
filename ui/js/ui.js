@@ -88,6 +88,9 @@ var UI = {
             selector : '.tweetBox',
             zindex : 10,
             build : function($trigger, e) {
+                // リプライは機能制限
+                if ($(e.currentTarget).closest('.replyTweetBox').length)
+                    return false;
                 return {
                     callback : function(key, options) {
                         UI.tweetMenuFuncList[key]($trigger);
@@ -215,7 +218,7 @@ var UI = {
             UI._showReply(data.tl_type,
                           data.columnid,
                           data.original_tweetid,
-                          data.original_inlineid,
+                          data.original_parentid,
                           data.reply);
             break;
         case TwitSideModule.UPDATE.PROGRESS:
@@ -745,10 +748,10 @@ var UI = {
     },
 
     // リプライを表示
-    _showReply : function(type, columnid, tweetid, inlineid, reply)
+    _showReply : function(type, columnid, tweetid, parentid, reply)
     {
-        var tweetboxid = inlineid
-            ? '#'+columnid+'_'+tweetid+'_'+inlineid+'_inline'
+        var tweetboxid = parentid
+            ? '#'+columnid+'_'+parentid+'_'+tweetid+'_inline'
             : '#'+columnid+'_'+tweetid,
             $replyBox = $(tweetboxid).find('.replyTweetBox').eq(0),
             $replies = $replyBox.find('> .replies'),
@@ -757,7 +760,10 @@ var UI = {
         // 閉じられているときは表示しない
         if ($replyBox.attr('data-reply-open') != 'true') return;
 
-        $replies.append(this._createTweetBox(type, reply, replyboxid));
+        // リプライは機能制限
+        var $reply =  $(this._createTweetBox(type, reply, replyboxid));
+        $reply.children('.tweetContent').children().remove(':not(.tweetMainContent)');
+        $replies.append($reply);
     },
 
     // サムネイル更新
@@ -1163,7 +1169,7 @@ var UI = {
             if (record.raw.retweeted_status
                 && record.raw.retweeted_status.is_quote_status
                 && record.raw.retweeted_status.quoted_status) {
-                inlineId = record.raw.retweeted_status.quoted_status_id_str,
+                inlineId = record.raw.retweeted_status.quoted_status.id_str,
                 inlineBoxId = boxid+'_'+inlineId+'_inline',
                 inlineData = {
                     meta : record.meta.quote,
@@ -1177,7 +1183,7 @@ var UI = {
             // ツイートが引用している場合
             else if (record.raw.is_quote_status
                   && record.raw.quoted_status) {
-                inlineId = record.raw.quoted_status_id_str,
+                inlineId = record.raw.quoted_status.id_str,
                 inlineBoxId = boxid+'_'+inlineId+'_inline',
                 inlineData = {
                     meta : record.meta.quote,
@@ -2095,6 +2101,7 @@ function keyeventChangeFocus(event)
 function showTweetRef(tweetBox, type, tweetinfo)
 {
     var $replyUsersSelection = $('#replyUsersSelection').empty();
+    // 操作を制限
     $(tweetBox).children('.tweetContent').eq(0).clone()
         .appendTo($('#refTweetBox').empty())
         .children().remove(':not(.tweetMainContent)');
@@ -2320,17 +2327,6 @@ function onClickShowreply(tweetBox)
     // 既に読み込まれているときは何もしない
     if ($(tweetBox).find('.replyTweetBox').eq(0).attr('data-reply-open') == 'true') return;
 
-    var tweetid,
-        inlineid;
-
-    // 引用ツイートの会話
-    if (tweetBox.id.match(/_inline$/)) {
-        tweetid = $(tweetBox).parent().closest('.tweetBox').attr('data-tweetid');
-        inlineid = tweetBox.dataset.tweetid;
-    }
-    else
-        tweetid = tweetBox.dataset.tweetid;
-
     // 会話を全て閉じるボタン
     $(tweetBox).closest('.timelineBox').siblings('.clearRepliesBox').attr('data-replies-open', 'true');
 
@@ -2338,8 +2334,8 @@ function onClickShowreply(tweetBox)
                                   action : TwitSideModule.COMMAND.TL_REPLIES,
                                   columnindex : getColumnIndexFromBox(tweetBox),
                                   win_type : UI._win_type,
-                                  tweetid : tweetid,
-                                  inlineid : inlineid });
+                                  tweetid : tweetBox.dataset.tweetid,
+                                  parentid : tweetBox.dataset.parentid });
 
     $(tweetBox).find('.replyTweetBox').eq(0).attr('data-reply-open', 'true');
 }
@@ -2412,7 +2408,8 @@ function onClickShowretweetedusers(tweetBox)
                                   action : TwitSideModule.COMMAND.TL_RETWEETERS,
                                   columnindex : getColumnIndexFromBox(tweetBox),
                                   win_type : UI._win_type,
-                                  tweetid : $(tweetBox).attr('data-tweetid') });
+                                  tweetid : tweetBox.dataset.tweetid,
+                                  parentid : tweetBox.dataset.parentid });
 }
 
 // リツイートしたユーザのプロフィールを表示

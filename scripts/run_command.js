@@ -122,7 +122,7 @@ function COLUMN_OPE(message) {
     case TwitSideModule.COMMAND.TL_REPLIES:
         return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type
-        ).replies(message.tweetid, message.inlineid));
+        ).replies(message.tweetid, message.parentid));
     case TwitSideModule.COMMAND.TL_DESTROY:
         return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type
@@ -130,7 +130,7 @@ function COLUMN_OPE(message) {
     case TwitSideModule.COMMAND.TL_RETWEETERS:
         return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type
-        ).retweeters(message.tweetid));
+        ).retweeters(message.tweetid, message.parentid));
     case TwitSideModule.COMMAND.TL_LISTCREATE:
         return TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type
