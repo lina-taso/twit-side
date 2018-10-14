@@ -2061,6 +2061,9 @@ function keyeventChangeFocus(event)
     // debug message
     if (getPref('debug')) console.log(key);
 
+    // ctrl時は無視
+    if (event.ctrlKey) return;
+
     switch (key) {
     case 'J':
         UI.getActiveBox().next().focus();
@@ -2385,7 +2388,7 @@ function onClickDestroy(tweetBox)
                                   action : TwitSideModule.COMMAND.TL_DESTROY,
                                   columnindex : getColumnIndexFromBox(tweetBox),
                                   win_type : UI._win_type,
-                                  tweetid : $(tweetBox).attr('data-tweetid') });
+                                  tweetid : tweetBox.dataset.tweetid });
 }
 
 // ユーザ削除（ミュート、リツイート非表示）
@@ -2398,7 +2401,7 @@ function onClickDestroyUser(tweetBox)
                                   action : TwitSideModule.COMMAND.TL_DESTROY,
                                   columnindex : getColumnIndexFromBox(tweetBox),
                                   win_type : UI._win_type,
-                                  tweetid : $(tweetBox).attr('data-userid') });
+                                  tweetid : tweetBox.dataset.userid });
 }
 
 // リツイートしたユーザを表示
