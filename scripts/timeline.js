@@ -1821,15 +1821,20 @@ Timeline.prototype = {
         // エンティティ
         if (datum.message_create.message_data.entities) {
             meta.entities = datum.message_create.message_data.entities;
-            // メディア
-            for (let media of datum.message_create.message_data.entities.media || []) {
-                // Twitter
-                let urlResult = this._analyzePicURL(datum.id_str, media.media_url_https);
-                if (urlResult) meta.pics.push(urlResult);
-            }
-            for (let url of datum.message_create.message_data.entities.urls || []) {
+            // サードパーティのメディア
+            for (let url of meta.entities.urls || []) {
                 // サードパーティ
                 let urlResult = this._analyzePicURL(datum.id_str, url.expanded_url);
+                if (urlResult) meta.pics.push(urlResult);
+            }
+        }
+        // 添付
+        if (datum.message_create.message_data.attachment) {
+            meta.attachment = datum.message_create.message_data.attachment;
+            // メディア
+            for (let media of [meta.attachment.media] || []) {
+                // Twitter
+                let urlResult = this._analyzePicURL(datum.id_str, media.media_url_https);
                 if (urlResult) meta.pics.push(urlResult);
             }
         }
