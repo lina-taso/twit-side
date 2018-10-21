@@ -1102,6 +1102,9 @@ var UI = {
                     .on('click', function() { openURL(this.dataset.fullurl); });
                 // URL置換
                 UI.insertNodeIntoText($tweetText[0], url.url, $span[0]);
+                // rawcontent置換
+                $tweetBox.attr('data-rawcontent',
+                               $tweetBox.attr('data-rawcontent').replace(url.url, url.expanded_url));
             }
 
             // サードパーティのメディア
@@ -1140,6 +1143,9 @@ var UI = {
                     .on('click', function() { openURL(this.dataset.fullurl); });
                 // URL置換
                 UI.insertNodeIntoText($tweetText[0], media[0].url, $span[0]);
+                // rawcontent置換
+                $tweetBox.attr('data-rawcontent',
+                               $tweetBox.attr('data-rawcontent').replace(media[0].url, media[0].expanded_url));
 
                 // サムネイル追加
                 for (let medium of media) {
@@ -1484,6 +1490,9 @@ var UI = {
                     .on('click', function() { openURL(this.dataset.fullurl); });
                 // URL置換
                 UI.insertNodeIntoText($tweetText[0], url.url, $span[0]);
+                // rawcontent置換
+                $tweetBox.attr('data-rawcontent',
+                               $tweetBox.attr('data-rawcontent').replace(url.url, url.expanded_url));
             }
 
             // サードパーティのメディア
