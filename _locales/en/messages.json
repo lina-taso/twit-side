@@ -895,10 +895,10 @@
         "message" : "Some changes are restart Firefox required"
     },
     "prefExURL" : {
-        "message" : "Extract shorten URL"
+        "message" : "Extract shorten URLs"
     },
     "prefExURL_cut" : {
-        "message" : "Display the URL same as Tweeter"
+        "message" : "Display URLs same as Twitter"
     },
     "prefURL_tabactive" : {
         "message" : "Active the opened tab"
@@ -952,7 +952,7 @@
         "message" : "Display thumbnail images"
     },
     "prefPopup_photo" : {
-        "message" : "Pop up photos"
+        "message" : "Show photos in a dialog (when unchecked, open photo's url in a tab)"
     },
     "prefLabelStyleMisc" : {
         "message" : "Misc"
