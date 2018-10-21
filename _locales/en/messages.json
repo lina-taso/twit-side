@@ -563,7 +563,7 @@
         "message" : "Inline retweet"
     },
     "tweetShowtext" : {
-        "message" : "Select a tweet text"
+        "message" : "Text selection"
     },
     "tweetOpentweeturl" : {
         "message" : "Open a tweet's URL"
