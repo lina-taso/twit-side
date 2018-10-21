@@ -1092,18 +1092,16 @@ var UI = {
                 };
 
                 // URL置換先オブジェクト
-                let span = document.createElement('span');
-                span.classList.add('text-link');
-                if (getPref('exURL') && getPref('exURL_cut'))
-                    span.textContent = url.display_url;
-                else if (getPref('exURL'))
-                    span.textContent = url.expanded_url;
-                span.dataset.fullurl = url.url;
-                span.addEventListener('click', function() {
-                    openURL(this.dataset.fullurl);
-                });
+                let $span = $('<span>').addClass('text-link').text(
+                    getPref('exURL')
+                        ? (getPref('exURL_cut')
+                           ? url.display_url
+                           : url.expanded_url)
+                        : url.url)
+                    .attr('data-fullurl', url.url)
+                    .on('click', function() { openURL(this.dataset.fullurl); });
                 // URL置換
-                UI.insertNodeIntoText($tweetText[0], url.url, span);
+                UI.insertNodeIntoText($tweetText[0], url.url, $span[0]);
             }
 
             // サードパーティのメディア
@@ -1132,18 +1130,16 @@ var UI = {
                 };
 
                 // URL置換先オブジェクト
-                let span = document.createElement('span');
-                span.classList.add('text-link');
-                if (getPref('exURL') && getPref('exURL_cut'))
-                    span.textContent = media[0].display_url;
-                else if (getPref('exURL'))
-                    span.textContent = media[0].expanded_url;
-                span.dataset.fullurl = media[0].url;
-                span.addEventListener('click', function() {
-                    openURL(this.dataset.fullurl);
-                });
+                let $span = $('<span>').addClass('text-link').text(
+                    getPref('exURL')
+                        ? (getPref('exURL_cut')
+                           ? media[0].display_url
+                           : media[0].expanded_url)
+                        : media[0].url)
+                    .attr('data-fullurl', media[0].url)
+                    .on('click', function() { openURL(this.dataset.fullurl); });
                 // URL置換
-                UI.insertNodeIntoText($tweetText[0], media[0].url, span);
+                UI.insertNodeIntoText($tweetText[0], media[0].url, $span[0]);
 
                 // サムネイル追加
                 for (let medium of media) {
@@ -1478,18 +1474,16 @@ var UI = {
                 };
 
                 // URL置換先オブジェクト
-                let span = document.createElement('span');
-                span.classList.add('text-link');
-                if (getPref('exURL') && getPref('exURL_cut'))
-                    span.textContent = url.display_url;
-                else if (getPref('exURL'))
-                    span.textContent = url.expanded_url;
-                span.dataset.fullurl = url.url;
-                span.addEventListener('click', function() {
-                    openURL(this.dataset.fullurl);
-                });
+                let $span = $('<span>').addClass('text-link').text(
+                    getPref('exURL')
+                        ? (getPref('exURL_cut')
+                           ? url.display_url
+                           : url.expanded_url)
+                        : url.url)
+                    .attr('data-fullurl', url.url)
+                    .on('click', function() { openURL(this.dataset.fullurl); });
                 // URL置換
-                UI.insertNodeIntoText($tweetText[0], url.url, span);
+                UI.insertNodeIntoText($tweetText[0], url.url, $span[0]);
             }
 
             // サードパーティのメディア
