@@ -325,7 +325,7 @@
         "message" : "このユーザのリツイートを表示しますか？"
     },
     "confirmLogout" : {
-        "message" : "全ユーザをログアウトしますか？"
+        "message" : "全アカウントをログアウトしますか？"
     },
     "confirmAniGif" : {
         "message" : "選択したGIF画像はアニメーションGIFですか？"
@@ -518,7 +518,7 @@
         "message" : "検索"
     },
     "topAdduser" : {
-        "message" : "ユーザを追加"
+        "message" : "アカウントを追加"
     },
     "topManagecolumns" : {
         "message" : "カラムの管理"
@@ -881,28 +881,13 @@
         "message" : "ただし、検索カラムは次の時間毎に更新する [秒]"
     },
     "prefAutoreload_aftertweet" : {
-        "message" : "ツイート投稿後にそのユーザのタイムラインを更新する"
+        "message" : "ツイート投稿後にそのアカウントのタイムラインを更新する"
     },
     "prefAutoreload_totop" : {
         "message" : "カラムの最上部を維持する"
     },
     "prefLabelExtra" : {
         "message" : "追加機能"
-    },
-    "prefLabelExtraUrl" : {
-        "message" : "URL"
-    },
-    "prefLabelExtraRestart_required" : {
-        "message" : "既に読み込んだツイートに反映するには、Firefoxを再起動する必要があります"
-    },
-    "prefExURL" : {
-        "message" : "短縮URLを展開する"
-    },
-    "prefExURL_cut" : {
-        "message" : "展開したURLをTwitter公式と同様省略する"
-    },
-    "prefURL_tabactive" : {
-        "message" : "開いたタブをアクティブにする"
     },
     "prefLabelExtraMute" : {
         "message" : "ミュート"
@@ -919,8 +904,17 @@
     "prefDomestic_search" : {
         "message" : "あなたの言語のツイートのみ取得する"
     },
+    "prefLabelExtraMultiuser" : {
+        "message" : "マルチアカウント"
+    },
+    "prefAutoUserSelection" : {
+        "message" : "異なるアカウントのカラムを選択したときに、自動的にそのアカウントに切り替える"
+    },
     "prefLabelStyle" : {
         "message" : "スタイル"
+    },
+    "prefLabelStyleRestart_required" : {
+        "message" : "既に読み込んだツイートに反映するには、Firefoxを再起動する必要があります"
     },
     "prefLabelStyleDesign" : {
         "message" : "デザイン"
@@ -940,11 +934,20 @@
     "prefLabelStyleTimestamp" : {
         "message" : "タイムスタンプ"
     },
-    "prefLabelStyleRestart_required" : {
-        "message" : "既に読み込んだツイートに反映するには、Firefoxを再起動する必要があります"
-    },
     "prefTimeformat" : {
         "message" : "日時の表示形式"
+    },
+    "prefLabelStyleUrl" : {
+        "message" : "URL"
+    },
+    "prefExURL" : {
+        "message" : "短縮URLを展開する"
+    },
+    "prefExURL_cut" : {
+        "message" : "展開したURLをTwitter公式と同様省略する"
+    },
+    "prefURL_tabactive" : {
+        "message" : "開いたタブをアクティブにする"
     },
     "prefLabelStylePhoto" : {
         "message" : "画像表示"

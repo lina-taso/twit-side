@@ -23,11 +23,9 @@ TwitSideModule.DefaultPrefs = {
     autoreload_aftertweet: true,
     autoreload_totop: true,
     // extra
-    exURL: true,
-    exURL_cut: true,
-    URL_tabactive: true,
     mute_onsearch: false,
     mute_ts: true,
+    auto_user_selection: true,
 //    retweets_onlyfriends: false,
     domestic_search: true,
     // style
@@ -36,6 +34,9 @@ TwitSideModule.DefaultPrefs = {
     screenname_first: false,
     circle_icon: true,
     timeformat: "default",
+    exURL: true,
+    exURL_cut: true,
+    URL_tabactive: true,
     viewthumbnail: true,
     popup_photo: true,
     viewsource: true,

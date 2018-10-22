@@ -107,31 +107,6 @@ const l10nDefinition = [
         "word"     : "prefLabelExtra"
     },
     {
-        "selector" : "[id='label.extra.url']",
-        "place"    : "text",
-        "word"     : "prefLabelExtraUrl"
-    },
-    {
-        "selector" : "[id='label.extra.restart_required']",
-        "place"    : "text",
-        "word"     : "prefLabelExtraRestart_required"
-    },
-    {
-        "selector" : "[for=exURL]",
-        "place"    : "text",
-        "word"     : "prefExURL"
-    },
-    {
-        "selector" : "[for=exURL_cut]",
-        "place"    : "text",
-        "word"     : "prefExURL_cut"
-    },
-    {
-        "selector" : "[for=URL_tabactive]",
-        "place"    : "text",
-        "word"     : "prefURL_tabactive"
-    },
-    {
         "selector" : "[id='label.extra.mute']",
         "place"    : "text",
         "word"     : "prefLabelExtraMute"
@@ -150,6 +125,16 @@ const l10nDefinition = [
         "selector" : "[for=domestic_search]",
         "place"    : "text",
         "word"     : "prefDomestic_search"
+    },
+    {
+        "selector" : "[id='label.extra.multiuser']",
+        "place"    : "text",
+        "word"     : "prefLabelExtraMultiuser"
+    },
+    {
+        "selector" : "[for='auto_user_selection']",
+        "place"    : "text",
+        "word"     : "prefAutoUserSelection"
     },
     {
         "selector" : "[id='label.style']",
@@ -190,6 +175,31 @@ const l10nDefinition = [
         "selector" : "[for=timeformat]",
         "place"    : "text",
         "word"     : "prefTimeformat"
+    },
+    {
+        "selector" : "[id='label.style.url']",
+        "place"    : "text",
+        "word"     : "prefLabelStyleUrl"
+    },
+    {
+        "selector" : "[id='label.style.restart_required']",
+        "place"    : "text",
+        "word"     : "prefLabelStyleRestart_required"
+    },
+    {
+        "selector" : "[for=exURL]",
+        "place"    : "text",
+        "word"     : "prefExURL"
+    },
+    {
+        "selector" : "[for=exURL_cut]",
+        "place"    : "text",
+        "word"     : "prefExURL_cut"
+    },
+    {
+        "selector" : "[for=URL_tabactive]",
+        "place"    : "text",
+        "word"     : "prefURL_tabactive"
     },
     {
         "selector" : "[id='label.style.photo']",

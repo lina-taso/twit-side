@@ -77,22 +77,6 @@
 
     <section>
       <h2 id="label.extra" />
-      <h3 id="label.extra.url" />
-      <form>
-        <p id="label.extra.restart_required" class="warn" />
-        <input  id="exURL" type="checkbox" />
-        <label for="exURL" />
-        <br />
-        <input  id="exURL_cut" type="checkbox" />
-        <label for="exURL_cut" />
-        <br />
-        <input  id="URL_tabactive" type="checkbox" />
-        <label for="URL_tabactive" />
-        <br />
-
-        <button class="save_button" type="button"></button>
-      </form>
-
       <h3 id="label.extra.mute" />
       <form>
         <input  id="mute_onsearch" type="checkbox" />
@@ -110,13 +94,22 @@
 
         <button class="save_button" type="button"></button>
       </form>
+
+      <h3 id="label.extra.multiuser" />
+      <form>
+        <input  id="auto_user_selection" type="checkbox" />
+        <label for="auto_user_selection" />
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
     </section>
 
     <section>
       <h2 id="label.style" />
+      <p id="label.style.restart_required" class="warn" />
       <h3 id="label.style.design" />
       <form>
-
         <label for="theme" />
         <select id="theme">
           <option value="default">default</option>
@@ -150,7 +143,6 @@
 
       <h3 id="label.style.timestamp" />
       <form>
-        <p id="label.style.restart_required" />
         <label for="timeformat" />
         <select id="timeformat">
           <option value="default">JavaScript (###)</option>
@@ -162,6 +154,21 @@
           <option value="pattern3">Pattern3 (###)</option>
           <!-- <option value="diff">差分（20分前）</option> -->
         </select>
+        <br />
+
+        <button class="save_button" type="button"></button>
+      </form>
+
+      <h3 id="label.style.url" />
+      <form>
+        <input  id="exURL" type="checkbox" />
+        <label for="exURL" />
+        <br />
+        <input  id="exURL_cut" type="checkbox" />
+        <label for="exURL_cut" />
+        <br />
+        <input  id="URL_tabactive" type="checkbox" />
+        <label for="URL_tabactive" />
         <br />
 
         <button class="save_button" type="button"></button>

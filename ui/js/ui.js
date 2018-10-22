@@ -1808,7 +1808,9 @@ var UI = {
     // アクティブカラムを設定
     setActiveColumn : function($column, fromBox)
     {
-        changeTweetUser($column.attr('data-userid'));
+        if (getPref('auto_user_selection'))
+            changeTweetUser($column.attr('data-userid'));
+
         if (this.$activeColumn[0] === $column[0]) return;
 
         // setActiveBoxから

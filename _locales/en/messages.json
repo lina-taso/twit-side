@@ -14,7 +14,7 @@
         "message" : "Enter PIN numbers."
     },
     "userAlready" : {
-        "message" : "This user is already authenticated."
+        "message" : "This account is already authenticated."
     },
 
     "retweet_success" : {
@@ -325,7 +325,7 @@
         "message" : "Receive retweets from this user?"
     },
     "confirmLogout" : {
-        "message" : "Logout all user?"
+        "message" : "Logout all accounts?"
     },
     "confirmAniGif" : {
         "message" : "Is this GIF image an animated GIF image?"
@@ -886,22 +886,7 @@
         "message" : "Keep on top of columns"
     },
     "prefLabelExtra" : {
-        "message" : "Additional"
-    },
-    "prefLabelExtraUrl" : {
-        "message" : "URL"
-    },
-    "prefLabelExtraRestart_required" : {
-        "message" : "Some changes are restart Firefox required"
-    },
-    "prefExURL" : {
-        "message" : "Extract shorten URLs"
-    },
-    "prefExURL_cut" : {
-        "message" : "Display URLs same as Twitter"
-    },
-    "prefURL_tabactive" : {
-        "message" : "Active the opened tab"
+        "message" : "Additional settings"
     },
     "prefLabelExtraMute" : {
         "message" : "Mutes"
@@ -918,8 +903,17 @@
     "prefDomestic_search" : {
         "message" : "Get search results only in your language"
     },
+    "prefLabelExtraMultiuser" : {
+        "message" : "Multi account"
+    },
+    "prefAutoUserSelection" : {
+        "message" : "Change the account automatically when a different account's column was focused."
+    },
     "prefLabelStyle" : {
         "message" : "Style"
+    },
+    "prefLabelStyleRestart_required" : {
+        "message" : "Some changes are restart Firefox required"
     },
     "prefLabelStyleDesign" : {
         "message" : "Design"
@@ -939,11 +933,20 @@
     "prefLabelStyleTimestamp" : {
         "message" : "Timestamp"
     },
-    "prefLabelStyleRestart_required" : {
-        "message" : "Some changes are restart Firefox required"
-    },
     "prefTimeformat" : {
         "message" : "Time format"
+    },
+    "prefLabelStyleUrl" : {
+        "message" : "URL"
+    },
+    "prefExURL" : {
+        "message" : "Extract shorten URLs"
+    },
+    "prefExURL_cut" : {
+        "message" : "Display URLs same as Twitter"
+    },
+    "prefURL_tabactive" : {
+        "message" : "Active the opened tab"
     },
     "prefLabelStylePhoto" : {
         "message" : "Photo"
