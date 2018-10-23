@@ -812,13 +812,13 @@ Timeline.prototype = {
             });
         }
     },
-    favorite: function(favoriteid, sw)
+    favorite: function(tweetid, sw, parentid)
     {
         if (sw)
-            this._tweet.favorite({ id : favoriteid })
+            this._tweet.favorite({ id : tweetid })
             .then(success.bind(this)).catch(error.bind(this));
         else
-            this._tweet.unfavorite({ id : favoriteid })
+            this._tweet.unfavorite({ id : tweetid })
             .then(success.bind(this)).catch(error.bind(this));
 
         function success(result)
@@ -828,16 +828,16 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : sw ? 'favorite' : 'unfavorite',
                 result : 'success',
-                id : favoriteid,
+                id : tweetid,
                 columnid : this._columnid,
                 window_type : this._win_type
             });
             if (this._tl_type === TwitSideModule.TL_TYPE.FAVORITE
                 || this._tl_type === TwitSideModule.TL_TYPE.TEMP_FAVORITE)
-                this._removeTweet(favoriteid);
+                this._removeTweet(tweetid);
             else
                 // ツイート再読込
-                this._tweet.show({ id : favoriteid })
+                this._tweet.show({ id : parentid || tweetid })
                 .then(callback.bind(this)).catch(error.bind(this));
         }
         function callback(result)
@@ -859,7 +859,7 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : sw ? 'favorite' : 'unfavorite',
                 result : 'failed',
-                id : favoriteid,
+                id : tweetid,
                 columnid : this._columnid,
                 window_type : this._win_type,
                 message : result.result.message || ''
@@ -915,53 +915,73 @@ Timeline.prototype = {
             this._reportError(result);
         }
     },
-    destroy: function(destroyid)
+    destroy: function(tweetid, parentid)
     {
         // DMはそのまま削除
         if (this.isDirectMessage)
-            this._tweet.destroyDm2({ id : destroyid })
+            this._tweet.destroyDm2({ id : tweetid })
             .then(callback_mine.bind(this)).catch(error.bind(this));
 
         // リスト
         else if (this.isList)
-            this._tweet.destroyList({ list_id : destroyid })
+            this._tweet.destroyList({ list_id : tweetid })
             .then(callback_list.bind(this)).catch(error.bind(this));
 
-        // フレンド
+        // ミュート一覧
         else if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_MUTE)
             TwitSideModule.Friends.updateFriendship(
                 TwitSideModule.FRIEND_TYPE.MUTE,
-                destroyid,
+                tweetid,
                 false,
                 this._tweet
             ).then(callback_friend.bind(this)).catch(error.bind(this));
 
+        // リツイート非表示一覧
         else if (this._tl_type === TwitSideModule.TL_TYPE.TEMP_NORETWEET)
             TwitSideModule.Friends.updateFriendship(
                 TwitSideModule.FRIEND_TYPE.MUTE,
-                destroyid,
+                tweetid,
                 false,
                 this._tweet
             ).then(callback_friend.bind(this)).catch(error.bind(this));
 
         // IDが無い場合削除判断できない
-        else if (this.record.ids.indexOf(destroyid) < 0)
+        else if (this.record.ids.indexOf(tweetid) < 0)
             return;
 
-        // リツイート元ツイートの場合はリツイートしたIDを確認
-        else if (this.record.data[destroyid].raw.retweeted
-                 && !this.record.data[destroyid].raw.retweeted_status)
-            this._tweet.show({
-                id : this.record.data[destroyid].raw.retweeted_status
-                    ? this.record.data[destroyid].raw.retweeted_status.id_str
-                    : this.record.data[destroyid].raw.id_str,
-                include_my_retweet : 'true'
-            }).then(callback_show.bind(this)).catch(error.bind(this));
+        // parentidがない時
+        else if (!parentid) {
+            // リツイート元ツイートの場合はリツイートしたIDを確認
+            if (this.record.data[tweetid].raw.retweeted
+                && !this.record.data[tweetid].raw.retweeted_status)
+                this._tweet.show({
+                    id : this.record.data[tweetid].raw.id_str,
+                    include_my_retweet : 'true'
+                }).then(callback_show.bind(this)).catch(error.bind(this));
 
-        // 自分のツイートはそのまま削除
-        else if (this.record.data[destroyid].meta.isMine)
-            this._tweet.destroy({ }, destroyid)
-            .then(callback_mine.bind(this)).catch(error.bind(this));
+            // 自分のツイートはそのまま削除
+            else if (this.record.data[tweetid].meta.isMine)
+                this._tweet.destroy({ }, tweetid)
+                .then(callback_mine.bind(this)).catch(error.bind(this));
+        }
+        // parentidがある時
+        else if (parentid) {
+            // リツイート元ツイートの場合はリツイートしたIDを確認
+            if (this.record.data[parentid].raw.quoted_status.retweeted
+                && !this.record.data[parentid].raw.quoted_status.retweeted_status)
+                this._tweet.show({
+                    id : this.record.data[parentid].raw.quoted_status.id_str,
+                    include_my_retweet : 'true'
+                }).then(callback_show.bind(this)).catch(error.bind(this));
+
+            // 自分のツイートはそのまま削除
+            else if (this.record.data[parentid].meta.quote.isMine)
+                this._tweet.destroy({ }, tweetid)
+                .then(callback_mine.bind(this)).catch(error.bind(this));
+        }
+
+        else
+            return;
 
         // コールバック
         function callback_show(result)
@@ -980,11 +1000,11 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : 'destroyList',
                 result : 'success',
-                id : destroyid,
+                id : tweetid,
                 columnid : this._columnid,
                 window_type : this._win_type
             });
-            this._removeTweet(destroyid);
+            this._removeTweet(tweetid);
         }
         // フレンドの削除
         function callback_friend(result)
@@ -994,11 +1014,11 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : 'destroyUser',
                 result : 'success',
-                id : destroyid,
+                id : tweetid,
                 columnid : this._columnid,
                 window_type : this._win_type
             });
-            this._removeTweet(destroyid);
+            this._removeTweet(tweetid);
         }
         // リツイートの削除
         function callback_retweet(result)
@@ -1008,14 +1028,14 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : 'destroy',
                 result : 'success',
-                id : destroyid,
+                id : tweetid,
                 columnid : this._columnid,
                 window_type : this._win_type
             });
             // 削除
             this._removeTweet(result.data.id_str);
             // リツイートされたツイートの再読込
-            this._tweet.show({ id : destroyid })
+            this._tweet.show({ id : parentid || tweetid })
                 .then(callback.bind(this)).catch(error.bind(this));
         }
         function callback(result)
@@ -1038,12 +1058,16 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : 'destroy',
                 result : 'success',
-                id : destroyid,
+                id : tweetid,
                 columnid : this._columnid,
                 window_type : this._win_type
             });
             // 削除
-            this._removeTweet(destroyid);
+            this._removeTweet(tweetid);
+            // 引用元ツイートの再読込
+            if (parentid)
+                this._tweet.show({ id : parentid })
+                .then(callback.bind(this)).catch(error.bind(this));
         }
         function error(result)
         {
@@ -1052,7 +1076,7 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : 'destroy',
                 result : 'failed',
-                id : destroyid,
+                id : tweetid,
                 columnid : this._columnid,
                 window_type : this._win_type,
                 message : result.result.message || ''

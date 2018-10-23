@@ -2326,6 +2326,7 @@ function onClickFavorite(tweetBox)
                                   columnindex : getColumnIndexFromBox(tweetBox),
                                   win_type : UI._win_type,
                                   tweetid : tweetBox.dataset.tweetid,
+                                  parentid : tweetBox.dataset.parentid,
                                   sw : !state });
 }
 
@@ -2393,7 +2394,8 @@ function onClickDestroy(tweetBox)
                                   action : TwitSideModule.COMMAND.TL_DESTROY,
                                   columnindex : getColumnIndexFromBox(tweetBox),
                                   win_type : UI._win_type,
-                                  tweetid : tweetBox.dataset.tweetid });
+                                  tweetid : tweetBox.dataset.tweetid,
+                                  parentid : tweetBox.dataset.parentid });
 }
 
 // ユーザ削除（ミュート、リツイート非表示）

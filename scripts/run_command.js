@@ -118,7 +118,7 @@ function COLUMN_OPE(message) {
     case TwitSideModule.COMMAND.TL_FAVORITE:
         return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type
-        ).favorite(message.tweetid, message.sw));
+        ).favorite(message.tweetid, message.sw, message.parentid));
     case TwitSideModule.COMMAND.TL_REPLIES:
         return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type
@@ -126,7 +126,7 @@ function COLUMN_OPE(message) {
     case TwitSideModule.COMMAND.TL_DESTROY:
         return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type
-        ).destroy(message.tweetid));
+        ).destroy(message.tweetid, message.parentid));
     case TwitSideModule.COMMAND.TL_RETWEETERS:
         return Promise.resolve(TwitSideModule.ManageColumns.getTimelineInfo(
             message.columnindex, 'timeline', message.win_type
