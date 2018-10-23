@@ -965,7 +965,7 @@ Tweet.prototype = {
             // タイムアウト初期値
             xhr.timeout = TwitSideModule.config.getPref('timeout') * 1000;
             // エラー初期値
-            xhr.onerror = reject;
+            xhr.onerror = function() { reject(new Error()); };
 
             switch (type) {
             case 'REQUEST':
@@ -1034,7 +1034,7 @@ Tweet.prototype = {
             }
 
             xhr.setRequestHeader('User-Agent', this.userAgent);
-            xhr.ontimeout = reject;
+            xhr.ontimeout = function() { reject('timeout'); };
             xhr.send(data_hash.method === 'GET' ? null : param);
 
             function returnRequest()
@@ -1192,8 +1192,8 @@ Tweet.prototype = {
             }
             xhr.setRequestHeader('User-Agent', this.userAgent);
             xhr.timeout = TwitSideModule.config.getPref('timeout') * 1000;
-            xhr.onerror = reject;
-            xhr.ontimeout = reject;
+            xhr.onerror = function() { reject(new Error()); };
+            xhr.ontimeout = function() { reject('timeout'); };
             xhr.onload = returnSignature.bind(this);
             xhr.send(data_hash && data_hash.form || null);
 
