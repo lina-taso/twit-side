@@ -745,7 +745,7 @@ Timeline.prototype = {
     /**
      * ツイート操作系
      */
-    retweet: function(origid, parentid)
+    retweet: function(tweetid, parentid)
     {
         // 回数制限
         var limitHistory = JSON.parse(TwitSideModule.config.getPref('limit_retweet'));
@@ -756,7 +756,7 @@ Timeline.prototype = {
             return;
         }
 
-        this._tweet.retweet({}, origid)
+        this._tweet.retweet({}, tweetid)
             .then(success.bind(this)).catch(error.bind(this));
 
         function success(result)
@@ -766,7 +766,7 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : 'retweet',
                 result : 'success',
-                id : origid,
+                id : tweetid,
                 columnid : this._columnid,
                 window_type : this._win_type
             });
@@ -783,7 +783,7 @@ Timeline.prototype = {
             this._limitCount.retweet.history.push(TwitSideModule.text.getUnixTime());
 
             // ツイート再読込
-            this._tweet.show({ id : parentid || origid })
+            this._tweet.show({ id : parentid || tweetid })
                 .then(callback.bind(this)).catch(error.bind(this));
         }
         function callback(result)
@@ -805,7 +805,7 @@ Timeline.prototype = {
                 reason : TwitSideModule.UPDATE.ACTION_COMPLETED,
                 action : 'retweet',
                 result : 'failed',
-                id : origid,
+                id : tweetid,
                 columnid : this._columnid,
                 window_type : this._win_type,
                 message : result.result.message || ''

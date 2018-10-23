@@ -2176,7 +2176,7 @@ function onClickRetweet(tweetBox)
                                   action : TwitSideModule.COMMAND.TL_RETWEET,
                                   columnindex : getColumnIndexFromBox(tweetBox),
                                   win_type : UI._win_type,
-                                  origid : tweetBox.dataset.tweetid,
+                                  tweetid : tweetBox.dataset.tweetid,
                                   parentid : tweetBox.dataset.parentid });
 }
 
